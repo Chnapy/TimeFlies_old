@@ -11,7 +11,9 @@ TimeFlies (nom provisoire) est développé en Java 1.8. Il utilise la version 1.
 
 Le meilleur moyen de récupérer l'ensemble du projet est d'utiliser un plugin Git de votre IDE.
 
-Sous Netbeans: dans la barre de menu, cliquez sur Team > Remote > Clone... puis entrez l'url suivante: https://github.com/Chnapy/TimeFlies.git avec vos logs (inscrivez-vous si nécessaire). Sélectionnez un dossier de destination puis validez. Le projet est alors créé.
+Sous Netbeans:
+Dans la barre de menu, cliquez sur Team > Remote > Clone... puis entrez l'url suivante: https://github.com/Chnapy/TimeFlies.git avec vos logs (inscrivez-vous si nécessaire).
+Sélectionnez un dossier de destination puis validez. Le projet est alors créé.
 
 Sous Eclipse: TODO.
 
