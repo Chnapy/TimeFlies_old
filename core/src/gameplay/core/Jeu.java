@@ -20,5 +20,9 @@ public class Jeu {
 	public Jeu() {
 		listCombat = new Array<Combat>();
 	}
+	
+	public void addCombat(Combat combat) {
+		listCombat.add(combat);
+	}
 
 }

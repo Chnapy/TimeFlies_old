@@ -15,11 +15,11 @@ import com.badlogic.gdx.utils.Array;
  */
 public class SortPassifBonus extends SortPassif {
 
-	private Array<Caracteristique> listCaracteristiques;
+	private Array<Carac> listCaracteristiques;
 	private Array<Integer> listValeurs;
 
 	public SortPassifBonus(String nom, String description, Niveau niveau,
-			Array<Caracteristique> caracteristiques,
+			Array<Carac> caracteristiques,
 			Array<Integer> valeurs) {
 
 		super(nom, description, niveau);

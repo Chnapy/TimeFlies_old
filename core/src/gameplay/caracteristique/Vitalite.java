@@ -10,14 +10,10 @@ package gameplay.caracteristique;
  * Gère la vitalité de l'entité.
  *
  */
-public class Vitalite {
-
-	private int vitaliteTotal;
-	private int vitaliteActu;
+public class Vitalite extends Caracteristique {
 
 	public Vitalite(int vitalite) {
-		vitaliteTotal = vitalite;
-		vitaliteActu = vitalite;
+		super(vitalite);
 	}
 
 }

@@ -5,6 +5,8 @@
  */
 package gameplay.caracteristique;
 
+import gameplay.sort.Carac;
+
 /**
  * CaracteristiquePhysique.java
  * Gère l'ensemble des caractéristiques physiques de l'entité.
@@ -12,11 +14,7 @@ package gameplay.caracteristique;
  */
 public class CaracteristiquePhysique {
 
-	private Vitalite vitalite;
-	private TempsAction tempsAction;
-	private TempsSup tempsSup;
-	private Fatigue fatigue;
-	private VitesseAction vitesseAction;
+	private Caracteristique[] listCaracteristiques;
 
 	public CaracteristiquePhysique(int vita,
 			int tAction,
@@ -24,12 +22,58 @@ public class CaracteristiquePhysique {
 			int fat,
 			int vAction) {
 
-		vitalite = new Vitalite(vita);
-		tempsAction = new TempsAction(tAction);
-		tempsSup = new TempsSup(tSup);
-		fatigue = new Fatigue(fat);
-		vitesseAction = new VitesseAction(vAction);
+		listCaracteristiques = new Caracteristique[]{
+			new Vitalite(vita),
+			new TempsAction(tAction),
+			new TempsSup(tSup),
+			new Fatigue(fat),
+			new VitesseAction(vAction)
+		};
 
+	}
+
+	public void add(Carac c, int gain) {
+		switch (c) {
+			case VITALITE:
+				listCaracteristiques[0].add(gain);
+				break;
+			case TEMPSACTION:
+				listCaracteristiques[1].add(gain);
+				break;
+			case TEMPSSUP:
+				listCaracteristiques[2].add(gain);
+				break;
+			case FATIGUE:
+				listCaracteristiques[3].add(gain);
+				break;
+			case VITESSEACTION:
+				listCaracteristiques[4].add(gain);
+				break;
+			default:
+				throw new Error("Enumeration non gérée.");
+		}
+	}
+
+	public void supp(Carac c, int perte) {
+		switch (c) {
+			case VITALITE:
+				listCaracteristiques[0].supp(perte);
+				break;
+			case TEMPSACTION:
+				listCaracteristiques[1].supp(perte);
+				break;
+			case TEMPSSUP:
+				listCaracteristiques[2].supp(perte);
+				break;
+			case FATIGUE:
+				listCaracteristiques[3].supp(perte);
+				break;
+			case VITESSEACTION:
+				listCaracteristiques[4].supp(perte);
+				break;
+			default:
+				throw new Error("Enumeration non gérée.");
+		}
 	}
 
 }

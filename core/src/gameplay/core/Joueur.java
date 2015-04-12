@@ -5,7 +5,7 @@
  */
 package gameplay.core;
 
-import gameplay.entite.EntiteActive;
+import gameplay.entite.Personnage;
 
 /**
  * Joueur.java
@@ -17,12 +17,12 @@ public class Joueur {
 	private final int id;
 
 	private String pseudo;
-	private EntiteActive[] tabEntites;
+	private Personnage[] tabPersonnages;
 
-	public Joueur(int _id, String pseud, EntiteActive[] entites) {
+	public Joueur(int _id, String pseud, Personnage[] personnages) {
 		id = _id;
 		pseudo = pseud;
-		tabEntites = entites;
+		tabPersonnages = personnages;
 	}
 
 }

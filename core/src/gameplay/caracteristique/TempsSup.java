@@ -10,14 +10,10 @@ package gameplay.caracteristique;
  * Gère le temps supplémentaire de l'entité.
  *
  */
-public class TempsSup {
-
-	private int tsupTotal;
-	private int tsupActu;
+public class TempsSup extends Caracteristique {
 
 	public TempsSup(int tsup) {
-		tsupTotal = tsup;
-		tsupActu = tsup;
+		super(tsup);
 	}
 
 }

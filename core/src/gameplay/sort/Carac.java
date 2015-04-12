@@ -6,11 +6,11 @@
 package gameplay.sort;
 
 /**
- * Caracteristique.java
+ * Carac.java
  * Représente l'ensemble des caractéristiques.
  *
  */
-public enum Caracteristique {
+public enum Carac {
 
 	VITALITE,
 	TEMPSACTION,

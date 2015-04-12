@@ -10,14 +10,10 @@ package gameplay.caracteristique;
  * Gère le temps d'action de l'entité.
  *
  */
-public class TempsAction {
-
-	private int tactionTotal;
-	private int tactionActu;
+public class TempsAction extends Caracteristique {
 
 	public TempsAction(int taction) {
-		tactionTotal = taction;
-		tactionActu = taction;
+		super(taction);
 	}
 
 }

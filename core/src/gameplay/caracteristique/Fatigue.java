@@ -10,14 +10,10 @@ package gameplay.caracteristique;
  * Gère la fatigue de l'entité.
  *
  */
-public class Fatigue {
-
-	private int fatigueTotal;
-	private int fatigueActu;
+public class Fatigue extends Caracteristique {
 
 	public Fatigue(int fat) {
-		fatigueTotal = fat;
-		fatigueActu = fat;
+		super(fat);
 	}
 
 }

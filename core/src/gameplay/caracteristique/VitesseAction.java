@@ -10,14 +10,10 @@ package gameplay.caracteristique;
  * Gère la vitesse d'action de l'entité.
  *
  */
-public class VitesseAction {
-
-	private int vactionTotal;
-	private int vactionActu;
+public class VitesseAction extends Caracteristique {
 
 	public VitesseAction(int vaction) {
-		vactionTotal = vaction;
-		vactionActu = vaction;
+		super(vaction);
 	}
 
 }
