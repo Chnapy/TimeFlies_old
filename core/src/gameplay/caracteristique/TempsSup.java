@@ -12,8 +12,8 @@ package gameplay.caracteristique;
  */
 public class TempsSup extends Caracteristique {
 
-	public TempsSup(int tsup) {
-		super(tsup);
+	public TempsSup(int total, int actu) {
+		super(total, actu);
 	}
 
 }

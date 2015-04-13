@@ -15,19 +15,19 @@ import gameplay.map.Map;
 /**
  * Main.java
  * CLASSE DE TEST
- * 
+ *
  */
 public class Main extends ApplicationAdapter {
 
 	@Override
 	public void create() {
 		Personnage[] persosJ1 = {
-			new Personnage("perso1", 5, 7, Orientation.NO, new CaracteristiquePhysique(500, 30, 5, 0, 100), new NiveauSymbolique()),
-			new Personnage("perso2", 9, 4, Orientation.SE, new CaracteristiquePhysique(600, 25, 5, 0, 100), new NiveauSymbolique())
+			new Personnage("perso1", 5, 7, Orientation.N, new CaracteristiquePhysique(500, 500, 30, 30, 5, 5, 0, 100, 100, 190), new NiveauSymbolique()),
+			new Personnage("perso2", 9, 4, Orientation.E, new CaracteristiquePhysique(500, 500, 30, 30, 5, 5, 0, 100, 100, 190), new NiveauSymbolique())
 		};
 		Personnage[] persosJ2 = {
-			new Personnage("perso3", 9, 1, Orientation.SE, new CaracteristiquePhysique(450, 35, 5, 5, 120), new NiveauSymbolique()),
-			new Personnage("perso4", 12, 10, Orientation.NE, new CaracteristiquePhysique(700, 28, 5, 20, 90), new NiveauSymbolique())
+			new Personnage("perso3", 9, 1, Orientation.S, new CaracteristiquePhysique(500, 500, 30, 30, 5, 5, 0, 100, 100, 190), new NiveauSymbolique()),
+			new Personnage("perso4", 12, 10, Orientation.O, new CaracteristiquePhysique(500, 500, 30, 30, 5, 5, 0, 100, 100, 190), new NiveauSymbolique())
 		};
 		Joueur[] joueurs = {
 			new Joueur(5, "J1", persosJ1),
@@ -37,6 +37,7 @@ public class Main extends ApplicationAdapter {
 		Combat combat = new Combat(map, joueurs);
 		Jeu jeu = new Jeu();
 		jeu.addCombat(combat);
+
 	}
 
 	@Override

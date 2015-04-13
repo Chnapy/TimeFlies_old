@@ -12,8 +12,8 @@ package gameplay.caracteristique;
  */
 public class TempsAction extends Caracteristique {
 
-	public TempsAction(int taction) {
-		super(taction);
+	public TempsAction(int total, int actu) {
+		super(total, actu);
 	}
 
 }

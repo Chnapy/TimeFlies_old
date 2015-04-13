@@ -20,5 +20,22 @@ public class CaracteristiqueSpatiale {
 		position = new Point(posX, posY);
 		orientation = orient;
 	}
+	
+	public void move(int x, int y) {
+		position.x += x;
+		position.y += y;
+	}
+
+	public Point getPosition() {
+		return position;
+	}
+
+	public Orientation getOrientation() {
+		return orientation;
+	}
+	
+	public void setOrientation(Orientation orientation) {
+		this.orientation = orientation;
+	}
 
 }

@@ -12,8 +12,8 @@ package gameplay.caracteristique;
  */
 public class Fatigue extends Caracteristique {
 
-	public Fatigue(int fat) {
-		super(fat);
+	public Fatigue(int total, int actu) {
+		super(total, actu);
 	}
 
 }

@@ -15,9 +15,9 @@ public abstract class Caracteristique {
 	private int total;
 	private int actu;
 	
-	public Caracteristique(int total) {
+	public Caracteristique(int total, int actu) {
 		this.total = total;
-		this.actu = total;
+		this.actu = actu;
 	}
 	
 	public void add(int gain) {

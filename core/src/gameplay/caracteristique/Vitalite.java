@@ -12,8 +12,8 @@ package gameplay.caracteristique;
  */
 public class Vitalite extends Caracteristique {
 
-	public Vitalite(int vitalite) {
-		super(vitalite);
+	public Vitalite(int total, int actu) {
+		super(total, actu);
 	}
 
 }

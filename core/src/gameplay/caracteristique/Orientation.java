@@ -11,8 +11,8 @@ package gameplay.caracteristique;
  */
 public enum Orientation {
 
-	NO,
-	NE,
-	SO,
-	SE
+	N,
+	E,
+	S,
+	O
 }

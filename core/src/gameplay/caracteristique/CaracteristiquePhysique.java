@@ -16,61 +16,50 @@ public class CaracteristiquePhysique {
 
 	private Caracteristique[] listCaracteristiques;
 
-	public CaracteristiquePhysique(int vita,
-			int tAction,
-			int tSup,
-			int fat,
-			int vAction) {
+	public CaracteristiquePhysique(int vitaTotal, int vitaActu,
+			int tActionTotal, int tActionActu,
+			int tSupTotal, int tSupActu,
+			int fatTotal, int fatActu,
+			int vActionTotal, int vActionActu) {
 
 		listCaracteristiques = new Caracteristique[]{
-			new Vitalite(vita),
-			new TempsAction(tAction),
-			new TempsSup(tSup),
-			new Fatigue(fat),
-			new VitesseAction(vAction)
+			new Vitalite(vitaTotal, vitaActu),
+			new TempsAction(tActionTotal, tActionActu),
+			new TempsSup(tSupTotal, tSupActu),
+			new Fatigue(fatTotal, fatActu),
+			new VitesseAction(vActionTotal, vActionActu)
 		};
 
 	}
 
 	public void add(Carac c, int gain) {
-		switch (c) {
-			case VITALITE:
-				listCaracteristiques[0].add(gain);
-				break;
-			case TEMPSACTION:
-				listCaracteristiques[1].add(gain);
-				break;
-			case TEMPSSUP:
-				listCaracteristiques[2].add(gain);
-				break;
-			case FATIGUE:
-				listCaracteristiques[3].add(gain);
-				break;
-			case VITESSEACTION:
-				listCaracteristiques[4].add(gain);
-				break;
-			default:
-				throw new Error("Enumeration non gérée.");
-		}
+		getCaracteristique(c).supp(gain);
 	}
 
 	public void supp(Carac c, int perte) {
+		getCaracteristique(c).supp(perte);
+	}
+
+	public void setActu(Carac c, int valeur) {
+		getCaracteristique(c).setActu(valeur);
+	}
+
+	public void setTotal(Carac c, int valeur) {
+		getCaracteristique(c).setTotal(valeur);
+	}
+
+	private Caracteristique getCaracteristique(Carac c) {
 		switch (c) {
 			case VITALITE:
-				listCaracteristiques[0].supp(perte);
-				break;
+				return listCaracteristiques[0];
 			case TEMPSACTION:
-				listCaracteristiques[1].supp(perte);
-				break;
+				return listCaracteristiques[1];
 			case TEMPSSUP:
-				listCaracteristiques[2].supp(perte);
-				break;
+				return listCaracteristiques[2];
 			case FATIGUE:
-				listCaracteristiques[3].supp(perte);
-				break;
+				return listCaracteristiques[3];
 			case VITESSEACTION:
-				listCaracteristiques[4].supp(perte);
-				break;
+				return listCaracteristiques[4];
 			default:
 				throw new Error("Enumeration non gérée.");
 		}
