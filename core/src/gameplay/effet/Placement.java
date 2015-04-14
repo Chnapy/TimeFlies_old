@@ -16,6 +16,10 @@ public class Placement {
 
 	private CaracteristiqueSpatiale caracSpatiale;
 
+	/**
+	 *
+	 * @param cspatiale
+	 */
 	public Placement(CaracteristiqueSpatiale cspatiale) {
 		caracSpatiale = cspatiale;
 	}

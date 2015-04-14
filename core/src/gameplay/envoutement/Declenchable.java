@@ -18,6 +18,12 @@ public class Declenchable {
 	private int minimum;
 	private int maximum;
 
+	/**
+	 *
+	 * @param ef
+	 * @param min
+	 * @param max
+	 */
 	public Declenchable(Effet ef, int min, int max) {
 		effet = ef;
 		minimum = min;

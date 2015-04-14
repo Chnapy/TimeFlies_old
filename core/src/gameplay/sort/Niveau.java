@@ -15,6 +15,9 @@ public class Niveau {
 	private int niveauActu;
 	private int experienceActu;
 
+	/**
+	 *
+	 */
 	public Niveau() {
 
 	}

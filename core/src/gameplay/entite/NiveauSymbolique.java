@@ -15,6 +15,9 @@ package gameplay.entite;
  */
 public class NiveauSymbolique {
 
+	/**
+	 *
+	 */
 	public NiveauSymbolique() {
 
 	}

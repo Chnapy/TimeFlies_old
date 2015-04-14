@@ -19,6 +19,14 @@ public class SortPassifEffets extends SortPassif {
 	private Array<Effet> listEffets;
 	private Array<Declenchable> listDeclenchables;
 
+	/**
+	 *
+	 * @param nom
+	 * @param description
+	 * @param niveau
+	 * @param effets
+	 * @param declenchables
+	 */
 	public SortPassifEffets(String nom, String description, Niveau niveau,
 			Array<Effet> effets, Array<Declenchable> declenchables) {
 

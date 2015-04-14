@@ -5,8 +5,6 @@
  */
 package gameplay.caracteristique;
 
-import gameplay.sort.Carac;
-
 /**
  * CaracteristiquePhysique.java
  * Gère l'ensemble des caractéristiques physiques de l'entité.
@@ -16,6 +14,19 @@ public class CaracteristiquePhysique {
 
 	private Caracteristique[] listCaracteristiques;
 
+	/**
+	 *
+	 * @param vitaTotal
+	 * @param vitaActu
+	 * @param tActionTotal
+	 * @param tActionActu
+	 * @param tSupTotal
+	 * @param tSupActu
+	 * @param fatTotal
+	 * @param fatActu
+	 * @param vActionTotal
+	 * @param vActionActu
+	 */
 	public CaracteristiquePhysique(int vitaTotal, int vitaActu,
 			int tActionTotal, int tActionActu,
 			int tSupTotal, int tSupActu,
@@ -32,18 +43,38 @@ public class CaracteristiquePhysique {
 
 	}
 
+	/**
+	 *
+	 * @param c
+	 * @param gain
+	 */
 	public void add(Carac c, int gain) {
 		getCaracteristique(c).supp(gain);
 	}
 
+	/**
+	 *
+	 * @param c
+	 * @param perte
+	 */
 	public void supp(Carac c, int perte) {
 		getCaracteristique(c).supp(perte);
 	}
 
+	/**
+	 *
+	 * @param c
+	 * @param valeur
+	 */
 	public void setActu(Carac c, int valeur) {
 		getCaracteristique(c).setActu(valeur);
 	}
 
+	/**
+	 *
+	 * @param c
+	 * @param valeur
+	 */
 	public void setTotal(Carac c, int valeur) {
 		getCaracteristique(c).setTotal(valeur);
 	}

@@ -12,6 +12,10 @@ package gameplay.sort.zone;
  */
 public class Carre extends Zone {
 
+	/**
+	 *
+	 * @param posit
+	 */
 	public Carre(boolean posit) {
 		super(posit);
 	}

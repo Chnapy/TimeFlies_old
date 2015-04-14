@@ -12,6 +12,10 @@ package gameplay.sort.zone;
  */
 public class Diagonales extends Zone {
 
+	/**
+	 *
+	 * @param posit
+	 */
 	public Diagonales(boolean posit) {
 		super(posit);
 	}

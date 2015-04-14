@@ -18,6 +18,11 @@ public class Combat {
 	private Timeline timeline;
 	private Joueur[] tabJoueurs;
 
+	/**
+	 *
+	 * @param m
+	 * @param joueurs
+	 */
 	public Combat(Map m, Joueur[] joueurs) {
 		map = m;
 		tabJoueurs = joueurs;

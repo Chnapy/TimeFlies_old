@@ -20,6 +20,12 @@ public abstract class Sort {
 	private Niveau niveau;
 	private Array<Effet> listEffets;
 
+	/**
+	 *
+	 * @param nom
+	 * @param description
+	 * @param niveau
+	 */
 	public Sort(String nom, String description, Niveau niveau) {
 		this.nom = nom;
 		this.description = description;

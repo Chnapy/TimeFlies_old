@@ -16,6 +16,10 @@ public class Balus {
 
 	private CaracteristiquePhysique caracPhysique;
 
+	/**
+	 *
+	 * @param cphysique
+	 */
 	public Balus(CaracteristiquePhysique cphysique) {
 		caracPhysique = cphysique;
 	}

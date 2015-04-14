@@ -17,10 +17,17 @@ public class Jeu {
 
 	private Array<Combat> listCombat;
 
+	/**
+	 *
+	 */
 	public Jeu() {
 		listCombat = new Array<Combat>();
 	}
 	
+	/**
+	 *
+	 * @param combat
+	 */
 	public void addCombat(Combat combat) {
 		listCombat.add(combat);
 	}

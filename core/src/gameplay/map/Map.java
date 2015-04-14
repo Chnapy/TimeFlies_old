@@ -14,6 +14,11 @@ public class Map {
 
 	private Tuile[][] tabTuiles;
 
+	/**
+	 *
+	 * @param width
+	 * @param height
+	 */
 	public Map(int width, int height) {
 		tabTuiles = new Tuile[width][height];
 	}

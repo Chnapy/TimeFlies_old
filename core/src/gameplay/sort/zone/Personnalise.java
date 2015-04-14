@@ -12,6 +12,10 @@ package gameplay.sort.zone;
  */
 public class Personnalise extends Zone {
 
+	/**
+	 *
+	 * @param posit
+	 */
 	public Personnalise(boolean posit) {
 		super(posit);
 	}

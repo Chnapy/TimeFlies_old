@@ -12,6 +12,12 @@ package gameplay.sort;
  */
 public abstract class SortPassif extends Sort {
 
+	/**
+	 *
+	 * @param nom
+	 * @param description
+	 * @param niveau
+	 */
 	public SortPassif(String nom, String description, Niveau niveau) {
 
 		super(nom, description, niveau);

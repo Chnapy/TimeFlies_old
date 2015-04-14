@@ -12,6 +12,10 @@ package gameplay.sort.zone;
  */
 public class Cercle extends Zone {
 
+	/**
+	 *
+	 * @param posit
+	 */
 	public Cercle(boolean posit) {
 		super(posit);
 	}

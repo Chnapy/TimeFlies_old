@@ -16,6 +16,9 @@ public class ZoneAction {
 
 	private Array<Zone> listZones;
 
+	/**
+	 *
+	 */
 	public ZoneAction() {
 		listZones = new Array<Zone>();
 	}

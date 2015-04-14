@@ -12,8 +12,23 @@ package gameplay.map;
  */
 public enum Etat {
 
+	/**
+	 *
+	 */
 	SIMPLE,
+
+	/**
+	 *
+	 */
 	TROU,
+
+	/**
+	 *
+	 */
 	ECRAN,
+
+	/**
+	 *
+	 */
 	OBSTACLE
 }

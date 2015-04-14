@@ -17,6 +17,10 @@ public class Tuile {
 	private Etat etat;
 	private Point position;
 
+	/**
+	 *
+	 * @param e
+	 */
 	public Tuile(Etat e) {
 		etat = e;
 	}

@@ -18,6 +18,14 @@ public abstract class SortActif extends Sort {
 	private ZonePortee zonePortee;
 	private ZoneAction zoneAction;
 
+	/**
+	 *
+	 * @param nom
+	 * @param description
+	 * @param niveau
+	 * @param zportee
+	 * @param zaction
+	 */
 	public SortActif(String nom, String description, Niveau niveau,
 			ZonePortee zportee, ZoneAction zaction) {
 

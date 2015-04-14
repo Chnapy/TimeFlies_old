@@ -10,12 +10,15 @@ package gameplay.envoutement;
  * Représente un bonus, temporaire, appliqué à une entité active.
  *
  */
-public class EnvoutementBonus extends Envoutement {
+public abstract class EnvoutementBonus extends Envoutement {
 
+	/**
+	 *
+	 * @param nom
+	 * @param duree
+	 */
 	public EnvoutementBonus(String nom, int duree) {
-
 		super(nom, duree);
-
 	}
 
 }

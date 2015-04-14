@@ -3,7 +3,7 @@
  * 
  * 
  */
-package gameplay.sort;
+package gameplay.caracteristique;
 
 /**
  * Carac.java
@@ -12,9 +12,28 @@ package gameplay.sort;
  */
 public enum Carac {
 
+	/**
+	 *
+	 */
 	VITALITE,
+
+	/**
+	 *
+	 */
 	TEMPSACTION,
+
+	/**
+	 *
+	 */
 	TEMPSSUP,
+
+	/**
+	 *
+	 */
 	FATIGUE,
+
+	/**
+	 *
+	 */
 	VITESSEACTION
 }

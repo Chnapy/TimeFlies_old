@@ -12,6 +12,11 @@ package gameplay.caracteristique;
  */
 public class TempsAction extends Caracteristique {
 
+	/**
+	 *
+	 * @param total
+	 * @param actu
+	 */
 	public TempsAction(int total, int actu) {
 		super(total, actu);
 	}

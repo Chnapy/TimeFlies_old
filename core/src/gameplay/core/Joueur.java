@@ -19,6 +19,12 @@ public class Joueur {
 	private String pseudo;
 	private Personnage[] tabPersonnages;
 
+	/**
+	 *
+	 * @param _id
+	 * @param pseud
+	 * @param personnages
+	 */
 	public Joueur(int _id, String pseud, Personnage[] personnages) {
 		id = _id;
 		pseudo = pseud;

@@ -26,6 +26,13 @@ public class Effet {
 	private Placement placement;
 	private Invocation invocation;
 
+	/**
+	 *
+	 * @param balus
+	 * @param envoutements
+	 * @param place
+	 * @param invoc
+	 */
 	public Effet(Array<Balus> balus, Array<Envoutement> envoutements, Placement place, Invocation invoc) {
 		listBalus = balus;
 		listEnvoutements = envoutements;

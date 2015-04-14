@@ -14,6 +14,10 @@ public class Zone {
 
 	private boolean positive;
 
+	/**
+	 *
+	 * @param posit
+	 */
 	public Zone(boolean posit) {
 		positive = posit;
 	}

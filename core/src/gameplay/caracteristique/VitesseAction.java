@@ -12,6 +12,11 @@ package gameplay.caracteristique;
  */
 public class VitesseAction extends Caracteristique {
 
+	/**
+	 *
+	 * @param total
+	 * @param actu
+	 */
 	public VitesseAction(int total, int actu) {
 		super(total, actu);
 	}

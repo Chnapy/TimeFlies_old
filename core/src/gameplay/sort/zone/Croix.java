@@ -12,6 +12,10 @@ package gameplay.sort.zone;
  */
 public class Croix extends Zone {
 
+	/**
+	 *
+	 * @param positive
+	 */
 	public Croix(boolean positive) {
 
 		super(positive);

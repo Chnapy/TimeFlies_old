@@ -12,6 +12,11 @@ package gameplay.caracteristique;
  */
 public class Vitalite extends Caracteristique {
 
+	/**
+	 *
+	 * @param total
+	 * @param actu
+	 */
 	public Vitalite(int total, int actu) {
 		super(total, actu);
 	}

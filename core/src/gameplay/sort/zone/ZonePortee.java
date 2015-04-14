@@ -17,6 +17,9 @@ public class ZonePortee {
 
 	private Array<Zone> listZones;
 
+	/**
+	 *
+	 */
 	public ZonePortee() {
 		listZones = new Array<Zone>();
 	}
