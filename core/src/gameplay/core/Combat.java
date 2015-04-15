@@ -5,6 +5,8 @@
  */
 package gameplay.core;
 
+import com.badlogic.gdx.utils.Array;
+import gameplay.entite.EntiteActive;
 import gameplay.map.Map;
 
 /**
@@ -24,9 +26,34 @@ public class Combat {
 	 * @param joueurs
 	 */
 	public Combat(Map m, Joueur[] joueurs) {
-		map = m;
 		tabJoueurs = joueurs;
-		timeline = new Timeline(joueurs);
+		map = m;
+		EntiteActive[] tabPersonnages = getPersonnages(joueurs);
+		timeline = new Timeline(tabPersonnages);
+	}
+
+	/**
+	 * QUE LE COMBAT COMMENCE !
+	 * On peut pas être plus explicite.
+	 */
+	public void lancer() {
+		timeline.start();
+	}
+
+	/**
+	 * Récupère les personnages de chaque tous les joueurs.
+	 *
+	 * @param joueurs
+	 * @return
+	 */
+	private EntiteActive[] getPersonnages(Joueur[] joueurs) {
+		Array<EntiteActive> listEntActive = new Array<EntiteActive>();
+
+		for (Joueur j : joueurs) {
+			listEntActive.addAll((EntiteActive[]) j.getPersonnages());
+		}
+
+		return listEntActive.toArray();
 	}
 
 }

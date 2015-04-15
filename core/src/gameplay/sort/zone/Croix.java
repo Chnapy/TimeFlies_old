@@ -14,12 +14,12 @@ public class Croix extends Zone {
 
 	/**
 	 *
-	 * @param positive
+	 * @param taille	taille d'une partie de la croix
+	 * @param positive	positif ?
 	 */
-	public Croix(boolean positive) {
-
+	public Croix(int taille, boolean positive) {
 		super(positive);
-
+		//TODO taille
 	}
 
 }

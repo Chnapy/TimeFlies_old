@@ -40,7 +40,7 @@ public class Main extends ApplicationAdapter {
 		Combat combat = new Combat(map, joueurs);
 		Jeu jeu = new Jeu();
 		jeu.addCombat(combat);
-
+		combat.lancer();
 	}
 
 	/**

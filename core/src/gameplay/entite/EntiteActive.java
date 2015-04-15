@@ -46,4 +46,44 @@ public abstract class EntiteActive extends Entite {
 		listEnvoutements = new Array<Envoutement>();
 	}
 
+	/**
+	 * Défini les actions que cette entité va effectuer lorsque chaque tour
+	 * global commencera.
+	 */
+	public void debutTourGlobal() {
+		for (Envoutement envout : listEnvoutements) {
+			envout.actionDebutTourGlobal();
+		}
+	}
+
+	/**
+	 * Défini les actions que cette entité va effectuer lorsque chaque tour
+	 * global se terminera.
+	 */
+	public void finTourGlobal() {
+		for (Envoutement envout : listEnvoutements) {
+			envout.actionFinTourGlobal();
+		}
+	}
+
+	/**
+	 * Défini les actions que cette entité va effectuer lorsque chacun de ses
+	 * tours commencera.
+	 */
+	public void debutTour() {
+		for (Envoutement envout : listEnvoutements) {
+			envout.actionDebutTour();
+		}
+	}
+
+	/**
+	 * Défini les actions que cette entité va effectuer lorsque chacun de ses
+	 * tours finira.
+	 */
+	public void finTour() {
+		for (Envoutement envout : listEnvoutements) {
+			envout.actionFinTour();
+		}
+	}
+
 }

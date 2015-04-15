@@ -23,9 +23,10 @@ public class Jeu {
 	public Jeu() {
 		listCombat = new Array<Combat>();
 	}
-	
+
 	/**
-	 *
+	 * Ajoute un combat au jeu.
+	 * 
 	 * @param combat
 	 */
 	public void addCombat(Combat combat) {

@@ -17,7 +17,7 @@ public class Joueur {
 	private final int id;
 
 	private String pseudo;
-	private Personnage[] tabPersonnages;
+	private Personnage[] personnages;
 
 	/**
 	 *
@@ -28,7 +28,19 @@ public class Joueur {
 	public Joueur(int _id, String pseud, Personnage[] personnages) {
 		id = _id;
 		pseudo = pseud;
-		tabPersonnages = personnages;
+		this.personnages = personnages;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public String getPseudo() {
+		return pseudo;
+	}
+
+	public Personnage[] getPersonnages() {
+		return personnages;
 	}
 
 }

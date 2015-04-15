@@ -13,7 +13,7 @@ import gameplay.sort.SortPassif;
  * Représente une entité passive (autonome).
  *
  */
-public class EntitePassive extends Entite {
+public abstract class EntitePassive extends Entite {
 
 	/**
 	 *

@@ -14,7 +14,7 @@ import gameplay.envoutement.Declenchable;
  * Représente un sort passif pouvant être déclenché.
  *
  */
-public class SortPassifEffets extends SortPassif {
+public abstract class SortPassifEffets extends SortPassif {
 
 	private Array<Effet> listEffets;
 	private Array<Declenchable> listDeclenchables;

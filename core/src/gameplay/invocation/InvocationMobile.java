@@ -16,7 +16,7 @@ import gameplay.sort.SortPassif;
  * Représente une invocation pouvant être controlée par un joueur.
  *
  */
-public class InvocationMobile extends EntiteActive implements Invocation {
+public abstract class InvocationMobile extends EntiteActive implements Invocation {
 
 	/**
 	 *

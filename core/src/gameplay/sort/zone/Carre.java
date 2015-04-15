@@ -14,10 +14,12 @@ public class Carre extends Zone {
 
 	/**
 	 *
-	 * @param posit
+	 * @param cote	longueur d'un coté
+	 * @param posit	 positif ?
 	 */
-	public Carre(boolean posit) {
+	public Carre(int cote, boolean posit) {
 		super(posit);
+		//TODO cote
 	}
 
 }

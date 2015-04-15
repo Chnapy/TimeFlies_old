@@ -14,7 +14,7 @@ import gameplay.sort.SortPassif;
  * Représente une invocation autonome.
  *
  */
-public class InvocationPassive extends EntitePassive implements Invocation {
+public abstract class InvocationPassive extends EntitePassive implements Invocation {
 
 	/**
 	 *

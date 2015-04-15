@@ -8,9 +8,11 @@ package gameplay.sort.zone;
 /**
  * Zone.java
  * Représente une zone pouvant être positive ou négative.
+ * Une zone positive représente une zone classique.
+ * Une zone négative fait un "trou" dans une zone positive.
  *
  */
-public class Zone {
+public abstract class Zone {
 
 	private boolean positive;
 

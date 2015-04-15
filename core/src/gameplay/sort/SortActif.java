@@ -34,5 +34,5 @@ public abstract class SortActif extends Sort {
 		zonePortee = zportee;
 		zoneAction = zaction;
 	}
-
+	
 }

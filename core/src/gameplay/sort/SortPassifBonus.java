@@ -14,7 +14,7 @@ import com.badlogic.gdx.utils.Array;
  * permannente.
  *
  */
-public class SortPassifBonus extends SortPassif {
+public abstract class SortPassifBonus extends SortPassif {
 
 	private Array<Carac> listCaracteristiques;
 	private Array<Integer> listValeurs;

@@ -15,7 +15,7 @@ import gameplay.sort.SortPassif;
  * Représente un personnage controlé par un joueur.
  *
  */
-public class Personnage extends EntiteActive {
+public abstract class Personnage extends EntiteActive {
 
 	private NiveauSymbolique niveauSymbol;
 

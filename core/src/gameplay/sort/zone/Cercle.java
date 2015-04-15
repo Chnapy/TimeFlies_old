@@ -14,10 +14,12 @@ public class Cercle extends Zone {
 
 	/**
 	 *
-	 * @param posit
+	 * @param rayon	rayon du cercle
+	 * @param posit	positif ?
 	 */
-	public Cercle(boolean posit) {
+	public Cercle(int rayon, boolean posit) {
 		super(posit);
+		//TODO rayon
 	}
 
 }
