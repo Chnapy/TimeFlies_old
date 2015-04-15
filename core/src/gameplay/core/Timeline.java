@@ -37,6 +37,30 @@ public class Timeline {
 	/**
 	 * Représente la boucle de jeu
 	 * Elle s'arrête en cas de victoire (ou de défaite).
+	 *
+	 * Pseudo-code :
+	 *
+	 * - Placement des personnages sur la map
+	 * - Inititalisation de l'initiative de chaque personnage
+	 * 
+	 * - Lancement d'un tour global :
+	 * -- Ordonner la liste des entités actives en fonction de leur initiative
+	 * -- Pour chaque entité active :
+	 * --- Pour chacun de leur envoûtement, lancer l'action de début de tour
+	 * global
+	 * 
+	 * -- Pour chaque entité active, si le combat peut continuer, lancement du
+	 * tour de l'entité :
+	 * --- Pour chacun de ses envoûtements, lancer l'action de début de tour
+	 * --- Le joueur joue son tour
+	 * --- Pour chacun de ses envoûtements, lancer l'action de fin de tour
+	 * 
+	 * -- Pour chaque entité active :
+	 * --- Pour chacun de leur envoûtement, lancer l'action de fin de tour
+	 * global
+	 * 
+	 * - Si le combat peut continuer, lancement d'un tour global.
+	 *
 	 */
 	public void boucleDeJeu() {
 		while (true) {	//TODO : Utiliser une variable définissant la fin du combat
@@ -48,13 +72,26 @@ public class Timeline {
 	 * Un tour global représente un tour de jeu où l'ensemble des entité actives
 	 * joue l'une après l'autre. Une fois que l'ensemble de ces entité à joué
 	 * son tour, le tour global se termine, et un autre tour global se lance.
+	 *
+	 * Pseudo-code :
+	 *
+	 * - Ordonner la liste des entités actives en fonction de leur initiative
+	 * - Pour chaque entité active :
+	 * -- Pour chacun de leur envoûtement, lancer l'action de début de tour
+	 * global
+	 * 
+	 * - Pour chaque entité active, si le combat peut continuer, lancement du
+	 * tour de l'entité :
+	 * -- Pour chacun de ses envoûtements, lancer l'action de début de tour
+	 * -- Le joueur joue son tour
+	 * -- Pour chacun de ses envoûtements, lancer l'action de fin de tour
+	 * 
+	 * - Pour chaque entité active :
+	 * -- Pour chacun de leur envoûtement, lancer l'action de fin de tour global
 	 */
 	public void tourGlobal() {
 		//Début du tour global
-		appliquerOrdreDeJeu();	//On définit l'ordre de jeu d'après l'initiative de chaque entité active
-		for (EntiteActive entActive : listEntiteActives) {
-			debutTourGlobal(entActive);
-		}
+		debutTourGlobal();
 
 		//Milieu du tour global
 		for (EntiteActive entActive : listEntiteActives) {
@@ -62,33 +99,53 @@ public class Timeline {
 		}
 
 		//Fin du tour global
+		finTourGlobal();
+	}
+
+	/**
+	 * Actions lancées pour une entité active au moment où le tour global
+	 * commence.
+	 *
+	 * Pseudo-code :
+	 *
+	 * - Pour chaque entité active :
+	 * -- Pour chacun de leur envoûtement, lancer l'action de début de tour
+	 * global
+	 *
+	 * @param entActive
+	 */
+	private void debutTourGlobal() {
+		appliquerOrdreDeJeu();	//On définit l'ordre de jeu d'après l'initiative de chaque entité active
 		for (EntiteActive entActive : listEntiteActives) {
-			finTourGlobal(entActive);
+			entActive.debutTourGlobal();
 		}
 	}
 
 	/**
 	 * Actions lancées pour une entité active au moment où le tour global
 	 * commence.
+	 * 
+	 * Pseudo-code :
+	 * 
+	 * - Pour chaque entité active :
+	 * -- Pour chacun de leur envoûtement, lancer l'action de fin de tour global
 	 *
 	 * @param entActive
 	 */
-	private void debutTourGlobal(EntiteActive entActive) {
-		entActive.debutTourGlobal();
-	}
-
-	/**
-	 * Actions lancées pour une entité active au moment où le tour global
-	 * commence.
-	 *
-	 * @param entActive
-	 */
-	private void finTourGlobal(EntiteActive entActive) {
-		entActive.finTourGlobal();
+	private void finTourGlobal() {
+		for (EntiteActive entActive : listEntiteActives) {
+			entActive.finTourGlobal();
+		}
 	}
 
 	/**
 	 * Un tour (non-global) représente un temps de jeu où une entité peut jouer.
+	 * 
+	 * Pseudo-code :
+	 * 
+	 * - Pour chacun de ses envoûtements, lancer l'action de début de tour
+	 * - Le joueur joue son tour
+	 * - Pour chacun de ses envoûtements, lancer l'action de fin de tour
 	 *
 	 * @param entActive
 	 */
@@ -102,6 +159,10 @@ public class Timeline {
 	/**
 	 * Actions lancées pour une entité active au moment où le tour de cette
 	 * entité commence.
+	 * 
+	 * Pseudo-code :
+	 * 
+	 * - Pour chacun de ses envoûtements, lancer l'action de début de tour
 	 *
 	 * @param entActive
 	 */
@@ -112,6 +173,10 @@ public class Timeline {
 	/**
 	 * Actions lancées pour une entité active au moment où le tour de cette
 	 * entité finit.
+	 * 
+	 * Pseudo-code :
+	 * 
+	 * - Pour chacun de ses envoûtements, lancer l'action de fin de tour
 	 *
 	 * @param entActive
 	 */
@@ -127,6 +192,11 @@ public class Timeline {
 	 * légère
 	 * part d'aléatoire.
 	 * Voir GDD pour plus d'info.
+	 * 
+	 * Pseudo-code :
+	 * 
+	 * - Inititalisation de l'initiative de chaque personnage
+	 * 
 	 */
 	private void initInitiative() {
 		//TODO
@@ -134,6 +204,11 @@ public class Timeline {
 
 	/**
 	 * Applique l'ordre de jeu des entités actives d'après leur initiative.
+	 * 
+	 * Pseudo-code :
+	 * 
+	 * - Ordonner la liste des entités actives en fonction de leur initiative
+	 * 
 	 */
 	private void appliquerOrdreDeJeu() {
 		//TODO
