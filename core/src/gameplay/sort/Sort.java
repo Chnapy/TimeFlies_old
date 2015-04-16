@@ -33,4 +33,12 @@ public abstract class Sort {
 		listEffets = new Array<Effet>();
 	}
 
+	public String getNom() {
+		return nom;
+	}
+
+	public Niveau getNiveau() {
+		return niveau;
+	}
+
 }

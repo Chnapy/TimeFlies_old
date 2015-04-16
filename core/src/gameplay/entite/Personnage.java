@@ -5,6 +5,7 @@
  */
 package gameplay.entite;
 
+import com.badlogic.gdx.utils.Array;
 import gameplay.caracteristique.CaracteristiquePhysique;
 import gameplay.caracteristique.Orientation;
 import gameplay.sort.SortActif;
@@ -28,18 +29,16 @@ public abstract class Personnage extends EntiteActive {
 	 * @param cPhysique
 	 * @param sortsPassifs
 	 * @param sortsActifs
-	 * @param nsymbol
 	 */
 	public Personnage(String nom,
 			int posX, int posY, Orientation orientation,
 			CaracteristiquePhysique cPhysique,
 			SortPassif[] sortsPassifs,
-			SortActif[] sortsActifs,
-			NiveauSymbolique nsymbol) {
+			SortActif[] sortsActifs) {
 
 		super(nom, posX, posY, orientation, cPhysique, sortsPassifs, sortsActifs);
 
-		niveauSymbol = nsymbol;
+		niveauSymbol = new NiveauSymbolique(sortsPassifs, sortsActifs);
 	}
 
 }

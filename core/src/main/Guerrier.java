@@ -7,7 +7,6 @@ package main;
 
 import gameplay.caracteristique.CaracteristiquePhysique;
 import gameplay.caracteristique.Orientation;
-import gameplay.entite.NiveauSymbolique;
 import gameplay.entite.Personnage;
 import gameplay.sort.SortActif;
 import gameplay.sort.SortPassif;
@@ -28,16 +27,14 @@ public class Guerrier extends Personnage {
 	 * @param cPhysique
 	 * @param sortsPassifs
 	 * @param sortsActifs
-	 * @param nsymbol
 	 */
 	public Guerrier(String nom, 
 			int posX, int posY, Orientation orientation, 
 			CaracteristiquePhysique cPhysique,
 			SortPassif[] sortsPassifs,
-			SortActif[] sortsActifs, 
-			NiveauSymbolique nsymbol) {
+			SortActif[] sortsActifs) {
 		
-		super(nom, posX, posY, orientation, cPhysique, sortsPassifs, sortsActifs, nsymbol);
+		super(nom, posX, posY, orientation, cPhysique, sortsPassifs, sortsActifs);
 	}
 
 }
