@@ -6,7 +6,7 @@
 package gameplay.core;
 
 import com.badlogic.gdx.utils.Array;
-import gameplay.entite.EntiteActive;
+import gameplay.entite.Personnage;
 import gameplay.map.Map;
 
 /**
@@ -28,8 +28,8 @@ public class Combat {
 	public Combat(Map m, Joueur[] joueurs) {
 		tabJoueurs = joueurs;
 		map = m;
-		EntiteActive[] tabPersonnages = getPersonnages(joueurs);
-		timeline = new Timeline(tabPersonnages);
+		Array<Personnage> listPersonnages = getPersonnages(joueurs);
+		timeline = new Timeline(listPersonnages);
 	}
 
 	/**
@@ -46,14 +46,12 @@ public class Combat {
 	 * @param joueurs
 	 * @return
 	 */
-	private EntiteActive[] getPersonnages(Joueur[] joueurs) {
-		Array<EntiteActive> listEntActive = new Array<EntiteActive>();
-
+	private static Array<Personnage> getPersonnages(Joueur[] joueurs) {
+		Array<Personnage> listEntActive = new Array<Personnage>();
 		for (Joueur j : joueurs) {
-			listEntActive.addAll((EntiteActive[]) j.getPersonnages());
+			listEntActive.addAll(j.getPersonnages());
 		}
-
-		return listEntActive.toArray();
+		return listEntActive;
 	}
 
 }

@@ -22,10 +22,15 @@ public class Tuile {
 	/**
 	 *
 	 * @param e
+	 * @param pos
 	 */
 	public Tuile(Etat e, Point pos) {
 		etat = e;
 		position = pos;
+	}
+
+	public Etat getEtat() {
+		return etat;
 	}
 
 }

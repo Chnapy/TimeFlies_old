@@ -3,7 +3,7 @@
  * 
  * 
  */
-package main;
+package test;
 
 import gameplay.caracteristique.CaracteristiquePhysique;
 import gameplay.caracteristique.Orientation;
@@ -34,7 +34,7 @@ public class Guerrier extends Personnage {
 			SortPassif[] sortsPassifs,
 			SortActif[] sortsActifs) {
 		
-		super(nom, posX, posY, orientation, cPhysique, sortsPassifs, sortsActifs);
+		super(nom, "Guerrier", posX, posY, orientation, cPhysique, sortsPassifs, sortsActifs);
 	}
 
 }

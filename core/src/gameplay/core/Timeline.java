@@ -7,6 +7,7 @@ package gameplay.core;
 
 import com.badlogic.gdx.utils.Array;
 import gameplay.entite.EntiteActive;
+import gameplay.entite.Personnage;
 
 /**
  * Timeline.java
@@ -20,10 +21,10 @@ public class Timeline {
 
 	/**
 	 *
-	 * @param tabPersonnages
+	 * @param listPersonnages
 	 */
-	public Timeline(EntiteActive[] tabPersonnages) {
-		listEntiteActives = new Array(tabPersonnages);
+	public Timeline(Array<Personnage> listPersonnages) {
+		listEntiteActives = new Array(listPersonnages);
 	}
 
 	/**
