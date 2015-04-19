@@ -22,13 +22,12 @@ public class Diagonales extends Zone {
 	 * @param posit
 	 */
 	public Diagonales(int size, boolean posit, Map currentMap) {
-		super(posit, size, currentMap);
+		super(posit/*, size, currentMap*/);
 		//TODO taille
 	}
         
         
     // TODO 
-    @Override
     public Tuile[] getTilesOfInterrest(Point center) {
         
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

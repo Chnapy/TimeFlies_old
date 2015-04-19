@@ -13,14 +13,13 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import controleur.cCombat;
 
 /**
  * vTuile.java
  *
  */
-public class vTuile extends Image {
+public class vTuile extends Actor {
 
 	public static final int TUILE_WIDTH = 128;
 	public static final int TUILE_HEIGHT = 64;

@@ -6,7 +6,9 @@
 package vue;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import gameplay.entite.EntiteActive;
 import java.util.Observable;
 import java.util.Observer;
@@ -18,7 +20,7 @@ import static vue.map.vTuile.TUILE_WIDTH;
  * Représente la vue de l'entité
  *
  */
-public class vEntite implements Observer {
+public class vEntite extends Actor implements Observer {
 
 	private static final int PERSO_WIDTH = 64;
 	private static final int PERSO_HEIGHT = 92;
@@ -51,14 +53,13 @@ public class vEntite implements Observer {
 		batch = new SpriteBatch();
 	}
 
-	public void render() {
-		batch.begin();
+	@Override
+	public void draw(Batch batch, float parentAlpha) {
 		batch.draw(texture,
 				500 + posX * TUILE_WIDTH / 2 + (posY-1) * -TUILE_HEIGHT - PERSO_WIDTH / 2,
 				300 + posX * -TUILE_WIDTH / 4 + (posY-1) * -TUILE_HEIGHT / 2,
 				PERSO_WIDTH,
 				PERSO_HEIGHT);
-		batch.end();
 	}
 
 	/**

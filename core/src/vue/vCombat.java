@@ -6,6 +6,7 @@
 package vue;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import vue.map.vMap;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -23,7 +24,7 @@ public class vCombat implements Screen {
 
 	private cCombat combat;
 	private vMap vmap;
-	private vEntites vperso;
+	private vEntites ventites;
 	private vTimeline vtimeline;
 
 	/**
@@ -36,12 +37,12 @@ public class vCombat implements Screen {
 	public vCombat(final cCombat ccombat, final Tuile[][] tabTuiles, final Array<Personnage> personnages, final Timeline timel) {
 		combat = ccombat;
 		vmap = new vMap(ccombat, tabTuiles);
-		vperso = new vEntites(personnages);
+		ventites = new vEntites(personnages);
 		vtimeline = new vTimeline(timel);
-
-		Gdx.input.setInputProcessor(vmap);
-//		Gdx.input.setInputProcessor(vperso);
-//		Gdx.input.setInputProcessor(vtimeline);
+		
+		//Accepter les input
+		InputMultiplexer inputM = new InputMultiplexer(vmap, ventites, vtimeline);
+		Gdx.input.setInputProcessor(inputM);
 	}
 
 	@Override
@@ -57,7 +58,7 @@ public class vCombat implements Screen {
 	@Override
 	public void render(float delta) {
 		vmap.render();
-		vperso.render();
+		ventites.render();
 
 //		//HUD
 		vtimeline.render();
