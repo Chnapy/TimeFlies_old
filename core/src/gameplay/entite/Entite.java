@@ -49,6 +49,10 @@ public abstract class Entite extends Observable {
 		tabSortPassif = sortsPassifs;
 	}
 	
+	public void jouerTour() {
+		//TODO
+	}
+	
 	public void recoitSort(Effet[] effets) {
 		/**
 		 * TODO :

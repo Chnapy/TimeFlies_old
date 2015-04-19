@@ -22,6 +22,7 @@ public class Timeline extends Observable implements Runnable {
 	private boolean enJeu;
 	
 	private Array<EntiteActive> listEntiteActives;
+	private EntiteActive entiteEnCours;
 
 	/**
 	 *
@@ -110,6 +111,7 @@ public class Timeline extends Observable implements Runnable {
 
 		//Milieu du tour global
 		for (EntiteActive entActive : listEntiteActives) {
+			entiteEnCours = entActive;
 			tour(entActive);
 		}
 
@@ -167,7 +169,8 @@ public class Timeline extends Observable implements Runnable {
 	public void tour(EntiteActive entActive) {
 		debutTour(entActive);
 
-		//TODO : Actions du tour, là où le joueur joue
+		entActive.jouerTour();
+		
 		finTour(entActive);
 	}
 
@@ -249,6 +252,10 @@ public class Timeline extends Observable implements Runnable {
 	 */
 	public void addEntiteActive(EntiteActive... tabEntiteActive) {
 		listEntiteActives.addAll(tabEntiteActive);
+	}
+
+	public EntiteActive getEntiteEnCours() {
+		return entiteEnCours;
 	}
 
 }

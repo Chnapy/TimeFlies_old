@@ -6,6 +6,8 @@
 package gameplay.entite;
 
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.TimeUtils;
+import gameplay.caracteristique.Carac;
 import gameplay.caracteristique.CaracteristiquePhysique;
 import gameplay.caracteristique.Orientation;
 import gameplay.envoutement.Envoutement;
@@ -22,6 +24,8 @@ public abstract class EntiteActive extends Entite {
 	private final CaracteristiquePhysique caracPhysique;
 	private SortActif[] tabSortActif;
 	private Array<Envoutement> listEnvoutements;
+	
+	protected boolean deplacer = true;
 
 	/**
 	 *
@@ -44,6 +48,15 @@ public abstract class EntiteActive extends Entite {
 		caracPhysique = cPhysique;
 		tabSortActif = sortsActifs;
 		listEnvoutements = new Array<Envoutement>();
+	}
+
+	@Override
+	public void jouerTour() {
+		long debutTour = TimeUtils.millis();
+		long tempsAction = caracPhysique.getCaracteristique(Carac.TEMPSACTION).getActu() * 1000;
+		System.out.println("DEBUT Tour actif pendant " + caracPhysique.getCaracteristique(Carac.TEMPSACTION).getActu() + "s : " + nom);
+		while (TimeUtils.millis() < debutTour + tempsAction);
+		System.out.println("FIN Tour actif : " + nom);
 	}
 
 	/**
@@ -85,9 +98,20 @@ public abstract class EntiteActive extends Entite {
 			envout.actionFinTour();
 		}
 	}
+	
+	public void setPosition(int x, int y) {
+		caracSpatiale.getPosition().x = x;
+		caracSpatiale.getPosition().y = y;
+		setChanged();
+		notifyObservers();
+	}
 
 	public CaracteristiquePhysique getCaracPhysique() {
 		return caracPhysique;
+	}
+
+	public boolean isDeplacer() {
+		return deplacer;
 	}
 
 }

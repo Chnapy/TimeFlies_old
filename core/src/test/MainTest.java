@@ -35,7 +35,7 @@ public class MainTest extends Game {
 	 */
 	@Override
 	public void create() {
-
+		
 		Personnage[] persosJ1 = {
 			new Guerrier(
 			"bite", 1, 1, Orientation.E,

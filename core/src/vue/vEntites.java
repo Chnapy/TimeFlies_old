@@ -18,7 +18,11 @@ public class vEntites {
 
 	public vEntites(Array<Personnage> personnages) {
 		listEntites = new Array<vEntite>();
-		personnages.forEach(perso -> listEntites.add(new vEntite(perso)));
+		personnages.forEach(perso -> {
+			vEntite vent = new vEntite(perso);
+			perso.addObserver(vent);
+			listEntites.add(vent);
+		});
 	}
 
 	public void render() {

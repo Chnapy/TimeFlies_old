@@ -7,11 +7,11 @@ package vue;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import gameplay.entite.Personnage;
+import gameplay.entite.EntiteActive;
 import java.util.Observable;
 import java.util.Observer;
-import static vue.vMap.TUILE_HEIGHT;
-import static vue.vMap.TUILE_WIDTH;
+import static vue.map.vTuile.TUILE_HEIGHT;
+import static vue.map.vTuile.TUILE_WIDTH;
 
 /**
  * vEntite.java
@@ -36,7 +36,7 @@ public class vEntite implements Observer {
 	private int posX;
 	private int posY;
 
-	public vEntite(final Personnage perso) {
+	public vEntite(final EntiteActive perso) {
 		for (String[] tabEntiteSprite1 : tabEntiteSprite) {
 			if (tabEntiteSprite1[0].equals(perso.getNom())) {
 				texture = new Texture("perso/" + tabEntiteSprite1[1] + ".png");
@@ -54,8 +54,8 @@ public class vEntite implements Observer {
 	public void render() {
 		batch.begin();
 		batch.draw(texture,
-				500 + posX * TUILE_WIDTH / 2 + posY * -TUILE_HEIGHT - PERSO_WIDTH / 2,
-				300 + posX * -TUILE_WIDTH / 4 + posY * -TUILE_HEIGHT / 2,
+				500 + posX * TUILE_WIDTH / 2 + (posY-1) * -TUILE_HEIGHT - PERSO_WIDTH / 2,
+				300 + posX * -TUILE_WIDTH / 4 + (posY-1) * -TUILE_HEIGHT / 2,
 				PERSO_WIDTH,
 				PERSO_HEIGHT);
 		batch.end();
@@ -69,7 +69,8 @@ public class vEntite implements Observer {
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-
+		posX = ((EntiteActive)o).getCaracSpatiale().getPosition().x;
+		posY = ((EntiteActive)o).getCaracSpatiale().getPosition().y;
 	}
 
 }

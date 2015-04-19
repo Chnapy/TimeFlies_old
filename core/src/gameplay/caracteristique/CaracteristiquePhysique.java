@@ -79,7 +79,7 @@ public class CaracteristiquePhysique {
 		getCaracteristique(c).setTotal(valeur);
 	}
 
-	private Caracteristique getCaracteristique(Carac c) {
+	public Caracteristique getCaracteristique(Carac c) {
 		switch (c) {
 			case VITALITE:
 				return listCaracteristiques[0];
