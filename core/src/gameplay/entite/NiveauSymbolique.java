@@ -36,11 +36,14 @@ public class NiveauSymbolique {
 	 * 15% : Moyenne des 3 niveaux de sort les plus faibles
 	 * 25% : Moyenne des 3 niveaux de sort les plus forts
 	 * 60% : Moyenne de l'ensemble des niveaux de sort
-	 * 
+	 *
 	 * TODO : Prendre en compte le ratio victoires/défaites
 	 *
 	 */
 	private void calculNiveau(final Sort[] sortsPassifs, final Sort[] sortsActifs) {
+		if (sortsPassifs.length + sortsActifs.length == 0) {
+			return;
+		}
 		int[] tabNiveaux = new int[sortsPassifs.length + sortsActifs.length];
 		int[] min = new int[3], max = new int[3];
 		Arrays.fill(min, Integer.MAX_VALUE);

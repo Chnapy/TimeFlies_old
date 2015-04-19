@@ -8,6 +8,7 @@ package gameplay.core;
 import com.badlogic.gdx.utils.Array;
 import gameplay.entite.EntiteActive;
 import gameplay.entite.Personnage;
+import java.util.Observable;
 
 /**
  * Timeline.java
@@ -15,8 +16,11 @@ import gameplay.entite.Personnage;
  * Gère également la boucle de jeu.
  *
  */
-public class Timeline {
+public class Timeline extends Observable implements Runnable {
 
+	private final Thread thread;
+	private boolean enJeu;
+	
 	private Array<EntiteActive> listEntiteActives;
 
 	/**
@@ -25,14 +29,23 @@ public class Timeline {
 	 */
 	public Timeline(Array<Personnage> listPersonnages) {
 		listEntiteActives = new Array(listPersonnages);
+		thread = new Thread(this);
 	}
 
 	/**
-	 * Lance la timeline (on devrait en faire un thread ?).
+	 * Lance la timeline.
 	 */
 	public void start() {
 		initInitiative();
-		boucleDeJeu();
+		enJeu = true;
+		thread.start();
+	}
+	
+	/**
+	 * Arrete la timeline.
+	 */
+	public void stop() {
+		enJeu = false;
 	}
 
 	/**
@@ -63,8 +76,9 @@ public class Timeline {
 	 * - Si le combat peut continuer, lancement d'un tour global.
 	 *
 	 */
-	public void boucleDeJeu() {
-		while (true) {	//TODO : Utiliser une variable définissant la fin du combat
+	@Override
+	public void run() {
+		while (enJeu) {	//TODO : Utiliser une variable définissant la fin du combat
 			tourGlobal();
 		}
 	}
@@ -168,7 +182,12 @@ public class Timeline {
 	 * @param entActive
 	 */
 	private void debutTour(EntiteActive entActive) {
+		
 		entActive.debutTour();
+		
+		//Notification de la vue
+		setChanged();
+		notifyObservers();
 	}
 
 	/**
@@ -183,6 +202,10 @@ public class Timeline {
 	 */
 	private void finTour(EntiteActive entActive) {
 		entActive.finTour();
+		
+		//Notification de la vue
+		setChanged();
+		notifyObservers();
 	}
 
 	/**
@@ -213,6 +236,10 @@ public class Timeline {
 	 */
 	private void appliquerOrdreDeJeu() {
 		//TODO
+		
+		//Notification de la vue sur le nouvel ordre de jeu
+		setChanged();
+		notifyObservers();
 	}
 
 	/**

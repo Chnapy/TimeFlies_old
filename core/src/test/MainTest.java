@@ -5,10 +5,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import controleur.cCombat;
+import gameplay.caracteristique.CaracteristiquePhysique;
+import gameplay.caracteristique.Orientation;
 import gameplay.core.Joueur;
 import gameplay.entite.Personnage;
 import gameplay.map.Etat;
 import gameplay.map.Map;
+import gameplay.sort.SortActif;
+import gameplay.sort.SortPassif;
 
 /**
  * MainTest.java
@@ -19,7 +23,7 @@ import gameplay.map.Map;
  *
  */
 public class MainTest extends Game {
-	
+
 	public static final int WINDOW_WIDTH = 1000;
 	public static final int WINDOW_HEIGHT = 600;
 
@@ -32,8 +36,20 @@ public class MainTest extends Game {
 	@Override
 	public void create() {
 
-		Personnage[] persosJ1 = {};
-		Personnage[] persosJ2 = {};
+		Personnage[] persosJ1 = {
+			new Guerrier(
+			"bite", 1, 1, Orientation.E,
+			new CaracteristiquePhysique(100, 100, 100, 100, 100, 100, 100, 100, 100, 100),
+			new SortPassif[]{},
+			new SortActif[]{})
+		};
+		Personnage[] persosJ2 = {
+			new Guerrier(
+			"bite", 2, 0, Orientation.E,
+			new CaracteristiquePhysique(100, 100, 100, 100, 100, 100, 100, 100, 100, 100),
+			new SortPassif[]{},
+			new SortActif[]{})
+		};
 		Joueur[] joueurs = {
 			new Joueur(5, "J1", persosJ1),
 			new Joueur(6, "J2", persosJ2)
@@ -51,6 +67,7 @@ public class MainTest extends Game {
 
 		cCombat contCombat = new cCombat(map, joueurs);
 		this.setScreen(contCombat.getVue());
+		contCombat.lancer();
 	}
 
 	/**

@@ -7,6 +7,7 @@ package gameplay.entite;
 
 import gameplay.caracteristique.CaracteristiqueSpatiale;
 import gameplay.caracteristique.Orientation;
+import gameplay.effet.Effet;
 import gameplay.sort.SortPassif;
 import java.util.Observable;
 
@@ -47,9 +48,21 @@ public abstract class Entite extends Observable {
 		caracSpatiale = new CaracteristiqueSpatiale(posX, posY, orient);
 		tabSortPassif = sortsPassifs;
 	}
+	
+	public void recoitSort(Effet[] effets) {
+		/**
+		 * TODO :
+		 * - Lecture des effets par les sorts passifs (et actions en conséquences)
+		 * - Application des effets sur l'entité
+		 */
+	}
 
 	public String getNom() {
 		return nom;
+	}
+
+	public CaracteristiqueSpatiale getCaracSpatiale() {
+		return caracSpatiale;
 	}
 
 }

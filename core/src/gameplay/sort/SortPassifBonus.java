@@ -7,6 +7,7 @@ package gameplay.sort;
 
 import gameplay.caracteristique.Carac;
 import com.badlogic.gdx.utils.Array;
+import gameplay.effet.Effet;
 
 /**
  * SortPassifBonus.java
@@ -24,14 +25,16 @@ public abstract class SortPassifBonus extends SortPassif {
 	 * @param nom
 	 * @param description
 	 * @param niveau
+	 * @param effets
 	 * @param caracteristiques
 	 * @param valeurs
 	 */
 	public SortPassifBonus(String nom, String description, Niveau niveau,
+			Effet[] effets,
 			Array<Carac> caracteristiques,
 			Array<Integer> valeurs) {
 
-		super(nom, description, niveau);
+		super(nom, description, niveau, effets);
 
 		listCaracteristiques = caracteristiques;
 		listValeurs = valeurs;

@@ -5,7 +5,6 @@
  */
 package gameplay.sort;
 
-import com.badlogic.gdx.utils.Array;
 import gameplay.effet.Effet;
 
 /**
@@ -18,19 +17,20 @@ public abstract class Sort {
 	private String nom;
 	private String description;
 	private Niveau niveau;
-	private Array<Effet> listEffets;
+	private Effet[] tabEffets;
 
 	/**
 	 *
 	 * @param nom
 	 * @param description
 	 * @param niveau
+	 * @param effets
 	 */
-	public Sort(String nom, String description, Niveau niveau) {
+	public Sort(String nom, String description, Niveau niveau, Effet[] effets) {
 		this.nom = nom;
 		this.description = description;
 		this.niveau = niveau;
-		listEffets = new Array<Effet>();
+		tabEffets = effets;
 	}
 
 	public String getNom() {
@@ -39,6 +39,10 @@ public abstract class Sort {
 
 	public Niveau getNiveau() {
 		return niveau;
+	}
+
+	public Effet[] getTabEffets() {
+		return tabEffets;
 	}
 
 }

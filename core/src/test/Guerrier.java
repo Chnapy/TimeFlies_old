@@ -34,7 +34,7 @@ public class Guerrier extends Personnage {
 			SortPassif[] sortsPassifs,
 			SortActif[] sortsActifs) {
 		
-		super(nom, "Guerrier", posX, posY, orientation, cPhysique, sortsPassifs, sortsActifs);
+		super("Guerrier", nom, posX, posY, orientation, cPhysique, sortsPassifs, sortsActifs);
 	}
 
 }

@@ -16,7 +16,6 @@ import gameplay.envoutement.Declenchable;
  */
 public abstract class SortPassifEffets extends SortPassif {
 
-	private Array<Effet> listEffets;
 	private Array<Declenchable> listDeclenchables;
 
 	/**
@@ -28,11 +27,9 @@ public abstract class SortPassifEffets extends SortPassif {
 	 * @param declenchables
 	 */
 	public SortPassifEffets(String nom, String description, Niveau niveau,
-			Array<Effet> effets, Array<Declenchable> declenchables) {
+			Effet[] effets, Array<Declenchable> declenchables) {
+		super(nom, description, niveau, effets);
 
-		super(nom, description, niveau);
-
-		listEffets = effets;
 		listDeclenchables = declenchables;
 	}
 

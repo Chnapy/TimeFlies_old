@@ -7,6 +7,7 @@ package controleur;
 
 import com.badlogic.gdx.utils.Array;
 import gameplay.core.Joueur;
+import gameplay.core.Timeline;
 import gameplay.entite.Personnage;
 import gameplay.map.Map;
 import vue.vCombat;
@@ -32,11 +33,29 @@ public class cCombat {
 	
 	private final Map map;
 	private final Joueur[] tabJoueurs;
+	private final Timeline timeline;
 	
 	public cCombat(Map m, Joueur[] joueurs) {
 		map = m;
 		tabJoueurs = joueurs;
-		vue = new vCombat(m.getTabTuiles(), getPersonnages(joueurs));
+		Array<Personnage> listPersonnages = getPersonnages(joueurs);
+		timeline = new Timeline(listPersonnages);
+		vue = new vCombat(m.getTabTuiles(), listPersonnages, timeline);
+		timeline.addObserver(vue.getVTimeline());
+	}
+	
+	/**
+	 * Lance le combat.
+	 */
+	public void lancer() {
+		timeline.start();
+	}
+	
+	/**
+	 * Arrete le combat.
+	 */
+	public void stop() {
+		timeline.stop();
 	}
 
 	/**

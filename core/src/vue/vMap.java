@@ -17,8 +17,8 @@ import gameplay.map.Tuile;
  */
 public class vMap {
 
-	private static final int TUILE_WIDTH = 128;
-	private static final int TUILE_HEIGHT = 64;
+	public static final int TUILE_WIDTH = 128;
+	public static final int TUILE_HEIGHT = 64;
 
 	/**
 	 * Récupération des tuiles :

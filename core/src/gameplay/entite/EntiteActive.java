@@ -86,4 +86,8 @@ public abstract class EntiteActive extends Entite {
 		}
 	}
 
+	public CaracteristiquePhysique getCaracPhysique() {
+		return caracPhysique;
+	}
+
 }
