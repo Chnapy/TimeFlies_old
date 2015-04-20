@@ -123,7 +123,7 @@ public class vTuile extends Actor {
 			if (dansChemin) {
 				couleur = Color.ORANGE;
 			} else {
-				couleur = Color.WHITE;
+				couleur = Color.WHITE;	//Revient à enlever toute couleur
 			}
 		}
 	}

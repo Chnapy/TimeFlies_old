@@ -60,13 +60,19 @@ public class vMap extends Stage {
 	 * @param listePoint 
 	 */
 	public void colorTuile(Array<Point> listePoint) {
+		clearColorTuile();
 		getRoot().getChildren().forEach((Actor vtuile) -> {
-					((vTuile) vtuile).tuileDuChemin(false);
 			listePoint.forEach((Point point) -> {
 				if (((vTuile) vtuile).getPosX() == point.x && ((vTuile) vtuile).getPosY() == point.y) {
 					((vTuile) vtuile).tuileDuChemin(true);
 				}
 			});
+		});
+	}
+	
+	public void clearColorTuile() {
+		getRoot().getChildren().forEach((Actor vtuile) -> {
+					((vTuile) vtuile).tuileDuChemin(false);
 		});
 	}
 

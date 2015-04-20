@@ -51,7 +51,7 @@ public class Map implements IndexedGraph<Tuile> {
 		int x, y;
 		for (y = 0; y < plan.length; y++) {
 			for (x = 0; x < plan[0].length; x++) {
-				tabTuiles[y][x] = new Tuile(plan[y][x], new Point(x, y), y + x);
+				tabTuiles[y][x] = new Tuile(plan[y][x], new Point(x, y), y * plan[0].length + x);
 			}
 		}
 

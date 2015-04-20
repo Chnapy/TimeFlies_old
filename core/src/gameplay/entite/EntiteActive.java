@@ -26,7 +26,11 @@ public abstract class EntiteActive extends Entite {
 	private SortActif[] tabSortActif;
 	private Array<Envoutement> listEnvoutements;
 	
-	protected boolean deplacer = true;
+	//Mode Deplacement (true) ou Sort (false)
+	private boolean modeDeplacement = true;
+	
+	//Est en train de se déplacer
+	private boolean enDeplacement;
 
 	/**
 	 *
@@ -112,8 +116,20 @@ public abstract class EntiteActive extends Entite {
 		return caracPhysique;
 	}
 
-	public boolean isDeplacer() {
-		return deplacer;
+	public boolean isEnDeplacement() {
+		return enDeplacement;
+	}
+
+	public void setEnDeplacement(boolean enDeplacement) {
+		this.enDeplacement = enDeplacement;
+	}
+
+	public void setModeDeplacement(boolean deplacer) {
+		this.modeDeplacement = deplacer;
+	}
+
+	public boolean isModeDeplacement() {
+		return modeDeplacement;
 	}
 
 }

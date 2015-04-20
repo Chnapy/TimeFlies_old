@@ -82,18 +82,20 @@ public class cCombat {
 	/**
 	 * Lancé lors du survol d'une tuile.
 	 * Calcul le nouveau chemin depuis l'entité active du tour.
-	 * 
+	 *
 	 * @param x
-	 * @param y 
+	 * @param y
 	 */
 	public void survolTuile(int x, int y) {
 		Tuile tuile = map.getTabTuiles()[y][x];
 		System.out.println(tuile.getEtat());
 
 		EntiteActive ent = timeline.getEntiteEnCours();
-		if (ent.isDeplacer()) {
+		if (ent.isModeDeplacement()) {
+
+			vue.getVmap().clearColorTuile();
 			//Déplacement
-			if (!ent.getCaracSpatiale().getPosition().equals(tuile.getPosition())
+			if (!ent.isEnDeplacement() && !ent.getCaracSpatiale().getPosition().equals(tuile.getPosition())
 					&& !tuile.getEtat().equals(Etat.OBSTACLE)
 					&& !tuile.getEtat().equals(Etat.TROU)) {
 				path = map.getChemin(ent.getCaracSpatiale().getPosition(), new Point(x, y));
@@ -118,9 +120,11 @@ public class cCombat {
 		System.out.println(tuile.getEtat());
 
 		EntiteActive ent = timeline.getEntiteEnCours();
-		if (ent.isDeplacer()) {
+		if (ent.isModeDeplacement()) {
 			//Déplacement
-			if (path != null) {
+			if (!ent.isEnDeplacement() && path != null) {
+				vue.getVmap().clearColorTuile();
+				ent.setEnDeplacement(true);
 				ent.setPosition(path);
 				path = null; //Purge
 			}

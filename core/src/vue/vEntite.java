@@ -7,8 +7,10 @@ package vue;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.run;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.utils.Array;
 import gameplay.entite.Entite;
@@ -38,6 +40,7 @@ public class vEntite extends Actor implements Observer {
 	};
 
 	private Texture texture = null;
+	private boolean enDeplacement;
 
 	private int posX;
 	private int posY;
@@ -53,7 +56,7 @@ public class vEntite extends Actor implements Observer {
 			throw new Error("Perso non géré : " + perso.getNom());
 		}
 		setPosition(perso.getCaracSpatiale().getPosition().x,
-				posY = perso.getCaracSpatiale().getPosition().y, true);
+				perso.getCaracSpatiale().getPosition().y, true);
 	}
 
 	@Override
@@ -82,18 +85,20 @@ public class vEntite extends Actor implements Observer {
 		float[] position;
 		for (int i = 0; i < listParcours.size; i++) {
 			position = vTuile.getPosition(listParcours.get(i).x, listParcours.get(i).y);
-			tabMoveTo[i] = Actions.moveTo(position[0] + PERSO_WIDTH / 2, position[1] + TUILE_HEIGHT / 2, 1);
+			tabMoveTo[i] = Actions.moveTo(position[0] + PERSO_WIDTH / 2, position[1] + TUILE_HEIGHT / 2, 0.5f);
 		}
-		this.addAction(Actions.sequence(tabMoveTo));
+		this.addAction(Actions.sequence(Actions.sequence(tabMoveTo), run(() -> {
+			((EntiteActive)o).setEnDeplacement(false);
+		})));
 	}
 
 	/**
 	 * Applique les positions posX et posY.
 	 * Selon le booléen, applique ou non les positions réelles.
-	 * 
+	 *
 	 * @param x
 	 * @param y
-	 * @param set_xy 
+	 * @param set_xy
 	 */
 	private void setPosition(int x, int y, boolean set_xy) {
 		posX = x;
