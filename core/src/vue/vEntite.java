@@ -7,20 +7,22 @@ package vue;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
+import com.badlogic.gdx.utils.Array;
+import gameplay.entite.Entite;
 import gameplay.entite.EntiteActive;
+import java.awt.Point;
 import java.util.Observable;
 import java.util.Observer;
-import static vue.map.vTuile.OFFSET_X;
-import static vue.map.vTuile.OFFSET_Y;
+import vue.map.vTuile;
 import static vue.map.vTuile.TUILE_HEIGHT;
-import static vue.map.vTuile.TUILE_WIDTH;
 
 /**
  * vEntite.java
  * Représente la vue de l'entité
+ * Gère les animations et déplacements.
  *
  */
 public class vEntite extends Actor implements Observer {
@@ -63,36 +65,44 @@ public class vEntite extends Actor implements Observer {
 	}
 
 	/**
-	 * Observer de l'entité (gameplay)
+	 * Observer de l'entité (gameplay).
+	 * Recois le chemin à parcourir pour l'entité.
+	 * Effectue les actions de déplacement.
 	 *
-	 * @param o
-	 * @param arg
+	 * @param o	  Entite
+	 * @param arg	Array de Point
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		setPosition(((EntiteActive) o).getCaracSpatiale().getPosition().x,
-				((EntiteActive) o).getCaracSpatiale().getPosition().y, false);
-		float[] position = getPosition(posX, posY);
-		this.addAction(Actions.sequence(
-				Actions.moveTo(position[0], position[1], 1)
-		));
+		Array<Point> listParcours = (Array<Point>) arg;
+		setPosition(((Entite) o).getCaracSpatiale().getPosition().x,
+				((Entite) o).getCaracSpatiale().getPosition().y, false);
+
+		MoveToAction[] tabMoveTo = new MoveToAction[listParcours.size];
+		float[] position;
+		for (int i = 0; i < listParcours.size; i++) {
+			position = vTuile.getPosition(listParcours.get(i).x, listParcours.get(i).y);
+			tabMoveTo[i] = Actions.moveTo(position[0] + PERSO_WIDTH / 2, position[1] + TUILE_HEIGHT / 2, 1);
+		}
+		this.addAction(Actions.sequence(tabMoveTo));
 	}
 
+	/**
+	 * Applique les positions posX et posY.
+	 * Selon le booléen, applique ou non les positions réelles.
+	 * 
+	 * @param x
+	 * @param y
+	 * @param set_xy 
+	 */
 	private void setPosition(int x, int y, boolean set_xy) {
 		posX = x;
 		posY = y;
 		if (set_xy) {
-			float[] position = getPosition(x, y);
-			setX(position[0]);
-			setY(position[1]);
+			float[] position = vTuile.getPosition(x, y);
+			setX(position[0] + PERSO_WIDTH / 2);
+			setY(position[1] + TUILE_HEIGHT / 2);
 		}
-	}
-
-	private float[] getPosition(int x, int y) {
-		return new float[]{
-			OFFSET_X + x * TUILE_WIDTH / 2 + (y - 1) * -TUILE_HEIGHT - PERSO_WIDTH / 2,
-			OFFSET_Y + x * -TUILE_WIDTH / 4 + (y - 1) * -TUILE_HEIGHT / 2
-		};
 	}
 
 }

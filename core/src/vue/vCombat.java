@@ -7,13 +7,13 @@ package vue;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
-import vue.map.vMap;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.utils.Array;
 import controleur.cCombat;
 import gameplay.core.Timeline;
 import gameplay.entite.Personnage;
 import gameplay.map.Tuile;
+import vue.map.vMap;
 
 /**
  * vCombat.java
@@ -21,10 +21,10 @@ import gameplay.map.Tuile;
  */
 public class vCombat implements Screen {
 
-	private cCombat combat;
-	private vMap vmap;
-	private vEntites ventites;
-	private vTimeline vtimeline;
+	private final cCombat combat;
+	private final vMap vmap;
+	private final vEntites ventites;
+	private final vTimeline vtimeline;
 
 	/**
 	 *
@@ -88,8 +88,16 @@ public class vCombat implements Screen {
 	public void dispose() {
 	}
 
-	public vTimeline getVTimeline() {
+	public vTimeline getVtimeline() {
 		return vtimeline;
+	}
+
+	public vMap getVmap() {
+		return vmap;
+	}
+
+	public vEntites getVentites() {
+		return ventites;
 	}
 
 }

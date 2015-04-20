@@ -16,12 +16,13 @@ import java.awt.Point;
 /**
  * Map.java
  * Représente la map du combat.
+ * Gère égelement le pathfinding.
  *
  */
 public class Map implements IndexedGraph<Tuile> {
 
-	private Tuile[][] tabTuiles;
-	
+	private final Tuile[][] tabTuiles;
+
 	//Pathfinding
 	private final Finder finder;
 	private final Chemin chemin;
@@ -29,7 +30,8 @@ public class Map implements IndexedGraph<Tuile> {
 
 	/**
 	 *
-	 * @param plan
+	 * @param plan	map représentée sous forme d'état de tuile (simple, obstacle,
+	 *             etc...)
 	 */
 	public Map(Etat[][] plan) {
 		tabTuiles = new Tuile[plan.length][plan[0].length];
@@ -39,27 +41,34 @@ public class Map implements IndexedGraph<Tuile> {
 		heuristique = new Heuristique();
 	}
 
+	/**
+	 * Rempli la map depuis le plan.
+	 * Génère les connections entre les tuiles pour le pathfinding.
+	 *
+	 * @param plan
+	 */
 	private void init(Etat[][] plan) {
-		for (int i = 0; i < plan.length; i++) {
-			for (int j = 0; j < plan[0].length; j++) {
-				tabTuiles[i][j] = new Tuile(plan[i][j], new Point(i, j), i + j);
+		int x, y;
+		for (y = 0; y < plan.length; y++) {
+			for (x = 0; x < plan[0].length; x++) {
+				tabTuiles[y][x] = new Tuile(plan[y][x], new Point(x, y), y + x);
 			}
 		}
 
 		//Définitions des connections pour le pathfinding
-		for (int i = 0; i < plan.length; i++) {
-			for (int j = 0; j < plan[0].length; j++) {
-				if (i - 1 >= 0 && (!tabTuiles[i - 1][j].getEtat().equals(Etat.TROU) || !tabTuiles[i - 1][j].getEtat().equals(Etat.OBSTACLE))) {
-					tabTuiles[i][j].addConnection(tabTuiles[i - 1][j]);
+		for (y = 0; y < plan.length; y++) {
+			for (x = 0; x < plan[0].length; x++) {
+				if (y - 1 >= 0 && (!tabTuiles[y - 1][x].getEtat().equals(Etat.TROU) && !tabTuiles[y - 1][x].getEtat().equals(Etat.OBSTACLE))) {
+					tabTuiles[y][x].addConnection(tabTuiles[y - 1][x]);
 				}
-				if (i + 1 < plan.length && (!tabTuiles[i + 1][j].getEtat().equals(Etat.TROU) || !tabTuiles[i + 1][j].getEtat().equals(Etat.OBSTACLE))) {
-					tabTuiles[i][j].addConnection(tabTuiles[i + 1][j]);
+				if (y + 1 < plan.length && (!tabTuiles[y + 1][x].getEtat().equals(Etat.TROU) && !tabTuiles[y + 1][x].getEtat().equals(Etat.OBSTACLE))) {
+					tabTuiles[y][x].addConnection(tabTuiles[y + 1][x]);
 				}
-				if (j - 1 >= 0 && (!tabTuiles[i][j - 1].getEtat().equals(Etat.TROU) || !tabTuiles[i][j - 1].getEtat().equals(Etat.OBSTACLE))) {
-					tabTuiles[i][j].addConnection(tabTuiles[i][j - 1]);
+				if (x - 1 >= 0 && (!tabTuiles[y][x - 1].getEtat().equals(Etat.TROU) && !tabTuiles[y][x - 1].getEtat().equals(Etat.OBSTACLE))) {
+					tabTuiles[y][x].addConnection(tabTuiles[y][x - 1]);
 				}
-				if (j + 1 < plan[0].length && (!tabTuiles[i][j + 1].getEtat().equals(Etat.TROU) || !tabTuiles[i][j + 1].getEtat().equals(Etat.OBSTACLE))) {
-					tabTuiles[i][j].addConnection(tabTuiles[i][j + 1]);
+				if (x + 1 < plan[0].length && (!tabTuiles[y][x + 1].getEtat().equals(Etat.TROU) && !tabTuiles[y][x + 1].getEtat().equals(Etat.OBSTACLE))) {
+					tabTuiles[y][x].addConnection(tabTuiles[y][x + 1]);
 				}
 			}
 		}
@@ -69,18 +78,37 @@ public class Map implements IndexedGraph<Tuile> {
 		return tabTuiles;
 	}
 
-	public Point[] getChemin(Point source, Point dest) {
-		Tuile src = tabTuiles[1][0];
-		Tuile end = tabTuiles[3][2];
-		finder.searchNodePath(src, end, heuristique, chemin);
-		System.out.println(chemin);
+	/**
+	 * Calcul du chemin à partir d'un point source et d'un point destination.
+	 *
+	 * @param source
+	 * @param dest
+	 * @return liste des points (positions des tuiles) parcourus par le chemin
+	 */
+	public Array<Point> getChemin(Point source, Point dest) {
+
+		//Remplissage du chemin dans 'chemin'
+		if (!finder.searchNodePath(tabTuiles[source.y][source.x], tabTuiles[dest.y][dest.x], heuristique, chemin)) {
+			//Si aucun chemin n'a été trouvé
+			System.err.println("Aucun chemin trouvé !");
+			return null;
+		}
+		System.out.println("De " + source + " à " + dest + " " + chemin);
+
+		Array<Point> ret = new Array<>(chemin.size);
+		for (int i = 1; i < chemin.size; i++) {	//On ne prend pas la 1ère valeur !
+			ret.add(chemin.get(i).getPosition());
+		}
+
+		//Purge de 'chemin' pour le prochain calcul
 		chemin.clear();
-		return null;//todo
+
+		return ret;
 	}
 
 	@Override
 	public int getNodeCount() {
-		return tabTuiles.length + tabTuiles[0].length;
+		return tabTuiles.length * tabTuiles[0].length;
 	}
 
 	@Override

@@ -8,6 +8,7 @@ package vue.map;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -17,14 +18,16 @@ import controleur.cCombat;
 
 /**
  * vTuile.java
+ * Vue de chaque tuile.
+ * Gère également les actions user.
  *
  */
 public class vTuile extends Actor {
 
 	public static final int TUILE_WIDTH = 128;
 	public static final int TUILE_HEIGHT = 64;
-	public static final int OFFSET_X = 500;
-	public static final int OFFSET_Y = 300;
+	public static final int OFFSET_X = 0;
+	public static final int OFFSET_Y = 250;
 
 	private static final TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("tuile/tuile.atlas"));
 	private static final Sprite[] tabSprite = {
@@ -36,16 +39,19 @@ public class vTuile extends Actor {
 
 	private int posX;
 	private int posY;
-	private int x;
-	private int y;
+	private float x;
+	private float y;
 	private int iSprite;
 	private Color couleur = Color.WHITE;
+	BitmapFont lab;
 
 	public vTuile(int posx, int posy, int indexSprite, cCombat ccombat) {
+		this.lab = new BitmapFont();
 		posX = posx;
 		posY = posy;
-		x = OFFSET_X + posx * TUILE_WIDTH / 2 + posy * -TUILE_HEIGHT;
-		y = OFFSET_Y + posx * -TUILE_WIDTH / 4 + posy * -TUILE_HEIGHT / 2;
+		float[] pos = getPosition(posx, posy);
+		x = pos[0];
+		y = pos[1];
 		iSprite = indexSprite;
 
 		setBounds(x, y, TUILE_WIDTH, TUILE_HEIGHT);
@@ -61,7 +67,7 @@ public class vTuile extends Actor {
 			public void touchUp(InputEvent event, float X, float Y,
 					int pointer, int button) {
 				System.out.println("up : " + X + " " + Y);
-				ccombat.clicSurTuile(posx, posy);	//Envoi de la tuile (gameplay) au controleur
+				ccombat.clicSurTuile(posx, posy);	//Déplacement/Lancement de sort
 			}
 
 			@Override
@@ -72,6 +78,7 @@ public class vTuile extends Actor {
 			@Override
 			public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
 				couleur = Color.RED;
+				ccombat.survolTuile(posx, posy);	//Affichage déplacement possible
 			}
 		});
 	}
@@ -80,6 +87,45 @@ public class vTuile extends Actor {
 	public void draw(Batch batch, float parentAlpha) {
 		batch.setColor(couleur);
 		batch.draw(tabSprite[iSprite], x, y);
+		lab.setColor(Color.BLACK);
+		lab.draw(batch, posX + "_" + posY, x + 250, y + 150);
+	}
+
+	/**
+	 * Récupération de la position réelle.
+	 * 
+	 * @param x
+	 * @param y
+	 * @return 
+	 */
+	public static float[] getPosition(int x, int y) {
+		return new float[]{
+			OFFSET_X + x * TUILE_WIDTH / 2 + y * TUILE_WIDTH / 2,
+			OFFSET_Y + x * TUILE_HEIGHT / 2 + y * -TUILE_HEIGHT / 2
+		};
+	}
+
+	public int getPosX() {
+		return posX;
+	}
+
+	public int getPosY() {
+		return posY;
+	}
+
+	/**
+	 * Lancé lors de l'application du pathfinding dans la vue.
+	 * 
+	 * @param dansChemin 
+	 */
+	public void tuileDuChemin(boolean dansChemin) {
+		if (couleur != Color.RED) {
+			if (dansChemin) {
+				couleur = Color.ORANGE;
+			} else {
+				couleur = Color.WHITE;
+			}
+		}
 	}
 
 }

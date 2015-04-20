@@ -16,12 +16,6 @@ public class Heuristique implements Heuristic<Tuile> {
 
 	@Override
 	public float estimate(Tuile start, Tuile end) {
-//		if (end.getEtat().equals(Etat.OBSTACLE) || end.getEtat().equals(Etat.TROU)) {
-//			return 0;
-//		}
-//		if (Math.abs(end.getPosition().x - start.getPosition().x) + Math.abs(end.getPosition().y - start.getPosition().y) > 1) {
-//			return 0;
-//		}
 		return 0;
 	}
 

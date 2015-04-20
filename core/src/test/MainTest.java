@@ -38,7 +38,7 @@ public class MainTest extends Game {
 		
 		Personnage[] persosJ1 = {
 			new Guerrier(
-			"bite", 1, 0, Orientation.E,
+			"bite", 1, 2, Orientation.E,
 			new CaracteristiquePhysique(100, 100, 100, 100, 100, 100, 100, 100, 100, 100),
 			new SortPassif[]{},
 			new SortActif[]{})
@@ -57,6 +57,8 @@ public class MainTest extends Game {
 		Map map = new Map(new Etat[][]{
 			{Etat.SIMPLE, Etat.SIMPLE, Etat.OBSTACLE},
 			{Etat.SIMPLE, Etat.TROU, Etat.OBSTACLE},
+			{Etat.SIMPLE, Etat.SIMPLE, Etat.SIMPLE},
+			{Etat.SIMPLE, Etat.SIMPLE, Etat.SIMPLE},
 			{Etat.ECRAN, Etat.ECRAN, Etat.SIMPLE},
 			{Etat.ECRAN, Etat.ECRAN, Etat.SIMPLE}
 		});

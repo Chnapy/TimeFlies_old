@@ -13,6 +13,7 @@ import gameplay.caracteristique.Orientation;
 import gameplay.envoutement.Envoutement;
 import gameplay.sort.SortActif;
 import gameplay.sort.SortPassif;
+import java.awt.Point;
 
 /**
  * EntiteActive.java
@@ -99,11 +100,12 @@ public abstract class EntiteActive extends Entite {
 		}
 	}
 	
-	public void setPosition(int x, int y) {
-		caracSpatiale.getPosition().x = x;
-		caracSpatiale.getPosition().y = y;
+	//Change la position, notifie la vue
+	public void setPosition(Array<Point> listeParcours) {
+		caracSpatiale.getPosition().x = listeParcours.peek().x;
+		caracSpatiale.getPosition().y = listeParcours.peek().y;
 		setChanged();
-		notifyObservers();
+		notifyObservers(listeParcours);
 	}
 
 	public CaracteristiquePhysique getCaracPhysique() {

@@ -5,9 +5,12 @@
  */
 package vue.map;
 
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Array;
 import controleur.cCombat;
 import gameplay.map.Tuile;
+import java.awt.Point;
 
 /**
  * vMap.java
@@ -49,6 +52,22 @@ public class vMap extends Stage {
 	public void render() {
 		act();
 		draw();
+	}
+
+	/**
+	 * Colorie les tuiles du chemin visible.
+	 * 
+	 * @param listePoint 
+	 */
+	public void colorTuile(Array<Point> listePoint) {
+		getRoot().getChildren().forEach((Actor vtuile) -> {
+					((vTuile) vtuile).tuileDuChemin(false);
+			listePoint.forEach((Point point) -> {
+				if (((vTuile) vtuile).getPosX() == point.x && ((vTuile) vtuile).getPosY() == point.y) {
+					((vTuile) vtuile).tuileDuChemin(true);
+				}
+			});
+		});
 	}
 
 }
