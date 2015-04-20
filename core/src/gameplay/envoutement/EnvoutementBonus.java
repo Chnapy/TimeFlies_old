@@ -13,7 +13,8 @@ package gameplay.envoutement;
 public abstract class EnvoutementBonus extends Envoutement {
 
 	/**
-	 *
+	 * 
+	 * 
 	 * @param nom
 	 * @param duree
 	 */

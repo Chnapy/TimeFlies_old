@@ -10,8 +10,6 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
-import com.badlogic.gdx.utils.Pool;
 import gameplay.entite.EntiteActive;
 import java.util.Observable;
 import java.util.Observer;
@@ -38,7 +36,6 @@ public class vEntite extends Actor implements Observer {
 	};
 
 	private Texture texture = null;
-	private SpriteBatch batch;
 
 	private int posX;
 	private int posY;
@@ -47,6 +44,7 @@ public class vEntite extends Actor implements Observer {
 		for (String[] tabEntiteSprite1 : tabEntiteSprite) {
 			if (tabEntiteSprite1[0].equals(perso.getNom())) {
 				texture = new Texture("perso/" + tabEntiteSprite1[1] + ".png");
+				break;
 			}
 		}
 		if (texture == null) {
@@ -75,7 +73,9 @@ public class vEntite extends Actor implements Observer {
 		setPosition(((EntiteActive) o).getCaracSpatiale().getPosition().x,
 				((EntiteActive) o).getCaracSpatiale().getPosition().y, false);
 		float[] position = getPosition(posX, posY);
-		this.addAction(Actions.moveTo(position[0], position[1], 1));
+		this.addAction(Actions.sequence(
+				Actions.moveTo(position[0], position[1], 1)
+		));
 	}
 
 	private void setPosition(int x, int y, boolean set_xy) {

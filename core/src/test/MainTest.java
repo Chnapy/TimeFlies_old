@@ -38,7 +38,7 @@ public class MainTest extends Game {
 		
 		Personnage[] persosJ1 = {
 			new Guerrier(
-			"bite", 1, 1, Orientation.E,
+			"bite", 1, 0, Orientation.E,
 			new CaracteristiquePhysique(100, 100, 100, 100, 100, 100, 100, 100, 100, 100),
 			new SortPassif[]{},
 			new SortActif[]{})

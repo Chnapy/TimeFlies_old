@@ -14,12 +14,12 @@ package gameplay.envoutement;
 public abstract class Envoutement {
 
 	private String nom;
-	private int duree;
+	private int duree;	//En nombre de tours
 
 	/**
 	 *
 	 * @param nom
-	 * @param duree
+	 * @param duree	nombre de tours
 	 */
 	public Envoutement(String nom, int duree) {
 		this.nom = nom;

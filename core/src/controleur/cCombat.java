@@ -13,6 +13,7 @@ import gameplay.entite.Personnage;
 import gameplay.map.Etat;
 import gameplay.map.Map;
 import gameplay.map.Tuile;
+import java.awt.Point;
 import vue.vCombat;
 
 /**
@@ -90,6 +91,9 @@ public class cCombat {
 			//Déplacement
 			if (tuile.getEtat().equals(Etat.SIMPLE) || tuile.getEtat().equals(Etat.ECRAN)) {
 				ent.setPosition(x, y);
+				
+				map.getChemin(ent.getCaracSpatiale().getPosition(), new Point(x, y));
+				
 			}
 		} else {
 			//Lancement de sort

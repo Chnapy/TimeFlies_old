@@ -22,26 +22,26 @@ public class Niveau {
 	private int experienceActu;
 
 	/**
-	 * Niveau d'après l'xp.
-	 * 
-	 * @param xp
+	 * Niveau en fonction de l'experience.
+	 *
+	 * @param xp	experience
 	 */
 	public Niveau(int xp) {
 		experienceActu = xp;
 		niveauActu = calculNiveau();
 	}
-	
+
 	/**
-	 * Niveau donné, expérience définie d'après le niveau donné.
+	 * Experience en fonction du niveau donné.
 	 * Le paramêtre booleen 'rien' est inutile.
-	 * 
-	 * @param niveau
-	 * @param rien 
+	 *
+	 * @param niveau	niveau donné
+	 * @param rien   osef
 	 */
 	public Niveau(int niveau, boolean rien) {
 		experienceActu = calculExperience(niveau);
 		niveauActu = niveau;
-		
+
 	}
 
 	/**
@@ -61,7 +61,7 @@ public class Niveau {
 	/**
 	 * Calcul le niveau depuis l'expérience possédée.
 	 * Utilise un algo logarithmique.
-	 * 
+	 *
 	 * niveau = racine(experience) * echelle
 	 *
 	 * @return	niveau
@@ -73,7 +73,7 @@ public class Niveau {
 	/**
 	 * Calcul l'expérience depuis un niveau.
 	 * Utilise le même algo que pour calculNiveau() mais de manière inversée.
-	 * 
+	 *
 	 * experience = (niveau / echelle)²
 	 *
 	 * @param niveau	niveau

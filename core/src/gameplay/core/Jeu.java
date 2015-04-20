@@ -18,7 +18,8 @@ public class Jeu {
 	private Array<Combat> listCombat;
 
 	/**
-	 *
+	 * 
+	 * 
 	 */
 	public Jeu() {
 		listCombat = new Array<Combat>();
