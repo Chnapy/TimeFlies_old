@@ -22,7 +22,7 @@ public class Diagonales extends Zone {
 	 * @param posit
 	 */
 	public Diagonales(int size, boolean posit, Map currentMap) {
-		super(posit/*, size, currentMap*/);
+		super(posit, size, currentMap);
 		//TODO taille
 	}
         
