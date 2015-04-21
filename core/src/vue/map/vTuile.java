@@ -93,10 +93,10 @@ public class vTuile extends Actor {
 
 	/**
 	 * Récupération de la position réelle.
-	 * 
+	 *
 	 * @param x
 	 * @param y
-	 * @return 
+	 * @return
 	 */
 	public static float[] getPosition(int x, int y) {
 		return new float[]{
@@ -115,8 +115,8 @@ public class vTuile extends Actor {
 
 	/**
 	 * Lancé lors de l'application du pathfinding dans la vue.
-	 * 
-	 * @param dansChemin 
+	 *
+	 * @param dansChemin
 	 */
 	public void tuileDuChemin(boolean dansChemin) {
 		if (couleur != Color.RED) {

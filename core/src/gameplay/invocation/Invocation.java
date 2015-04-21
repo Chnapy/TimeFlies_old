@@ -11,5 +11,5 @@ package gameplay.invocation;
  *
  */
 public interface Invocation {
-	
+
 }

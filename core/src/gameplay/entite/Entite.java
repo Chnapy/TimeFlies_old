@@ -48,15 +48,16 @@ public abstract class Entite extends Observable {
 		caracSpatiale = new CaracteristiqueSpatiale(posX, posY, orient);
 		tabSortPassif = sortsPassifs;
 	}
-	
+
 	public void jouerTour() {
 		//TODO
 	}
-	
+
 	public void recoitSort(Effet[] effets) {
 		/**
 		 * TODO :
-		 * - Lecture des effets par les sorts passifs (et actions en conséquences)
+		 * - Lecture des effets par les sorts passifs (et actions en
+		 * conséquences)
 		 * - Application des effets sur l'entité
 		 */
 	}

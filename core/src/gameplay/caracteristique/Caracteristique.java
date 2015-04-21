@@ -8,13 +8,13 @@ package gameplay.caracteristique;
 /**
  * Caracteristique.java
  * Représente une caractéristique.
- * 
+ *
  */
 public abstract class Caracteristique {
-	
+
 	private int total;
 	private int actu;
-	
+
 	/**
 	 *
 	 * @param total
@@ -24,25 +24,25 @@ public abstract class Caracteristique {
 		this.total = total;
 		this.actu = actu;
 	}
-	
+
 	/**
 	 *
 	 * @param gain
 	 */
 	public void add(int gain) {
 		actu += gain;
-		if(actu > total) {
+		if (actu > total) {
 			actu = total;
 		}
 	}
-	
+
 	/**
 	 *
 	 * @param perte
 	 */
 	public void supp(int perte) {
 		actu -= perte;
-		if(actu < 0) {
+		if (actu < 0) {
 			actu = 0;
 		}
 	}
@@ -62,7 +62,7 @@ public abstract class Caracteristique {
 	public void setActu(int actu) {
 		this.actu = actu;
 	}
-	
+
 	/**
 	 *
 	 * @return

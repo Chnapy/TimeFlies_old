@@ -5,17 +5,29 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import test.MainTest;
 
 public class DesktopLauncher {
-	
-	private static final int WINDOW_WIDTH = MainTest.WINDOW_WIDTH;
-	private static final int WINDOW_HEIGHT = MainTest.WINDOW_HEIGHT;
+
+	private static final int WINDOW_WIDTH = 1000;
+	private static final int WINDOW_HEIGHT = 600;
 
 	public static void main(String[] arg) {
-		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.title = "TimeFlies";
-		config.useGL30 = false;
-		config.width = WINDOW_WIDTH;
-		config.height = WINDOW_HEIGHT;
 
-		LwjglApplication application = new LwjglApplication(new MainTest(), config);
+		LwjglApplication application = new LwjglApplication(new MainTest(), getConfig(
+				"TimeFlies",
+				false
+		));
+	}
+
+	private static LwjglApplicationConfiguration getConfig(String title, boolean fullscreen) {
+
+		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+		config.title = title;
+		config.useGL30 = false;
+		if (!fullscreen) {
+			config.width = WINDOW_WIDTH;
+			config.height = WINDOW_HEIGHT;
+		}
+		config.fullscreen = fullscreen;
+
+		return config;
 	}
 }

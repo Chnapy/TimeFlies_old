@@ -11,7 +11,8 @@ import gameplay.effet.Effet;
 /**
  * EnvoutementEffets.java
  * Représente un effet déclenchable, temporaire, appliqué à une entité active.
- * Les effets de l'envoutement s'appliquent lorsque l'ensemble des déclenchables sont activés.
+ * Les effets de l'envoutement s'appliquent lorsque l'ensemble des déclenchables
+ * sont activés.
  *
  */
 public abstract class EnvoutementEffets extends Envoutement {

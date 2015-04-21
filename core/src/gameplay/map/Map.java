@@ -23,8 +23,8 @@ import java.awt.Point;
 public class Map implements IndexedGraph<Tuile> {
 
 	private final Tuile[][] tabTuiles;
-        private Dimension dimension;
-        
+	private Dimension dimension;
+
 	//Pathfinding
 	private final Finder finder;
 	private final Chemin chemin;
@@ -38,11 +38,11 @@ public class Map implements IndexedGraph<Tuile> {
 	public Map(Etat[][] plan) {
 		tabTuiles = new Tuile[plan.length][plan[0].length];
 		dimension = new Dimension(plan.length, plan[0].length);
-                init(plan);
+		init(plan);
 		finder = new Finder(this);
 		chemin = new Chemin();
 		heuristique = new Heuristique();
-                
+
 	}
 
 	/**
@@ -119,8 +119,8 @@ public class Map implements IndexedGraph<Tuile> {
 	public Array<Connection<Tuile>> getConnections(Tuile n) {
 		return n.getConnections();
 	}
-        
-        public Dimension getMapDimension(){
-            return dimension;
-        }
+
+	public Dimension getMapDimension() {
+		return dimension;
+	}
 }

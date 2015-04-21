@@ -49,7 +49,7 @@ public class Chemin extends Array<Tuile> implements GraphPath<Tuile> {
 	@Override
 	public String toString() {
 		String ret = "Chemin :\n";
-		for(Tuile tuile : this) {
+		for (Tuile tuile : this) {
 			ret += tuile.getPosition().x + " " + tuile.getPosition().y + "\n";
 		}
 		return ret;

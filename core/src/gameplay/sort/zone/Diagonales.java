@@ -25,12 +25,11 @@ public class Diagonales extends Zone {
 		super(posit, size, currentMap);
 		//TODO taille
 	}
-        
-        
-    // TODO 
-    public Tuile[] getTilesOfInterrest(Point center) {
-        
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+
+	// TODO 
+	public Tuile[] getTilesOfInterrest(Point center) {
+
+		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	}
 
 }

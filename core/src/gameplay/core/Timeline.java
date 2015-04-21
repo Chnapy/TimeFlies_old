@@ -20,7 +20,7 @@ public class Timeline extends Observable implements Runnable {
 
 	private final Thread thread;
 	private boolean enJeu;
-	
+
 	private Array<EntiteActive> listEntiteActives;
 	private EntiteActive entiteEnCours;
 
@@ -41,7 +41,7 @@ public class Timeline extends Observable implements Runnable {
 		enJeu = true;
 		thread.start();
 	}
-	
+
 	/**
 	 * Arrete la timeline.
 	 */
@@ -57,23 +57,23 @@ public class Timeline extends Observable implements Runnable {
 	 *
 	 * - Placement des personnages sur la map
 	 * - Inititalisation de l'initiative de chaque personnage
-	 * 
+	 *
 	 * - Lancement d'un tour global :
 	 * -- Ordonner la liste des entités actives en fonction de leur initiative
 	 * -- Pour chaque entité active :
 	 * --- Pour chacun de leur envoûtement, lancer l'action de début de tour
 	 * global
-	 * 
+	 *
 	 * -- Pour chaque entité active, si le combat peut continuer, lancement du
 	 * tour de l'entité :
 	 * --- Pour chacun de ses envoûtements, lancer l'action de début de tour
 	 * --- Le joueur joue son tour
 	 * --- Pour chacun de ses envoûtements, lancer l'action de fin de tour
-	 * 
+	 *
 	 * -- Pour chaque entité active :
 	 * --- Pour chacun de leur envoûtement, lancer l'action de fin de tour
 	 * global
-	 * 
+	 *
 	 * - Si le combat peut continuer, lancement d'un tour global.
 	 *
 	 */
@@ -95,13 +95,13 @@ public class Timeline extends Observable implements Runnable {
 	 * - Pour chaque entité active :
 	 * -- Pour chacun de leur envoûtement, lancer l'action de début de tour
 	 * global
-	 * 
+	 *
 	 * - Pour chaque entité active, si le combat peut continuer, lancement du
 	 * tour de l'entité :
 	 * -- Pour chacun de ses envoûtements, lancer l'action de début de tour
 	 * -- Le joueur joue son tour
 	 * -- Pour chacun de ses envoûtements, lancer l'action de fin de tour
-	 * 
+	 *
 	 * - Pour chaque entité active :
 	 * -- Pour chacun de leur envoûtement, lancer l'action de fin de tour global
 	 */
@@ -141,9 +141,9 @@ public class Timeline extends Observable implements Runnable {
 	/**
 	 * Actions lancées pour une entité active au moment où le tour global
 	 * commence.
-	 * 
+	 *
 	 * Pseudo-code :
-	 * 
+	 *
 	 * - Pour chaque entité active :
 	 * -- Pour chacun de leur envoûtement, lancer l'action de fin de tour global
 	 *
@@ -157,9 +157,9 @@ public class Timeline extends Observable implements Runnable {
 
 	/**
 	 * Un tour (non-global) représente un temps de jeu où une entité peut jouer.
-	 * 
+	 *
 	 * Pseudo-code :
-	 * 
+	 *
 	 * - Pour chacun de ses envoûtements, lancer l'action de début de tour
 	 * - Le joueur joue son tour
 	 * - Pour chacun de ses envoûtements, lancer l'action de fin de tour
@@ -170,24 +170,24 @@ public class Timeline extends Observable implements Runnable {
 		debutTour(entActive);
 
 		entActive.jouerTour();
-		
+
 		finTour(entActive);
 	}
 
 	/**
 	 * Actions lancées pour une entité active au moment où le tour de cette
 	 * entité commence.
-	 * 
+	 *
 	 * Pseudo-code :
-	 * 
+	 *
 	 * - Pour chacun de ses envoûtements, lancer l'action de début de tour
 	 *
 	 * @param entActive
 	 */
 	private void debutTour(EntiteActive entActive) {
-		
+
 		entActive.debutTour();
-		
+
 		//Notification de la vue
 		setChanged();
 		notifyObservers();
@@ -196,16 +196,16 @@ public class Timeline extends Observable implements Runnable {
 	/**
 	 * Actions lancées pour une entité active au moment où le tour de cette
 	 * entité finit.
-	 * 
+	 *
 	 * Pseudo-code :
-	 * 
+	 *
 	 * - Pour chacun de ses envoûtements, lancer l'action de fin de tour
 	 *
 	 * @param entActive
 	 */
 	private void finTour(EntiteActive entActive) {
 		entActive.finTour();
-		
+
 		//Notification de la vue
 		setChanged();
 		notifyObservers();
@@ -219,11 +219,11 @@ public class Timeline extends Observable implements Runnable {
 	 * légère
 	 * part d'aléatoire.
 	 * Voir GDD pour plus d'info.
-	 * 
+	 *
 	 * Pseudo-code :
-	 * 
+	 *
 	 * - Inititalisation de l'initiative de chaque personnage
-	 * 
+	 *
 	 */
 	private void initInitiative() {
 		//TODO
@@ -231,15 +231,15 @@ public class Timeline extends Observable implements Runnable {
 
 	/**
 	 * Applique l'ordre de jeu des entités actives d'après leur initiative.
-	 * 
+	 *
 	 * Pseudo-code :
-	 * 
+	 *
 	 * - Ordonner la liste des entités actives en fonction de leur initiative
-	 * 
+	 *
 	 */
 	private void appliquerOrdreDeJeu() {
 		//TODO
-		
+
 		//Notification de la vue sur le nouvel ordre de jeu
 		setChanged();
 		notifyObservers();

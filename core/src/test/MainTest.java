@@ -24,10 +24,7 @@ import gameplay.sort.SortPassif;
  */
 public class MainTest extends Game {
 
-	public static final int WINDOW_WIDTH = 1000;
-	public static final int WINDOW_HEIGHT = 600;
-
-	public static final OrthographicCamera camera = new OrthographicCamera();
+	public static OrthographicCamera camera;
 
 	/**
 	 * Au lancement de l'application.
@@ -35,7 +32,7 @@ public class MainTest extends Game {
 	 */
 	@Override
 	public void create() {
-		
+camera = new OrthographicCamera(1920, 1080);
 		Personnage[] persosJ1 = {
 			new Guerrier(
 			"bite", 1, 2, Orientation.E,
@@ -92,9 +89,9 @@ public class MainTest extends Game {
 	 */
 	@Override
 	public void resize(int width, int height) {
-		camera.viewportHeight = height;
-		camera.viewportWidth = width;
-		camera.update();
+//		camera.viewportHeight = height;
+//		camera.viewportWidth = width;
+//		camera.update();
 	}
 
 	/**

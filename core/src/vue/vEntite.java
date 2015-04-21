@@ -88,7 +88,7 @@ public class vEntite extends Actor implements Observer {
 			tabMoveTo[i] = Actions.moveTo(position[0] + PERSO_WIDTH / 2, position[1] + TUILE_HEIGHT / 2, 0.5f);
 		}
 		this.addAction(Actions.sequence(Actions.sequence(tabMoveTo), run(() -> {
-			((EntiteActive)o).setEnDeplacement(false);
+			((EntiteActive) o).setEnDeplacement(false);
 		})));
 	}
 

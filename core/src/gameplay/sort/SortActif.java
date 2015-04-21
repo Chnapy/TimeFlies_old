@@ -38,9 +38,9 @@ public abstract class SortActif extends Sort {
 		zonePortee = zportee;
 		zoneAction = zaction;
 	}
-	
+
 	public void lancerSort(Entite entite) {
 		entite.recoitSort(getTabEffets());
 	}
-	
+
 }

@@ -26,7 +26,7 @@ public class CaracteristiqueSpatiale {
 		position = new Point(posX, posY);
 		orientation = orient;
 	}
-	
+
 	/**
 	 *
 	 * @param x
@@ -52,7 +52,7 @@ public class CaracteristiqueSpatiale {
 	public Orientation getOrientation() {
 		return orientation;
 	}
-	
+
 	/**
 	 *
 	 * @param orientation

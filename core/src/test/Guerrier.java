@@ -14,7 +14,7 @@ import gameplay.sort.SortPassif;
 /**
  * Guerrier.java
  * CLASSE DE TEST
- * 
+ *
  */
 public class Guerrier extends Personnage {
 
@@ -28,12 +28,12 @@ public class Guerrier extends Personnage {
 	 * @param sortsPassifs
 	 * @param sortsActifs
 	 */
-	public Guerrier(String nom, 
-			int posX, int posY, Orientation orientation, 
+	public Guerrier(String nom,
+			int posX, int posY, Orientation orientation,
 			CaracteristiquePhysique cPhysique,
 			SortPassif[] sortsPassifs,
 			SortActif[] sortsActifs) {
-		
+
 		super("Guerrier", nom, posX, posY, orientation, cPhysique, sortsPassifs, sortsActifs);
 	}
 

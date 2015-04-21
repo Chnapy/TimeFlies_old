@@ -19,5 +19,4 @@ public class Finder extends IndexedAStarPathFinder<Tuile> {
 		super(graph);
 	}
 
-	
 }

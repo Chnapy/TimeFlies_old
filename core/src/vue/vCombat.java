@@ -5,6 +5,7 @@
  */
 package vue;
 
+import vue.timeline.vTimeline;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
@@ -38,7 +39,7 @@ public class vCombat implements Screen {
 		vmap = new vMap(ccombat, tabTuiles);
 		ventites = new vEntites(personnages);
 		vtimeline = new vTimeline(timel);
-		
+
 		//Accepter les input
 		InputMultiplexer inputM = new InputMultiplexer(vmap, ventites, vtimeline);
 		Gdx.input.setInputProcessor(inputM);

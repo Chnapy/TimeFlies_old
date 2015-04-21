@@ -25,10 +25,10 @@ public abstract class EntiteActive extends Entite {
 	private final CaracteristiquePhysique caracPhysique;
 	private SortActif[] tabSortActif;
 	private Array<Envoutement> listEnvoutements;
-	
+
 	//Mode Deplacement (true) ou Sort (false)
 	private boolean modeDeplacement = true;
-	
+
 	//Est en train de se déplacer
 	private boolean enDeplacement;
 
@@ -103,7 +103,7 @@ public abstract class EntiteActive extends Entite {
 			envout.actionFinTour();
 		}
 	}
-	
+
 	//Change la position, notifie la vue
 	public void setPosition(Array<Point> listeParcours) {
 		caracSpatiale.getPosition().x = listeParcours.peek().x;

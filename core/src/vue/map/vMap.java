@@ -56,8 +56,8 @@ public class vMap extends Stage {
 
 	/**
 	 * Colorie les tuiles du chemin visible.
-	 * 
-	 * @param listePoint 
+	 *
+	 * @param listePoint
 	 */
 	public void colorTuile(Array<Point> listePoint) {
 		clearColorTuile();
@@ -69,10 +69,10 @@ public class vMap extends Stage {
 			});
 		});
 	}
-	
+
 	public void clearColorTuile() {
 		getRoot().getChildren().forEach((Actor vtuile) -> {
-					((vTuile) vtuile).tuileDuChemin(false);
+			((vTuile) vtuile).tuileDuChemin(false);
 		});
 	}
 

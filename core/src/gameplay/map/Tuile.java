@@ -17,12 +17,12 @@ import java.awt.Point;
  *
  */
 public class Tuile implements IndexedNode<Tuile> {
-	
+
 	private Etat etat;
 	private final Point position;
 	private final int index;
 	private final Array<Connection<Tuile>> connections;
-	
+
 	private boolean occupe;	//La tuile est occupée par une entité
 
 	/**
@@ -37,7 +37,7 @@ public class Tuile implements IndexedNode<Tuile> {
 		this.index = index;
 		connections = new Array<>();
 	}
-	
+
 	public Etat getEtat() {
 		return etat;
 	}
@@ -45,19 +45,19 @@ public class Tuile implements IndexedNode<Tuile> {
 	public Point getPosition() {
 		return position;
 	}
-	
+
 	@Override
 	public int getIndex() {
 		return index;
 	}
-	
+
 	@Override
 	public Array<Connection<Tuile>> getConnections() {
 		return connections;
 	}
-	
+
 	public void addConnection(Tuile adjacent) {
 		connections.add(new DefaultConnection<>(this, adjacent));
 	}
-	
+
 }

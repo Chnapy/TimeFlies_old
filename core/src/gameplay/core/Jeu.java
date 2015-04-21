@@ -18,8 +18,8 @@ public class Jeu {
 	private Array<Combat> listCombat;
 
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 */
 	public Jeu() {
 		listCombat = new Array<Combat>();
@@ -27,7 +27,7 @@ public class Jeu {
 
 	/**
 	 * Ajoute un combat au jeu.
-	 * 
+	 *
 	 * @param combat
 	 */
 	public void addCombat(Combat combat) {
