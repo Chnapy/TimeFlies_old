@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import gameplay.core.Timeline;
 import java.util.Observable;
 import java.util.Observer;
+import static test.MainTest.camera;
 
 /**
  * vTimeline.java
@@ -25,6 +26,7 @@ public class vTimeline extends Stage implements Observer {
 	}
 
 	public void render() {
+		getBatch().setProjectionMatrix(camera.combined);
 		act();
 		draw();
 	}

@@ -4,6 +4,8 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import controleur.cCombat;
 import gameplay.caracteristique.CaracteristiquePhysique;
 import gameplay.caracteristique.Orientation;
@@ -25,6 +27,7 @@ import gameplay.sort.SortPassif;
 public class MainTest extends Game {
 
 	public static OrthographicCamera camera;
+	public static Viewport viewport;
 
 	/**
 	 * Au lancement de l'application.
@@ -32,7 +35,9 @@ public class MainTest extends Game {
 	 */
 	@Override
 	public void create() {
-camera = new OrthographicCamera(1920, 1080);
+		camera = new OrthographicCamera(1920, 1080);
+		viewport = new FitViewport(1920f, 1080f, camera);
+		camera.setToOrtho(false, 1920, 1080);
 		Personnage[] persosJ1 = {
 			new Guerrier(
 			"bite", 1, 2, Orientation.E,
@@ -89,9 +94,11 @@ camera = new OrthographicCamera(1920, 1080);
 	 */
 	@Override
 	public void resize(int width, int height) {
+		super.resize(width, height);
 //		camera.viewportHeight = height;
 //		camera.viewportWidth = width;
 //		camera.update();
+		viewport.update(width, height);
 	}
 
 	/**
