@@ -29,8 +29,8 @@ import static vue.map.vTuile.TUILE_HEIGHT;
  */
 public class vEntite extends Actor implements Observer {
 
-	private static final int PERSO_WIDTH = 64;
-	private static final int PERSO_HEIGHT = 92;
+	private static final int PERSO_WIDTH = 128;
+	private static final int PERSO_HEIGHT = 184;
 
 	/**
 	 * Nom du perso -> nom de fichier

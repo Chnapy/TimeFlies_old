@@ -9,6 +9,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import static test.MainTest.MAX_HEIGHT;
+import static test.MainTest.MAX_WIDTH;
 
 /**
  * vTimelineEntite.java
@@ -17,9 +19,9 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 public class vTimelineEntite extends Actor {
 
 	private static final Texture TEXTURE = new Texture(Gdx.files.internal("timeline/fond_entite.png"));
-	private static final int TEXTURE_WIDTH = 75;
-	private static final int TEXTURE_HEIGHT = 75;
-	private static final int TEXTURE_Y = Gdx.graphics.getHeight() - TEXTURE_HEIGHT - 30;
+	private static final int TEXTURE_WIDTH = MAX_WIDTH / 20;
+	private static final int TEXTURE_HEIGHT = TEXTURE_WIDTH;
+	private static final int TEXTURE_Y = MAX_HEIGHT - TEXTURE_HEIGHT - 30;
 	private static final int TEXTURE_X_ECART = 50;
 
 	private int texture_x;

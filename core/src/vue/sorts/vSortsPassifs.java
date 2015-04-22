@@ -3,26 +3,20 @@
  * 
  * 
  */
-package vue.timeline;
+package vue.sorts;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import gameplay.core.Timeline;
 import java.util.Observable;
 import java.util.Observer;
 import test.MainTest;
 
 /**
- * vTimeline.java
+ * vSortsPassifs.java
  *
  */
-public class vTimeline extends Stage implements Observer {
+public class vSortsPassifs extends Stage implements Observer {
 
-
-	public vTimeline(final Timeline timeline) {
-		addActor(new vTimelineFond());
-		for(int i = 0; i < 5; i++) {
-		addActor(new vTimelineEntite(i));
-		}
+	public vSortsPassifs() {
 	}
 
 	public void render() {

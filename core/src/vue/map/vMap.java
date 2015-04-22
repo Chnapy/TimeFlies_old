@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.Array;
 import controleur.cCombat;
 import gameplay.map.Tuile;
 import java.awt.Point;
+import test.MainTest;
 
 /**
  * vMap.java
@@ -50,6 +51,7 @@ public class vMap extends Stage {
 	}
 
 	public void render() {
+		setViewport(MainTest.viewport);
 		act();
 		draw();
 	}

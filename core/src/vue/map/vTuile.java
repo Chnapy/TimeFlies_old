@@ -24,10 +24,10 @@ import controleur.cCombat;
  */
 public class vTuile extends Actor {
 
-	public static final int TUILE_WIDTH = 128;
-	public static final int TUILE_HEIGHT = 64;
+	public static final int TUILE_WIDTH = 256;
+	public static final int TUILE_HEIGHT = 128;
 	public static final int OFFSET_X = 0;
-	public static final int OFFSET_Y = 250;
+	public static final int OFFSET_Y = 500;
 
 	private static final TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("tuile/tuile.atlas"));
 	private static final Sprite[] tabSprite = {
@@ -86,7 +86,7 @@ public class vTuile extends Actor {
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
 		batch.setColor(couleur);
-		batch.draw(tabSprite[iSprite], x, y);
+		batch.draw(tabSprite[iSprite], x, y, TUILE_WIDTH, TUILE_HEIGHT);
 		lab.setColor(Color.BLACK);
 		lab.draw(batch, posX + "_" + posY, x + 250, y + 150);
 	}

@@ -8,6 +8,7 @@ package vue;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import gameplay.entite.Personnage;
+import test.MainTest;
 
 /**
  * vEntites.java
@@ -24,6 +25,7 @@ public class vEntites extends Stage {
 	}
 
 	public void render() {
+		setViewport(MainTest.viewport);
 		act();
 		draw();
 	}

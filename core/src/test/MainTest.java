@@ -25,9 +25,12 @@ import gameplay.sort.SortPassif;
  *
  */
 public class MainTest extends Game {
+	
+	public static final int MAX_WIDTH = 1920;
+	public static final int MAX_HEIGHT = 1080;
 
-	public static OrthographicCamera camera;
-	public static Viewport viewport;
+	public static final OrthographicCamera camera = new OrthographicCamera();
+	public static final Viewport viewport = new FitViewport(1920, 1080, camera);
 
 	/**
 	 * Au lancement de l'application.
@@ -35,8 +38,6 @@ public class MainTest extends Game {
 	 */
 	@Override
 	public void create() {
-		camera = new OrthographicCamera(1920, 1080);
-		viewport = new FitViewport(1920f, 1080f, camera);
 		camera.setToOrtho(false, 1920, 1080);
 		Personnage[] persosJ1 = {
 			new Guerrier(
@@ -64,10 +65,6 @@ public class MainTest extends Game {
 			{Etat.ECRAN, Etat.ECRAN, Etat.SIMPLE},
 			{Etat.ECRAN, Etat.ECRAN, Etat.SIMPLE}
 		});
-//		Combat combat = new Combat(map, joueurs);
-//		Jeu jeu = new Jeu();
-//		jeu.addCombat(combat);
-//		combat.lancer();
 
 		cCombat contCombat = new cCombat(map, joueurs);
 		this.setScreen(contCombat.getVue());
@@ -95,9 +92,6 @@ public class MainTest extends Game {
 	@Override
 	public void resize(int width, int height) {
 		super.resize(width, height);
-//		camera.viewportHeight = height;
-//		camera.viewportWidth = width;
-//		camera.update();
 		viewport.update(width, height);
 	}
 
