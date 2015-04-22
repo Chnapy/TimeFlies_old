@@ -6,8 +6,9 @@ import test.MainTest;
 
 public class DesktopLauncher {
 
-	private static final int WINDOW_WIDTH = 1000;
-	private static final int WINDOW_HEIGHT = 600;
+	//Resolution HD
+	private static final int WINDOW_WIDTH = 1280;
+	private static final int WINDOW_HEIGHT = 720;
 
 	public static void main(String[] arg) {
 
