@@ -23,10 +23,10 @@ public class vTimeline extends Stage implements Observer {
 		for(int i = 0; i < 5; i++) {
 		addActor(new vTimelineEntite(i));
 		}
+		setViewport(MainTest.viewport);
 	}
 
 	public void render() {
-		setViewport(MainTest.viewport);
 		act();
 		draw();
 	}

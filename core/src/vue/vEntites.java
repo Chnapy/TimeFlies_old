@@ -22,10 +22,10 @@ public class vEntites extends Stage {
 			perso.addObserver(vent);
 			getRoot().addActor(vent);
 		});
+		setViewport(MainTest.viewport);
 	}
 
 	public void render() {
-		setViewport(MainTest.viewport);
 		act();
 		draw();
 	}

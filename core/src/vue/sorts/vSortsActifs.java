@@ -11,12 +11,16 @@ import java.util.Observer;
 import test.MainTest;
 
 /**
- * vSortsPassifs.java
+ * vSortsActifs.java
  *
  */
-public class vSortsPassifs extends Stage implements Observer {
+public class vSortsActifs extends Stage implements Observer {
 
-	public vSortsPassifs() {
+	private final vSortsActifsListBouton listBoutons = new vSortsActifsListBouton();
+
+	public vSortsActifs() {
+		listBoutons.setFillParent(true);
+		addActor(listBoutons);
 	}
 
 	public void render() {

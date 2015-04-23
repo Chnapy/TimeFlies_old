@@ -15,6 +15,8 @@ import gameplay.map.Etat;
 import gameplay.map.Map;
 import gameplay.sort.SortActif;
 import gameplay.sort.SortPassif;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * MainTest.java
@@ -25,7 +27,7 @@ import gameplay.sort.SortPassif;
  *
  */
 public class MainTest extends Game {
-	
+
 	public static final int MAX_WIDTH = 1920;
 	public static final int MAX_HEIGHT = 1080;
 
@@ -65,10 +67,14 @@ public class MainTest extends Game {
 			{Etat.ECRAN, Etat.ECRAN, Etat.SIMPLE},
 			{Etat.ECRAN, Etat.ECRAN, Etat.SIMPLE}
 		});
-
-		cCombat contCombat = new cCombat(map, joueurs);
-		this.setScreen(contCombat.getVue());
-		contCombat.lancer();
+		try {
+			cCombat contCombat = new cCombat(map, joueurs);
+			this.setScreen(contCombat.getVue());
+			contCombat.lancer();
+		} catch (Exception e) {
+			//Arrete l'application en cas d'exception
+			Logger.getLogger(MainTest.class.getName()).log(Level.SEVERE, null, e);
+		}
 	}
 
 	/**

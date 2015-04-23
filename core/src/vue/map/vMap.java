@@ -47,11 +47,11 @@ public class vMap extends Stage {
 				getRoot().addActor(new vTuile(x, y, t, ccombat));
 			}
 		}
+		setViewport(MainTest.viewport);
 
 	}
 
 	public void render() {
-		setViewport(MainTest.viewport);
 		act();
 		draw();
 	}

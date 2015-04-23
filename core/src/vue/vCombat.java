@@ -15,7 +15,7 @@ import gameplay.core.Timeline;
 import gameplay.entite.Personnage;
 import gameplay.map.Tuile;
 import vue.map.vMap;
-import vue.sorts.vSortsPassifs;
+import vue.sorts.vSortsActifs;
 
 /**
  * vCombat.java
@@ -27,7 +27,7 @@ public class vCombat implements Screen {
 	private final vMap vmap;
 	private final vEntites ventites;
 	private final vTimeline vtimeline;
-	private final vSortsPassifs vsortspassifs;
+	private final vSortsActifs vsortspassifs;
 
 	/**
 	 *
@@ -41,7 +41,7 @@ public class vCombat implements Screen {
 		vmap = new vMap(ccombat, tabTuiles);
 		ventites = new vEntites(personnages);
 		vtimeline = new vTimeline(timel);
-		vsortspassifs = new vSortsPassifs();
+		vsortspassifs = new vSortsActifs();
 
 		//Accepter les input
 		InputMultiplexer inputM = new InputMultiplexer(vmap, ventites, vsortspassifs, vtimeline);
