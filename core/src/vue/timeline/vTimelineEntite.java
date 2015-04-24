@@ -35,6 +35,7 @@ public class vTimelineEntite extends Actor {
 	public vTimelineEntite(int ordreX) {
 		scale = (ordreX == 0) ? 1.20f : 1f;
 		texture_x = ordreX * (TEXTURE_WIDTH + TEXTURE_X_ECART) + TEXTURE_X_ECART;
+		TEXTURE.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 	}
 
 	@Override

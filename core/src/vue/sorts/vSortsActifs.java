@@ -20,6 +20,7 @@ public class vSortsActifs extends Stage implements Observer {
 
 	public vSortsActifs() {
 		listBoutons.setFillParent(true);
+		addActor(new vSortsActifsFond());
 		addActor(listBoutons);
 	}
 

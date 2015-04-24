@@ -55,6 +55,7 @@ public class vEntite extends Actor implements Observer {
 		if (texture == null) {
 			throw new Error("Perso non géré : " + perso.getNom());
 		}
+		texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 		setPosition(perso.getCaracSpatiale().getPosition().x,
 				perso.getCaracSpatiale().getPosition().y, true);
 	}

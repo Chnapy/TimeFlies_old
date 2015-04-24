@@ -25,7 +25,7 @@ public class vTimelineFond extends Actor {
 	private static final int TEXTURE_FOND_Y = MAX_HEIGHT - TEXTURE_FOND_HEIGHT;
 
 	public vTimelineFond() {
-
+		TEXTURE_FOND.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 	}
 
 	@Override
