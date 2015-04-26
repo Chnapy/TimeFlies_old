@@ -25,10 +25,12 @@ public abstract class SortPassifEffets extends SortPassif {
 	 * @param niveau
 	 * @param effets
 	 * @param declenchables
+	 * @param index
 	 */
 	public SortPassifEffets(String nom, String description, Niveau niveau,
-			Effet[] effets, Array<Declenchable> declenchables) {
-		super(nom, description, niveau, effets);
+			Effet[] effets, Array<Declenchable> declenchables,
+			int index) {
+		super(nom, description, niveau, effets, index);
 
 		listDeclenchables = declenchables;
 	}

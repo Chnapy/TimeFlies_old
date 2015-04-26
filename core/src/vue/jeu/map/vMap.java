@@ -3,21 +3,20 @@
  * 
  * 
  */
-package vue.map;
+package vue.jeu.map;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
 import controleur.cCombat;
 import gameplay.map.Tuile;
 import java.awt.Point;
-import test.MainTest;
 
 /**
  * vMap.java
  *
  */
-public class vMap extends Stage {
+public class vMap extends Group {
 
 	/**
 	 *
@@ -44,16 +43,10 @@ public class vMap extends Stage {
 					default:
 						throw new Error("Tuile non gérée");
 				}
-				getRoot().addActor(new vTuile(x, y, t, ccombat));
+				addActor(new vTuile(x, y, t, ccombat));
 			}
 		}
-		setViewport(MainTest.viewport);
 
-	}
-
-	public void render() {
-		act();
-		draw();
 	}
 
 	/**
@@ -63,7 +56,7 @@ public class vMap extends Stage {
 	 */
 	public void colorTuile(Array<Point> listePoint) {
 		clearColorTuile();
-		getRoot().getChildren().forEach((Actor vtuile) -> {
+		getChildren().forEach((Actor vtuile) -> {
 			listePoint.forEach((Point point) -> {
 				if (((vTuile) vtuile).getPosX() == point.x && ((vTuile) vtuile).getPosY() == point.y) {
 					((vTuile) vtuile).tuileDuChemin(true);
@@ -73,7 +66,7 @@ public class vMap extends Stage {
 	}
 
 	public void clearColorTuile() {
-		getRoot().getChildren().forEach((Actor vtuile) -> {
+		getChildren().forEach((Actor vtuile) -> {
 			((vTuile) vtuile).tuileDuChemin(false);
 		});
 	}

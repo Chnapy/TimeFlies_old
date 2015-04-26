@@ -3,31 +3,24 @@
  * 
  * 
  */
-package vue;
+package vue.jeu.entites;
 
-import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
 import gameplay.entite.Personnage;
-import test.MainTest;
 
 /**
  * vEntites.java
  *
  */
-public class vEntites extends Stage {
+public class vEntites extends Group {
 
 	public vEntites(Array<Personnage> personnages) {
 		personnages.forEach(perso -> {
 			vEntite vent = new vEntite(perso);
 			perso.addObserver(vent);
-			getRoot().addActor(vent);
+			addActor(vent);
 		});
-		setViewport(MainTest.viewport);
-	}
-
-	public void render() {
-		act();
-		draw();
 	}
 
 }

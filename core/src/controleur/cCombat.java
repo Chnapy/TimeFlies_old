@@ -48,7 +48,7 @@ public class cCombat {
 		Array<Personnage> listPersonnages = getPersonnages(joueurs);
 		timeline = new Timeline(listPersonnages);
 		vue = new vCombat(this, m.getTabTuiles(), listPersonnages, timeline);
-		timeline.addObserver(vue.getVtimeline());
+		timeline.addObserver(vue.getVhud());
 	}
 
 	/**
@@ -63,6 +63,10 @@ public class cCombat {
 	 */
 	public void stop() {
 		timeline.stop();
+	}
+	
+	public void nouveauTour(EntiteActive entite) {
+		vue.nouveauTour(entite);
 	}
 
 	/**
