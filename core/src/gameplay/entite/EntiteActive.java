@@ -132,4 +132,8 @@ public abstract class EntiteActive extends Entite {
 		return modeDeplacement;
 	}
 
+	public SortActif[] getTabSortActif() {
+		return tabSortActif;
+	}
+
 }

@@ -23,6 +23,9 @@ public class Timeline extends Observable implements Runnable {
 
 	private Array<EntiteActive> listEntiteActives;
 	private EntiteActive entiteEnCours;
+	
+	private Tour etatTour;
+	private Tour etatTourGlobal;
 
 	/**
 	 *
@@ -31,6 +34,8 @@ public class Timeline extends Observable implements Runnable {
 	public Timeline(Array<Personnage> listPersonnages) {
 		listEntiteActives = new Array(listPersonnages);
 		thread = new Thread(this);
+		etatTour = Tour.ATTENTE;
+		etatTourGlobal = Tour.ATTENTE;
 	}
 
 	/**
@@ -110,6 +115,7 @@ public class Timeline extends Observable implements Runnable {
 		debutTourGlobal();
 
 		//Milieu du tour global
+		etatTourGlobal = Tour.COURS;
 		for (EntiteActive entActive : listEntiteActives) {
 			entiteEnCours = entActive;
 			tour(entActive);
@@ -132,6 +138,7 @@ public class Timeline extends Observable implements Runnable {
 	 * @param entActive
 	 */
 	private void debutTourGlobal() {
+		etatTourGlobal = Tour.DEBUT;
 		appliquerOrdreDeJeu();	//On définit l'ordre de jeu d'après l'initiative de chaque entité active
 		for (EntiteActive entActive : listEntiteActives) {
 			entActive.debutTourGlobal();
@@ -150,9 +157,11 @@ public class Timeline extends Observable implements Runnable {
 	 * @param entActive
 	 */
 	private void finTourGlobal() {
+		etatTourGlobal = Tour.FIN;
 		for (EntiteActive entActive : listEntiteActives) {
 			entActive.finTourGlobal();
 		}
+		etatTourGlobal = Tour.ATTENTE;
 	}
 
 	/**
@@ -169,6 +178,7 @@ public class Timeline extends Observable implements Runnable {
 	public void tour(EntiteActive entActive) {
 		debutTour(entActive);
 
+		etatTour = Tour.COURS;
 		entActive.jouerTour();
 
 		finTour(entActive);
@@ -185,6 +195,7 @@ public class Timeline extends Observable implements Runnable {
 	 * @param entActive
 	 */
 	private void debutTour(EntiteActive entActive) {
+		etatTour = Tour.DEBUT;
 
 		entActive.debutTour();
 
@@ -204,11 +215,13 @@ public class Timeline extends Observable implements Runnable {
 	 * @param entActive
 	 */
 	private void finTour(EntiteActive entActive) {
+		etatTour = Tour.FIN;
 		entActive.finTour();
 
 		//Notification de la vue
 		setChanged();
 		notifyObservers();
+		etatTour = Tour.ATTENTE;
 	}
 
 	/**
@@ -256,6 +269,14 @@ public class Timeline extends Observable implements Runnable {
 
 	public EntiteActive getEntiteEnCours() {
 		return entiteEnCours;
+	}
+
+	public Tour getEtatTour() {
+		return etatTour;
+	}
+
+	public Tour getEtatTourGlobal() {
+		return etatTourGlobal;
 	}
 
 }

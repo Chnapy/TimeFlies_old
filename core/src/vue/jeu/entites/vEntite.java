@@ -3,11 +3,10 @@
  * 
  * 
  */
-package vue;
+package vue.jeu.entites;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.run;
@@ -18,8 +17,8 @@ import gameplay.entite.EntiteActive;
 import java.awt.Point;
 import java.util.Observable;
 import java.util.Observer;
-import vue.map.vTuile;
-import static vue.map.vTuile.TUILE_HEIGHT;
+import vue.jeu.map.vTuile;
+import static vue.jeu.map.vTuile.TUILE_HEIGHT;
 
 /**
  * vEntite.java

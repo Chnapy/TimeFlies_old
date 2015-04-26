@@ -3,7 +3,7 @@
  * 
  * 
  */
-package vue.map;
+package vue.jeu.map;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -47,6 +47,7 @@ public class vTuile extends Actor {
 
 	public vTuile(int posx, int posy, int indexSprite, cCombat ccombat) {
 		this.lab = new BitmapFont();
+		lab.setColor(Color.BLACK);
 		posX = posx;
 		posY = posy;
 		float[] pos = getPosition(posx, posy);
@@ -87,7 +88,7 @@ public class vTuile extends Actor {
 	public void draw(Batch batch, float parentAlpha) {
 		batch.setColor(couleur);
 		batch.draw(tabSprite[iSprite], x, y, TUILE_WIDTH, TUILE_HEIGHT);
-		lab.setColor(Color.BLACK);
+		batch.setColor(Color.WHITE);
 		lab.draw(batch, posX + "_" + posY, x + 250, y + 150);
 	}
 

@@ -21,9 +21,9 @@ public abstract class SortPassif extends Sort {
 	 * @param niveau
 	 * @param effets
 	 */
-	public SortPassif(String nom, String description, Niveau niveau, Effet[] effets) {
+	public SortPassif(String nom, String description, Niveau niveau, Effet[] effets, int index) {
 
-		super(nom, description, niveau, effets);
+		super(nom, description, niveau, effets, index);
 
 	}
 

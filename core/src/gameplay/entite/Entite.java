@@ -70,4 +70,8 @@ public abstract class Entite extends Observable {
 		return caracSpatiale;
 	}
 
+	public SortPassif[] getTabSortPassif() {
+		return tabSortPassif;
+	}
+
 }

@@ -46,14 +46,18 @@ public class MainTest extends Game {
 			"bite", 1, 2, Orientation.E,
 			new CaracteristiquePhysique(100, 100, 100, 100, 100, 100, 100, 100, 100, 100),
 			new SortPassif[]{},
-			new SortActif[]{})
+			new SortActif[]{
+				new SortQuiFaitMal()
+			})
 		};
 		Personnage[] persosJ2 = {
 			new Guerrier(
 			"bite", 2, 0, Orientation.E,
 			new CaracteristiquePhysique(100, 100, 100, 100, 100, 100, 100, 100, 100, 100),
 			new SortPassif[]{},
-			new SortActif[]{})
+			new SortActif[]{
+				new SortQuiFaitMal()
+			})
 		};
 		Joueur[] joueurs = {
 			new Joueur(5, "J1", persosJ1),

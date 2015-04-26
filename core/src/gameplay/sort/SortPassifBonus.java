@@ -28,13 +28,15 @@ public abstract class SortPassifBonus extends SortPassif {
 	 * @param effets
 	 * @param caracteristiques
 	 * @param valeurs
+	 * @param index
 	 */
 	public SortPassifBonus(String nom, String description, Niveau niveau,
 			Effet[] effets,
 			Array<Carac> caracteristiques,
-			Array<Integer> valeurs) {
+			Array<Integer> valeurs,
+			int index) {
 
-		super(nom, description, niveau, effets);
+		super(nom, description, niveau, effets, index);
 
 		listCaracteristiques = caracteristiques;
 		listValeurs = valeurs;

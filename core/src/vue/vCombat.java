@@ -5,17 +5,22 @@
  */
 package vue;
 
-import vue.timeline.vTimeline;
+import vue.jeu.entites.vEntites;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
+import vue.hud.timeline.vTimeline;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.utils.Array;
 import controleur.cCombat;
 import gameplay.core.Timeline;
+import gameplay.entite.EntiteActive;
 import gameplay.entite.Personnage;
 import gameplay.map.Tuile;
-import vue.map.vMap;
-import vue.sorts.vSortsActifs;
+import vue.hud.sorts.vSortsBouton;
+import vue.jeu.map.vMap;
+import vue.hud.vHud;
+import vue.jeu.vJeu;
 
 /**
  * vCombat.java
@@ -23,11 +28,8 @@ import vue.sorts.vSortsActifs;
  */
 public class vCombat implements Screen {
 
-	private final cCombat combat;
-	private final vMap vmap;
-	private final vEntites ventites;
-	private final vTimeline vtimeline;
-	private final vSortsActifs vsortspassifs;
+	private final vJeu vjeu;
+	private final vHud vhud;
 
 	/**
 	 *
@@ -37,15 +39,17 @@ public class vCombat implements Screen {
 	 * @param timel
 	 */
 	public vCombat(final cCombat ccombat, final Tuile[][] tabTuiles, final Array<Personnage> personnages, final Timeline timel) {
-		combat = ccombat;
-		vmap = new vMap(ccombat, tabTuiles);
-		ventites = new vEntites(personnages);
-		vtimeline = new vTimeline(timel);
-		vsortspassifs = new vSortsActifs();
+		vjeu = new vJeu(ccombat, tabTuiles, personnages);
+		vhud = new vHud(timel);
 
 		//Accepter les input
-		InputMultiplexer inputM = new InputMultiplexer(vmap, ventites, vsortspassifs, vtimeline);
+		InputMultiplexer inputM = new InputMultiplexer(vjeu, vhud);
 		Gdx.input.setInputProcessor(inputM);
+		
+	}
+	
+	public void nouveauTour(EntiteActive entite) {
+		vhud.nouveauTour(entite);
 	}
 
 	@Override
@@ -60,12 +64,8 @@ public class vCombat implements Screen {
 	 */
 	@Override
 	public void render(float delta) {
-		vmap.render();
-		ventites.render();
-
-//		//HUD
-		vsortspassifs.render();
-		vtimeline.render();
+		vjeu.render();
+		vhud.render();
 	}
 
 	/**
@@ -94,15 +94,19 @@ public class vCombat implements Screen {
 	}
 
 	public vTimeline getVtimeline() {
-		return vtimeline;
+		return vhud.getVtimeline();
 	}
 
 	public vMap getVmap() {
-		return vmap;
+		return vjeu.getVmap();
 	}
 
 	public vEntites getVentites() {
-		return ventites;
+		return vjeu.getVentites();
+	}
+
+	public vHud getVhud() {
+		return vhud;
 	}
 
 }

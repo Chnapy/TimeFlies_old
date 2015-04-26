@@ -3,7 +3,7 @@
  * 
  * 
  */
-package vue.timeline;
+package vue.hud.timeline;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;

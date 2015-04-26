@@ -28,12 +28,14 @@ public abstract class SortActif extends Sort {
 	 * @param effets
 	 * @param zportee
 	 * @param zaction
+	 * @param index
 	 */
 	public SortActif(String nom, String description, Niveau niveau,
 			Effet[] effets,
-			ZonePortee zportee, ZoneAction zaction) {
+			ZonePortee zportee, ZoneAction zaction,
+			int index) {
 
-		super(nom, description, niveau, effets);
+		super(nom, description, niveau, effets, index);
 
 		zonePortee = zportee;
 		zoneAction = zaction;
