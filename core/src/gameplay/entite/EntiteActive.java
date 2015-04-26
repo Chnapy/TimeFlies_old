@@ -32,6 +32,8 @@ public abstract class EntiteActive extends Entite {
 	//Est en train de se déplacer
 	private boolean enDeplacement;
 
+	private SortActif sortEnCours = null;
+
 	/**
 	 *
 	 * @param nom
@@ -125,6 +127,7 @@ public abstract class EntiteActive extends Entite {
 	}
 
 	public void setModeDeplacement(boolean deplacer) {
+		System.out.println("Mode deplacement : " + deplacer);
 		this.modeDeplacement = deplacer;
 	}
 
@@ -134,6 +137,24 @@ public abstract class EntiteActive extends Entite {
 
 	public SortActif[] getTabSortActif() {
 		return tabSortActif;
+	}
+
+	public SortActif getSortEnCours() {
+		return sortEnCours;
+	}
+
+	public SortActif setSortEnCours(int index) {
+		sortEnCours = getSort(index);
+		return sortEnCours;
+	}
+
+	private SortActif getSort(int index) {
+		for (SortActif sort : tabSortActif) {
+			if (sort.getIndex() == index) {
+				return sort;
+			}
+		}
+		return null;
 	}
 
 }

@@ -60,14 +60,14 @@ public class vTuile extends Actor {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y,
 					int pointer, int button) {
-				System.out.println("down : " + x + " " + y);
+//				System.out.println("down : " + x + " " + y);
 				return true;
 			}
 
 			@Override
 			public void touchUp(InputEvent event, float X, float Y,
 					int pointer, int button) {
-				System.out.println("up : " + X + " " + Y);
+//				System.out.println("up : " + X + " " + Y);
 				ccombat.clicSurTuile(posx, posy);	//Déplacement/Lancement de sort
 			}
 

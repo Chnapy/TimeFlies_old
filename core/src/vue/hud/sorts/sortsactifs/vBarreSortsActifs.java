@@ -8,10 +8,10 @@ package vue.hud.sorts.sortsactifs;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
+import controleur.cCombat;
 import gameplay.sort.SortActif;
 import static test.MainTest.MAX_WIDTH;
 import vue.hud.sorts.vSortsBouton;
@@ -25,7 +25,7 @@ public class vBarreSortsActifs extends HorizontalGroup {
 
 	private final Texture TEXTURE = new Texture(Gdx.files.internal("sort/barre_sorts_actifs.png"));
 
-	private static final int WIDTH = 1024;
+	private static final int WIDTH = 800;
 	private static final int HEIGHT = 128;
 	private static final int X = MAX_WIDTH - WIDTH - 152;
 	private static final int Y = 12;
@@ -59,9 +59,9 @@ public class vBarreSortsActifs extends HorizontalGroup {
 		this.padTop(16);
 	}
 
-	public void nouveauTour(SortActif[] sactifs) {
+	public void nouveauTour(cCombat ccombat, SortActif[] sactifs) {
 		for(SortActif sort : sactifs) {
-			addBouton(new vSortsActifsBouton(sort.getIndex(), 5, 10, 8, 2));
+			addBouton(new vSortsActifsBouton(ccombat, sort.getIndex(), 5, 10, 8, 2));
 		}
 	}
 	

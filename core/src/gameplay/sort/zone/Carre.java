@@ -8,7 +8,6 @@ package gameplay.sort.zone;
 import gameplay.map.Map;
 import gameplay.map.Tuile;
 import java.awt.Point;
-import java.awt.Rectangle;
 import java.util.ArrayList;
 
 /**

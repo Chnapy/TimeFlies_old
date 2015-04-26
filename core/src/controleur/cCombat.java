@@ -8,12 +8,15 @@ package controleur;
 import com.badlogic.gdx.utils.Array;
 import gameplay.core.Joueur;
 import gameplay.core.Timeline;
+import gameplay.core.Tour;
 import gameplay.entite.EntiteActive;
 import gameplay.entite.Personnage;
 import gameplay.map.Etat;
 import gameplay.map.Map;
 import gameplay.map.Tuile;
 import java.awt.Point;
+import java.util.Observable;
+import java.util.Observer;
 import vue.vCombat;
 
 /**
@@ -31,7 +34,7 @@ import vue.vCombat;
  * - Lancement du combat (CLIENT-SERVEUR)
  *
  */
-public class cCombat {
+public class cCombat implements Observer {
 
 	private final vCombat vue;
 
@@ -42,13 +45,15 @@ public class cCombat {
 	//Chemin (liste de points) de l'entité active à la tuile ciblée
 	private Array<Point> path;
 
+	private EntiteActive entiteEnCours;
+
 	public cCombat(Map m, Joueur[] joueurs) {
 		map = m;
 		tabJoueurs = joueurs;
 		Array<Personnage> listPersonnages = getPersonnages(joueurs);
 		timeline = new Timeline(listPersonnages);
 		vue = new vCombat(this, m.getTabTuiles(), listPersonnages, timeline);
-		timeline.addObserver(vue.getVhud());
+		timeline.addObserver(this);
 	}
 
 	/**
@@ -64,9 +69,9 @@ public class cCombat {
 	public void stop() {
 		timeline.stop();
 	}
-	
-	public void nouveauTour(EntiteActive entite) {
-		vue.nouveauTour(entite);
+
+	public void nouveauTour() {
+		vue.getVhud().nouveauTour(this, entiteEnCours);
 	}
 
 	/**
@@ -92,17 +97,17 @@ public class cCombat {
 	 */
 	public void survolTuile(int x, int y) {
 		Tuile tuile = map.getTabTuiles()[y][x];
-		System.out.println(tuile.getEtat());
+//		System.out.println(tuile.getEtat());
 
-		EntiteActive ent = timeline.getEntiteEnCours();
-		if (ent.isModeDeplacement()) {
+		if (entiteEnCours.isModeDeplacement()) {
 
 			vue.getVmap().clearColorTuile();
 			//Déplacement
-			if (!ent.isEnDeplacement() && !ent.getCaracSpatiale().getPosition().equals(tuile.getPosition())
+			if (!entiteEnCours.isEnDeplacement() 
+					&& !entiteEnCours.getCaracSpatiale().getPosition().equals(tuile.getPosition())
 					&& !tuile.getEtat().equals(Etat.OBSTACLE)
 					&& !tuile.getEtat().equals(Etat.TROU)) {
-				path = map.getChemin(ent.getCaracSpatiale().getPosition(), new Point(x, y));
+				path = map.getChemin(entiteEnCours.getCaracSpatiale().getPosition(), new Point(x, y));
 				if (path != null) {
 					vue.getVmap().colorTuile(path);
 				}
@@ -121,19 +126,35 @@ public class cCombat {
 	 */
 	public void clicSurTuile(int x, int y) {
 		Tuile tuile = map.getTabTuiles()[y][x];
-		System.out.println(tuile.getEtat());
+//		System.out.println(tuile.getEtat());
 
-		EntiteActive ent = timeline.getEntiteEnCours();
-		if (ent.isModeDeplacement()) {
+		if (entiteEnCours.isModeDeplacement()) {
 			//Déplacement
-			if (!ent.isEnDeplacement() && path != null) {
+			if (!entiteEnCours.isEnDeplacement() && path != null) {
 				vue.getVmap().clearColorTuile();
-				ent.setEnDeplacement(true);
-				ent.setPosition(path);
+				entiteEnCours.setEnDeplacement(true);
+				entiteEnCours.setPosition(path);
 				path = null; //Purge
 			}
 		} else {
 			//Lancement de sort
+		}
+	}
+
+	public void modeSort(int index) {
+		entiteEnCours.setModeDeplacement(false);
+		entiteEnCours.setSortEnCours(index);
+		vue.getVmap().clearColorTuile();
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		Timeline tl = (Timeline) o;
+		if (tl.getEtatTour().equals(Tour.DEBUT)) {
+			entiteEnCours = tl.getEntiteEnCours();
+			nouveauTour();
+		} else if (tl.getEtatTour().equals(Tour.FIN)) {
+			vue.getVhud().finTour();
 		}
 	}
 

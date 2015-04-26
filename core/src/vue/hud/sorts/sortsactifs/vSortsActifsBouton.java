@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import controleur.cCombat;
 import vue.hud.sorts.vSortsBouton;
 import static vue.hud.vHud.FONT;
 
@@ -37,7 +38,7 @@ public class vSortsActifsBouton extends vSortsBouton {
 	private String zone;
 	private String relance;
 	
-	public vSortsActifsBouton(int index, int temps, int portee, int zone, int relance) {
+	public vSortsActifsBouton(cCombat ccombat, int index, int temps, int portee, int zone, int relance) {
 		super(TEXTURES[index]);
 		this.temps = Integer.toString(temps);
 		this.portee = Integer.toString(portee);
@@ -55,6 +56,7 @@ public class vSortsActifsBouton extends vSortsBouton {
 			public void touchUp(InputEvent event, float X, float Y,
 					int pointer, int button) {
 				//Envoyer au controleur
+				ccombat.modeSort(index);
 			}
 
 			@Override

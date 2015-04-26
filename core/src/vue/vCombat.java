@@ -10,7 +10,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import vue.hud.timeline.vTimeline;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.utils.Array;
 import controleur.cCombat;
 import gameplay.core.Timeline;
@@ -45,10 +44,6 @@ public class vCombat implements Screen {
 		InputMultiplexer inputM = new InputMultiplexer(vjeu, vhud);
 		Gdx.input.setInputProcessor(inputM);
 		
-	}
-	
-	public void nouveauTour(EntiteActive entite) {
-		vhud.nouveauTour(entite);
 	}
 
 	@Override

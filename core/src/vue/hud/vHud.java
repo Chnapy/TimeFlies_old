@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import controleur.cCombat;
 import gameplay.core.Timeline;
 import gameplay.core.Tour;
 import gameplay.entite.EntiteActive;
@@ -25,7 +26,7 @@ import vue.hud.timeline.vTimeline;
  * vHud.java
  *
  */
-public final class vHud extends Stage implements Observer {
+public final class vHud extends Stage {
 
 	private static final FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/kenvector_future_thin.ttf"));
 	private static final FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
@@ -45,8 +46,8 @@ public final class vHud extends Stage implements Observer {
 		addActor(vtimeline);
 	}
 
-	public void nouveauTour(EntiteActive entite) {
-		vsorts.nouveauTour(entite.getTabSortActif(), entite.getTabSortPassif());
+	public void nouveauTour(cCombat ccombat, EntiteActive entite) {
+		vsorts.nouveauTour(ccombat, entite.getTabSortActif(), entite.getTabSortPassif());
 	}
 	
 	public void finTour() {
@@ -72,16 +73,6 @@ public final class vHud extends Stage implements Observer {
 
 	public vTimeline getVtimeline() {
 		return vtimeline;
-	}
-
-	@Override
-	public void update(Observable o, Object arg) {
-		Timeline tl = (Timeline) o;
-		if (tl.getEtatTour().equals(Tour.DEBUT)) {
-			nouveauTour(tl.getEntiteEnCours());
-		} else if (tl.getEtatTour().equals(Tour.FIN)) {
-			finTour();
-		}
 	}
 
 }

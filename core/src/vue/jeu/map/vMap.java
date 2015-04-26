@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
 import controleur.cCombat;
 import gameplay.map.Tuile;
+import gameplay.sort.zone.ZonePortee;
 import java.awt.Point;
 
 /**
@@ -63,6 +64,10 @@ public class vMap extends Group {
 				}
 			});
 		});
+	}
+	
+	public void afficherPortee(ZonePortee portee, Point posPerso) {
+		//TODO
 	}
 
 	public void clearColorTuile() {

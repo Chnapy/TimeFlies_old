@@ -32,7 +32,7 @@ public class MainTest extends Game {
 	public static final int MAX_HEIGHT = 1080;
 
 	public static final OrthographicCamera camera = new OrthographicCamera();
-	public static final Viewport viewport = new FitViewport(1920, 1080, camera);
+	public static final Viewport viewport = new FitViewport(MAX_WIDTH, MAX_HEIGHT, camera);
 
 	/**
 	 * Au lancement de l'application.
@@ -40,7 +40,7 @@ public class MainTest extends Game {
 	 */
 	@Override
 	public void create() {
-		camera.setToOrtho(false, 1920, 1080);
+		camera.setToOrtho(false, MAX_WIDTH, MAX_HEIGHT);
 		Personnage[] persosJ1 = {
 			new Guerrier(
 			"bite", 1, 2, Orientation.E,

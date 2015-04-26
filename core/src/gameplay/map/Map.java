@@ -97,7 +97,7 @@ public class Map implements IndexedGraph<Tuile> {
 			System.err.println("Aucun chemin trouvé !");
 			return null;
 		}
-		System.out.println("De " + source + " à " + dest + " " + chemin);
+//		System.out.println("De " + source + " à " + dest + " " + chemin);
 
 		Array<Point> ret = new Array<>(chemin.size);
 		for (int i = 1; i < chemin.size; i++) {	//On ne prend pas la 1ère valeur !
