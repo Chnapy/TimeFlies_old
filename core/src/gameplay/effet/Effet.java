@@ -66,4 +66,21 @@ public class Effet {
 		}
 		return true;
 	}
+
+	public Array<Balus> getListBalus() {
+		return listBalus;
+	}
+
+	public Array<Envoutement> getListEnvoutements() {
+		return listEnvoutements;
+	}
+
+	public Placement getPlacement() {
+		return placement;
+	}
+
+	public Invocation getInvocation() {
+		return invocation;
+	}
+	
 }

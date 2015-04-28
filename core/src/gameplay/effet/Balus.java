@@ -5,7 +5,7 @@
  */
 package gameplay.effet;
 
-import gameplay.caracteristique.CaracteristiquePhysique;
+import gameplay.caracteristique.Carac;
 
 /**
  * Balus.java
@@ -14,12 +14,32 @@ import gameplay.caracteristique.CaracteristiquePhysique;
  */
 public class Balus {
 
+	private Carac caracteristique;
+	private int nombre;
+
+	/**
+	 *
+	 * @param cphysique
+	 */
+	public Balus(Carac caracteristique, int nombre) {
+		this.caracteristique = caracteristique;
+		this.nombre = nombre;
+	}
+
+	public Carac getCaracteristique() {
+		return caracteristique;
+	}
+
+	public int getNombre() {
+		return nombre;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
-				+ ((caracPhysique == null) ? 0 : caracPhysique.hashCode());
+				+ ((caracteristique == null) ? 0 : caracteristique.hashCode());
 		return result;
 	}
 
@@ -32,22 +52,9 @@ public class Balus {
 		if (getClass() != obj.getClass())
 			return false;
 		Balus other = (Balus) obj;
-		if (caracPhysique == null) {
-			if (other.caracPhysique != null)
-				return false;
-		} else if (!caracPhysique.equals(other.caracPhysique))
+		if (caracteristique != other.caracteristique)
 			return false;
 		return true;
-	}
-
-	private CaracteristiquePhysique caracPhysique;
-
-	/**
-	 *
-	 * @param cphysique
-	 */
-	public Balus(CaracteristiquePhysique cphysique) {
-		caracPhysique = cphysique;
 	}
 
 }

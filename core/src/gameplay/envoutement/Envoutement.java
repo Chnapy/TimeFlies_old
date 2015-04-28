@@ -13,6 +13,14 @@ package gameplay.envoutement;
  */
 public abstract class Envoutement {
 
+	public String getNom() {
+		return nom;
+	}
+
+	public int getDuree() {
+		return duree;
+	}
+
 	private String nom;
 	private int duree;	//En nombre de tours
 

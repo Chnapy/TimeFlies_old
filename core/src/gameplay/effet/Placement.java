@@ -50,5 +50,9 @@ public class Placement {
 		return true;
 	}
 
+	public CaracteristiqueSpatiale getCaracSpatiale() {
+		return caracSpatiale;
+	}
+
 	
 }
