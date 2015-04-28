@@ -68,6 +68,9 @@ public abstract class Envoutement implements Declencheur {
 	 */
 	public abstract void actionFinEnvoutement();
 
+	/**
+	 * hashCode
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -75,7 +78,10 @@ public abstract class Envoutement implements Declencheur {
 		result = prime * result + ((nom == null) ? 0 : nom.hashCode());
 		return result;
 	}
-
+	
+	/**
+	 * equals en fonction du nom uniquement
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {

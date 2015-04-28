@@ -21,6 +21,9 @@ public class Vitalite extends Caracteristique {
 		super(total, actu);
 	}
 
+	/**
+	 * equals en fontion du type de la classe (Vitalité)
+	 */
 	@Override
 	public boolean equals(Object o) {
 		return o instanceof Vitalite;

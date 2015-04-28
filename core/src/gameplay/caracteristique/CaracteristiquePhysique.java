@@ -82,6 +82,11 @@ public class CaracteristiquePhysique {
 		getCaracteristique(c).setTotal(valeur);
 	}
 
+	/**
+	 * 
+	 * @param c
+	 * @return la caracteristique de type c
+	 */
 	public Caracteristique getCaracteristique(Carac c) {
 		switch (c) {
 			case VITALITE:
@@ -102,7 +107,9 @@ public class CaracteristiquePhysique {
 	}
 	
 
-
+	/**
+	 * hashCode
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -111,6 +118,9 @@ public class CaracteristiquePhysique {
 		return result;
 	}
 
+	/**
+	 * equals en fonction de listCaracteristique
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

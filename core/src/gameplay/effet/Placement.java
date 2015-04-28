@@ -24,6 +24,9 @@ public class Placement implements Declencheur {
 		caracSpatiale = cspatiale;
 	}
 
+	/**
+	 * hashCode
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -33,6 +36,9 @@ public class Placement implements Declencheur {
 		return result;
 	}
 
+	/**
+	 * Equals en fonction de la caracSpatiale
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -55,6 +61,10 @@ public class Placement implements Declencheur {
 		return true;
 	}
 
+	/**
+	 * 
+	 * @return la caractéristique spatiale
+	 */
 	public CaracteristiqueSpatiale getCaracSpatiale() {
 		return caracSpatiale;
 	}

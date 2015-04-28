@@ -27,14 +27,25 @@ public class Balus implements Declencheur {
 		this.nombre = nombre;
 	}
 
+	/**
+	 * 
+	 * @return caracteristique
+	 */
 	public Carac getCaracteristique() {
 		return caracteristique;
 	}
 
+	/**
+	 * 
+	 * @return le nombre à enlever/ajouter
+	 */
 	public int getNombre() {
 		return nombre;
 	}
 
+	/**
+	 * hashCode
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -44,6 +55,9 @@ public class Balus implements Declencheur {
 		return result;
 	}
 
+	/**
+	 * equals en fonction de la caracteristique uniquement
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {

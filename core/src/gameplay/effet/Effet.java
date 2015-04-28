@@ -40,10 +40,14 @@ public class Effet {
 		placement = place;
 		invocation = invoc;
 	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (!(o instanceof Effet)) {
+	
+	/**
+	 * equals en fonction de toutes les listes
+	 * l'effet comparer a des Balus/Envoutement/placement/invocation en plus 
+	 * la fonction retournera true
+	 */
+	public boolean equals(Object o){
+		if(!(o instanceof Effet))
 			return false;
 		}
 		Effet effet = (Effet) o;
@@ -84,18 +88,34 @@ public class Effet {
 		return hash;
 	}
 
+	/**
+	 * 
+	 * @return liste des balus
+	 */
 	public Array<Balus> getListBalus() {
 		return listBalus;
 	}
 
+	/**
+	 * 
+	 * @return liste des envoutements
+	 */
 	public Array<Envoutement> getListEnvoutements() {
 		return listEnvoutements;
 	}
 
+	/**
+	 * 
+	 * @return le placement
+	 */
 	public Placement getPlacement() {
 		return placement;
 	}
-
+	
+	/**
+	 * 
+	 * @return l'invocation
+	 */
 	public Invocation getInvocation() {
 		return invocation;
 	}
