@@ -8,6 +8,7 @@ package gameplay.effet;
 import com.badlogic.gdx.utils.Array;
 import gameplay.envoutement.Envoutement;
 import gameplay.invocation.Invocation;
+import java.util.Objects;
 
 /**
  * Effet.java
@@ -39,32 +40,48 @@ public class Effet {
 		placement = place;
 		invocation = invoc;
 	}
-	
-	public boolean equals(Object o){
-		if(!(o instanceof Effet))
+
+	@Override
+	public boolean equals(Object o) {
+		if (!(o instanceof Effet)) {
 			return false;
-		Effet effet = (Effet)o;
-		if(this.listBalus!=null || this.listBalus.size!=0){
+		}
+		Effet effet = (Effet) o;
+		if (this.listBalus != null || this.listBalus.size != 0) {
 			for (int i = 0; i < this.listBalus.size; i++) {
-				if(!effet.listBalus.contains(this.listBalus.get(i), false))
+				if (!effet.listBalus.contains(this.listBalus.get(i), false)) {
 					return false;
+				}
 			}
 		}
-		if(this.listEnvoutements!=null || this.listEnvoutements.size!=0){
+		if (this.listEnvoutements != null || this.listEnvoutements.size != 0) {
 			for (int i = 0; i < this.listEnvoutements.size; i++) {
-				if(!effet.listEnvoutements.contains(this.listEnvoutements.get(i), false))
+				if (!effet.listEnvoutements.contains(this.listEnvoutements.get(i), false)) {
 					return false;
+				}
 			}
 		}
-		if(this.placement!=null){
-			if(!this.placement.equals(effet.placement))
+		if (this.placement != null) {
+			if (!this.placement.equals(effet.placement)) {
 				return false;
+			}
 		}
-		if(this.invocation!=null){
-			if(!this.invocation.equals(effet.invocation))
+		if (this.invocation != null) {
+			if (!this.invocation.equals(effet.invocation)) {
 				return false;
+			}
 		}
 		return true;
+	}
+
+	@Override
+	public int hashCode() {
+		int hash = 3;
+		hash = 97 * hash + Objects.hashCode(this.listBalus);
+		hash = 97 * hash + Objects.hashCode(this.listEnvoutements);
+		hash = 97 * hash + Objects.hashCode(this.placement);
+		hash = 97 * hash + Objects.hashCode(this.invocation);
+		return hash;
 	}
 
 	public Array<Balus> getListBalus() {
@@ -82,5 +99,5 @@ public class Effet {
 	public Invocation getInvocation() {
 		return invocation;
 	}
-	
+
 }

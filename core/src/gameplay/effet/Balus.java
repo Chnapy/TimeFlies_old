@@ -12,14 +12,15 @@ import gameplay.caracteristique.Carac;
  * Gère les bonus et malus.
  *
  */
-public class Balus implements Declancher{
+public class Balus implements Declencheur {
 
 	private Carac caracteristique;
 	private int nombre;
 
 	/**
 	 *
-	 * @param cphysique
+	 * @param caracteristique
+	 * @param nombre
 	 */
 	public Balus(Carac caracteristique, int nombre) {
 		this.caracteristique = caracteristique;
@@ -45,24 +46,30 @@ public class Balus implements Declancher{
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		Balus other = (Balus) obj;
-		if (caracteristique != other.caracteristique)
+		if (caracteristique != other.caracteristique) {
 			return false;
+		}
 		return true;
 	}
 
 	@Override
-	public boolean canDeclanche(Effet effet, int min, int max) {
+	public boolean canDeclencher(Effet effet, int min, int max) {
 		for (int i = 0; i < effet.getListBalus().size; i++) {
-			if(effet.getListBalus().get(i).equals(this))
-				if(effet.getListBalus().get(i).getNombre()<=min && effet.getListBalus().get(i).getNombre()>=max)
+			if (effet.getListBalus().get(i).equals(this)) {
+				if (effet.getListBalus().get(i).getNombre() <= min && effet.getListBalus().get(i).getNombre() >= max) {
 					return true;
+				}
+			}
 		}
 		return false;
 	}

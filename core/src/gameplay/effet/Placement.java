@@ -12,7 +12,7 @@ import gameplay.caracteristique.CaracteristiqueSpatiale;
  * Gère les mouvements et autres modifications de placement.
  *
  */
-public class Placement implements Declancher{
+public class Placement implements Declencheur {
 
 	private CaracteristiqueSpatiale caracSpatiale;
 
@@ -35,18 +35,23 @@ public class Placement implements Declancher{
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		Placement other = (Placement) obj;
 		if (caracSpatiale == null) {
-			if (other.caracSpatiale != null)
+			if (other.caracSpatiale != null) {
 				return false;
-		} else if (!caracSpatiale.equals(other.caracSpatiale))
+			}
+		} else if (!caracSpatiale.equals(other.caracSpatiale)) {
 			return false;
+		}
 		return true;
 	}
 
@@ -55,9 +60,8 @@ public class Placement implements Declancher{
 	}
 
 	@Override
-	public boolean canDeclanche(Effet effet, int min, int max) {
-		return effet.getPlacement()!=null;
+	public boolean canDeclencher(Effet effet, int min, int max) {
+		return effet.getPlacement() != null;
 	}
 
-	
 }

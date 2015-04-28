@@ -5,7 +5,7 @@
  */
 package gameplay.envoutement;
 
-import gameplay.effet.Declancher;
+import gameplay.effet.Declencheur;
 import gameplay.effet.Effet;
 
 /**
@@ -14,7 +14,7 @@ import gameplay.effet.Effet;
  * entité active.
  *
  */
-public abstract class Envoutement implements Declancher{
+public abstract class Envoutement implements Declencheur {
 
 	public String getNom() {
 		return nom;
@@ -78,26 +78,34 @@ public abstract class Envoutement implements Declancher{
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		Envoutement other = (Envoutement) obj;
 		if (nom == null) {
-			if (other.nom != null)
+			if (other.nom != null) {
 				return false;
-		} else if (!nom.equals(other.nom))
+			}
+		} else if (!nom.equals(other.nom)) {
 			return false;
+		}
 		return true;
 	}
 
-	public boolean canDeclanche(Effet effet,int min, int max){
+	@Override
+	public boolean canDeclencher(Effet effet, int min, int max) {
 		for (int i = 0; i < effet.getListEnvoutements().size; i++) {
-			if(this.equals(effet.getListEnvoutements().get(i)))
-				if(effet.getListEnvoutements().get(i).getDuree()>=min && effet.getListEnvoutements().get(i).getDuree()<=max)
+			if (this.equals(effet.getListEnvoutements().get(i))) {
+				if (effet.getListEnvoutements().get(i).getDuree() >= min && effet.getListEnvoutements().get(i).getDuree() <= max) {
 					return true;
+				}
+			}
 		}
 		return false;
 	}

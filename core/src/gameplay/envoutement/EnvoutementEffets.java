@@ -6,7 +6,6 @@
 package gameplay.envoutement;
 
 import com.badlogic.gdx.utils.Array;
-
 import gameplay.effet.Declenchable;
 import gameplay.effet.Effet;
 
@@ -35,6 +34,5 @@ public abstract class EnvoutementEffets extends Envoutement {
 		listDeclenchables = declenchables;
 		listEffets = effets;
 	}
-	
-	
+
 }

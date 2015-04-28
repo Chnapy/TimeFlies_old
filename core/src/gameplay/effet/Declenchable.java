@@ -7,7 +7,6 @@ package gameplay.effet;
 
 import com.badlogic.gdx.utils.Array;
 
-
 /**
  * Declenchable.java
  * Représente la condition pour qu'un effet se déclenche.
@@ -15,31 +14,33 @@ import com.badlogic.gdx.utils.Array;
  */
 public class Declenchable {
 
-	private Declancher declancheur;
+	private Declencheur declencheur;
 	private int minimum;
 	private int maximum;
 
 	/**
 	 *
-	 * @param ef
+	 * @param declencheur
 	 * @param min
 	 * @param max
 	 */
-	public Declenchable(Declancher declancheur, int min, int max) {
-		this.declancheur = declancheur;
+	public Declenchable(Declencheur declencheur, int min, int max) {
+		this.declencheur = declencheur;
 		minimum = min;
 		maximum = max;
 	}
+
 	/**
-	 * permet de savoir si le déclancheur peu se déclanger avec les effets 
-	 * 
+	 * Défini si les effets activent le déclencheur
+	 *
 	 * @param effets
-	 * @return true si les effects contienne le déclancheur sinon false
+	 * @return true si un des effets activent le déclencheur, sinon false
 	 */
-	public boolean canDeclanche(Array<Effet> effets){
+	public boolean canDeclencher(Array<Effet> effets) {
 		for (int i = 0; i < effets.size; i++) {
-			if(declancheur.canDeclanche(effets.get(i), minimum, maximum))
+			if (declencheur.canDeclencher(effets.get(i), minimum, maximum)) {
 				return true;
+			}
 		}
 		return false;
 	}
