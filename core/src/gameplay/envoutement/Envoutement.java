@@ -5,6 +5,8 @@
  */
 package gameplay.envoutement;
 
+import javax.jws.Oneway;
+
 import gameplay.effet.Declancher;
 import gameplay.effet.Effet;
 
@@ -68,6 +70,9 @@ public abstract class Envoutement implements Declancher{
 	 */
 	public abstract void actionFinEnvoutement();
 
+	/**
+	 * hashCode
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -75,7 +80,10 @@ public abstract class Envoutement implements Declancher{
 		result = prime * result + ((nom == null) ? 0 : nom.hashCode());
 		return result;
 	}
-
+	
+	/**
+	 * equals en fonction du nom uniquement
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -93,6 +101,7 @@ public abstract class Envoutement implements Declancher{
 		return true;
 	}
 
+	@Override
 	public boolean canDeclanche(Effet effet,int min, int max){
 		for (int i = 0; i < effet.getListEnvoutements().size; i++) {
 			if(this.equals(effet.getListEnvoutements().get(i)))

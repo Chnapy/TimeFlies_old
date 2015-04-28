@@ -14,6 +14,9 @@ public class Initiative extends Caracteristique{
 		super(actu, actu);
 	}
 
+	/**
+	 * equals en fontion du type de la classe (initiative)
+	 */
 	@Override
 	public boolean equals(Object o) {
 		return o instanceof Initiative;

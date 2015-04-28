@@ -61,6 +61,9 @@ public class CaracteristiqueSpatiale {
 		this.orientation = orientation;
 	}
 
+	/**
+	 * hashCode
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -70,6 +73,9 @@ public class CaracteristiqueSpatiale {
 		return result;
 	}
 
+	/**
+	 * equals en fonction de la position uniquement
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

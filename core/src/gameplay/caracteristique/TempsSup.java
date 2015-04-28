@@ -21,6 +21,9 @@ public class TempsSup extends Caracteristique {
 		super(total, actu);
 	}
 
+	/**
+	 * equals en fontion du type de la classe (TempsSup)
+	 */
 	@Override
 	public boolean equals(Object o) {
 		return o instanceof TempsSup;
