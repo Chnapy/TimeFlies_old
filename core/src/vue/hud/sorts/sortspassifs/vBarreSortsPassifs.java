@@ -24,7 +24,7 @@ import static vue.hud.vHud.FONT;
 public class vBarreSortsPassifs extends VerticalGroup {
 
 	private final Texture TEXTURE = new Texture(Gdx.files.internal("sort/barre_sorts_passifs.png"));
-	
+
 	private static final int WIDTH = 128;
 	private static final int HEIGHT = 800;
 	private static final int X = MAX_WIDTH - WIDTH - 12;
@@ -60,13 +60,15 @@ public class vBarreSortsPassifs extends VerticalGroup {
 	}
 
 	public void nouveauTour(cCombat ccombat, SortPassif[] spassifs) {
-		for(SortPassif sort : spassifs) {
+		for (SortPassif sort : spassifs) {
 			addBouton(new vSortsPassifsBouton(sort.getIndex()));
 		}
 	}
-	
+
 	public void finTour() {
-		getChildren().removeRange(1, getChildren().size - 1);
+		if (getChildren().size > 1) {
+			getChildren().removeRange(1, getChildren().size - 1);
+		}
 	}
 
 }
