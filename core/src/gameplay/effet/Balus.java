@@ -12,7 +12,7 @@ import gameplay.caracteristique.Carac;
  * Gère les bonus et malus.
  *
  */
-public class Balus {
+public class Balus implements Declancher{
 
 	private Carac caracteristique;
 	private int nombre;
@@ -55,6 +55,16 @@ public class Balus {
 		if (caracteristique != other.caracteristique)
 			return false;
 		return true;
+	}
+
+	@Override
+	public boolean canDeclanche(Effet effet, int min, int max) {
+		for (int i = 0; i < effet.getListBalus().size; i++) {
+			if(effet.getListBalus().get(i).equals(this))
+				if(effet.getListBalus().get(i).getNombre()<=min && effet.getListBalus().get(i).getNombre()>=max)
+					return true;
+		}
+		return false;
 	}
 
 }

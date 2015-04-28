@@ -12,7 +12,7 @@ import gameplay.caracteristique.CaracteristiqueSpatiale;
  * Gère les mouvements et autres modifications de placement.
  *
  */
-public class Placement {
+public class Placement implements Declancher{
 
 	private CaracteristiqueSpatiale caracSpatiale;
 
@@ -52,6 +52,11 @@ public class Placement {
 
 	public CaracteristiqueSpatiale getCaracSpatiale() {
 		return caracSpatiale;
+	}
+
+	@Override
+	public boolean canDeclanche(Effet effet, int min, int max) {
+		return effet.getPlacement()!=null;
 	}
 
 	

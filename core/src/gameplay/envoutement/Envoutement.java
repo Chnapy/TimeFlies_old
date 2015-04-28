@@ -5,13 +5,16 @@
  */
 package gameplay.envoutement;
 
+import gameplay.effet.Declancher;
+import gameplay.effet.Effet;
+
 /**
  * Envoutement.java
  * Représente un effet déclenchable ou un bonus, temporaire, appliqué à une
  * entité active.
  *
  */
-public abstract class Envoutement {
+public abstract class Envoutement implements Declancher{
 
 	public String getNom() {
 		return nom;
@@ -90,4 +93,12 @@ public abstract class Envoutement {
 		return true;
 	}
 
+	public boolean canDeclanche(Effet effet,int min, int max){
+		for (int i = 0; i < effet.getListEnvoutements().size; i++) {
+			if(this.equals(effet.getListEnvoutements().get(i)))
+				if(effet.getListEnvoutements().get(i).getDuree()>=min && effet.getListEnvoutements().get(i).getDuree()<=max)
+					return true;
+		}
+		return false;
+	}
 }
