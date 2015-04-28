@@ -72,14 +72,14 @@ public class NiveauSymbolique {
 		for (i = 0; i < sorts.length; i++) {
 			tabNiveaux[i] = sorts[i].getNiveau().getNiveauActu();
 			for (j = 0; j < min.length; j++) {
-				if (min[j] > tabNiveaux[j]) {
-					min[j] = tabNiveaux[j];
+				if (min[j] > tabNiveaux[i]) {
+					min[j] = tabNiveaux[i];
 					break;
 				}
 			}
 			for (j = 0; j < max.length; j++) {
-				if (max[j] < tabNiveaux[j]) {
-					max[j] = tabNiveaux[j];
+				if (max[j] < tabNiveaux[i]) {
+					max[j] = tabNiveaux[i];
 					break;
 				}
 			}
