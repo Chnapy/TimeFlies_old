@@ -7,20 +7,25 @@ package gameplay.entite;
 
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
+
 import gameplay.caracteristique.Carac;
 import gameplay.caracteristique.CaracteristiquePhysique;
 import gameplay.caracteristique.Orientation;
 import gameplay.envoutement.Envoutement;
+import gameplay.sort.Sort;
 import gameplay.sort.SortActif;
 import gameplay.sort.SortPassif;
+
 import java.awt.Point;
+import java.util.Arrays;
+import java.util.stream.Stream;
 
 /**
  * EntiteActive.java
  * Représente une entité active (controlable par un joueur).
  *
  */
-public abstract class EntiteActive extends Entite {
+public abstract class EntiteActive extends Entite{
 
 	private final CaracteristiquePhysique caracPhysique;
 	private SortActif[] tabSortActif;
@@ -55,6 +60,7 @@ public abstract class EntiteActive extends Entite {
 		caracPhysique = cPhysique;
 		tabSortActif = sortsActifs;
 		listEnvoutements = new Array<Envoutement>();
+		super.niveauSymbol = new NiveauSymbolique(Stream.concat(Arrays.stream(sortsPassifs), Arrays.stream(sortsActifs)).toArray(Sort[]::new));
 	}
 
 	@Override

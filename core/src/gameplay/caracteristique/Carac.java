@@ -41,5 +41,11 @@ public enum Carac {
 	 * La vitesse d'action fait varier le niveau de temps d'action utilisé par
 	 * les sorts actifs.
 	 */
-	VITESSEACTION
+	VITESSEACTION,
+	/**
+	 * L'initiative d'une entité active.
+	 * L'initiative change l'ordre de jeux par la time line elle est défini par
+	 * la timeline au début du combat et peu être changer par les sorts actifs.
+	 */
+	INITIATIVE
 }

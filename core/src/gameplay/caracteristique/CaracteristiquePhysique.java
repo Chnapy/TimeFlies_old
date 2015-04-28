@@ -38,7 +38,8 @@ public class CaracteristiquePhysique {
 			new TempsAction(tActionTotal, tActionActu),
 			new TempsSup(tSupTotal, tSupActu),
 			new Fatigue(fatTotal, fatActu),
-			new VitesseAction(vActionTotal, vActionActu)
+			new VitesseAction(vActionTotal, vActionActu),
+			new Initiative(-1)
 		};
 
 	}
@@ -91,6 +92,8 @@ public class CaracteristiquePhysique {
 				return listCaracteristiques[3];
 			case VITESSEACTION:
 				return listCaracteristiques[4];
+			case INITIATIVE:
+				return listCaracteristiques[5];
 			default:
 				throw new Error("Enumeration non gérée.");
 		}

@@ -9,6 +9,7 @@ import gameplay.caracteristique.CaracteristiqueSpatiale;
 import gameplay.caracteristique.Orientation;
 import gameplay.effet.Effet;
 import gameplay.sort.SortPassif;
+
 import java.util.Observable;
 
 /**
@@ -22,7 +23,11 @@ public abstract class Entite extends Observable {
 	 *
 	 */
 	protected final String nom;
-
+	
+	/**
+	 * 
+	 */
+	protected NiveauSymbolique niveauSymbol;
 	/**
 	 *
 	 */
@@ -47,6 +52,13 @@ public abstract class Entite extends Observable {
 		nom = n;
 		caracSpatiale = new CaracteristiqueSpatiale(posX, posY, orient);
 		tabSortPassif = sortsPassifs;
+	}
+	/**
+	 * 
+	 * @return niveau symbolique
+	 */
+	public NiveauSymbolique getNiveauSymbol() {
+		return niveauSymbol;
 	}
 
 	public void jouerTour() {

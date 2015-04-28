@@ -28,6 +28,7 @@ public abstract class EntitePassive extends Entite {
 			SortPassif[] sortsPassifs) {
 
 		super(n, posX, posY, orient, sortsPassifs);
+		this.niveauSymbol = new NiveauSymbolique(sortsPassifs);
 	}
 
 }

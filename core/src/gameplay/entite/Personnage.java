@@ -18,7 +18,6 @@ import gameplay.sort.SortPassif;
 public abstract class Personnage extends EntiteActive {
 
 	private String nomDonne;
-	private NiveauSymbolique niveauSymbol;
 
 	/**
 	 *
@@ -39,7 +38,8 @@ public abstract class Personnage extends EntiteActive {
 		super(nom, posX, posY, orientation, cPhysique, sortsPassifs, sortsActifs);
 
 		this.nomDonne = nomDonne;
-		niveauSymbol = new NiveauSymbolique(sortsPassifs, sortsActifs);
+		// TODO calculer le ratio : nbVictoire/nbPartieJouer*facteur
+		niveauSymbol.add(1);
 	}
 
 }
