@@ -47,7 +47,7 @@ public class Effet {
 	 * la fonction retournera true
 	 */
 	public boolean equals(Object o){
-		if(!(o instanceof Effet))
+		if(!(o instanceof Effet)) {
 			return false;
 		}
 		Effet effet = (Effet) o;
