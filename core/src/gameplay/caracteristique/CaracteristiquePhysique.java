@@ -5,6 +5,8 @@
  */
 package gameplay.caracteristique;
 
+import java.util.Arrays;
+
 /**
  * CaracteristiquePhysique.java
  * Gère l'ensemble des caractéristiques physiques de l'entité.
@@ -97,6 +99,30 @@ public class CaracteristiquePhysique {
 			default:
 				throw new Error("Enumeration non gérée.");
 		}
+	}
+	
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Arrays.hashCode(listCaracteristiques);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CaracteristiquePhysique other = (CaracteristiquePhysique) obj;
+		if (!Arrays.equals(listCaracteristiques, other.listCaracteristiques))
+			return false;
+		return true;
 	}
 
 }

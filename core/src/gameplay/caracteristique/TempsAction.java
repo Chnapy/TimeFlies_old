@@ -21,4 +21,8 @@ public class TempsAction extends Caracteristique {
 		super(total, actu);
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		return o instanceof TempsAction;
+	}
 }

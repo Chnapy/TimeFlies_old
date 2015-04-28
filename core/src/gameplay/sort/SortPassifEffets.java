@@ -6,8 +6,9 @@
 package gameplay.sort;
 
 import com.badlogic.gdx.utils.Array;
+
+import gameplay.effet.Declenchable;
 import gameplay.effet.Effet;
-import gameplay.envoutement.Declenchable;
 
 /**
  * SortPassifEffets.java

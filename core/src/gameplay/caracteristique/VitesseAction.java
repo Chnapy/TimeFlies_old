@@ -20,5 +20,9 @@ public class VitesseAction extends Caracteristique {
 	public VitesseAction(int total, int actu) {
 		super(total, actu);
 	}
+	@Override
+	public boolean equals(Object o) {
+		return o instanceof VitesseAction;
+	}
 
 }
