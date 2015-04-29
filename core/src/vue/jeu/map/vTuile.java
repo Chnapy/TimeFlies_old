@@ -15,6 +15,8 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import controleur.cCombat;
+import gameplay.map.EtatTuile;
+import static gameplay.map.EtatTuile.NORMAL;
 
 /**
  * vTuile.java
@@ -37,15 +39,17 @@ public class vTuile extends Actor {
 		new Sprite(atlas.findRegion("tuileEcran"))
 	};
 
+	private EtatTuile etat;
+	private boolean hover;
 	private int posX;
 	private int posY;
 	private float x;
 	private float y;
 	private int iSprite;
 	private Color couleur = Color.WHITE;
-	BitmapFont lab;
+	private final BitmapFont lab;
 
-	public vTuile(int posx, int posy, int indexSprite, cCombat ccombat) {
+	public vTuile(int posx, int posy, int indexSprite, EtatTuile e, cCombat ccombat) {
 		this.lab = new BitmapFont();
 		lab.setColor(Color.BLACK);
 		posX = posx;
@@ -54,6 +58,7 @@ public class vTuile extends Actor {
 		x = pos[0];
 		y = pos[1];
 		iSprite = indexSprite;
+		etat = e;
 
 		setBounds(x, y, TUILE_WIDTH, TUILE_HEIGHT);
 		addListener(new InputListener() {
@@ -73,18 +78,19 @@ public class vTuile extends Actor {
 
 			@Override
 			public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-				couleur = Color.WHITE;
+				setHover(false);
 			}
 
 			@Override
 			public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-				couleur = Color.RED;
+				setHover(true);
 				ccombat.survolTuile(posx, posy);	//Affichage déplacement possible
 			}
 		});
 	}
 
 	@Override
+
 	public void draw(Batch batch, float parentAlpha) {
 		batch.setColor(couleur);
 		batch.draw(tabSprite[iSprite], x, y, TUILE_WIDTH, TUILE_HEIGHT);
@@ -106,6 +112,52 @@ public class vTuile extends Actor {
 		};
 	}
 
+	public void setEtat(EtatTuile newEtat) {
+		etat = newEtat;
+		setCouleur();
+	}
+
+	private void setHover(boolean h) {
+		hover = h;
+		setCouleur();
+	}
+
+	private void setCouleur() {
+		if (!hover) {
+			switch (etat) {
+				case NORMAL:
+					couleur = Color.WHITE;
+					break;
+				case PATH:
+					couleur = Color.YELLOW;
+					break;
+				case ZONESORT:
+					couleur = Color.CYAN;
+					break;
+				case ZONEACTION:
+					couleur = Color.RED;
+					break;
+				default:
+					throw new Error("Etat tuile non géré");
+			}
+		} else {
+			switch (etat) {
+				case NORMAL:
+					couleur = Color.ORANGE;
+					break;
+				case PATH:
+					break;
+				case ZONESORT:
+					couleur = Color.BLUE;
+					break;
+				case ZONEACTION:
+					break;
+				default:
+					throw new Error("Etat tuile non géré");
+			}
+		}
+	}
+
 	public int getPosX() {
 		return posX;
 	}
@@ -120,12 +172,8 @@ public class vTuile extends Actor {
 	 * @param dansChemin
 	 */
 	public void tuileDuChemin(boolean dansChemin) {
-		if (couleur != Color.RED) {
-			if (dansChemin) {
-				couleur = Color.ORANGE;
-			} else {
-				couleur = Color.WHITE;	//Revient à enlever toute couleur
-			}
+		if (!hover) {
+			setEtat(dansChemin ? EtatTuile.PATH : EtatTuile.NORMAL);
 		}
 	}
 

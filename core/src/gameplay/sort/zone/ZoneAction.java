@@ -14,13 +14,14 @@ import com.badlogic.gdx.utils.Array;
  */
 public class ZoneAction {
 
-	private Array<Zone> listZones;
+	private final Array<Zone> listZones;
 
 	/**
 	 *
+	 * @param zones
 	 */
-	public ZoneAction() {
-		listZones = new Array<Zone>();
+	public ZoneAction(Zone... zones) {
+		listZones = new Array<>(zones);
 	}
 
 }

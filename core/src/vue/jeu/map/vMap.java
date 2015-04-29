@@ -28,7 +28,7 @@ public class vMap extends Group {
 		int x, y, t;
 		for (y = 0; y < tabTuiles.length; y++) {
 			for (x = 0; x < tabTuiles[0].length; x++) {
-				switch (tabTuiles[y][x].getEtat()) {
+				switch (tabTuiles[y][x].getType()) {
 					case SIMPLE:
 						t = 0;
 						break;
@@ -44,7 +44,7 @@ public class vMap extends Group {
 					default:
 						throw new Error("Tuile non gérée");
 				}
-				addActor(new vTuile(x, y, t, ccombat));
+				addActor(new vTuile(x, y, t, tabTuiles[y][x].getEtat(), ccombat));
 			}
 		}
 
@@ -65,9 +65,12 @@ public class vMap extends Group {
 			});
 		});
 	}
-	
-	public void afficherPortee(ZonePortee portee, Point posPerso) {
-		//TODO
+
+	public void afficherPortee(ZonePortee zones) {
+		clearColorTuile();
+		zones.getListZones().forEach((zone) -> {
+			//TODO
+		});
 	}
 
 	public void clearColorTuile() {

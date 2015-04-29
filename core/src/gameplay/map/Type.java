@@ -6,11 +6,11 @@
 package gameplay.map;
 
 /**
- * Etat.java
- * Représente les différents états que peut posséder une tuile de la map.
+ * Type.java
+ Représente les différents états que peut posséder une tuile de la map.
  *
  */
-public enum Etat {
+public enum Type {
 
 	/**
 	 * Une entité peut accéder à cette case.

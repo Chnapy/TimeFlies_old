@@ -9,6 +9,7 @@ import com.badlogic.gdx.ai.pfa.Connection;
 import com.badlogic.gdx.ai.pfa.DefaultConnection;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedNode;
 import com.badlogic.gdx.utils.Array;
+import static gameplay.map.EtatTuile.NORMAL;
 import java.awt.Point;
 
 /**
@@ -18,7 +19,8 @@ import java.awt.Point;
  */
 public class Tuile implements IndexedNode<Tuile> {
 
-	private Etat etat;
+	private Type type;
+	private EtatTuile etat;
 	private final Point position;
 	private final int index;
 	private final Array<Connection<Tuile>> connections;
@@ -27,18 +29,23 @@ public class Tuile implements IndexedNode<Tuile> {
 
 	/**
 	 *
-	 * @param e
+	 * @param t
 	 * @param pos
 	 * @param index
 	 */
-	public Tuile(Etat e, Point pos, int index) {
-		etat = e;
+	public Tuile(Type t, Point pos, int index) {
+		type = t;
+		etat = NORMAL;
 		position = pos;
 		this.index = index;
 		connections = new Array<>();
 	}
 
-	public Etat getEtat() {
+	public Type getType() {
+		return type;
+	}
+
+	public EtatTuile getEtat() {
 		return etat;
 	}
 

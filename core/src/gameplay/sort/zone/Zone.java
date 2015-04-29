@@ -16,8 +16,8 @@ import java.awt.Point;
  * Une zone négative fait un "trou" dans une zone positive.
  *
  */
-public abstract class Zone {
-
+public abstract class Zone implements Comparable<Zone> {
+	
 	private boolean positive;
 	protected Map currentMap;
 	protected int size;
@@ -25,6 +25,8 @@ public abstract class Zone {
 	/**
 	 *
 	 * @param posit
+	 * @param size
+	 * @param currentMap
 	 */
 	public Zone(boolean posit, int size, Map currentMap) {
 		positive = posit;
@@ -48,7 +50,19 @@ public abstract class Zone {
 			return value;
 		}
 	}
-
+	
 	public abstract Tuile[] getTilesOfInterrest(Point center);
+	
+	public boolean isPositive() {
+		return this.positive;
+	}
 
+	@Override
+	public int compareTo(Zone o) {
+		if(o.isPositive()) {
+			return 1;
+		}
+		return -1;
+	}
+	
 }

@@ -35,7 +35,7 @@ public class Map implements IndexedGraph<Tuile> {
 	 * @param plan	map représentée sous forme d'état de tuile (simple, obstacle,
 	 *             etc...)
 	 */
-	public Map(Etat[][] plan) {
+	public Map(Type[][] plan) {
 		tabTuiles = new Tuile[plan.length][plan[0].length];
 		dimension = new Dimension(plan.length, plan[0].length);
 		init(plan);
@@ -51,7 +51,7 @@ public class Map implements IndexedGraph<Tuile> {
 	 *
 	 * @param plan
 	 */
-	private void init(Etat[][] plan) {
+	private void init(Type[][] plan) {
 		int x, y;
 		for (y = 0; y < plan.length; y++) {
 			for (x = 0; x < plan[0].length; x++) {
@@ -62,16 +62,16 @@ public class Map implements IndexedGraph<Tuile> {
 		//Définitions des connections pour le pathfinding
 		for (y = 0; y < plan.length; y++) {
 			for (x = 0; x < plan[0].length; x++) {
-				if (y - 1 >= 0 && (!tabTuiles[y - 1][x].getEtat().equals(Etat.TROU) && !tabTuiles[y - 1][x].getEtat().equals(Etat.OBSTACLE))) {
+				if (y - 1 >= 0 && (!tabTuiles[y - 1][x].getType().equals(Type.TROU) && !tabTuiles[y - 1][x].getType().equals(Type.OBSTACLE))) {
 					tabTuiles[y][x].addConnection(tabTuiles[y - 1][x]);
 				}
-				if (y + 1 < plan.length && (!tabTuiles[y + 1][x].getEtat().equals(Etat.TROU) && !tabTuiles[y + 1][x].getEtat().equals(Etat.OBSTACLE))) {
+				if (y + 1 < plan.length && (!tabTuiles[y + 1][x].getType().equals(Type.TROU) && !tabTuiles[y + 1][x].getType().equals(Type.OBSTACLE))) {
 					tabTuiles[y][x].addConnection(tabTuiles[y + 1][x]);
 				}
-				if (x - 1 >= 0 && (!tabTuiles[y][x - 1].getEtat().equals(Etat.TROU) && !tabTuiles[y][x - 1].getEtat().equals(Etat.OBSTACLE))) {
+				if (x - 1 >= 0 && (!tabTuiles[y][x - 1].getType().equals(Type.TROU) && !tabTuiles[y][x - 1].getType().equals(Type.OBSTACLE))) {
 					tabTuiles[y][x].addConnection(tabTuiles[y][x - 1]);
 				}
-				if (x + 1 < plan[0].length && (!tabTuiles[y][x + 1].getEtat().equals(Etat.TROU) && !tabTuiles[y][x + 1].getEtat().equals(Etat.OBSTACLE))) {
+				if (x + 1 < plan[0].length && (!tabTuiles[y][x + 1].getType().equals(Type.TROU) && !tabTuiles[y][x + 1].getType().equals(Type.OBSTACLE))) {
 					tabTuiles[y][x].addConnection(tabTuiles[y][x + 1]);
 				}
 			}

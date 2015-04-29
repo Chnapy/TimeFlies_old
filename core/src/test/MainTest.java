@@ -11,7 +11,7 @@ import gameplay.caracteristique.CaracteristiquePhysique;
 import gameplay.caracteristique.Orientation;
 import gameplay.core.Joueur;
 import gameplay.entite.Personnage;
-import gameplay.map.Etat;
+import gameplay.map.Type;
 import gameplay.map.Map;
 import gameplay.sort.SortActif;
 import gameplay.sort.SortPassif;
@@ -63,13 +63,13 @@ public class MainTest extends Game {
 			new Joueur(5, "J1", persosJ1),
 			new Joueur(6, "J2", persosJ2)
 		};
-		Map map = new Map(new Etat[][]{
-			{Etat.SIMPLE, Etat.SIMPLE, Etat.OBSTACLE},
-			{Etat.SIMPLE, Etat.TROU, Etat.OBSTACLE},
-			{Etat.SIMPLE, Etat.SIMPLE, Etat.SIMPLE},
-			{Etat.SIMPLE, Etat.SIMPLE, Etat.SIMPLE},
-			{Etat.ECRAN, Etat.ECRAN, Etat.SIMPLE},
-			{Etat.ECRAN, Etat.ECRAN, Etat.SIMPLE}
+		Map map = new Map(new Type[][]{
+			{Type.SIMPLE, Type.SIMPLE, Type.OBSTACLE},
+			{Type.SIMPLE, Type.TROU, Type.OBSTACLE},
+			{Type.SIMPLE, Type.SIMPLE, Type.SIMPLE},
+			{Type.SIMPLE, Type.SIMPLE, Type.SIMPLE},
+			{Type.ECRAN, Type.ECRAN, Type.SIMPLE},
+			{Type.ECRAN, Type.ECRAN, Type.SIMPLE}
 		});
 		try {
 			cCombat contCombat = new cCombat(map, joueurs);

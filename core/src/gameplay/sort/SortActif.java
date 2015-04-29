@@ -52,4 +52,12 @@ public abstract class SortActif extends Sort {
 		victime.recoitSort(getTabEffets(),lanceur);
 	}
 
+	public ZonePortee getZonePortee() {
+		return zonePortee;
+	}
+
+	public ZoneAction getZoneAction() {
+		return zoneAction;
+	}
+
 }
