@@ -6,8 +6,11 @@
 package gameplay.effet;
 
 import com.badlogic.gdx.utils.Array;
+
+import gameplay.entite.Entite;
 import gameplay.envoutement.Envoutement;
 import gameplay.invocation.Invocation;
+
 import java.util.Objects;
 
 /**
@@ -22,10 +25,7 @@ import java.util.Objects;
  */
 public class Effet {
 
-	private Array<Balus> listBalus;
-	private Array<Envoutement> listEnvoutements;
-	private Placement placement;
-	private Invocation invocation;
+	private Array<Declencheur> declencheur;
 
 	/**
 	 *
@@ -34,90 +34,63 @@ public class Effet {
 	 * @param place
 	 * @param invoc
 	 */
-	public Effet(Array<Balus> balus, Array<Envoutement> envoutements, Placement place, Invocation invoc) {
-		listBalus = balus;
-		listEnvoutements = envoutements;
-		placement = place;
-		invocation = invoc;
+	public Effet(Array<Declencheur> declencheur) {
+		this.declencheur = declencheur;
 	}
 	
 	/**
-	 * equals en fonction de toutes les listes
-	 * l'effet comparer a des Balus/Envoutement/placement/invocation en plus 
-	 * la fonction retournera true
+	 * lance les effets sur la victime sans prendre en compte les passif
+	 * 
+	 * @param victime
 	 */
-	public boolean equals(Object o){
-		if(!(o instanceof Effet)) {
-			return false;
-		}
-		Effet effet = (Effet) o;
-		if (this.listBalus != null || this.listBalus.size != 0) {
-			for (int i = 0; i < this.listBalus.size; i++) {
-				if (!effet.listBalus.contains(this.listBalus.get(i), false)) {
-					return false;
-				}
+	public void lancerEffet(Entite victime){
+		if(declencheur!=null && declencheur.size!=0){
+			for (int i = 0; i < declencheur.size; i++) {
+				this.declencheur.get(i).lancer(victime);
 			}
 		}
-		if (this.listEnvoutements != null || this.listEnvoutements.size != 0) {
-			for (int i = 0; i < this.listEnvoutements.size; i++) {
-				if (!effet.listEnvoutements.contains(this.listEnvoutements.get(i), false)) {
-					return false;
-				}
-			}
-		}
-		if (this.placement != null) {
-			if (!this.placement.equals(effet.placement)) {
-				return false;
-			}
-		}
-		if (this.invocation != null) {
-			if (!this.invocation.equals(effet.invocation)) {
-				return false;
-			}
-		}
-		return true;
 	}
 
 	@Override
 	public int hashCode() {
-		int hash = 3;
-		hash = 97 * hash + Objects.hashCode(this.listBalus);
-		hash = 97 * hash + Objects.hashCode(this.listEnvoutements);
-		hash = 97 * hash + Objects.hashCode(this.placement);
-		hash = 97 * hash + Objects.hashCode(this.invocation);
-		return hash;
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((declencheur == null) ? 0 : declencheur.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Effet other = (Effet) obj;
+		if (declencheur == null) {
+			if (other.declencheur != null)
+				return false;
+		} else if (!declencheur.equals(other.declencheur))
+			return false;
+		return true;
 	}
 
 	/**
 	 * 
-	 * @return liste des balus
+	 * @return tout les déclancheur
 	 */
-	public Array<Balus> getListBalus() {
-		return listBalus;
+	public Array<Declencheur> getDeclencheur() {
+		return declencheur;
 	}
 
 	/**
-	 * 
-	 * @return liste des envoutements
+	 * met a jours les déclancheur
+	 * @param declencheur
 	 */
-	public Array<Envoutement> getListEnvoutements() {
-		return listEnvoutements;
-	}
-
-	/**
-	 * 
-	 * @return le placement
-	 */
-	public Placement getPlacement() {
-		return placement;
+	public void setDeclencheur(Array<Declencheur> declencheur) {
+		this.declencheur = declencheur;
 	}
 	
-	/**
-	 * 
-	 * @return l'invocation
-	 */
-	public Invocation getInvocation() {
-		return invocation;
-	}
-
 }

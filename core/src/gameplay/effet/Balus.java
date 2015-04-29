@@ -6,6 +6,7 @@
 package gameplay.effet;
 
 import gameplay.caracteristique.Carac;
+import gameplay.entite.Entite;
 
 /**
  * Balus.java
@@ -78,14 +79,20 @@ public class Balus implements Declencheur {
 
 	@Override
 	public boolean canDeclencher(Effet effet, int min, int max) {
-		for (int i = 0; i < effet.getListBalus().size; i++) {
-			if (effet.getListBalus().get(i).equals(this)) {
-				if (effet.getListBalus().get(i).getNombre() <= min && effet.getListBalus().get(i).getNombre() >= max) {
+		for (int i = 0; i < effet.getDeclencheur().size; i++) {
+			if (effet.getDeclencheur().get(i).equals(this)) {
+				Balus balus = (Balus) effet.getDeclencheur().get(i);
+				if (balus.getNombre() <= min && balus.getNombre() >= max) {
 					return true;
 				}
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public void lancer(Entite victime) {
+		victime.getCaracPhysique().add(caracteristique, nombre);	
 	}
 
 }

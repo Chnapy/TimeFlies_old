@@ -7,6 +7,7 @@ package gameplay.sort;
 
 import gameplay.effet.Effet;
 import gameplay.entite.Entite;
+import gameplay.entite.EntiteActive;
 import gameplay.sort.zone.ZoneAction;
 import gameplay.sort.zone.ZonePortee;
 
@@ -41,8 +42,14 @@ public abstract class SortActif extends Sort {
 		zoneAction = zaction;
 	}
 
-	public void lancerSort(Entite entite) {
-		entite.recoitSort(getTabEffets());
+	/**
+	 * lance le sort sur la victime check ses passif et 
+	 * renvoi les effets des passifs au lanceur si effectif
+	 * @param victime
+	 * @param lanceur
+	 */
+	public void lancerSort(Entite victime, EntiteActive lanceur) {
+		victime.recoitSort(getTabEffets(),lanceur);
 	}
 
 }

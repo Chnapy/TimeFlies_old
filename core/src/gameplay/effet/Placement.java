@@ -6,6 +6,7 @@
 package gameplay.effet;
 
 import gameplay.caracteristique.CaracteristiqueSpatiale;
+import gameplay.entite.Entite;
 
 /**
  * Placement.java
@@ -71,7 +72,17 @@ public class Placement implements Declencheur {
 
 	@Override
 	public boolean canDeclencher(Effet effet, int min, int max) {
-		return effet.getPlacement() != null;
+		for (int i = 0; i < effet.getDeclencheur().size; i++) {
+			if (effet.getDeclencheur().get(i) instanceof Placement) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public void lancer(Entite victime) {
+		victime.setCaracSpatiale(caracSpatiale);
 	}
 
 }

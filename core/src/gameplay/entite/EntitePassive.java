@@ -5,6 +5,7 @@
  */
 package gameplay.entite;
 
+import gameplay.caracteristique.CaracteristiquePhysique;
 import gameplay.caracteristique.Orientation;
 import gameplay.sort.SortPassif;
 
@@ -22,12 +23,13 @@ public abstract class EntitePassive extends Entite {
 	 * @param posY
 	 * @param orient
 	 * @param sortsPassifs
+	 * @param cPhysique
 	 */
 	public EntitePassive(String n,
 			int posX, int posY, Orientation orient,
-			SortPassif[] sortsPassifs) {
+			SortPassif[] sortsPassifs, CaracteristiquePhysique cPhysique) {
 
-		super(n, posX, posY, orient, sortsPassifs);
+		super(n, posX, posY, orient, sortsPassifs,cPhysique);
 		this.niveauSymbol = new NiveauSymbolique(sortsPassifs);
 	}
 

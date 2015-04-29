@@ -27,7 +27,6 @@ import java.util.stream.Stream;
  */
 public abstract class EntiteActive extends Entite{
 
-	private final CaracteristiquePhysique caracPhysique;
 	private SortActif[] tabSortActif;
 	private Array<Envoutement> listEnvoutements;
 
@@ -55,9 +54,8 @@ public abstract class EntiteActive extends Entite{
 			SortPassif[] sortsPassifs,
 			SortActif[] sortsActifs) {
 
-		super(nom, posX, posY, orientation, sortsPassifs);
+		super(nom, posX, posY, orientation, sortsPassifs,cPhysique);
 
-		caracPhysique = cPhysique;
 		tabSortActif = sortsActifs;
 		listEnvoutements = new Array<Envoutement>();
 		super.niveauSymbol = new NiveauSymbolique(Stream.concat(Arrays.stream(sortsPassifs), Arrays.stream(sortsActifs)).toArray(Sort[]::new));
@@ -112,7 +110,10 @@ public abstract class EntiteActive extends Entite{
 		}
 	}
 
-	//Change la position, notifie la vue
+	/**
+	 * Change la position, notifie la vue
+	 * @param listeParcours
+	 */
 	public void setPosition(Array<Point> listeParcours) {
 		caracSpatiale.getPosition().x = listeParcours.peek().x;
 		caracSpatiale.getPosition().y = listeParcours.peek().y;
@@ -123,20 +124,35 @@ public abstract class EntiteActive extends Entite{
 	public CaracteristiquePhysique getCaracPhysique() {
 		return caracPhysique;
 	}
-
+	/**
+	 * 
+	 * @return true si l'entitée est en déplacement
+	 */
 	public boolean isEnDeplacement() {
 		return enDeplacement;
 	}
 
+	/**
+	 * 
+	 * @param enDeplacement
+	 */
 	public void setEnDeplacement(boolean enDeplacement) {
 		this.enDeplacement = enDeplacement;
 	}
 
+	/**
+	 * 
+	 * @param deplacer
+	 */
 	public void setModeDeplacement(boolean deplacer) {
 		System.out.println("Mode deplacement : " + deplacer);
 		this.modeDeplacement = deplacer;
 	}
 
+	/**
+	 * 
+	 * @return true si le mode de déplacement est activé
+	 */
 	public boolean isModeDeplacement() {
 		return modeDeplacement;
 	}

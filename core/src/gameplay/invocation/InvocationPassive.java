@@ -5,6 +5,7 @@
  */
 package gameplay.invocation;
 
+import gameplay.caracteristique.CaracteristiquePhysique;
 import gameplay.caracteristique.Orientation;
 import gameplay.entite.EntitePassive;
 import gameplay.sort.SortPassif;
@@ -23,12 +24,13 @@ public abstract class InvocationPassive extends EntitePassive implements Invocat
 	 * @param posY
 	 * @param orient
 	 * @param sortsPassifs
+	 * @param cphysique
 	 */
 	public InvocationPassive(String n,
 			int posX, int posY, Orientation orient,
-			SortPassif[] sortsPassifs) {
+			SortPassif[] sortsPassifs,CaracteristiquePhysique cphysique) {
 
-		super(n, posX, posY, orient, sortsPassifs);
+		super(n, posX, posY, orient, sortsPassifs,cphysique);
 	}
 
 }

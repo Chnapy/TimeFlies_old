@@ -5,8 +5,10 @@
  */
 package gameplay.envoutement;
 
+import gameplay.effet.Balus;
 import gameplay.effet.Declencheur;
 import gameplay.effet.Effet;
+import gameplay.entite.Entite;
 
 /**
  * Envoutement.java
@@ -106,13 +108,17 @@ public abstract class Envoutement implements Declencheur {
 
 	@Override
 	public boolean canDeclencher(Effet effet, int min, int max) {
-		for (int i = 0; i < effet.getListEnvoutements().size; i++) {
-			if (this.equals(effet.getListEnvoutements().get(i))) {
-				if (effet.getListEnvoutements().get(i).getDuree() >= min && effet.getListEnvoutements().get(i).getDuree() <= max) {
+		for (int i = 0; i < effet.getDeclencheur().size; i++) {
+			if (effet.getDeclencheur().get(i).equals(this)) {
+				Envoutement envoutement = (Envoutement) effet.getDeclencheur().get(i);
+				if (envoutement.getDuree() <= min && envoutement.getDuree() >= max) {
 					return true;
 				}
 			}
 		}
 		return false;
 	}
+	
+	@Override
+	public abstract void lancer(Entite victime) ;
 }
