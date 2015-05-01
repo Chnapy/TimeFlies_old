@@ -28,9 +28,9 @@ public abstract class InvocationPassive extends EntitePassive implements Invocat
 	 */
 	public InvocationPassive(String n,
 			int posX, int posY, Orientation orient,
-			SortPassif[] sortsPassifs,CaracteristiquePhysique cphysique) {
+			SortPassif[] sortsPassifs, CaracteristiquePhysique cphysique) {
 
-		super(n, posX, posY, orient, sortsPassifs,cphysique);
+		super(n, posX, posY, orient, sortsPassifs, cphysique);
 	}
 
 }

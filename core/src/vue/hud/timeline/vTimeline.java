@@ -11,8 +11,6 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import gameplay.core.Timeline;
-import java.util.Observable;
-import java.util.Observer;
 import static test.MainTest.MAX_HEIGHT;
 import static test.MainTest.MAX_WIDTH;
 

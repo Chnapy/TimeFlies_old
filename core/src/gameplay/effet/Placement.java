@@ -63,7 +63,7 @@ public class Placement implements Declencheur {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return la caractéristique spatiale
 	 */
 	public CaracteristiqueSpatiale getCaracSpatiale() {

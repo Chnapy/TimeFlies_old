@@ -12,20 +12,24 @@ import vue.hud.sorts.vSortsBouton;
 
 /**
  * vSortsActifsBouton.java
- * 
+ *
  */
 public class vSortsPassifsBouton extends vSortsBouton {
 
 	private static final Texture[] TEXTURES = {
-		new Texture(Gdx.files.internal("sort/sort_fond.png")),
-	};
-	
+		new Texture(Gdx.files.internal("sort/sort_fond.png")),};
+
+	static {
+		for (Texture texture : TEXTURES) {
+			texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+		}
+	}
+
 	public vSortsPassifsBouton(int index) {
 		super(TEXTURES[index]);
 	}
-	
+
 	public static final void filterTexture() {
-		filterTexture(TEXTURES);
 	}
 
 	@Override

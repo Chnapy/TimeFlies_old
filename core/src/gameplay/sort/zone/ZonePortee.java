@@ -27,19 +27,19 @@ public class ZonePortee {
 		listZones = new Array<>(zones);
 		tabTuiles = setTuiles();
 	}
-	
+
 	//TODO
 	private Tuile[] setTuiles() {
 		Array<Tuile> tuiles = new Array<>();
 		listZones.sort();
 		listZones.forEach((zone) -> {
-			if(zone.isPositive()) {
-				
+			if (zone.isPositive()) {
+
 			} else {
-				
+
 			}
 		});
-		
+
 		return null;
 	}
 

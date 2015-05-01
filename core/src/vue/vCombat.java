@@ -5,19 +5,18 @@
  */
 package vue;
 
-import vue.jeu.entites.vEntites;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
-import vue.hud.timeline.vTimeline;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.utils.Array;
 import controleur.cCombat;
 import gameplay.core.Timeline;
-import gameplay.entite.EntiteActive;
 import gameplay.entite.Personnage;
 import gameplay.map.Tuile;
-import vue.jeu.map.vMap;
+import vue.hud.timeline.vTimeline;
 import vue.hud.vHud;
+import vue.jeu.entites.vEntites;
+import vue.jeu.map.vMap;
 import vue.jeu.vJeu;
 
 /**
@@ -43,7 +42,7 @@ public class vCombat implements Screen {
 		//Accepter les input
 		InputMultiplexer inputM = new InputMultiplexer(vjeu, vhud);
 		Gdx.input.setInputProcessor(inputM);
-		
+
 	}
 
 	@Override

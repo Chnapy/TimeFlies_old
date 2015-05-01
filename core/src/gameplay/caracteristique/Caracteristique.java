@@ -78,7 +78,7 @@ public abstract class Caracteristique {
 	public int getActu() {
 		return actu;
 	}
-	
+
 	public abstract boolean equals(Object o);
 
 }

@@ -3,7 +3,6 @@
  * 
  * 
  */
-
 package gameplay.core;
 
 /**
@@ -11,10 +10,10 @@ package gameplay.core;
  * Enum
  */
 public enum Tour {
-	
-	DEBUT,	//Debut du tour
-	COURS,	//Tour en cours
-	FIN,	//Fin du tour
+
+	DEBUT, //Debut du tour
+	COURS, //Tour en cours
+	FIN, //Fin du tour
 	ATTENTE	//Tour en attente de commencement
 
 }

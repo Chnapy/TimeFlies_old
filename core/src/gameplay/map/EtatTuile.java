@@ -12,7 +12,7 @@ package gameplay.map;
 public enum EtatTuile {
 
 	NORMAL,
-	PATH,	//Vue uniquement
+	PATH, //Vue uniquement
 	ZONESORT,
 	ZONEACTION
 }

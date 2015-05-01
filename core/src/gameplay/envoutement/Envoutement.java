@@ -5,7 +5,6 @@
  */
 package gameplay.envoutement;
 
-import gameplay.effet.Balus;
 import gameplay.effet.Declencheur;
 import gameplay.effet.Effet;
 import gameplay.entite.Entite;
@@ -80,7 +79,7 @@ public abstract class Envoutement implements Declencheur {
 		result = prime * result + ((nom == null) ? 0 : nom.hashCode());
 		return result;
 	}
-	
+
 	/**
 	 * equals en fonction du nom uniquement
 	 */
@@ -118,7 +117,7 @@ public abstract class Envoutement implements Declencheur {
 		}
 		return false;
 	}
-	
+
 	@Override
-	public abstract void lancer(Entite victime) ;
+	public abstract void lancer(Entite victime);
 }

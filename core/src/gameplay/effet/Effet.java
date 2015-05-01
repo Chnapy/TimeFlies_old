@@ -6,12 +6,7 @@
 package gameplay.effet;
 
 import com.badlogic.gdx.utils.Array;
-
 import gameplay.entite.Entite;
-import gameplay.envoutement.Envoutement;
-import gameplay.invocation.Invocation;
-
-import java.util.Objects;
 
 /**
  * Effet.java
@@ -37,14 +32,14 @@ public class Effet {
 	public Effet(Array<Declencheur> declencheur) {
 		this.declencheur = declencheur;
 	}
-	
+
 	/**
 	 * lance les effets sur la victime sans prendre en compte les passif
-	 * 
+	 *
 	 * @param victime
 	 */
-	public void lancerEffet(Entite victime){
-		if(declencheur!=null && declencheur.size!=0){
+	public void lancerEffet(Entite victime) {
+		if (declencheur != null && declencheur.size != 0) {
 			for (int i = 0; i < declencheur.size; i++) {
 				this.declencheur.get(i).lancer(victime);
 			}
@@ -62,23 +57,28 @@ public class Effet {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		Effet other = (Effet) obj;
 		if (declencheur == null) {
-			if (other.declencheur != null)
+			if (other.declencheur != null) {
 				return false;
-		} else if (!declencheur.equals(other.declencheur))
+			}
+		} else if (!declencheur.equals(other.declencheur)) {
 			return false;
+		}
 		return true;
 	}
 
 	/**
-	 * 
+	 *
 	 * @return tout les déclancheur
 	 */
 	public Array<Declencheur> getDeclencheur() {
@@ -87,10 +87,11 @@ public class Effet {
 
 	/**
 	 * met a jours les déclancheur
+	 *
 	 * @param declencheur
 	 */
 	public void setDeclencheur(Array<Declencheur> declencheur) {
 		this.declencheur = declencheur;
 	}
-	
+
 }

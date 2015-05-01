@@ -29,7 +29,7 @@ public class Balus implements Declencheur {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return caracteristique
 	 */
 	public Carac getCaracteristique() {
@@ -37,7 +37,7 @@ public class Balus implements Declencheur {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return le nombre à enlever/ajouter
 	 */
 	public int getNombre() {
@@ -92,7 +92,7 @@ public class Balus implements Declencheur {
 
 	@Override
 	public void lancer(Entite victime) {
-		victime.getCaracPhysique().add(caracteristique, nombre);	
+		victime.getCaracPhysique().add(caracteristique, nombre);
 	}
 
 }

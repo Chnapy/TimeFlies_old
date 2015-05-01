@@ -6,11 +6,9 @@
 package gameplay.core;
 
 import com.badlogic.gdx.utils.Array;
-
 import gameplay.caracteristique.Carac;
 import gameplay.entite.EntiteActive;
 import gameplay.entite.Personnage;
-
 import java.util.Observable;
 
 /**
@@ -235,9 +233,9 @@ public class Timeline extends Observable implements Runnable {
 	 * légère
 	 * part d'aléatoire.
 	 * Voir GDD pour plus d'info.
-	 * 
+	 *
 	 * initiative = niveau symbolique + random(0,1)*facteur
-	 * 
+	 *
 	 * Pseudo-code :
 	 *
 	 * - Inititalisation de l'initiative de chaque personnage
@@ -249,7 +247,7 @@ public class Timeline extends Observable implements Runnable {
 		//la boucle pour initialiser les initiatives
 		for (EntiteActive entiteActive : listEntiteActives) {
 			//calcule de l'initative
-			initiative = entiteActive.getNiveauSymbol().getNiveau()+((int)(Math.random()*5));
+			initiative = entiteActive.getNiveauSymbol().getNiveau() + ((int) (Math.random() * 5));
 			//on set l'initiative des joueurs
 			entiteActive.getCaracPhysique().setActu(Carac.INITIATIVE, initiative);
 		}
@@ -275,53 +273,49 @@ public class Timeline extends Observable implements Runnable {
 
 	/**
 	 * Tri la liste d'entié Active en fonction de leurs initiative
+	 *
 	 * @param liste
 	 */
-	public static void triRapide(Array<EntiteActive> liste)
-	{
-		int longueur=liste.size;
-		triRapide(liste,0,longueur-1);
+	public static void triRapide(Array<EntiteActive> liste) {
+		int longueur = liste.size;
+		triRapide(liste, 0, longueur - 1);
 	}
-	
+
 	/**
 	 * Tri la liste d'entié Active en fonction de leurs initiative
 	 * en partant du début jusqu'a la fin
+	 *
 	 * @param liste
 	 * @param deb
 	 * @param fin
 	 */
-	private static void triRapide(Array<EntiteActive> liste,int deb,int fin)
-	{
-		if(deb<fin)
-		{
-			int positionPivot=partition(liste,deb,fin);
-			triRapide(liste,deb,positionPivot-1);
-			triRapide(liste,positionPivot+1,fin);
+	private static void triRapide(Array<EntiteActive> liste, int deb, int fin) {
+		if (deb < fin) {
+			int positionPivot = partition(liste, deb, fin);
+			triRapide(liste, deb, positionPivot - 1);
+			triRapide(liste, positionPivot + 1, fin);
 		}
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param liste
 	 * @param deb
 	 * @param fin
 	 * @return pivotPosition
 	 */
-	private static int partition(Array<EntiteActive> liste,int deb,int fin)
-	{
-		int compt=deb;
-		EntiteActive pivot=liste.get(deb);
+	private static int partition(Array<EntiteActive> liste, int deb, int fin) {
+		int compt = deb;
+		EntiteActive pivot = liste.get(deb);
 
-		for(int i=deb+1;i<=fin;i++)
-		{
-			if (liste.get(i).getCaracPhysique().getCaracteristique(Carac.INITIATIVE).getActu()<pivot.getCaracPhysique().getCaracteristique(Carac.INITIATIVE).getActu())
-			{
+		for (int i = deb + 1; i <= fin; i++) {
+			if (liste.get(i).getCaracPhysique().getCaracteristique(Carac.INITIATIVE).getActu() < pivot.getCaracPhysique().getCaracteristique(Carac.INITIATIVE).getActu()) {
 				compt++;
 				liste.swap(compt, i);
 			}
 		}
 		liste.swap(deb, compt);
-		return(compt);
+		return (compt);
 	}
 
 	/**
@@ -329,20 +323,20 @@ public class Timeline extends Observable implements Runnable {
 	 *
 	 * @param tabEntiteActive
 	 */
-	 public void addEntiteActive(EntiteActive... tabEntiteActive) {
-		 listEntiteActives.addAll(tabEntiteActive);
-	 }
+	public void addEntiteActive(EntiteActive... tabEntiteActive) {
+		listEntiteActives.addAll(tabEntiteActive);
+	}
 
-	 public EntiteActive getEntiteEnCours() {
-		 return entiteEnCours;
-	 }
+	public EntiteActive getEntiteEnCours() {
+		return entiteEnCours;
+	}
 
-	 public Tour getEtatTour() {
-		 return etatTour;
-	 }
+	public Tour getEtatTour() {
+		return etatTour;
+	}
 
-	 public Tour getEtatTourGlobal() {
-		 return etatTourGlobal;
-	 }
+	public Tour getEtatTourGlobal() {
+		return etatTourGlobal;
+	}
 
 }

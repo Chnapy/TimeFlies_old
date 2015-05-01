@@ -11,7 +11,6 @@ import gameplay.caracteristique.Orientation;
 import gameplay.effet.Effet;
 import gameplay.sort.SortPassif;
 import gameplay.sort.SortPassifEffets;
-
 import java.util.Observable;
 
 /**
@@ -26,13 +25,13 @@ public abstract class Entite extends Observable {
 	 *
 	 */
 	protected final String nom;
-	
+
 	public void setCaracSpatiale(CaracteristiqueSpatiale caracSpatiale) {
 		this.caracSpatiale = caracSpatiale;
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	protected NiveauSymbolique niveauSymbol;
 	/**
@@ -52,20 +51,23 @@ public abstract class Entite extends Observable {
 	 * @param posY
 	 * @param orient
 	 * @param sortsPassifs
+	 * @param caracPhysique
 	 */
 	public Entite(String n,
 			int posX, int posY, Orientation orient,
-			SortPassif[] sortsPassifs,CaracteristiquePhysique caracPhysique) {
+			SortPassif[] sortsPassifs, CaracteristiquePhysique caracPhysique) {
 		nom = n;
 		caracSpatiale = new CaracteristiqueSpatiale(posX, posY, orient);
 		tabSortPassif = sortsPassifs;
 		this.caracPhysique = caracPhysique;
 	}
+
 	public CaracteristiquePhysique getCaracPhysique() {
 		return caracPhysique;
 	}
+
 	/**
-	 * 
+	 *
 	 * @return niveau symbolique
 	 */
 	public NiveauSymbolique getNiveauSymbol() {
@@ -79,29 +81,32 @@ public abstract class Entite extends Observable {
 	/**
 	 * lance les effets sur la victime en prenant en compte les passif
 	 * si le lanceur != null
+	 *
 	 * @param effets
 	 * @param lanceur
 	 */
 	public void recoitSort(Effet[] effets, Entite lanceur) {
-		if(lanceur!=null){
+		if (lanceur != null) {
 			for (int i = 0; i < tabSortPassif.length; i++) {
-				if(tabSortPassif[i] instanceof SortPassifEffets)
-					((SortPassifEffets)tabSortPassif[i]).applyEffect(effets, lanceur, this, true);;
+				if (tabSortPassif[i] instanceof SortPassifEffets) {
+					((SortPassifEffets) tabSortPassif[i]).applyEffect(effets, lanceur, this, true);
+				};
 			}
 		}
 		for (int i = 0; i < effets.length; i++) {
 			effets[i].lancerEffet(this);
 		}
-		if(lanceur!=null){
+		if (lanceur != null) {
 			for (int i = 0; i < tabSortPassif.length; i++) {
-				if(tabSortPassif[i] instanceof SortPassifEffets)
-					((SortPassifEffets)tabSortPassif[i]).applyEffect(effets, lanceur, this, false);;
+				if (tabSortPassif[i] instanceof SortPassifEffets) {
+					((SortPassifEffets) tabSortPassif[i]).applyEffect(effets, lanceur, this, false);
+				};
 			}
 		}
 	}
 
 	/**
-	 * 
+	 *
 	 * @return le nom de l'entité
 	 */
 	public String getNom() {
@@ -109,7 +114,7 @@ public abstract class Entite extends Observable {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return les caractéristique spatial de l'entité
 	 */
 	public CaracteristiqueSpatiale getCaracSpatiale() {
@@ -117,7 +122,7 @@ public abstract class Entite extends Observable {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return les sort passif de l'entitée
 	 */
 	public SortPassif[] getTabSortPassif() {

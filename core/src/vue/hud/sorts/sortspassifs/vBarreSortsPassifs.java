@@ -40,7 +40,6 @@ public class vBarreSortsPassifs extends VerticalGroup {
 				batch.draw(TEXTURE, 0, 0, WIDTH, HEIGHT);
 			}
 		});
-		vSortsPassifsBouton.filterTexture();
 //		debugAll();
 	}
 

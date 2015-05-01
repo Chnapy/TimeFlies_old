@@ -17,7 +17,7 @@ import java.awt.Point;
  *
  */
 public abstract class Zone implements Comparable<Zone> {
-	
+
 	private boolean positive;
 	protected Map currentMap;
 	protected int size;
@@ -50,19 +50,19 @@ public abstract class Zone implements Comparable<Zone> {
 			return value;
 		}
 	}
-	
+
 	public abstract Tuile[] getTilesOfInterrest(Point center);
-	
+
 	public boolean isPositive() {
 		return this.positive;
 	}
 
 	@Override
 	public int compareTo(Zone o) {
-		if(o.isPositive()) {
+		if (o.isPositive()) {
 			return 1;
 		}
 		return -1;
 	}
-	
+
 }

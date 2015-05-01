@@ -20,6 +20,7 @@ public class VitesseAction extends Caracteristique {
 	public VitesseAction(int total, int actu) {
 		super(total, actu);
 	}
+
 	/**
 	 * equals en fontion du type de la classe (VitesseAction)
 	 */

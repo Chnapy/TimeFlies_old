@@ -15,6 +15,7 @@ import com.badlogic.gdx.utils.Array;
 import gameplay.entite.Entite;
 import gameplay.entite.EntiteActive;
 import java.awt.Point;
+import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 import vue.jeu.map.vTuile;
@@ -37,6 +38,11 @@ public class vEntite extends Actor implements Observer {
 	private static final String[][] tabEntiteSprite = {
 		{"Guerrier", "perso"}
 	};
+	private static final HashMap<String, Texture> mapEntiteSprite = new HashMap<>();
+
+	static {
+		mapEntiteSprite.put("Guerrier", new Texture("perso/perso.png"));
+	}
 
 	private Texture texture = null;
 	private boolean enDeplacement;
@@ -45,12 +51,7 @@ public class vEntite extends Actor implements Observer {
 	private int posY;
 
 	public vEntite(final EntiteActive perso) {
-		for (String[] tabEntiteSprite1 : tabEntiteSprite) {
-			if (tabEntiteSprite1[0].equals(perso.getNom())) {
-				texture = new Texture("perso/" + tabEntiteSprite1[1] + ".png");
-				break;
-			}
-		}
+		texture = mapEntiteSprite.get(perso.getNom());
 		if (texture == null) {
 			throw new Error("Perso non géré : " + perso.getNom());
 		}

@@ -7,7 +7,7 @@ package gameplay.map;
 
 /**
  * Type.java
- Représente les différents états que peut posséder une tuile de la map.
+ * Représente les différents états que peut posséder une tuile de la map.
  *
  */
 public enum Type {

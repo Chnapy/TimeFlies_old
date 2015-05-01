@@ -83,7 +83,7 @@ public class CaracteristiquePhysique {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param c
 	 * @return la caracteristique de type c
 	 */
@@ -105,7 +105,6 @@ public class CaracteristiquePhysique {
 				throw new Error("Enumeration non gérée.");
 		}
 	}
-	
 
 	/**
 	 * hashCode
@@ -123,15 +122,19 @@ public class CaracteristiquePhysique {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		CaracteristiquePhysique other = (CaracteristiquePhysique) obj;
-		if (!Arrays.equals(listCaracteristiques, other.listCaracteristiques))
+		if (!Arrays.equals(listCaracteristiques, other.listCaracteristiques)) {
 			return false;
+		}
 		return true;
 	}
 

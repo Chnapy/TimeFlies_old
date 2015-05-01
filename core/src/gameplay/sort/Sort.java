@@ -18,7 +18,7 @@ public abstract class Sort {
 	private String description;
 	private Niveau niveau;
 	private Effet[] tabEffets;
-	
+
 	private final int index;	//Pour la vue
 
 	/**
@@ -27,7 +27,7 @@ public abstract class Sort {
 	 * @param description
 	 * @param niveau
 	 * @param effets
-	 * @param i	pour la vue
+	 * @param i	          pour la vue
 	 */
 	public Sort(String nom, String description, Niveau niveau, Effet[] effets, int i) {
 		this.nom = nom;

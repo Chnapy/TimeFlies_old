@@ -7,7 +7,6 @@ package gameplay.entite;
 
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
-
 import gameplay.caracteristique.Carac;
 import gameplay.caracteristique.CaracteristiquePhysique;
 import gameplay.caracteristique.Orientation;
@@ -15,7 +14,6 @@ import gameplay.envoutement.Envoutement;
 import gameplay.sort.Sort;
 import gameplay.sort.SortActif;
 import gameplay.sort.SortPassif;
-
 import java.awt.Point;
 import java.util.Arrays;
 import java.util.stream.Stream;
@@ -25,7 +23,7 @@ import java.util.stream.Stream;
  * Représente une entité active (controlable par un joueur).
  *
  */
-public abstract class EntiteActive extends Entite{
+public abstract class EntiteActive extends Entite {
 
 	private SortActif[] tabSortActif;
 	private Array<Envoutement> listEnvoutements;
@@ -54,7 +52,7 @@ public abstract class EntiteActive extends Entite{
 			SortPassif[] sortsPassifs,
 			SortActif[] sortsActifs) {
 
-		super(nom, posX, posY, orientation, sortsPassifs,cPhysique);
+		super(nom, posX, posY, orientation, sortsPassifs, cPhysique);
 
 		tabSortActif = sortsActifs;
 		listEnvoutements = new Array<Envoutement>();
@@ -112,6 +110,7 @@ public abstract class EntiteActive extends Entite{
 
 	/**
 	 * Change la position, notifie la vue
+	 *
 	 * @param listeParcours
 	 */
 	public void setPosition(Array<Point> listeParcours) {
@@ -124,8 +123,9 @@ public abstract class EntiteActive extends Entite{
 	public CaracteristiquePhysique getCaracPhysique() {
 		return caracPhysique;
 	}
+
 	/**
-	 * 
+	 *
 	 * @return true si l'entitée est en déplacement
 	 */
 	public boolean isEnDeplacement() {
@@ -133,7 +133,7 @@ public abstract class EntiteActive extends Entite{
 	}
 
 	/**
-	 * 
+	 *
 	 * @param enDeplacement
 	 */
 	public void setEnDeplacement(boolean enDeplacement) {
@@ -141,7 +141,7 @@ public abstract class EntiteActive extends Entite{
 	}
 
 	/**
-	 * 
+	 *
 	 * @param deplacer
 	 */
 	public void setModeDeplacement(boolean deplacer) {
@@ -150,7 +150,7 @@ public abstract class EntiteActive extends Entite{
 	}
 
 	/**
-	 * 
+	 *
 	 * @return true si le mode de déplacement est activé
 	 */
 	public boolean isModeDeplacement() {

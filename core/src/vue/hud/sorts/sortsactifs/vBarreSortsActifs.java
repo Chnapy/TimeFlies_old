@@ -60,11 +60,11 @@ public class vBarreSortsActifs extends HorizontalGroup {
 	}
 
 	public void nouveauTour(cCombat ccombat, SortActif[] sactifs) {
-		for(SortActif sort : sactifs) {
+		for (SortActif sort : sactifs) {
 			addBouton(new vSortsActifsBouton(ccombat, sort.getIndex(), 5, 10, 8, 2));
 		}
 	}
-	
+
 	public void finTour() {
 		getChildren().removeRange(1, getChildren().size - 1);
 	}

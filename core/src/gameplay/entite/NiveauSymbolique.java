@@ -28,26 +28,26 @@ public class NiveauSymbolique {
 	public NiveauSymbolique(final Sort[] sorts) {
 		calculNiveau(sorts);
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @return niveau
 	 */
 	public int getNiveau() {
 		return niveau;
 	}
-	
+
 	/**
-	 * Ajoute le nombre au niveau simbolique 
-	 * 
+	 * Ajoute le nombre au niveau simbolique
+	 *
 	 * utiliser pour l'ajout du ratio
-	 * 
+	 *
 	 * @param nombre
 	 */
-	public void add(int nombre){
-		this.niveau+=nombre;
+	public void add(int nombre) {
+		this.niveau += nombre;
 	}
-	
+
 	/**
 	 * Calcul du niveau symbolique :
 	 * Récupération du niveau de chacun des sorts.

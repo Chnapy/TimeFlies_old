@@ -14,10 +14,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import controleur.cCombat;
 import gameplay.core.Timeline;
-import gameplay.core.Tour;
 import gameplay.entite.EntiteActive;
-import java.util.Observable;
-import java.util.Observer;
 import test.MainTest;
 import vue.hud.sorts.vSorts;
 import vue.hud.timeline.vTimeline;
@@ -49,7 +46,7 @@ public final class vHud extends Stage {
 	public void nouveauTour(cCombat ccombat, EntiteActive entite) {
 		vsorts.nouveauTour(ccombat, entite.getTabSortActif(), entite.getTabSortPassif());
 	}
-	
+
 	public void finTour() {
 		vsorts.finTour();
 	}

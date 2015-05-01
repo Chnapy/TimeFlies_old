@@ -5,8 +5,8 @@
  */
 package gameplay.sort;
 
-import gameplay.caracteristique.Carac;
 import com.badlogic.gdx.utils.Array;
+import gameplay.caracteristique.Carac;
 import gameplay.effet.Effet;
 
 /**
