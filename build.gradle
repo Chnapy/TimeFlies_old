@@ -47,6 +47,7 @@ project(":core") {
 
 
     dependencies {
+		compile fileTree(dir: 'libs', include: '*.jar')
 		compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
 		compile "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
@@ -59,9 +60,9 @@ tasks.eclipse.doLast {
     delete ".project"
 }
 
-task texturePacker << {
-  if (project.ext.has('texturePacker')) {
-    logger.info "Calling TexturePacker: "+texturePacker
-    TexturePacker.process(texturePacker[0], texturePacker[1], texturePacker[2])
-  }
-}
+//task texturePacker << {
+//  if (project.ext.has('texturePacker')) {
+//    logger.info "Calling TexturePacker: "+texturePacker
+//    TexturePacker.process(texturePacker[0], texturePacker[1], texturePacker[2])
+//  }
+//}
