@@ -52,7 +52,7 @@ public class MainTest extends Game {
 		};
 		Personnage[] persosJ2 = {
 			new Guerrier(
-			"bite", 2, 0, Orientation.E,
+			"bite", 0, 0, Orientation.E,
 			new CaracteristiquePhysique(100, 100, 100, 100, 100, 100, 100, 100, 100, 100),
 			new SortPassif[]{},
 			new SortActif[]{

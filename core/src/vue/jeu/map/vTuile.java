@@ -7,6 +7,7 @@ package vue.jeu.map;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -33,10 +34,10 @@ public class vTuile extends Actor {
 
 	private static final TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("tuile/tuile.atlas"));
 	private static final Sprite[] tabSprite = {
-		new Sprite(atlas.findRegion("tuileSimple")),
-		new Sprite(atlas.findRegion("tuileTrou")),
-		new Sprite(atlas.findRegion("tuileObstacle")),
-		new Sprite(atlas.findRegion("tuileEcran"))
+		new Sprite(atlas.findRegion("tuile_simple")),
+		new Sprite(atlas.findRegion("tuile_trou")),
+		new Sprite(atlas.findRegion("tuile_obstacle")),
+		new Sprite(atlas.findRegion("tuile_ecran"))
 	};
 
 	private EtatTuile etat;
