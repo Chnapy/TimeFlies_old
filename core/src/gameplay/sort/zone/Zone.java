@@ -31,7 +31,7 @@ public abstract class Zone implements Comparable<Zone> {
 	public Zone(boolean posit, int size, Map currentMap) {
 		positive = posit;
 		this.currentMap = currentMap;
-		this.size = size;
+		this.size = size * 2 + 1;
 	}
 
 	/**

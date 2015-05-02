@@ -6,9 +6,6 @@
 package gameplay.sort.zone;
 
 import gameplay.map.Map;
-import gameplay.map.Tuile;
-import java.awt.Point;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 /**

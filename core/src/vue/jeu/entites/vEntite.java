@@ -35,9 +35,6 @@ public class vEntite extends Actor implements Observer {
 	/**
 	 * Nom du perso -> nom de fichier
 	 */
-	private static final String[][] tabEntiteSprite = {
-		{"Guerrier", "perso"}
-	};
 	private static final HashMap<String, Texture> mapEntiteSprite = new HashMap<>();
 
 	static {
@@ -76,6 +73,7 @@ public class vEntite extends Actor implements Observer {
 	 * @param o	  Entite
 	 * @param arg	Array de Point
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void update(Observable o, Object arg) {
 		Array<Point> listParcours = (Array<Point>) arg;

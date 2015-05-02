@@ -22,7 +22,7 @@ public class SortQuiFaitMal extends SortActif {
 	public SortQuiFaitMal(Map map) {
 		super("SortQuiFaitMal", "Ca fait mal", new Niveau(0),
 				new Effet[]{},
-				new ZonePortee(new Carre(5, true, map), new Carre(3, false, map)),
+				new ZonePortee(new Carre(2, true, map), new Carre(1, false, map)),
 				new ZoneAction(),
 				0);
 	}
