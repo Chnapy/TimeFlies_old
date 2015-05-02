@@ -41,13 +41,21 @@ public class MainTest extends Game {
 	@Override
 	public void create() {
 		camera.setToOrtho(false, MAX_WIDTH, MAX_HEIGHT);
+		Map map = new Map(new Type[][]{
+			{Type.SIMPLE, Type.SIMPLE, Type.OBSTACLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE},
+			{Type.SIMPLE, Type.TROU, Type.OBSTACLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE},
+			{Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE},
+			{Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE},
+			{Type.ECRAN, Type.ECRAN, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE},
+			{Type.ECRAN, Type.ECRAN, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE}
+		});
 		Personnage[] persosJ1 = {
 			new Guerrier(
 			"bite", 1, 2, Orientation.E,
 			new CaracteristiquePhysique(100, 100, 100, 100, 100, 100, 100, 100, 100, 100),
 			new SortPassif[]{},
 			new SortActif[]{
-				new SortQuiFaitMal()
+				new SortQuiFaitMal(map)
 			})
 		};
 		Personnage[] persosJ2 = {
@@ -56,29 +64,17 @@ public class MainTest extends Game {
 			new CaracteristiquePhysique(100, 100, 100, 100, 100, 100, 100, 100, 100, 100),
 			new SortPassif[]{},
 			new SortActif[]{
-				new SortQuiFaitMal()
+				new SortQuiFaitMal(map)
 			})
 		};
 		Joueur[] joueurs = {
 			new Joueur(5, "J1", persosJ1),
 			new Joueur(6, "J2", persosJ2)
 		};
-		Map map = new Map(new Type[][]{
-			{Type.SIMPLE, Type.SIMPLE, Type.OBSTACLE},
-			{Type.SIMPLE, Type.TROU, Type.OBSTACLE},
-			{Type.SIMPLE, Type.SIMPLE, Type.SIMPLE},
-			{Type.SIMPLE, Type.SIMPLE, Type.SIMPLE},
-			{Type.ECRAN, Type.ECRAN, Type.SIMPLE},
-			{Type.ECRAN, Type.ECRAN, Type.SIMPLE}
-		});
-		try {
-			cCombat contCombat = new cCombat(map, joueurs);
-			this.setScreen(contCombat.getVue());
-			contCombat.lancer();
-		} catch (Exception e) {
-			//Arrete l'application en cas d'exception
-			Logger.getLogger(MainTest.class.getName()).log(Level.SEVERE, null, e);
-		}
+
+		cCombat contCombat = new cCombat(map, joueurs);
+		this.setScreen(contCombat.getVue());
+		contCombat.lancer();
 	}
 
 	/**

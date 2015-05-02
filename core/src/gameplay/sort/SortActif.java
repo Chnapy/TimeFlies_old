@@ -46,11 +46,11 @@ public abstract class SortActif extends Sort {
 	 * lance le sort sur la victime check ses passif et
 	 * renvoi les effets des passifs au lanceur si effectif
 	 *
-	 * @param victime
+	 * @param cible
 	 * @param lanceur
 	 */
-	public void lancerSort(Entite victime, EntiteActive lanceur) {
-		victime.recoitSort(getTabEffets(), lanceur);
+	public void lancerSort(Entite cible, EntiteActive lanceur) {
+		cible.recoitSort(getTabEffets(), lanceur);
 	}
 
 	public ZonePortee getZonePortee() {

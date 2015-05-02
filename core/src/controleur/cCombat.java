@@ -152,7 +152,7 @@ public class cCombat implements Observer {
 	public void modeSort(int index) {
 		entiteEnCours.setModeDeplacement(false);
 		SortActif sort = entiteEnCours.setSortEnCours(index);
-//		vue.getVmap().afficherPortee(sort.getZonePortee().);	//TODO
+		vue.getVmap().afficherPortee(sort.getZonePortee().getZoneFinale(), entiteEnCours.getCaracSpatiale().getPosition());	//TODO
 	}
 
 	@Override

@@ -9,9 +9,10 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
 import controleur.cCombat;
+import gameplay.map.EtatTuile;
 import gameplay.map.Tuile;
-import gameplay.sort.zone.ZonePortee;
 import java.awt.Point;
+import java.util.Arrays;
 
 /**
  * vMap.java
@@ -19,12 +20,15 @@ import java.awt.Point;
  */
 public class vMap extends Group {
 
+	private final vTuile[][] tabVtuiles;
+
 	/**
 	 *
 	 * @param ccombat
 	 * @param tabTuiles
 	 */
 	public vMap(final cCombat ccombat, final Tuile[][] tabTuiles) {
+		tabVtuiles = new vTuile[tabTuiles.length][tabTuiles[0].length];
 		int x, y, t;
 		for (y = 0; y < tabTuiles.length; y++) {
 			for (x = 0; x < tabTuiles[0].length; x++) {
@@ -44,7 +48,8 @@ public class vMap extends Group {
 					default:
 						throw new Error("Tuile non gérée");
 				}
-				addActor(new vTuile(x, y, t, tabTuiles[y][x].getEtat(), ccombat));
+				tabVtuiles[y][x] = new vTuile(x, y, t, tabTuiles[y][x].getEtat(), ccombat);
+				addActor(tabVtuiles[y][x]);
 			}
 		}
 
@@ -57,20 +62,25 @@ public class vMap extends Group {
 	 */
 	public void colorTuile(Array<Point> listePoint) {
 		clearColorTuile();
-		getChildren().forEach((Actor vtuile) -> {
-			listePoint.forEach((Point point) -> {
-				if (((vTuile) vtuile).getPosX() == point.x && ((vTuile) vtuile).getPosY() == point.y) {
-					((vTuile) vtuile).tuileDuChemin(true);
-				}
-			});
+		listePoint.forEach((Point point) -> {
+			tabVtuiles[point.y][point.x].tuileDuChemin(true);
 		});
 	}
 
-	public void afficherPortee(ZonePortee zones) {
+	public void afficherPortee(boolean[][] zone, Point posEntite) {
 		clearColorTuile();
-		zones.getListZones().forEach((zone) -> {
-			//TODO
-		});
+
+		for (int y = posEntite.y + zone.length / 2 - Math.abs(zone.length % 2 - 1), j = 0;
+				y > posEntite.y - zone.length / 2 - zone.length % 2 && j < zone.length;
+				y--, j++) {
+			for (int x = posEntite.x - zone[0].length / 2 + Math.abs(zone[0].length % 2 - 1), i = 0;
+					x < posEntite.x + zone[0].length / 2 + zone[0].length % 2 && i < zone[0].length;
+					x++, i++) {
+				if (zone[j][i] && y >= 0 && x >= 0 && y < tabVtuiles.length && x < tabVtuiles[0].length) {
+					tabVtuiles[y][x].setEtat(EtatTuile.ZONESORT);
+				}
+			}
+		}
 	}
 
 	public void clearColorTuile() {

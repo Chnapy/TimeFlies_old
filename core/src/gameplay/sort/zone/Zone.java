@@ -19,8 +19,8 @@ import java.awt.Point;
 public abstract class Zone implements Comparable<Zone> {
 
 	private boolean positive;
-	protected Map currentMap;
-	protected int size;
+	protected final Map currentMap;
+	protected final int size;
 
 	/**
 	 *
@@ -41,17 +41,19 @@ public abstract class Zone implements Comparable<Zone> {
 	 * @param max   - Maximum value.
 	 * @return - In bound value.
 	 */
-	protected int valueInBound(int value, int max) {
-		if (value > max) {
-			return max;
-		} else if (value < 0) {
-			return 0;
-		} else {
-			return value;
-		}
-	}
+//	protected static int valueInBound(int value, int max) {
+//		if (value > max) {
+//			return max;
+//		} else if (value < 0) {
+//			return 0;
+//		} else {
+//			return value;
+//		}
+//	}
+	
+	public abstract boolean[][] getZoneOfInterest();
 
-	public abstract Tuile[] getTilesOfInterrest(Point center);
+//	public abstract Tuile[] getTilesOfInterrest(Point center);
 
 	public boolean isPositive() {
 		return this.positive;
