@@ -37,7 +37,7 @@ public final class vHud extends Stage {
 		parameter.size = 18;
 		FONT = generator.generateFont(parameter);
 		vsorts = new vSorts();
-		vtimeline = new vTimeline(timel);
+		vtimeline = new vTimeline(timel.getListEntiteActives());
 
 		addActor(vsorts);
 		addActor(vtimeline);
@@ -45,6 +45,7 @@ public final class vHud extends Stage {
 
 	public void nouveauTour(cCombat ccombat, EntiteActive entite) {
 		vsorts.nouveauTour(ccombat, entite.getTabSortActif(), entite.getTabSortPassif());
+		vtimeline.nouveauTour();
 	}
 
 	public void finTour() {

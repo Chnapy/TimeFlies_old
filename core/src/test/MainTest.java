@@ -42,17 +42,18 @@ public class MainTest extends Game {
 	public void create() {
 		camera.setToOrtho(false, MAX_WIDTH, MAX_HEIGHT);
 		Map map = new Map(new Type[][]{
-			{Type.SIMPLE, Type.SIMPLE, Type.OBSTACLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE},
-			{Type.SIMPLE, Type.TROU, Type.OBSTACLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE},
-			{Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE},
-			{Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE},
-			{Type.ECRAN, Type.ECRAN, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE},
-			{Type.ECRAN, Type.ECRAN, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE}
+			{Type.SIMPLE, Type.SIMPLE, Type.OBSTACLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE},
+			{Type.SIMPLE, Type.TROU, Type.OBSTACLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE},
+			{Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE},
+			{Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE},
+			{Type.ECRAN, Type.ECRAN, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE},
+			{Type.ECRAN, Type.ECRAN, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE},
+			{Type.ECRAN, Type.ECRAN, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE}
 		});
 		Personnage[] persosJ1 = {
 			new Guerrier(
 			"bite", 1, 2, Orientation.E,
-			new CaracteristiquePhysique(100, 100, 100, 100, 100, 100, 100, 100, 100, 100),
+			new CaracteristiquePhysique(100, 100, 10, 10, 100, 100, 100, 100, 100, 100),
 			new SortPassif[]{},
 			new SortActif[]{
 				new SortQuiFaitMal(map)
@@ -61,7 +62,7 @@ public class MainTest extends Game {
 		Personnage[] persosJ2 = {
 			new Guerrier(
 			"bite", 0, 0, Orientation.E,
-			new CaracteristiquePhysique(100, 100, 100, 100, 100, 100, 100, 100, 100, 100),
+			new CaracteristiquePhysique(100, 100, 10, 10, 100, 100, 100, 100, 100, 100),
 			new SortPassif[]{},
 			new SortActif[]{
 				new SortQuiFaitMal(map)

@@ -5,7 +5,6 @@
  */
 package vue.hud.sorts;
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import controleur.cCombat;
 import gameplay.sort.SortActif;
@@ -25,12 +24,8 @@ public class vSorts extends Group {
 	public vSorts() {
 		barreSortsActifs = new vBarreSortsActifs();
 		barreSortsPassifs = new vBarreSortsPassifs();
-		addBarre(barreSortsActifs);
-		addBarre(barreSortsPassifs);
-	}
-
-	private void addBarre(Actor barre) {
-		addActor(barre);
+		addActor(barreSortsActifs);
+		addActor(barreSortsPassifs);
 	}
 
 	public void nouveauTour(cCombat ccombat, SortActif[] sactifs, SortPassif[] spassifs) {

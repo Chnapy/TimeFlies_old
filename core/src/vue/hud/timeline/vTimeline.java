@@ -10,9 +10,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import gameplay.core.Timeline;
+import com.badlogic.gdx.utils.Array;
+import gameplay.entite.EntiteActive;
 import static test.MainTest.MAX_HEIGHT;
-import static test.MainTest.MAX_WIDTH;
 
 /**
  * vTimeline.java
@@ -20,25 +20,37 @@ import static test.MainTest.MAX_WIDTH;
  */
 public class vTimeline extends Group {
 
-	private static final Texture TEXTURE_FOND = new Texture(Gdx.files.internal("timeline/timeline_fond.png"));
+	private static final Texture TEXTURE_FOND = new Texture(Gdx.files.internal("timeline/barre_timeline.png"));
 	private static final int X = 50;
-	private static final int WIDTH = MAX_WIDTH - X * 2;
-	private static final int HEIGHT = 64;
-	private static final int Y = MAX_HEIGHT - HEIGHT;
+	private static final int WIDTH = 1820;
+	private static final int HEIGHT = 92;
+	private static final int Y = MAX_HEIGHT - HEIGHT - 12;
+	
+	private final Array<vTimelineEntite> listEntite;
 
-	public vTimeline(final Timeline timeline) {
+	public vTimeline(final Array<EntiteActive> listEntites) {
 		TEXTURE_FOND.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 		setSize(WIDTH, HEIGHT);
 		setPosition(X, Y);
+		listEntite = new Array<vTimelineEntite>();
 		this.addActor(new Actor() {
 			@Override
 			public void draw(Batch batch, float parentAlpha) {
 				batch.draw(TEXTURE_FOND, 0, 0, WIDTH, HEIGHT);
 			}
 		});
-		for (int i = 0; i < 5; i++) {
-			addActor(new vTimelineEntite(i));
+		vTimelineEntite temp;
+		for (int i = 0; i < listEntites.size; i++) {
+			temp = new vTimelineEntite(listEntites.get(i), i);
+			addActor(temp);
+			listEntite.add(temp);
 		}
+	}
+	
+	public void nouveauTour() {
+		listEntite.forEach((entite) -> {
+			entite.nouveauTour(--listEntite.size);
+		});
 	}
 
 }

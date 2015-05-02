@@ -22,7 +22,7 @@ public class Timeline extends Observable implements Runnable {
 	private final Thread thread;
 	private boolean enJeu;
 
-	private Array<EntiteActive> listEntiteActives;
+	private final Array<EntiteActive> listEntiteActives;
 	private EntiteActive entiteEnCours;
 
 	private Tour etatTour;
@@ -337,6 +337,10 @@ public class Timeline extends Observable implements Runnable {
 
 	public Tour getEtatTourGlobal() {
 		return etatTourGlobal;
+	}
+
+	public Array<EntiteActive> getListEntiteActives() {
+		return listEntiteActives;
 	}
 
 }
