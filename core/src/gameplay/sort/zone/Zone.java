@@ -5,10 +5,6 @@
  */
 package gameplay.sort.zone;
 
-import gameplay.map.Map;
-import gameplay.map.Tuile;
-import java.awt.Point;
-
 /**
  * Zone.java
  * Représente une zone pouvant être positive ou négative.
@@ -19,7 +15,6 @@ import java.awt.Point;
 public abstract class Zone implements Comparable<Zone> {
 
 	private boolean positive;
-	protected final Map currentMap;
 	protected final int size;
 
 	/**
@@ -28,9 +23,8 @@ public abstract class Zone implements Comparable<Zone> {
 	 * @param size
 	 * @param currentMap
 	 */
-	public Zone(boolean posit, int size, Map currentMap) {
+	public Zone(boolean posit, int size) {
 		positive = posit;
-		this.currentMap = currentMap;
 		this.size = size * 2 + 1;
 	}
 

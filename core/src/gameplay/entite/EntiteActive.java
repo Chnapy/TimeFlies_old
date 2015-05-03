@@ -8,6 +8,7 @@ package gameplay.entite;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 import gameplay.caracteristique.Carac;
+import gameplay.caracteristique.Caracteristique;
 import gameplay.caracteristique.CaracteristiquePhysique;
 import gameplay.caracteristique.Orientation;
 import gameplay.envoutement.Envoutement;
@@ -35,6 +36,7 @@ public abstract class EntiteActive extends Entite {
 	private boolean enDeplacement;
 
 	private SortActif sortEnCours = null;
+	private final int indexTextureTimeline;
 
 	/**
 	 *
@@ -45,26 +47,39 @@ public abstract class EntiteActive extends Entite {
 	 * @param cPhysique
 	 * @param sortsPassifs
 	 * @param sortsActifs
+	 * @param iTextureTimeline
 	 */
 	public EntiteActive(String nom,
 			int posX, int posY, Orientation orientation,
 			CaracteristiquePhysique cPhysique,
 			SortPassif[] sortsPassifs,
-			SortActif[] sortsActifs) {
+			SortActif[] sortsActifs,
+			int iTextureTimeline) {
 
 		super(nom, posX, posY, orientation, sortsPassifs, cPhysique);
 
 		tabSortActif = sortsActifs;
 		listEnvoutements = new Array<Envoutement>();
-		super.niveauSymbol = new NiveauSymbolique(Stream.concat(Arrays.stream(sortsPassifs), Arrays.stream(sortsActifs)).toArray(Sort[]::new));
+		niveauSymbol = new NiveauSymbolique(Stream.concat(Arrays.stream(sortsPassifs), Arrays.stream(sortsActifs)).toArray(Sort[]::new));
+		indexTextureTimeline = iTextureTimeline;
 	}
 
 	@Override
 	public void jouerTour() {
 		long debutTour = TimeUtils.millis();
 		long tempsAction = caracPhysique.getCaracteristique(Carac.TEMPSACTION).getActu() * 1000;
+		long palier = debutTour;
+		long time = TimeUtils.millis();
 		System.out.println("DEBUT Tour actif pendant " + caracPhysique.getCaracteristique(Carac.TEMPSACTION).getActu() + "s : " + nom);
-		while (TimeUtils.millis() < debutTour + tempsAction);
+		while (time < debutTour + tempsAction) {
+			if (time >= palier + 1000) {
+				palier = time;
+				caracPhysique.supp(Carac.TEMPSACTION, 1);
+				setChanged();
+				notifyObservers(-1);
+			}
+			time = TimeUtils.millis();
+		}
 		System.out.println("FIN Tour actif : " + nom);
 	}
 
@@ -106,6 +121,7 @@ public abstract class EntiteActive extends Entite {
 		for (Envoutement envout : listEnvoutements) {
 			envout.actionFinTour();
 		}
+		caracPhysique.setActu(Carac.TEMPSACTION, caracPhysique.getCaracteristique(Carac.TEMPSACTION).getTotal());
 	}
 
 	/**
@@ -118,10 +134,6 @@ public abstract class EntiteActive extends Entite {
 		caracSpatiale.getPosition().y = listeParcours.peek().y;
 		setChanged();
 		notifyObservers(listeParcours);
-	}
-
-	public CaracteristiquePhysique getCaracPhysique() {
-		return caracPhysique;
 	}
 
 	/**
@@ -177,6 +189,14 @@ public abstract class EntiteActive extends Entite {
 			}
 		}
 		return null;
+	}
+
+	public int getIndexTextureTimeline() {
+		return indexTextureTimeline;
+	}
+
+	public Caracteristique getTempsAction() {
+		return getCaracPhysique().getCaracteristique(Carac.TEMPSACTION);
 	}
 
 }

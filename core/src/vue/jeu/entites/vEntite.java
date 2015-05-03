@@ -39,6 +39,7 @@ public class vEntite extends Actor implements Observer {
 
 	static {
 		mapEntiteSprite.put("Guerrier", new Texture("perso/perso.png"));
+		mapEntiteSprite.put("Guerrier2", new Texture("perso/perso2.png"));
 	}
 
 	private Texture texture = null;
@@ -76,6 +77,9 @@ public class vEntite extends Actor implements Observer {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void update(Observable o, Object arg) {
+		if (arg != null) {
+			return;
+		}
 		Array<Point> listParcours = (Array<Point>) arg;
 		setPosition(((Entite) o).getCaracSpatiale().getPosition().x,
 				((Entite) o).getCaracSpatiale().getPosition().y, false);

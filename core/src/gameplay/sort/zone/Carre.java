@@ -5,7 +5,6 @@
  */
 package gameplay.sort.zone;
 
-import gameplay.map.Map;
 import java.util.Arrays;
 
 /**
@@ -20,8 +19,8 @@ public class Carre extends Zone {
 	 * @param cote	 longueur d'un coté
 	 * @param posit	positif ?
 	 */
-	public Carre(int cote, boolean posit, Map currentMap) {
-		super(posit, cote, currentMap);
+	public Carre(int cote, boolean posit) {
+		super(posit, cote);
 	}
 
 	//Not tested yet.

@@ -5,11 +5,6 @@
  */
 package gameplay.sort.zone;
 
-import gameplay.map.Map;
-import gameplay.map.Tuile;
-import java.awt.Point;
-import java.util.ArrayList;
-
 /**
  * Croix.java
  * Représente une zone en forme de croix.
@@ -22,8 +17,8 @@ public class Croix extends Zone {
 	 * @param taille	  taille d'une partie de la croix
 	 * @param positive	positif ?
 	 */
-	public Croix(int size, boolean positive, Map currentMap) {
-		super(positive, size, currentMap);
+	public Croix(int size, boolean positive) {
+		super(positive, size);
 		//TODO taille
 	}
 

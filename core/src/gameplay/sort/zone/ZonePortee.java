@@ -6,7 +6,6 @@
 package gameplay.sort.zone;
 
 import com.badlogic.gdx.utils.Array;
-import java.util.Arrays;
 
 /**
  * ZonePortee.java

@@ -6,7 +6,6 @@
 package test;
 
 import gameplay.effet.Effet;
-import gameplay.map.Map;
 import gameplay.sort.Niveau;
 import gameplay.sort.SortActif;
 import gameplay.sort.zone.Carre;
@@ -19,10 +18,10 @@ import gameplay.sort.zone.ZonePortee;
  */
 public class SortQuiFaitMal extends SortActif {
 
-	public SortQuiFaitMal(Map map) {
+	public SortQuiFaitMal() {
 		super("SortQuiFaitMal", "Ca fait mal", new Niveau(0),
 				new Effet[]{},
-				new ZonePortee(new Carre(2, true, map), new Carre(1, false, map)),
+				new ZonePortee(new Carre(2, true), new Carre(1, false)),
 				new ZoneAction(),
 				0);
 	}

@@ -5,10 +5,6 @@
  */
 package gameplay.sort.zone;
 
-import gameplay.map.Map;
-import gameplay.map.Tuile;
-import java.awt.Point;
-
 /**
  * Personnalise.java
  * Représente une zone dont la forme a été personnalisée par le joueur.
@@ -21,8 +17,8 @@ public class Personnalise extends Zone {
 	 *
 	 * @param posit
 	 */
-	public Personnalise(boolean posit, int size, Map currentMap) {
-		super(posit, size, currentMap);
+	public Personnalise(boolean posit, int size) {
+		super(posit, size);
 	}
 
 //	@Override

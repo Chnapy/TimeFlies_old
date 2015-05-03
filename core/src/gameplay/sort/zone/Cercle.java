@@ -5,12 +5,6 @@
  */
 package gameplay.sort.zone;
 
-import gameplay.map.Map;
-import gameplay.map.Tuile;
-import java.awt.Point;
-import java.util.ArrayList;
-import javafx.scene.shape.Circle;
-
 /**
  * Cercle.java
  * Représente une zone en forme de cercle.
@@ -23,8 +17,8 @@ public class Cercle extends Zone {
 	 * @param rayon	rayon du cercle
 	 * @param posit	positif ?
 	 */
-	public Cercle(int radius, boolean posit, Map currentMap) {
-		super(posit, radius, currentMap);
+	public Cercle(int radius, boolean posit) {
+		super(posit, radius);
 	}
 
 //	@Override

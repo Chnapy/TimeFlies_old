@@ -12,9 +12,10 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Array;
 import controleur.cCombat;
-import gameplay.core.Timeline;
 import gameplay.entite.EntiteActive;
+import gameplay.entite.Personnage;
 import test.MainTest;
 import vue.hud.sorts.vSorts;
 import vue.hud.timeline.vTimeline;
@@ -33,11 +34,11 @@ public final class vHud extends Stage {
 	private final vTimeline vtimeline;
 	private final Batch batch = new SpriteBatch();
 
-	public vHud(Timeline timel) {
+	public vHud(Array<? extends EntiteActive> personnages) {
 		parameter.size = 18;
 		FONT = generator.generateFont(parameter);
 		vsorts = new vSorts();
-		vtimeline = new vTimeline(timel.getListEntiteActives());
+		vtimeline = new vTimeline(personnages);
 
 		addActor(vsorts);
 		addActor(vtimeline);

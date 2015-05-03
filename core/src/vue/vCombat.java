@@ -37,7 +37,7 @@ public class vCombat implements Screen {
 	 */
 	public vCombat(final cCombat ccombat, final Tuile[][] tabTuiles, final Array<Personnage> personnages, final Timeline timel) {
 		vjeu = new vJeu(ccombat, tabTuiles, personnages);
-		vhud = new vHud(timel);
+		vhud = new vHud(personnages);
 
 		//Accepter les input
 		InputMultiplexer inputM = new InputMultiplexer(vjeu, vhud);

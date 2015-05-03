@@ -15,8 +15,6 @@ import gameplay.map.Map;
 import gameplay.map.Type;
 import gameplay.sort.SortActif;
 import gameplay.sort.SortPassif;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * MainTest.java
@@ -56,16 +54,16 @@ public class MainTest extends Game {
 			new CaracteristiquePhysique(100, 100, 10, 10, 100, 100, 100, 100, 100, 100),
 			new SortPassif[]{},
 			new SortActif[]{
-				new SortQuiFaitMal(map)
+				new SortQuiFaitMal()
 			})
 		};
 		Personnage[] persosJ2 = {
-			new Guerrier(
+			new Guerrier2(
 			"bite", 0, 0, Orientation.E,
 			new CaracteristiquePhysique(100, 100, 10, 10, 100, 100, 100, 100, 100, 100),
 			new SortPassif[]{},
 			new SortActif[]{
-				new SortQuiFaitMal(map)
+				new SortQuiFaitMal()
 			})
 		};
 		Joueur[] joueurs = {

@@ -12,7 +12,6 @@ import controleur.cCombat;
 import gameplay.map.EtatTuile;
 import gameplay.map.Tuile;
 import java.awt.Point;
-import java.util.Arrays;
 
 /**
  * vMap.java
