@@ -37,11 +37,12 @@ public class Effet {
 	 * lance les effets sur la victime sans prendre en compte les passif
 	 *
 	 * @param victime
+	 * @param pourcentageSupp 
 	 */
-	public void lancerEffet(Entite victime) {
+	public void lancerEffet(Entite victime, int pourcentageSupp) {
 		if (declencheur != null && declencheur.size != 0) {
 			for (int i = 0; i < declencheur.size; i++) {
-				this.declencheur.get(i).lancer(victime);
+				this.declencheur.get(i).lancer(victime,pourcentageSupp);
 			}
 		}
 	}

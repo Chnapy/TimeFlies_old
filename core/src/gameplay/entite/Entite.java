@@ -11,6 +11,8 @@ import gameplay.caracteristique.Orientation;
 import gameplay.effet.Effet;
 import gameplay.sort.SortPassif;
 import gameplay.sort.SortPassifEffets;
+
+import java.awt.Point;
 import java.util.Observable;
 
 /**
@@ -74,9 +76,7 @@ public abstract class Entite extends Observable {
 		return niveauSymbol;
 	}
 
-	public void jouerTour() {
-		//TODO
-	}
+	public abstract void jouerTour();
 
 	/**
 	 * lance les effets sur la victime en prenant en compte les passif
@@ -86,21 +86,70 @@ public abstract class Entite extends Observable {
 	 * @param lanceur
 	 */
 	public void recoitSort(Effet[] effets, Entite lanceur) {
+		int pourcentageSupp = 0;
+		Orientation oriAttaque = getOrientation(this.getCaracSpatiale().getPosition(), lanceur.getCaracSpatiale().getPosition());
+		if(!oriAttaque.equals(this.getCaracSpatiale().getOrientation())){
+			if(oriAttaque.invert().equals(this.getCaracSpatiale().getOrientation())){
+				//TODO pourcentage de Cous critique a définir
+				pourcentageSupp = 30;
+			}
+			this.getCaracSpatiale().setOrientation(oriAttaque);
+		}
 		if (lanceur != null) {
 			for (int i = 0; i < tabSortPassif.length; i++) {
 				if (tabSortPassif[i] instanceof SortPassifEffets) {
-					((SortPassifEffets) tabSortPassif[i]).applyEffect(effets, lanceur, this, true);
+					((SortPassifEffets) tabSortPassif[i]).applyEffect(effets, lanceur, this, true,pourcentageSupp);
 				};
 			}
 		}
 		for (int i = 0; i < effets.length; i++) {
-			effets[i].lancerEffet(this);
+			effets[i].lancerEffet(this,pourcentageSupp);
 		}
 		if (lanceur != null) {
 			for (int i = 0; i < tabSortPassif.length; i++) {
 				if (tabSortPassif[i] instanceof SortPassifEffets) {
-					((SortPassifEffets) tabSortPassif[i]).applyEffect(effets, lanceur, this, false);
+					((SortPassifEffets) tabSortPassif[i]).applyEffect(effets, lanceur, this, false,pourcentageSupp);
 				};
+			}
+		}
+	}
+	/**
+	 * 
+	 * @param origine
+	 * @param point
+	 * @return l'orientation de l'origine qui regarde vers le point
+	 */
+	private Orientation getOrientation(Point origine, Point point){
+		double vecX = point.getX()-origine.getX();
+		double vecY = point.getY()-origine.getY();
+		
+		if(vecX>0){
+			if(vecY>0){
+				if(vecX<vecY){
+					return Orientation.S;
+				}else{
+					return Orientation.E;
+				}
+			}else{
+				if(vecX<vecY){
+					return Orientation.N;
+				}else{
+					return Orientation.E;
+				}
+			}
+		}else{
+			if(vecY>0){
+				if(vecX<vecY){
+					return Orientation.S;
+				}else{
+					return Orientation.O;
+				}
+			}else{
+				if(vecX<vecY){
+					return Orientation.N;
+				}else{
+					return Orientation.O;
+				}
 			}
 		}
 	}

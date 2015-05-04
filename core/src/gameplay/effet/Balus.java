@@ -91,8 +91,8 @@ public class Balus implements Declencheur {
 	}
 
 	@Override
-	public void lancer(Entite victime) {
-		victime.getCaracPhysique().add(caracteristique, nombre);
+	public void lancer(Entite victime,int pourcentagesupp) {
+		victime.getCaracPhysique().add(caracteristique, nombre+(pourcentagesupp*nombre/100));
 	}
 
 }
