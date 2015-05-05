@@ -66,7 +66,7 @@ public class Niveau {
 	 *
 	 * @return	niveau
 	 */
-	public int calculNiveau() {
+	private int calculNiveau() {
 		return (int) (Math.sqrt(experienceActu) * ECHELLE);
 	}
 
@@ -79,7 +79,7 @@ public class Niveau {
 	 * @param niveau	niveau
 	 * @return	expérience totale du niveau
 	 */
-	public int calculExperience(int niveau) {
+	public static int calculExperience(int niveau) {
 		return (int) Math.pow(niveau / ECHELLE, 2);
 	}
 

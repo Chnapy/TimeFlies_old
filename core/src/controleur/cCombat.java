@@ -13,6 +13,7 @@ import gameplay.entite.Entite;
 import gameplay.entite.EntiteActive;
 import gameplay.entite.EtatEntite;
 import gameplay.entite.Personnage;
+import gameplay.map.EtatTuile;
 import gameplay.map.Map;
 import gameplay.map.Tuile;
 import gameplay.map.Type;
@@ -117,8 +118,15 @@ public class cCombat implements Observer {
 			} else if (path != null) {
 				path = null; //Purge
 			}
-		} else {
-			//Afficher zone portée
+		} else if (entiteEnCours.getEtat() == EtatEntite.SORT) {
+			//Afficher zone action
+
+			if (vue.getVmap().getTabVtuiles()[y][x].getEtat() == EtatTuile.ZONESORT) {
+				SortActif sort = entiteEnCours.getSortEnCours();
+				vue.getVmap().afficherAction(sort.getZoneAction().getZoneFinale(), new Point(x, y));
+			} else {
+				vue.getVmap().clearActionTuile();
+			}
 		}
 	}
 
@@ -141,8 +149,8 @@ public class cCombat implements Observer {
 				entiteEnCours.setPosition(path);
 				path = null; //Purge
 			}
-		} else {
-			//Lancement de sort
+		} else if (entiteEnCours.getEtat() == EtatEntite.SORT) {
+			//Lancement de sort sur toute la zone action
 		}
 	}
 
@@ -154,7 +162,7 @@ public class cCombat implements Observer {
 	public void modeSort(int index) {
 		entiteEnCours.setEtat(EtatEntite.SORT);
 		SortActif sort = entiteEnCours.setSortEnCours(index);
-		vue.getVmap().afficherPortee(sort.getZonePortee().getZoneFinale(), entiteEnCours.getCaracSpatiale().getPosition());	//TODO
+		vue.getVmap().afficherPortee(sort.getZonePortee().getZoneFinale(), entiteEnCours.getCaracSpatiale().getPosition());
 	}
 
 	@Override

@@ -41,6 +41,7 @@ public class vTuile extends Actor {
 
 	private EtatTuile etat;
 	private boolean hover;
+	private boolean action;
 	private int posX;
 	private int posY;
 	private float x;
@@ -90,7 +91,6 @@ public class vTuile extends Actor {
 	}
 
 	@Override
-
 	public void draw(Batch batch, float parentAlpha) {
 		batch.setColor(couleur);
 		batch.draw(tabSprite[iSprite], x, y, TUILE_WIDTH, TUILE_HEIGHT);
@@ -112,6 +112,10 @@ public class vTuile extends Actor {
 		};
 	}
 
+	public EtatTuile getEtat() {
+		return etat;
+	}
+
 	public void setEtat(EtatTuile newEtat) {
 		etat = newEtat;
 		setCouleur();
@@ -123,7 +127,9 @@ public class vTuile extends Actor {
 	}
 
 	private void setCouleur() {
-		if (!hover) {
+		if (action) {
+			couleur = Color.RED;
+		} else if (!hover) {
 			switch (etat) {
 				case NORMAL:
 					couleur = Color.WHITE;
@@ -133,9 +139,6 @@ public class vTuile extends Actor {
 					break;
 				case ZONESORT:
 					couleur = Color.CYAN;
-					break;
-				case ZONEACTION:
-					couleur = Color.RED;
 					break;
 				default:
 					throw new Error("Etat tuile non géré");
@@ -150,12 +153,19 @@ public class vTuile extends Actor {
 				case ZONESORT:
 					couleur = Color.BLUE;
 					break;
-				case ZONEACTION:
-					break;
 				default:
 					throw new Error("Etat tuile non géré");
 			}
 		}
+	}
+
+	public boolean isAction() {
+		return action;
+	}
+
+	public void setAction(boolean action) {
+		this.action = action;
+		setCouleur();
 	}
 
 	public int getPosX() {

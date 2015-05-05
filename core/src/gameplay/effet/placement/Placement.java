@@ -3,8 +3,10 @@
  * 
  * 
  */
-package gameplay.effet;
+package gameplay.effet.placement;
 
+import gameplay.effet.Declencheur;
+import gameplay.effet.Effet;
 import gameplay.entite.Entite;
 
 /**

@@ -9,7 +9,6 @@ import gameplay.effet.Effet;
 import gameplay.entite.Entite;
 import gameplay.entite.EntiteActive;
 import gameplay.sort.zone.ZoneAction;
-import gameplay.sort.zone.ZonePortee;
 
 /**
  * SortActif.java
@@ -18,7 +17,7 @@ import gameplay.sort.zone.ZonePortee;
  */
 public abstract class SortActif extends Sort {
 
-	private ZonePortee zonePortee;
+	private ZoneAction zonePortee;
 	private ZoneAction zoneAction;
 
 	/**
@@ -33,7 +32,7 @@ public abstract class SortActif extends Sort {
 	 */
 	public SortActif(String nom, String description, Niveau niveau,
 			Effet[] effets,
-			ZonePortee zportee, ZoneAction zaction,
+			ZoneAction zportee, ZoneAction zaction,
 			int index) {
 
 		super(nom, description, niveau, effets, index);
@@ -53,7 +52,7 @@ public abstract class SortActif extends Sort {
 		cible.recoitSort(getTabEffets(), lanceur);
 	}
 
-	public ZonePortee getZonePortee() {
+	public ZoneAction getZonePortee() {
 		return zonePortee;
 	}
 

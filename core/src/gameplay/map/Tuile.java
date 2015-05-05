@@ -52,6 +52,10 @@ public class Tuile implements IndexedNode<Tuile> {
 		return etat;
 	}
 
+	public void setEtat(EtatTuile etat) {
+		this.etat = etat;
+	}
+
 	public Point getPosition() {
 		return position;
 	}
@@ -76,7 +80,7 @@ public class Tuile implements IndexedNode<Tuile> {
 		for (int i = 0; i < effets.length; i++) {
 			for (int j = 0; j < effets[i].getDeclencheur().size; j++) {
 				if (effets[i].getDeclencheur().get(j) instanceof Invocation) {
-					((Invocation) effets[i].getDeclencheur().get(j)).invoquer(this.getPosition());;
+					((Invocation) effets[i].getDeclencheur().get(j)).invoquer(this.getPosition());
 				}
 				//TODO effets qui change la tuile bitch
 			}

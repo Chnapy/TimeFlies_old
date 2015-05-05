@@ -13,6 +13,5 @@ public enum EtatTuile {
 
 	NORMAL,
 	PATH, //Vue uniquement
-	ZONESORT,
-	ZONEACTION
+	ZONESORT
 }
