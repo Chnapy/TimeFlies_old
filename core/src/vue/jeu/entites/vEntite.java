@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.utils.Array;
 import gameplay.entite.Entite;
 import gameplay.entite.EntiteActive;
+import gameplay.entite.EtatEntite;
 import java.awt.Point;
 import java.util.HashMap;
 import java.util.Observable;
@@ -77,22 +78,22 @@ public class vEntite extends Actor implements Observer {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void update(Observable o, Object arg) {
-		if (arg != null) {
-			return;
-		}
-		Array<Point> listParcours = (Array<Point>) arg;
-		setPosition(((Entite) o).getCaracSpatiale().getPosition().x,
-				((Entite) o).getCaracSpatiale().getPosition().y, false);
+		Entite entite = (Entite) o;
+		if (!(arg instanceof Integer && (int) arg == -1) && entite.getEtat() == EtatEntite.DEPLACEMENT) {
+			Array<Point> listParcours = (Array<Point>) arg;
+			setPosition(((Entite) o).getCaracSpatiale().getPosition().x,
+					((Entite) o).getCaracSpatiale().getPosition().y, false);
 
-		MoveToAction[] tabMoveTo = new MoveToAction[listParcours.size];
-		float[] position;
-		for (int i = 0; i < listParcours.size; i++) {
-			position = vTuile.getPosition(listParcours.get(i).x, listParcours.get(i).y);
-			tabMoveTo[i] = Actions.moveTo(position[0] + PERSO_WIDTH / 2, position[1] + TUILE_HEIGHT / 2, 0.5f);
+			MoveToAction[] tabMoveTo = new MoveToAction[listParcours.size];
+			float[] position;
+			for (int i = 0; i < listParcours.size; i++) {
+				position = vTuile.getPosition(listParcours.get(i).x, listParcours.get(i).y);
+				tabMoveTo[i] = Actions.moveTo(position[0] + PERSO_WIDTH / 2, position[1] + TUILE_HEIGHT / 2, 0.5f);
+			}
+			this.addAction(Actions.sequence(Actions.sequence(tabMoveTo), run(() -> {
+				((EntiteActive) o).setEnDeplacement(false);
+			})));
 		}
-		this.addAction(Actions.sequence(Actions.sequence(tabMoveTo), run(() -> {
-			((EntiteActive) o).setEnDeplacement(false);
-		})));
 	}
 
 	/**

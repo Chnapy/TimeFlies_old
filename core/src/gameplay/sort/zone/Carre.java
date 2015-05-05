@@ -44,7 +44,6 @@ public class Carre extends Zone {
 //		Tuile[] result = new Tuile[tiles.size()];
 //		return tiles.toArray(result);
 //	}
-
 	@Override
 	public boolean[][] getZoneOfInterest() {
 		boolean[][] mapPositions = new boolean[size][size];

@@ -17,7 +17,7 @@ import gameplay.sort.SortPassif;
  *
  */
 public class Guerrier2 extends Personnage {
-	
+
 	private static final int INDEX_TEXTURE_TIMELINE = 1;
 
 	/**

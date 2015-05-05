@@ -15,7 +15,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import controleur.cCombat;
 import gameplay.entite.EntiteActive;
-import gameplay.entite.Personnage;
 import test.MainTest;
 import vue.hud.sorts.vSorts;
 import vue.hud.timeline.vTimeline;

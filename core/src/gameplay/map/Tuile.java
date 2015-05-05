@@ -9,12 +9,10 @@ import com.badlogic.gdx.ai.pfa.Connection;
 import com.badlogic.gdx.ai.pfa.DefaultConnection;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedNode;
 import com.badlogic.gdx.utils.Array;
-
-import static gameplay.map.EtatTuile.NORMAL;
 import gameplay.effet.Effet;
 import gameplay.entite.Entite;
 import gameplay.invocation.Invocation;
-
+import static gameplay.map.EtatTuile.NORMAL;
 import java.awt.Point;
 
 /**
@@ -67,18 +65,18 @@ public class Tuile implements IndexedNode<Tuile> {
 	public Array<Connection<Tuile>> getConnections() {
 		return connections;
 	}
-	
+
 	/**
 	 * la tuile recoit le sort et invoque l'invocation ect si besoins
-	 * 
+	 *
 	 * @param effets
 	 * @param lanceur
 	 */
-	public void recoitSort(Effet[] effets, Entite lanceur){
+	public void recoitSort(Effet[] effets, Entite lanceur) {
 		for (int i = 0; i < effets.length; i++) {
 			for (int j = 0; j < effets[i].getDeclencheur().size; j++) {
-				if(effets[i].getDeclencheur().get(j) instanceof Invocation){
-					((Invocation)effets[i].getDeclencheur().get(j)).invoquer(this.getPosition());;
+				if (effets[i].getDeclencheur().get(j) instanceof Invocation) {
+					((Invocation) effets[i].getDeclencheur().get(j)).invoquer(this.getPosition());;
 				}
 				//TODO effets qui change la tuile bitch
 			}

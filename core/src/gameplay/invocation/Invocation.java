@@ -5,9 +5,8 @@
  */
 package gameplay.invocation;
 
-import java.awt.*;
-
 import gameplay.effet.Declencheur;
+import java.awt.Point;
 
 /**
  * Invocation.java
@@ -17,6 +16,6 @@ import gameplay.effet.Declencheur;
 public interface Invocation extends Declencheur {
 
 	public abstract boolean equals(Object o);
-	
+
 	public abstract void invoquer(Point point);
 }

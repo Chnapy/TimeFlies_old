@@ -19,16 +19,16 @@ import static test.MainTest.MAX_HEIGHT;
  *
  */
 public class vTimeline extends Group {
-	
+
 	private static final Texture TEXTURE_FOND = new Texture(Gdx.files.internal("timeline/barre_timeline.png"));
 	private static final int X = 50;
 	private static final int WIDTH = 1820;
 	private static final int HEIGHT = 92;
 	private static final int Y = MAX_HEIGHT - HEIGHT - 12;
-	
+
 	private final vTimelineTempsAction vtemps;
 	private final Array<vTimelineEntite> listEntite;
-	
+
 	public vTimeline(final Array<? extends EntiteActive> listEntites) {
 		TEXTURE_FOND.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 		setSize(WIDTH, HEIGHT);
@@ -42,7 +42,7 @@ public class vTimeline extends Group {
 		});
 		vtemps = new vTimelineTempsAction();
 		listEntites.forEach((entite) -> {
-			((EntiteActive)entite).addObserver(vtemps);
+			((EntiteActive) entite).addObserver(vtemps);
 		});
 		addActor(vtemps);
 		vTimelineEntite temp2;
@@ -52,12 +52,12 @@ public class vTimeline extends Group {
 			listEntite.add(temp2);
 		}
 	}
-	
+
 	public void nouveauTour() {
 		listEntite.forEach((entite) -> {
 			entite.nouveauTour(listEntite.size - 1);
 		});
 		vtemps.setScale(1);
 	}
-	
+
 }

@@ -29,9 +29,6 @@ public abstract class EntiteActive extends Entite {
 	private SortActif[] tabSortActif;
 	private Array<Envoutement> listEnvoutements;
 
-	//Mode Deplacement (true) ou Sort (false)
-	private boolean modeDeplacement = true;
-
 	//Est en train de se déplacer
 	private boolean enDeplacement;
 
@@ -150,23 +147,6 @@ public abstract class EntiteActive extends Entite {
 	 */
 	public void setEnDeplacement(boolean enDeplacement) {
 		this.enDeplacement = enDeplacement;
-	}
-
-	/**
-	 *
-	 * @param deplacer
-	 */
-	public void setModeDeplacement(boolean deplacer) {
-		System.out.println("Mode deplacement : " + deplacer);
-		this.modeDeplacement = deplacer;
-	}
-
-	/**
-	 *
-	 * @return true si le mode de déplacement est activé
-	 */
-	public boolean isModeDeplacement() {
-		return modeDeplacement;
 	}
 
 	public SortActif[] getTabSortActif() {

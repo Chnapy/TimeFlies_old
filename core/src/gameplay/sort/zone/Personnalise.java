@@ -25,7 +25,6 @@ public class Personnalise extends Zone {
 //	public Tuile[] getTilesOfInterrest(Point center) {
 //		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 //	}
-
 	@Override
 	public boolean[][] getZoneOfInterest() {
 		throw new Error("TODO");

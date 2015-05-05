@@ -44,11 +44,9 @@ public abstract class Zone implements Comparable<Zone> {
 //			return value;
 //		}
 //	}
-	
 	public abstract boolean[][] getZoneOfInterest();
 
 //	public abstract Tuile[] getTilesOfInterrest(Point center);
-
 	public boolean isPositive() {
 		return this.positive;
 	}

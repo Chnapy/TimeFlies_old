@@ -119,5 +119,5 @@ public abstract class Envoutement implements Declencheur {
 	}
 
 	@Override
-	public abstract void lancer(Entite victime,int pourcentageSupp);
+	public abstract void lancer(Entite victime, int pourcentageSupp);
 }

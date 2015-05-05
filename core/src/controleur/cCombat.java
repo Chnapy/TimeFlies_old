@@ -6,22 +6,20 @@
 package controleur;
 
 import com.badlogic.gdx.utils.Array;
-
 import gameplay.core.Joueur;
 import gameplay.core.Timeline;
 import gameplay.core.Tour;
 import gameplay.entite.Entite;
 import gameplay.entite.EntiteActive;
+import gameplay.entite.EtatEntite;
 import gameplay.entite.Personnage;
 import gameplay.map.Map;
 import gameplay.map.Tuile;
 import gameplay.map.Type;
 import gameplay.sort.SortActif;
-
 import java.awt.Point;
 import java.util.Observable;
 import java.util.Observer;
-
 import vue.vCombat;
 
 /**
@@ -104,7 +102,7 @@ public class cCombat implements Observer {
 		Tuile tuile = map.getTabTuiles()[y][x];
 //		System.out.println(tuile.getEtat());
 
-		if (entiteEnCours.isModeDeplacement()) {
+		if (entiteEnCours.getEtat() == EtatEntite.DEPLACEMENT) {
 
 			vue.getVmap().clearColorTuile();
 			//Déplacement
@@ -135,7 +133,7 @@ public class cCombat implements Observer {
 		Tuile tuile = map.getTabTuiles()[y][x];
 //		System.out.println(tuile.getEtat());
 
-		if (entiteEnCours.isModeDeplacement()) {
+		if (entiteEnCours.getEtat() == EtatEntite.DEPLACEMENT) {
 			//Déplacement
 			if (!entiteEnCours.isEnDeplacement() && path != null) {
 				vue.getVmap().clearColorTuile();
@@ -154,7 +152,7 @@ public class cCombat implements Observer {
 	 * @param index
 	 */
 	public void modeSort(int index) {
-		entiteEnCours.setModeDeplacement(false);
+		entiteEnCours.setEtat(EtatEntite.SORT);
 		SortActif sort = entiteEnCours.setSortEnCours(index);
 		vue.getVmap().afficherPortee(sort.getZonePortee().getZoneFinale(), entiteEnCours.getCaracSpatiale().getPosition());	//TODO
 	}
@@ -174,34 +172,35 @@ public class cCombat implements Observer {
 		return vue;
 	}
 
-	
 	/**
 	 * permet de lancer un sort sur la tuile tuileCible
-	 * 
+	 *
 	 * @param lanceur
 	 * @param sort
 	 * @param tuileCible
 	 */
-	public void lancerSort(Entite lanceur, SortActif sort, Tuile tuileCible){
+	public void lancerSort(Entite lanceur, SortActif sort, Tuile tuileCible) {
 		Personnage persoCible = getPerso(tuileCible);
-		if(persoCible==null)
+		if (persoCible == null) {
 			tuileCible.recoitSort(sort.getTabEffets(), lanceur);
-		else
+		} else {
 			persoCible.recoitSort(sort.getTabEffets(), lanceur);
+		}
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param tuile
 	 * @return le personnage présent sur la tuile null si vide
 	 */
-	public Personnage getPerso(Tuile tuile){
-		Personnage[] persos=null;
+	public Personnage getPerso(Tuile tuile) {
+		Personnage[] persos = null;
 		for (int i = 0; i < tabJoueurs.length; i++) {
 			persos = tabJoueurs[i].getPersonnages();
 			for (int k = 0; k < persos.length; k++) {
-				if(persos[k].getCaracSpatiale().getPosition().equals(tuile.getPosition()))
+				if (persos[k].getCaracSpatiale().getPosition().equals(tuile.getPosition())) {
 					return persos[k];
+				}
 			}
 		}
 		return null;

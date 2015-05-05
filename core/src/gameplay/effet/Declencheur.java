@@ -22,7 +22,7 @@ public interface Declencheur {
 	 * change la vie de la victime en ajoutant 5
 	 *
 	 * @param victime
-	 * @param pourcentageSupp 
+	 * @param pourcentageSupp
 	 */
 	public void lancer(Entite victime, int pourcentageSupp);
 }

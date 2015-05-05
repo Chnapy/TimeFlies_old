@@ -44,7 +44,6 @@ public class Croix extends Zone {
 //		Tuile[] result = new Tuile[tiles.size()];
 //		return tiles.toArray(result);
 //	}
-
 	@Override
 	public boolean[][] getZoneOfInterest() {
 		throw new Error("TODO");

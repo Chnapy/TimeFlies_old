@@ -21,14 +21,14 @@ public abstract class Personnage extends EntiteActive {
 
 	/**
 	 *
-	 * @param nom	         nom du personnage
-	 * @param nomDonne	    nom donné par le joueur
-	 * @param posX	        position en X
-	 * @param posY	        position en Y
-	 * @param orientation	 orientation du personnage
-	 * @param cPhysique	   caractéristiques physiques du personnage
-	 * @param sortsPassifs	sorts passifs du personnages
-	 * @param sortsActifs	 sorts actifs du personnages
+	 * @param nom	             nom du personnage
+	 * @param nomDonne	        nom donné par le joueur
+	 * @param posX	            position en X
+	 * @param posY	            position en Y
+	 * @param orientation	     orientation du personnage
+	 * @param cPhysique	       caractéristiques physiques du personnage
+	 * @param sortsPassifs	    sorts passifs du personnages
+	 * @param sortsActifs	     sorts actifs du personnages
 	 * @param iTextureTimeline
 	 */
 	public Personnage(String nom, String nomDonne,
