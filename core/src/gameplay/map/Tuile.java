@@ -65,9 +65,21 @@ public class Tuile implements IndexedNode<Tuile> {
 		return index;
 	}
 
+	public boolean isOccupe() {
+		return occupe;
+	}
+
+	public void setOccupe(boolean occupe) {
+		this.occupe = occupe;
+	}
+
 	@Override
 	public Array<Connection<Tuile>> getConnections() {
 		return connections;
+	}
+	
+	public void clearConnections() {
+		connections.clear();
 	}
 
 	/**

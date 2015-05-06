@@ -67,8 +67,10 @@ public abstract class EntiteActive extends Entite {
 		long tempsAction = caracPhysique.getCaracteristique(Carac.TEMPSACTION).getActu() * 1000;
 		long palier = debutTour;
 		long time = TimeUtils.millis();
+		
 		System.out.println("DEBUT Tour actif pendant " + caracPhysique.getCaracteristique(Carac.TEMPSACTION).getActu() + "s : " + nom);
-		while (time < debutTour + tempsAction) {
+		
+		while (time < debutTour + tempsAction || enDeplacement) {
 			if (time >= palier + 1000) {
 				palier = time;
 				caracPhysique.supp(Carac.TEMPSACTION, 1);
@@ -77,6 +79,7 @@ public abstract class EntiteActive extends Entite {
 			}
 			time = TimeUtils.millis();
 		}
+		
 		System.out.println("FIN Tour actif : " + nom);
 	}
 

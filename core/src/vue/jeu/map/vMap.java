@@ -112,6 +112,7 @@ public class vMap extends Group {
 	
 	public void clearAll() {
 		getChildren().forEach((Actor vtuile) -> {
+			((vTuile) vtuile).setEtat(EtatTuile.NORMAL);
 			((vTuile) vtuile).tuileDuChemin(false);
 			((vTuile) vtuile).setAction(false);
 		});

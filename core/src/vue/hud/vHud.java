@@ -60,7 +60,7 @@ public final class vHud extends Stage {
 		//Affichage FPS
 		FONT.setColor(Color.RED);
 		batch.begin();
-		FONT.draw(batch, "fps: " + Gdx.graphics.getFramesPerSecond(), 10, 50);
+		FONT.draw(batch, "fps: " + String.valueOf(Math.round(1 / Gdx.graphics.getRawDeltaTime())), 10, 50);
 		batch.end();
 		FONT.setColor(Color.BLACK);
 	}

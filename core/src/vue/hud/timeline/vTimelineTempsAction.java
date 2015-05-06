@@ -45,9 +45,11 @@ public class vTimelineTempsAction extends Actor implements Observer {
 	public void update(Observable o, Object arg) {
 		EntiteActive entite = (EntiteActive) o;
 		int tempsActu = entite.getTempsAction().getActu();
-		int tempsTotal = entite.getTempsAction().getTotal();
+		if (tempsActu >= 0) {
+			int tempsTotal = entite.getTempsAction().getTotal();
 
-		scale = (float) tempsActu / tempsTotal;
+			scale = (float) tempsActu / tempsTotal;
+		}
 	}
 
 	@Override

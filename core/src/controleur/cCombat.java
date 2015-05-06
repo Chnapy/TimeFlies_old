@@ -59,6 +59,10 @@ public class cCombat implements Observer {
 		timeline = new Timeline(listPersonnages);
 		vue = new vCombat(this, m.getTabTuiles(), listPersonnages, timeline);
 		timeline.addObserver(this);
+
+		listPersonnages.forEach((perso) -> {
+			map.setTuileOccupe(true, perso.getCaracSpatiale().getPosition().y, perso.getCaracSpatiale().getPosition().x);
+		});
 	}
 
 	/**
@@ -115,7 +119,8 @@ public class cCombat implements Observer {
 			if (!entiteEnCours.isEnDeplacement()
 					&& !entiteEnCours.getCaracSpatiale().getPosition().equals(tuile.getPosition())
 					&& !tuile.getType().equals(Type.OBSTACLE)
-					&& !tuile.getType().equals(Type.TROU)) {
+					&& !tuile.getType().equals(Type.TROU)
+					&& !tuile.isOccupe()) {
 				path = map.getChemin(entiteEnCours.getCaracSpatiale().getPosition(), new Point(x, y));
 				if (path != null) {
 					vue.getVmap().colorTuile(path);
@@ -150,7 +155,9 @@ public class cCombat implements Observer {
 			if (!entiteEnCours.isEnDeplacement() && path != null) {
 				vue.getVmap().clearColorTuile();
 				entiteEnCours.setEnDeplacement(true);
+				map.setTuileOccupe(false, entiteEnCours.getCaracSpatiale().getPosition().y, entiteEnCours.getCaracSpatiale().getPosition().x);
 				entiteEnCours.setPosition(path);
+				map.setTuileOccupe(true, path.peek().y, path.peek().x);
 				path = null; //Purge
 			}
 		} else if (entiteEnCours.getEtat() == EtatEntite.SORT) {

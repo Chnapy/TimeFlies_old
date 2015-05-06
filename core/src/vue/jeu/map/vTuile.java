@@ -9,8 +9,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -32,11 +32,11 @@ public class vTuile extends Actor {
 	public static final int OFFSET_Y = 500;
 
 	private static final TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("tuile/tuile.atlas"));
-	private static final Sprite[] tabSprite = {
-		new Sprite(atlas.findRegion("tuile_simple")),
-		new Sprite(atlas.findRegion("tuile_trou")),
-		new Sprite(atlas.findRegion("tuile_obstacle")),
-		new Sprite(atlas.findRegion("tuile_ecran"))
+	private static final TextureRegion[] tabTexture = {
+		atlas.findRegion("tuile_simple"),
+		atlas.findRegion("tuile_trou"),
+		atlas.findRegion("tuile_obstacle"),
+		atlas.findRegion("tuile_ecran")
 	};
 
 	private EtatTuile etat;
@@ -62,6 +62,8 @@ public class vTuile extends Actor {
 		etat = e;
 
 		setBounds(x, y, TUILE_WIDTH, TUILE_HEIGHT);
+		setPosition(x, y);
+		setSize(TUILE_WIDTH, TUILE_HEIGHT);
 		addListener(new InputListener() {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y,
@@ -93,9 +95,10 @@ public class vTuile extends Actor {
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
 		batch.setColor(couleur);
-		batch.draw(tabSprite[iSprite], x, y, TUILE_WIDTH, TUILE_HEIGHT);
+		batch.draw(tabTexture[iSprite], getX(), getY(), getWidth(), getHeight());
 		batch.setColor(Color.WHITE);
 		lab.draw(batch, posX + "_" + posY, x + 250, y + 150);
+
 	}
 
 	/**

@@ -44,7 +44,6 @@ public class vEntite extends Actor implements Observer {
 	}
 
 	private Texture texture = null;
-	private boolean enDeplacement;
 
 	private int posX;
 	private int posY;
