@@ -11,6 +11,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.utils.Array;
 import controleur.cCombat;
 import gameplay.core.Timeline;
+import gameplay.entite.EntiteActive;
 import gameplay.entite.Personnage;
 import gameplay.map.Tuile;
 import vue.hud.timeline.vTimeline;
@@ -84,6 +85,16 @@ public class vCombat implements Screen {
 
 	@Override
 	public void dispose() {
+	}
+	
+	public void nouveauTour(cCombat controleur, EntiteActive entiteEnCours) {
+		vhud.nouveauTour(controleur, entiteEnCours);
+		vjeu.nouveauTour();
+	}
+	
+	public void finTour() {
+		vhud.finTour();
+		vjeu.finTour();
 	}
 
 	public vTimeline getVtimeline() {

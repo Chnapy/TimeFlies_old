@@ -109,6 +109,17 @@ public class vMap extends Group {
 			((vTuile) vtuile).setAction(false);
 		});
 	}
+	
+	public void clearAll() {
+		getChildren().forEach((Actor vtuile) -> {
+			((vTuile) vtuile).tuileDuChemin(false);
+			((vTuile) vtuile).setAction(false);
+		});
+	}
+	
+	public void finTour() {
+		clearAll();
+	}
 
 	public vTuile[][] getTabVtuiles() {
 		return tabVtuiles;

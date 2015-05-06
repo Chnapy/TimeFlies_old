@@ -8,7 +8,6 @@ package vue.jeu;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import controleur.cCombat;
-import gameplay.entite.EntiteActive;
 import gameplay.entite.Personnage;
 import gameplay.map.Tuile;
 import test.MainTest;
@@ -41,8 +40,12 @@ public class vJeu extends Stage {
 
 	}
 
-	public void nouveauTour(EntiteActive entite) {
+	public void nouveauTour() {
 
+	}
+	
+	public void finTour() {
+		vmap.finTour();
 	}
 
 	public cCombat getCombat() {

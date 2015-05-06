@@ -110,6 +110,24 @@ public class Map implements IndexedGraph<Tuile> {
 		return ret;
 	}
 
+	public Tuile[] getTuilesAction(boolean[][] zone, Point cible) {
+		Array<Tuile> ret = new Array<Tuile>();
+		
+		for (int y = cible.y + zone.length / 2 - Math.abs(zone.length % 2 - 1), j = 0;
+				y > cible.y - zone.length / 2 - zone.length % 2 && j < zone.length;
+				y--, j++) {
+			for (int x = cible.x - zone[0].length / 2 + Math.abs(zone[0].length % 2 - 1), i = 0;
+					x < cible.x + zone[0].length / 2 + zone[0].length % 2 && i < zone[0].length;
+					x++, i++) {
+				if (zone[j][i] && y >= 0 && x >= 0 && y < tabTuiles.length && x < tabTuiles[0].length) {
+					ret.add(tabTuiles[y][x]);
+				}
+			}
+		}
+		
+		return ret.toArray(Tuile.class);
+	}
+
 	@Override
 	public int getNodeCount() {
 		return tabTuiles.length * tabTuiles[0].length;

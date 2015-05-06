@@ -50,6 +50,7 @@ public class cCombat implements Observer {
 	private Array<Point> path;
 
 	private EntiteActive entiteEnCours;
+	private SortActif sortEnCours;
 
 	public cCombat(Map m, Joueur[] joueurs) {
 		map = m;
@@ -75,7 +76,11 @@ public class cCombat implements Observer {
 	}
 
 	public void nouveauTour() {
-		vue.getVhud().nouveauTour(this, entiteEnCours);
+		vue.nouveauTour(this, entiteEnCours);
+	}
+
+	public void finTour() {
+		vue.finTour();
 	}
 
 	/**
@@ -122,8 +127,7 @@ public class cCombat implements Observer {
 			//Afficher zone action
 
 			if (vue.getVmap().getTabVtuiles()[y][x].getEtat() == EtatTuile.ZONESORT) {
-				SortActif sort = entiteEnCours.getSortEnCours();
-				vue.getVmap().afficherAction(sort.getZoneAction().getZoneFinale(), new Point(x, y));
+				vue.getVmap().afficherAction(sortEnCours.getZoneAction().getZoneFinale(), new Point(x, y));
 			} else {
 				vue.getVmap().clearActionTuile();
 			}
@@ -151,6 +155,13 @@ public class cCombat implements Observer {
 			}
 		} else if (entiteEnCours.getEtat() == EtatEntite.SORT) {
 			//Lancement de sort sur toute la zone action
+			if (vue.getVmap().getTabVtuiles()[y][x].getEtat() == EtatTuile.ZONESORT) {
+				Tuile[] tuilesTouchees = map.getTuilesAction(sortEnCours.getZoneAction().getZoneFinale(), new Point(x, y));
+				for (Tuile t : tuilesTouchees) {
+					t.recoitSort(sortEnCours.getTabEffets(), entiteEnCours);
+				}
+			}
+			modeDeplacement();
 		}
 	}
 
@@ -161,8 +172,14 @@ public class cCombat implements Observer {
 	 */
 	public void modeSort(int index) {
 		entiteEnCours.setEtat(EtatEntite.SORT);
-		SortActif sort = entiteEnCours.setSortEnCours(index);
-		vue.getVmap().afficherPortee(sort.getZonePortee().getZoneFinale(), entiteEnCours.getCaracSpatiale().getPosition());
+		sortEnCours = entiteEnCours.setSortEnCours(index);
+		vue.getVmap().afficherPortee(sortEnCours.getZonePortee().getZoneFinale(), entiteEnCours.getCaracSpatiale().getPosition());
+	}
+
+	public void modeDeplacement() {
+		entiteEnCours.setEtat(EtatEntite.DEPLACEMENT);
+		sortEnCours = null;
+		vue.getVmap().clearAll();
 	}
 
 	@Override
@@ -172,7 +189,7 @@ public class cCombat implements Observer {
 			entiteEnCours = tl.getEntiteEnCours();
 			nouveauTour();
 		} else if (tl.getEtatTour().equals(Tour.FIN)) {
-			vue.getVhud().finTour();
+			finTour();
 		}
 	}
 

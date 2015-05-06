@@ -81,8 +81,9 @@ public class Tuile implements IndexedNode<Tuile> {
 			for (int j = 0; j < effets[i].getDeclencheur().size; j++) {
 				if (effets[i].getDeclencheur().get(j) instanceof Invocation) {
 					((Invocation) effets[i].getDeclencheur().get(j)).invoquer(this.getPosition());
+				} else {
+					//TODO effets qui change la tuile bitch
 				}
-				//TODO effets qui change la tuile bitch
 			}
 		}
 	}
