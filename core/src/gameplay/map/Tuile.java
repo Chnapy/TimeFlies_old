@@ -77,7 +77,19 @@ public class Tuile implements IndexedNode<Tuile> {
 	public Array<Connection<Tuile>> getConnections() {
 		return connections;
 	}
-	
+
+	/**
+	 * Debug
+	 * Affichage des connections de la tuile
+	 */
+	public void connectionsSout() {
+		System.out.println("---");
+		connections.forEach((con) -> {
+			System.out.println("[" + con.getFromNode().position.x + ":" + con.getFromNode().position.y + " - " + con.getToNode().position.x + ":" + con.getToNode().position.y + "]");
+		});
+		System.out.println("---");
+	}
+
 	public void clearConnections() {
 		connections.clear();
 	}

@@ -80,11 +80,13 @@ public class cCombat implements Observer {
 	}
 
 	public void nouveauTour() {
+		map.setTuileOccupe(false, entiteEnCours.getCaracSpatiale().getPosition().y, entiteEnCours.getCaracSpatiale().getPosition().x);
 		vue.nouveauTour(this, entiteEnCours);
 	}
 
 	public void finTour() {
 		vue.finTour();
+		map.setTuileOccupe(true, entiteEnCours.getCaracSpatiale().getPosition().y, entiteEnCours.getCaracSpatiale().getPosition().x);
 	}
 
 	/**
@@ -155,9 +157,7 @@ public class cCombat implements Observer {
 			if (!entiteEnCours.isEnDeplacement() && path != null) {
 				vue.getVmap().clearColorTuile();
 				entiteEnCours.setEnDeplacement(true);
-				map.setTuileOccupe(false, entiteEnCours.getCaracSpatiale().getPosition().y, entiteEnCours.getCaracSpatiale().getPosition().x);
 				entiteEnCours.setPosition(path);
-				map.setTuileOccupe(true, path.peek().y, path.peek().x);
 				path = null; //Purge
 			}
 		} else if (entiteEnCours.getEtat() == EtatEntite.SORT) {

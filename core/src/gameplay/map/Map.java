@@ -23,7 +23,7 @@ import java.awt.Point;
 public class Map implements IndexedGraph<Tuile> {
 
 	private final Tuile[][] tabTuiles;
-	private Dimension dimension;
+	private final Dimension dimension;
 
 	//Pathfinding
 	private final Finder finder;
@@ -62,31 +62,37 @@ public class Map implements IndexedGraph<Tuile> {
 		//Définitions des connections pour le pathfinding
 		for (y = 0; y < plan.length; y++) {
 			for (x = 0; x < plan[0].length; x++) {
-				if (y - 1 >= 0 && (!tabTuiles[y - 1][x].getType().equals(Type.TROU) && !tabTuiles[y - 1][x].getType().equals(Type.OBSTACLE) && !tabTuiles[y - 1][x].isOccupe())) {
-					tabTuiles[y][x].addConnection(tabTuiles[y - 1][x]);
-				}
-				if (y + 1 < plan.length && (!tabTuiles[y + 1][x].getType().equals(Type.TROU) && !tabTuiles[y + 1][x].getType().equals(Type.OBSTACLE) && !tabTuiles[y + 1][x].isOccupe())) {
-					tabTuiles[y][x].addConnection(tabTuiles[y + 1][x]);
-				}
-				if (x - 1 >= 0 && (!tabTuiles[y][x - 1].getType().equals(Type.TROU) && !tabTuiles[y][x - 1].getType().equals(Type.OBSTACLE) && !tabTuiles[y][x - 1].isOccupe())) {
-					tabTuiles[y][x].addConnection(tabTuiles[y][x - 1]);
-				}
-				if (x + 1 < plan[0].length && (!tabTuiles[y][x + 1].getType().equals(Type.TROU) && !tabTuiles[y][x + 1].getType().equals(Type.OBSTACLE) && !tabTuiles[y][x + 1].isOccupe())) {
-					tabTuiles[y][x].addConnection(tabTuiles[y][x + 1]);
-				}
+				generateConnections(y, x);
 			}
 		}
 	}
 
-	public Tuile[][] getTabTuiles() {
-		return tabTuiles;
+	private void generateConnections(int y, int x) {
+		if (y - 1 >= 0 && (!tabTuiles[y - 1][x].getType().equals(Type.TROU) && !tabTuiles[y - 1][x].getType().equals(Type.OBSTACLE) && !tabTuiles[y - 1][x].isOccupe())) {
+			tabTuiles[y][x].addConnection(tabTuiles[y - 1][x]);
+		}
+		if (y + 1 < dimension.width && (!tabTuiles[y + 1][x].getType().equals(Type.TROU) && !tabTuiles[y + 1][x].getType().equals(Type.OBSTACLE) && !tabTuiles[y + 1][x].isOccupe())) {
+			tabTuiles[y][x].addConnection(tabTuiles[y + 1][x]);
+		}
+		if (x - 1 >= 0 && (!tabTuiles[y][x - 1].getType().equals(Type.TROU) && !tabTuiles[y][x - 1].getType().equals(Type.OBSTACLE) && !tabTuiles[y][x - 1].isOccupe())) {
+			tabTuiles[y][x].addConnection(tabTuiles[y][x - 1]);
+		}
+		if (x + 1 < dimension.height && (!tabTuiles[y][x + 1].getType().equals(Type.TROU) && !tabTuiles[y][x + 1].getType().equals(Type.OBSTACLE) && !tabTuiles[y][x + 1].isOccupe())) {
+			tabTuiles[y][x].addConnection(tabTuiles[y][x + 1]);
+		}
 	}
 
 	public void setTuileOccupe(boolean occupe, int y, int x) {
 		tabTuiles[y][x].setOccupe(occupe);
 		if (occupe) {
-//			tabTuiles[y][x].clearConnections();
+			tabTuiles[y][x].clearConnections();
+		} else {
+			generateConnections(y, x);
 		}
+	}
+
+	public Tuile[][] getTabTuiles() {
+		return tabTuiles;
 	}
 
 	/**
