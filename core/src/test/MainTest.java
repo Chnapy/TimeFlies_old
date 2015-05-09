@@ -51,7 +51,7 @@ public class MainTest extends Game {
 		Personnage[] persosJ1 = {
 			new Guerrier(
 			"bite", 1, 2, Orientation.E,
-			new CaracteristiquePhysique(100, 100, 10, 10, 100, 100, 100, 100, 100, 100),
+			new CaracteristiquePhysique(100, 100, 10000, 10000, 100, 100, 100, 100, 100, 100),
 			new SortPassif[]{},
 			new SortActif[]{
 				new SortQuiFaitMal()
@@ -60,7 +60,7 @@ public class MainTest extends Game {
 		Personnage[] persosJ2 = {
 			new Guerrier2(
 			"bite", 0, 0, Orientation.E,
-			new CaracteristiquePhysique(100, 100, 10, 10, 100, 100, 100, 100, 100, 100),
+			new CaracteristiquePhysique(100, 100, 10000, 10000, 100, 100, 100, 100, 100, 100),
 			new SortPassif[]{},
 			new SortActif[]{
 				new SortQuiFaitMal()

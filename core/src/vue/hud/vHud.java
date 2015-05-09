@@ -15,7 +15,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import controleur.cCombat;
 import gameplay.entite.EntiteActive;
+import gameplay.map.Tuile;
 import test.MainTest;
+import vue.hud.minimap.vMinimap;
 import vue.hud.sorts.vSorts;
 import vue.hud.timeline.vTimeline;
 
@@ -28,19 +30,22 @@ public final class vHud extends Stage {
 	private static final FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/kenvector_future_thin.ttf"));
 	private static final FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
 	public static BitmapFont FONT;
+	private final Batch batch = new SpriteBatch();
 
 	private final vSorts vsorts;
 	private final vTimeline vtimeline;
-	private final Batch batch = new SpriteBatch();
+	private final vMinimap vminimap;
 
-	public vHud(Array<? extends EntiteActive> personnages) {
+	public vHud(cCombat controleur, Tuile[][] tabTuiles, Array<? extends EntiteActive> personnages) {
 		parameter.size = 18;
 		FONT = generator.generateFont(parameter);
 		vsorts = new vSorts();
 		vtimeline = new vTimeline(personnages);
+		vminimap = new vMinimap(controleur, tabTuiles);
 
 		addActor(vsorts);
 		addActor(vtimeline);
+		addActor(vminimap);
 	}
 
 	public void nouveauTour(cCombat ccombat, EntiteActive entite) {
@@ -50,6 +55,7 @@ public final class vHud extends Stage {
 
 	public void finTour() {
 		vsorts.finTour();
+		vminimap.finTour();
 	}
 
 	public void render() {
@@ -71,6 +77,10 @@ public final class vHud extends Stage {
 
 	public vTimeline getVtimeline() {
 		return vtimeline;
+	}
+
+	public vMinimap getVminimap() {
+		return vminimap;
 	}
 
 }

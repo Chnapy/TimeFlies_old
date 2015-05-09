@@ -90,7 +90,7 @@ public class cCombat implements Observer {
 	}
 
 	/**
-	 * Récupère les personnages de chaque tous les joueurs.
+	 * Récupère les personnages de tous les joueurs.
 	 *
 	 * @param joueurs
 	 * @return
@@ -116,7 +116,7 @@ public class cCombat implements Observer {
 
 		if (entiteEnCours.getEtat() == EtatEntite.DEPLACEMENT) {
 
-			vue.getVmap().clearColorTuile();
+			vue.clearColorTuile();
 			//Déplacement
 			if (!entiteEnCours.isEnDeplacement()
 					&& !entiteEnCours.getCaracSpatiale().getPosition().equals(tuile.getPosition())
@@ -125,7 +125,7 @@ public class cCombat implements Observer {
 					&& !tuile.isOccupe()) {
 				path = map.getChemin(entiteEnCours.getCaracSpatiale().getPosition(), new Point(x, y));
 				if (path != null) {
-					vue.getVmap().colorTuile(path);
+					vue.colorTuile(path);
 				}
 			} else if (path != null) {
 				path = null; //Purge
@@ -134,9 +134,9 @@ public class cCombat implements Observer {
 			//Afficher zone action
 
 			if (vue.getVmap().getTabVtuiles()[y][x].getEtat() == EtatTuile.ZONESORT) {
-				vue.getVmap().afficherAction(sortEnCours.getZoneAction().getZoneFinale(), new Point(x, y));
+				vue.afficherAction(sortEnCours.getZoneAction().getZoneFinale(), new Point(x, y));
 			} else {
-				vue.getVmap().clearActionTuile();
+				vue.clearActionTuile();
 			}
 		}
 	}
@@ -155,7 +155,7 @@ public class cCombat implements Observer {
 		if (entiteEnCours.getEtat() == EtatEntite.DEPLACEMENT) {
 			//Déplacement
 			if (!entiteEnCours.isEnDeplacement() && path != null) {
-				vue.getVmap().clearColorTuile();
+				vue.clearColorTuile();
 				entiteEnCours.setEnDeplacement(true);
 				entiteEnCours.setPosition(path);
 				path = null; //Purge
@@ -180,13 +180,13 @@ public class cCombat implements Observer {
 	public void modeSort(int index) {
 		entiteEnCours.setEtat(EtatEntite.SORT);
 		sortEnCours = entiteEnCours.setSortEnCours(index);
-		vue.getVmap().afficherPortee(sortEnCours.getZonePortee().getZoneFinale(), entiteEnCours.getCaracSpatiale().getPosition());
+		vue.afficherPortee(sortEnCours.getZonePortee().getZoneFinale(), entiteEnCours.getCaracSpatiale().getPosition());
 	}
 
 	public void modeDeplacement() {
 		entiteEnCours.setEtat(EtatEntite.DEPLACEMENT);
 		sortEnCours = null;
-		vue.getVmap().clearAll();
+		vue.clearAll();
 	}
 
 	@Override

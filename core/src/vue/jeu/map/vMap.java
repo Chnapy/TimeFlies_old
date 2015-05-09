@@ -66,38 +66,6 @@ public class vMap extends Group {
 		});
 	}
 
-	public void afficherPortee(boolean[][] zone, Point posEntite) {
-		clearColorTuile();
-
-		for (int y = posEntite.y + zone.length / 2 - Math.abs(zone.length % 2 - 1), j = 0;
-				y > posEntite.y - zone.length / 2 - zone.length % 2 && j < zone.length;
-				y--, j++) {
-			for (int x = posEntite.x - zone[0].length / 2 + Math.abs(zone[0].length % 2 - 1), i = 0;
-					x < posEntite.x + zone[0].length / 2 + zone[0].length % 2 && i < zone[0].length;
-					x++, i++) {
-				if (zone[j][i] && y >= 0 && x >= 0 && y < tabVtuiles.length && x < tabVtuiles[0].length) {
-					tabVtuiles[y][x].setEtat(EtatTuile.ZONESORT);
-				}
-			}
-		}
-	}
-
-	public void afficherAction(boolean[][] zone, Point cible) {
-		clearActionTuile();
-
-		for (int y = cible.y + zone.length / 2 - Math.abs(zone.length % 2 - 1), j = 0;
-				y > cible.y - zone.length / 2 - zone.length % 2 && j < zone.length;
-				y--, j++) {
-			for (int x = cible.x - zone[0].length / 2 + Math.abs(zone[0].length % 2 - 1), i = 0;
-					x < cible.x + zone[0].length / 2 + zone[0].length % 2 && i < zone[0].length;
-					x++, i++) {
-				if (zone[j][i] && y >= 0 && x >= 0 && y < tabVtuiles.length && x < tabVtuiles[0].length) {
-					tabVtuiles[y][x].setAction(true);
-				}
-			}
-		}
-	}
-
 	public void clearColorTuile() {
 		getChildren().forEach((Actor vtuile) -> {
 			((vTuile) vtuile).tuileDuChemin(false);

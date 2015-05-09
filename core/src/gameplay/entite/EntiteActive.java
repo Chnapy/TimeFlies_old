@@ -64,16 +64,16 @@ public abstract class EntiteActive extends Entite {
 	@Override
 	public void jouerTour() {
 		long debutTour = TimeUtils.millis();
-		long tempsAction = caracPhysique.getCaracteristique(Carac.TEMPSACTION).getActu() * 1000;
+		long tempsAction = caracPhysique.getCaracteristique(Carac.TEMPSACTION).getActu();
 		long palier = debutTour;
 		long time = TimeUtils.millis();
 		
 		System.out.println("DEBUT Tour actif pendant " + caracPhysique.getCaracteristique(Carac.TEMPSACTION).getActu() + "s : " + nom);
 		
 		while (time < debutTour + tempsAction || enDeplacement) {
-			if (time >= palier + 1000) {
+			if (time >= palier + 10) {
 				palier = time;
-				caracPhysique.supp(Carac.TEMPSACTION, 1);
+				caracPhysique.supp(Carac.TEMPSACTION, 10);
 				setChanged();
 				notifyObservers(-1);
 			}
