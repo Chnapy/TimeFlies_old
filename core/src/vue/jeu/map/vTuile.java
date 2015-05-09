@@ -97,7 +97,7 @@ public class vTuile extends Actor {
 		batch.setColor(couleur);
 		batch.draw(tabTexture[iSprite], getX(), getY(), getWidth(), getHeight());
 		batch.setColor(Color.WHITE);
-		lab.draw(batch, posX + "_" + posY, x + 250, y + 150);
+		lab.draw(batch, "x" + posX + "_y" + posY, getX() + getWidth() / 2, getY() + getHeight() / 2);
 
 	}
 
