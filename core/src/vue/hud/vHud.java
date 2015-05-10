@@ -18,6 +18,7 @@ import gameplay.entite.EntiteActive;
 import gameplay.map.Tuile;
 import test.MainTest;
 import vue.hud.minimap.vMinimap;
+import vue.hud.pileactions.vPileActions;
 import vue.hud.sorts.vSorts;
 import vue.hud.timeline.vTimeline;
 
@@ -35,6 +36,7 @@ public final class vHud extends Stage {
 	private final vSorts vsorts;
 	private final vTimeline vtimeline;
 	private final vMinimap vminimap;
+	private final vPileActions vpileactions;
 
 	public vHud(cCombat controleur, Tuile[][] tabTuiles, Array<? extends EntiteActive> personnages) {
 		parameter.size = 18;
@@ -42,10 +44,12 @@ public final class vHud extends Stage {
 		vsorts = new vSorts();
 		vtimeline = new vTimeline(personnages);
 		vminimap = new vMinimap(controleur, tabTuiles);
+		vpileactions = new vPileActions();
 
 		addActor(vsorts);
 		addActor(vtimeline);
 		addActor(vminimap);
+		addActor(vpileactions);
 	}
 
 	public void nouveauTour(cCombat ccombat, EntiteActive entite) {
