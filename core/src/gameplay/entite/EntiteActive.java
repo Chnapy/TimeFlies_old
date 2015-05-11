@@ -14,7 +14,7 @@ import gameplay.sort.Sort;
 import gameplay.sort.SortActif;
 import gameplay.sort.SortPassif;
 import gameplay.sort.pileaction.Action;
-import gameplay.sort.pileaction.pileAction;
+import gameplay.sort.pileaction.PileAction;
 
 import java.awt.Point;
 import java.util.Arrays;
@@ -38,8 +38,8 @@ public abstract class EntiteActive extends Entite {
 
 	private SortActif sortEnCours = null;
 	private final int indexTextureTimeline;
-	
-	private pileAction pileAction = new pileAction();
+
+	private PileAction pileAction = new PileAction();
 
 	/**
 	 *
@@ -74,9 +74,9 @@ public abstract class EntiteActive extends Entite {
 		long palier = debutTour;
 		long time = TimeUtils.millis();
 		long TempsFinSort = -1;
-		
-		System.out.println("DEBUT Tour actif pendant " + caracPhysique.getCaracteristique(Carac.TEMPSACTION).getActu() + "s : " + nom);
-		
+
+		System.out.println("DEBUT Tour actif pendant " + caracPhysique.getCaracteristique(Carac.TEMPSACTION).getActu() + "ms : " + nom);
+
 		while (time < debutTour + tempsAction || enDeplacement) {
 			if (time >= palier + 10) {
 				palier = time;
@@ -84,39 +84,40 @@ public abstract class EntiteActive extends Entite {
 				setChanged();
 				notifyObservers(-1);
 			}
-			if(this.sortEnCours!=null && TempsFinSort==-1){
-				TempsFinSort=time+this.sortEnCours.getTempsAction();
-			}else if(this.sortEnCours!=null && TempsFinSort <=time){
-				this.sortEnCours=null;
-				TempsFinSort=-1;
+			if (sortEnCours != null && TempsFinSort == -1) {
+				TempsFinSort = time + sortEnCours.getTempsAction();
+			} else if (sortEnCours != null && TempsFinSort <= time) {
+				sortEnCours = null;
+				TempsFinSort = -1;
 			}
-			if(!actionIsRunning() && this.pileAction.pile.size>=1){
+			if (!actionIsRunning() && pileAction.pile.size > 0) {
 				System.out.println("action de la pile");
 				setChanged();
-				notifyObservers(this.pileAction.getFirst());
+				notifyObservers(pileAction.getFirst());
 			}
 			time = TimeUtils.millis();
 		}
-		
+
 		System.out.println("FIN Tour actif : " + nom);
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @return true si une action se déroule (déplacement ou sort) false sinon
 	 */
-	public boolean actionIsRunning(){
-		return enDeplacement || this.sortEnCours!=null;		
+	public boolean actionIsRunning() {
+		return enDeplacement || sortEnCours != null;
 	}
-	
+
 	/**
 	 * ajoute une action dans la pile d'action
-	 * @param action
+	 *
+	 * @param a
 	 */
-	public void addAction(Action a){
-		this.pileAction.add(a);
+	public void addAction(Action a) {
+		pileAction.add(a);
 	}
-	
+
 	/**
 	 * Défini les actions que cette entité va effectuer lorsque chaque tour
 	 * global commencera.

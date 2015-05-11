@@ -125,17 +125,15 @@ public class cCombat implements Observer {
 
 			vue.clearColorTuile();
 			//Déplacement
-			if (!entiteEnCours.isEnDeplacement()
-					&& !entiteEnCours.getCaracSpatiale().getPosition().equals(tuile.getPosition())
+			if (!entiteEnCours.getCaracSpatiale().getPosition().equals(tuile.getPosition())
 					&& !tuile.getType().equals(Type.OBSTACLE)
 					&& !tuile.getType().equals(Type.TROU)
 					&& !tuile.isOccupe()) {
+				//TODO: Utiliser comme position de départ la position d'arriver du dernier déplacement de la pile d'action
 				path = map.getChemin(entiteEnCours.getCaracSpatiale().getPosition(), new Point(x, y));
 				if (path != null) {
 					vue.colorTuile(path);
 				}
-			} else if (path != null) {
-				path = null; //Purge
 			}
 		} else if (entiteEnCours.getEtat() == EtatEntite.SORT) {
 			//Afficher zone action
@@ -160,9 +158,10 @@ public class cCombat implements Observer {
 //		System.out.println(tuile.getEtat());
 
 		if (entiteEnCours.getEtat() == EtatEntite.DEPLACEMENT) {
-			if(entiteEnCours.actionIsRunning()){
+			if (entiteEnCours.actionIsRunning()) {
 				entiteEnCours.addAction(new ActionDeplacement(new Point(x, y), path));
-			}else{
+				path = null;
+			} else {
 				//Déplacement
 				if (!entiteEnCours.isEnDeplacement() && path != null) {
 					vue.clearColorTuile();
@@ -172,9 +171,9 @@ public class cCombat implements Observer {
 				}
 			}
 		} else if (entiteEnCours.getEtat() == EtatEntite.SORT) {
-			if(entiteEnCours.actionIsRunning()){
-				entiteEnCours.addAction(new ActionLancerSort(new Point(x, y),sortEnCours));
-			}else{
+			if (entiteEnCours.actionIsRunning()) {
+				entiteEnCours.addAction(new ActionLancerSort(new Point(x, y), sortEnCours));
+			} else {
 				//Lancement de sort sur toute la zone action
 				if (vue.getVmap().getTabVtuiles()[y][x].getEtat() == EtatTuile.ZONESORT) {
 					Tuile[] tuilesTouchees = map.getTuilesAction(sortEnCours.getZoneAction().getZoneFinale(), new Point(x, y));
@@ -206,7 +205,7 @@ public class cCombat implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		if(o instanceof Timeline){
+		if (o instanceof Timeline) {
 			Timeline tl = (Timeline) o;
 			if (tl.getEtatTour().equals(Tour.DEBUT)) {
 				entiteEnCours = tl.getEntiteEnCours();
@@ -214,15 +213,14 @@ public class cCombat implements Observer {
 			} else if (tl.getEtatTour().equals(Tour.FIN)) {
 				finTour();
 			}
-		}else if(o instanceof EntiteActive){
-			System.out.println("en effet ");
-			EntiteActive entite = (EntiteActive)o;
-			if(arg instanceof ActionDeplacement){
-				ActionDeplacement action = (ActionDeplacement)arg;
+		} else if (o instanceof EntiteActive) {
+			EntiteActive entite = (EntiteActive) o;
+			if (arg instanceof ActionDeplacement) {
+				ActionDeplacement action = (ActionDeplacement) arg;
 				entite.setEnDeplacement(true);
 				entite.setPosition(action.getPath());
-			}else if(arg instanceof ActionLancerSort){
-				ActionLancerSort action =(ActionLancerSort)arg;
+			} else if (arg instanceof ActionLancerSort) {
+				ActionLancerSort action = (ActionLancerSort) arg;
 				if (vue.getVmap().getTabVtuiles()[action.getPoint().y][action.getPoint().x].getEtat() == EtatTuile.ZONESORT) {
 					Tuile[] tuilesTouchees = map.getTuilesAction(action.getSort().getZoneAction().getZoneFinale(), new Point(action.getPoint().x, action.getPoint().y));
 					for (Tuile t : tuilesTouchees) {
