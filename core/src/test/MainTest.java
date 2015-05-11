@@ -1,15 +1,23 @@
 package test;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+
 import controleur.cCombat;
+import gameplay.caracteristique.Carac;
 import gameplay.caracteristique.CaracteristiquePhysique;
 import gameplay.caracteristique.Orientation;
 import gameplay.core.Joueur;
+import gameplay.effet.Balus;
+import gameplay.effet.Declencheur;
+import gameplay.effet.Effet;
 import gameplay.entite.Personnage;
 import gameplay.map.Map;
 import gameplay.map.Type;
@@ -48,13 +56,15 @@ public class MainTest extends Game {
 			{Type.ECRAN, Type.ECRAN, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE},
 			{Type.ECRAN, Type.ECRAN, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE}
 		});
+		Array<Declencheur> declancheur=new Array<Declencheur>();
+		declancheur.add(new Balus(Carac.VITALITE,-30));
 		Personnage[] persosJ1 = {
 			new Guerrier(
 			"bite", 1, 2, Orientation.E,
 			new CaracteristiquePhysique(100, 100, 10000, 10000, 100, 100, 100, 100, 100, 100),
 			new SortPassif[]{},
 			new SortActif[]{
-				new SortQuiFaitMal()
+				new SortQuiFaitMal(new Effet[]{new Effet(declancheur)})
 			})
 		};
 		Personnage[] persosJ2 = {
@@ -63,7 +73,7 @@ public class MainTest extends Game {
 			new CaracteristiquePhysique(100, 100, 10000, 10000, 100, 100, 100, 100, 100, 100),
 			new SortPassif[]{},
 			new SortActif[]{
-				new SortQuiFaitMal()
+				new SortQuiFaitMal(new Effet[]{new Effet(declancheur)})
 			})
 		};
 		Joueur[] joueurs = {

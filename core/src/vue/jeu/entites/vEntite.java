@@ -5,22 +5,26 @@
  */
 package vue.jeu.entites;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.run;
-import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
-import com.badlogic.gdx.utils.Array;
+import static vue.jeu.map.vTuile.TUILE_HEIGHT;
 import gameplay.entite.Entite;
 import gameplay.entite.EntiteActive;
 import gameplay.entite.EtatEntite;
+import gameplay.sort.pileaction.Action;
+
 import java.awt.Point;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
+
 import vue.jeu.map.vTuile;
-import static vue.jeu.map.vTuile.TUILE_HEIGHT;
+
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
+import com.badlogic.gdx.utils.Array;
 
 /**
  * vEntite.java
@@ -76,23 +80,23 @@ public class vEntite extends Actor implements Observer {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public void update(Observable o, Object arg) {
-		Entite entite = (Entite) o;
-		if (!(arg instanceof Integer && (int) arg == -1) && entite.getEtat() == EtatEntite.DEPLACEMENT) {
-			Array<Point> listParcours = (Array<Point>) arg;
-			setPosition(((Entite) o).getCaracSpatiale().getPosition().x,
-					((Entite) o).getCaracSpatiale().getPosition().y, false);
-
-			MoveToAction[] tabMoveTo = new MoveToAction[listParcours.size];
-			float[] position;
-			for (int i = 0; i < listParcours.size; i++) {
-				position = vTuile.getPosition(listParcours.get(i).x, listParcours.get(i).y);
-				tabMoveTo[i] = Actions.moveTo(position[0] + PERSO_WIDTH / 2, position[1] + TUILE_HEIGHT / 2, 0.5f);
+	public void update(Observable o, Object arg){ 
+			Entite entite = (Entite) o;
+			if (arg instanceof Array<?> && entite.getEtat() == EtatEntite.DEPLACEMENT) {
+				Array<Point> listParcours = (Array<Point>) arg;
+				setPosition(((Entite) o).getCaracSpatiale().getPosition().x,
+						((Entite) o).getCaracSpatiale().getPosition().y, false);
+	
+				MoveToAction[] tabMoveTo = new MoveToAction[listParcours.size];
+				float[] position;
+				for (int i = 0; i < listParcours.size; i++) {
+					position = vTuile.getPosition(listParcours.get(i).x, listParcours.get(i).y);
+					tabMoveTo[i] = Actions.moveTo(position[0] + PERSO_WIDTH / 2, position[1] + TUILE_HEIGHT / 2, 0.5f);
+				}
+				this.addAction(Actions.sequence(Actions.sequence(tabMoveTo), run(() -> {
+					((EntiteActive) o).setEnDeplacement(false);
+				})));
 			}
-			this.addAction(Actions.sequence(Actions.sequence(tabMoveTo), run(() -> {
-				((EntiteActive) o).setEnDeplacement(false);
-			})));
-		}
 	}
 
 	/**

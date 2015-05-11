@@ -19,6 +19,7 @@ public abstract class SortActif extends Sort {
 
 	private ZoneAction zonePortee;
 	private ZoneAction zoneAction;
+	private int tempsAction;
 
 	/**
 	 *
@@ -33,12 +34,13 @@ public abstract class SortActif extends Sort {
 	public SortActif(String nom, String description, Niveau niveau,
 			Effet[] effets,
 			ZoneAction zportee, ZoneAction zaction,
-			int index) {
+			int index,int tempsAction) {
 
 		super(nom, description, niveau, effets, index);
 
 		zonePortee = zportee;
 		zoneAction = zaction;
+		this.tempsAction = tempsAction;
 	}
 
 	/**
@@ -50,6 +52,10 @@ public abstract class SortActif extends Sort {
 	 */
 	public void lancerSort(Entite cible, EntiteActive lanceur) {
 		cible.recoitSort(getTabEffets(), lanceur);
+	}
+
+	public int getTempsAction() {
+		return tempsAction;
 	}
 
 	public ZoneAction getZonePortee() {

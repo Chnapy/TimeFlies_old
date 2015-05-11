@@ -6,6 +6,7 @@
 package controleur;
 
 import com.badlogic.gdx.utils.Array;
+
 import gameplay.core.Joueur;
 import gameplay.core.Timeline;
 import gameplay.core.Tour;
@@ -18,9 +19,14 @@ import gameplay.map.Map;
 import gameplay.map.Tuile;
 import gameplay.map.Type;
 import gameplay.sort.SortActif;
+import gameplay.sort.pileaction.Action;
+import gameplay.sort.pileaction.ActionDeplacement;
+import gameplay.sort.pileaction.ActionLancerSort;
+
 import java.awt.Point;
 import java.util.Observable;
 import java.util.Observer;
+
 import vue.vCombat;
 
 /**
@@ -61,6 +67,7 @@ public class cCombat implements Observer {
 		timeline.addObserver(this);
 
 		listPersonnages.forEach((perso) -> {
+			perso.addObserver(this);
 			map.setTuileOccupe(true, perso.getCaracSpatiale().getPosition().y, perso.getCaracSpatiale().getPosition().x);
 		});
 	}
@@ -153,19 +160,27 @@ public class cCombat implements Observer {
 //		System.out.println(tuile.getEtat());
 
 		if (entiteEnCours.getEtat() == EtatEntite.DEPLACEMENT) {
-			//Déplacement
-			if (!entiteEnCours.isEnDeplacement() && path != null) {
-				vue.clearColorTuile();
-				entiteEnCours.setEnDeplacement(true);
-				entiteEnCours.setPosition(path);
-				path = null; //Purge
+			if(entiteEnCours.actionIsRunning()){
+				entiteEnCours.addAction(new ActionDeplacement(new Point(x, y), path));
+			}else{
+				//Déplacement
+				if (!entiteEnCours.isEnDeplacement() && path != null) {
+					vue.clearColorTuile();
+					entiteEnCours.setEnDeplacement(true);
+					entiteEnCours.setPosition(path);
+					path = null; //Purge
+				}
 			}
 		} else if (entiteEnCours.getEtat() == EtatEntite.SORT) {
-			//Lancement de sort sur toute la zone action
-			if (vue.getVmap().getTabVtuiles()[y][x].getEtat() == EtatTuile.ZONESORT) {
-				Tuile[] tuilesTouchees = map.getTuilesAction(sortEnCours.getZoneAction().getZoneFinale(), new Point(x, y));
-				for (Tuile t : tuilesTouchees) {
-					t.recoitSort(sortEnCours.getTabEffets(), entiteEnCours);
+			if(entiteEnCours.actionIsRunning()){
+				entiteEnCours.addAction(new ActionLancerSort(new Point(x, y),sortEnCours));
+			}else{
+				//Lancement de sort sur toute la zone action
+				if (vue.getVmap().getTabVtuiles()[y][x].getEtat() == EtatTuile.ZONESORT) {
+					Tuile[] tuilesTouchees = map.getTuilesAction(sortEnCours.getZoneAction().getZoneFinale(), new Point(x, y));
+					for (Tuile t : tuilesTouchees) {
+						t.recoitSort(sortEnCours.getTabEffets(), entiteEnCours);
+					}
 				}
 			}
 			modeDeplacement();
@@ -191,12 +206,30 @@ public class cCombat implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		Timeline tl = (Timeline) o;
-		if (tl.getEtatTour().equals(Tour.DEBUT)) {
-			entiteEnCours = tl.getEntiteEnCours();
-			nouveauTour();
-		} else if (tl.getEtatTour().equals(Tour.FIN)) {
-			finTour();
+		if(o instanceof Timeline){
+			Timeline tl = (Timeline) o;
+			if (tl.getEtatTour().equals(Tour.DEBUT)) {
+				entiteEnCours = tl.getEntiteEnCours();
+				nouveauTour();
+			} else if (tl.getEtatTour().equals(Tour.FIN)) {
+				finTour();
+			}
+		}else if(o instanceof EntiteActive){
+			System.out.println("en effet ");
+			EntiteActive entite = (EntiteActive)o;
+			if(arg instanceof ActionDeplacement){
+				ActionDeplacement action = (ActionDeplacement)arg;
+				entite.setEnDeplacement(true);
+				entite.setPosition(action.getPath());
+			}else if(arg instanceof ActionLancerSort){
+				ActionLancerSort action =(ActionLancerSort)arg;
+				if (vue.getVmap().getTabVtuiles()[action.getPoint().y][action.getPoint().x].getEtat() == EtatTuile.ZONESORT) {
+					Tuile[] tuilesTouchees = map.getTuilesAction(action.getSort().getZoneAction().getZoneFinale(), new Point(action.getPoint().x, action.getPoint().y));
+					for (Tuile t : tuilesTouchees) {
+						t.recoitSort(action.getSort().getTabEffets(), entite);
+					}
+				}
+			}
 		}
 	}
 
