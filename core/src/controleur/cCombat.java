@@ -125,12 +125,12 @@ public class cCombat implements Observer {
 
 			vue.clearColorTuile();
 			//Déplacement
-			if (!entiteEnCours.getCaracSpatiale().getPosition().equals(tuile.getPosition())
+			Point depart = entiteEnCours.getLastPosition();
+			if (!depart.equals(tuile.getPosition())
 					&& !tuile.getType().equals(Type.OBSTACLE)
 					&& !tuile.getType().equals(Type.TROU)
 					&& !tuile.isOccupe()) {
-				//TODO: Utiliser comme position de départ la position d'arriver du dernier déplacement de la pile d'action
-				path = map.getChemin(entiteEnCours.getCaracSpatiale().getPosition(), new Point(x, y));
+				path = map.getChemin(depart, new Point(x, y));
 				if (path != null) {
 					vue.colorTuile(path);
 				}
@@ -159,7 +159,7 @@ public class cCombat implements Observer {
 
 		if (entiteEnCours.getEtat() == EtatEntite.DEPLACEMENT) {
 			if (entiteEnCours.actionIsRunning()) {
-				entiteEnCours.addAction(new ActionDeplacement(new Point(x, y), path));
+				entiteEnCours.addAction(new ActionDeplacement(new Point(x, y), new Array<Point>(path)));
 				path = null;
 			} else {
 				//Déplacement
@@ -171,14 +171,14 @@ public class cCombat implements Observer {
 				}
 			}
 		} else if (entiteEnCours.getEtat() == EtatEntite.SORT) {
-			if (entiteEnCours.actionIsRunning()) {
-				entiteEnCours.addAction(new ActionLancerSort(new Point(x, y), sortEnCours));
-			} else {
 				//Lancement de sort sur toute la zone action
 				if (vue.getVmap().getTabVtuiles()[y][x].getEtat() == EtatTuile.ZONESORT) {
-					Tuile[] tuilesTouchees = map.getTuilesAction(sortEnCours.getZoneAction().getZoneFinale(), new Point(x, y));
-					for (Tuile t : tuilesTouchees) {
-						t.recoitSort(sortEnCours.getTabEffets(), entiteEnCours);
+					if (entiteEnCours.actionIsRunning()) {
+						entiteEnCours.addAction(new ActionLancerSort(new Point(x, y), sortEnCours));
+					} else {
+						Tuile[] tuilesTouchees = map.getTuilesAction(sortEnCours.getZoneAction().getZoneFinale(), new Point(x, y));
+						for (Tuile t : tuilesTouchees) {
+							t.recoitSort(sortEnCours.getTabEffets(), entiteEnCours);
 					}
 				}
 			}
@@ -194,7 +194,8 @@ public class cCombat implements Observer {
 	public void modeSort(int index) {
 		entiteEnCours.setEtat(EtatEntite.SORT);
 		sortEnCours = entiteEnCours.setSortEnCours(index);
-		vue.afficherPortee(sortEnCours.getZonePortee().getZoneFinale(), entiteEnCours.getCaracSpatiale().getPosition());
+		Point depart = entiteEnCours.getLastPosition();
+		vue.afficherPortee(sortEnCours.getZonePortee().getZoneFinale(), depart);
 	}
 
 	public void modeDeplacement() {

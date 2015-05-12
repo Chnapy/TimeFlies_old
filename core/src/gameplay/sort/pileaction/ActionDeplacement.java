@@ -16,7 +16,6 @@ public class ActionDeplacement extends Action {
 	public ActionDeplacement(Point p1, Array<Point> path) {
 		super(p1);
 		this.path = path;
-		System.out.println(path);
 	}
 
 	/**

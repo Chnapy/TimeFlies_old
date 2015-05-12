@@ -14,6 +14,7 @@ import gameplay.sort.Sort;
 import gameplay.sort.SortActif;
 import gameplay.sort.SortPassif;
 import gameplay.sort.pileaction.Action;
+import gameplay.sort.pileaction.ActionDeplacement;
 import gameplay.sort.pileaction.PileAction;
 
 import java.awt.Point;
@@ -91,13 +92,12 @@ public abstract class EntiteActive extends Entite {
 				TempsFinSort = -1;
 			}
 			if (!actionIsRunning() && pileAction.pile.size > 0) {
-				System.out.println("action de la pile");
 				setChanged();
 				notifyObservers(pileAction.getFirst());
 			}
 			time = TimeUtils.millis();
 		}
-
+		pileAction.pile.clear();
 		System.out.println("FIN Tour actif : " + nom);
 	}
 
@@ -187,6 +187,20 @@ public abstract class EntiteActive extends Entite {
 		this.enDeplacement = enDeplacement;
 	}
 
+	/**
+	 * 
+	 * @return la position de l'entité une fois que la liste d'action sera fini
+	 */
+	public Point getLastPosition(){
+		Point ret = null;
+		for (int i = 0; i < pileAction.pile.size; i++) {
+			if(pileAction.pile.get(i) instanceof ActionDeplacement){
+				ret = ((ActionDeplacement)pileAction.pile.get(i)).getPath().get(((ActionDeplacement)pileAction.pile.get(i)).getPath().size-1);
+			}
+		}
+		return ret==null?this.getCaracSpatiale().getPosition():ret;
+	}
+	
 	public SortActif[] getTabSortActif() {
 		return tabSortActif;
 	}
