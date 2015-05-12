@@ -6,7 +6,6 @@
 package controleur;
 
 import com.badlogic.gdx.utils.Array;
-
 import gameplay.core.Joueur;
 import gameplay.core.Timeline;
 import gameplay.core.Tour;
@@ -19,14 +18,11 @@ import gameplay.map.Map;
 import gameplay.map.Tuile;
 import gameplay.map.Type;
 import gameplay.sort.SortActif;
-import gameplay.sort.pileaction.Action;
 import gameplay.sort.pileaction.ActionDeplacement;
 import gameplay.sort.pileaction.ActionLancerSort;
-
 import java.awt.Point;
 import java.util.Observable;
 import java.util.Observer;
-
 import vue.vCombat;
 
 /**

@@ -5,6 +5,8 @@
  */
 package gameplay.entite;
 
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.TimeUtils;
 import gameplay.caracteristique.Carac;
 import gameplay.caracteristique.Caracteristique;
 import gameplay.caracteristique.CaracteristiquePhysique;
@@ -16,13 +18,9 @@ import gameplay.sort.SortPassif;
 import gameplay.sort.pileaction.Action;
 import gameplay.sort.pileaction.ActionDeplacement;
 import gameplay.sort.pileaction.PileAction;
-
 import java.awt.Point;
 import java.util.Arrays;
 import java.util.stream.Stream;
-
-import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.TimeUtils;
 
 /**
  * EntiteActive.java
@@ -92,6 +90,7 @@ public abstract class EntiteActive extends Entite {
 				TempsFinSort = -1;
 			}
 			if (!actionIsRunning() && pileAction.pile.size > 0) {
+				System.out.println("Action lancée");
 				setChanged();
 				notifyObservers(pileAction.getFirst());
 			}
@@ -188,19 +187,19 @@ public abstract class EntiteActive extends Entite {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return la position de l'entité une fois que la liste d'action sera fini
 	 */
-	public Point getLastPosition(){
-		Point ret = null;
+	public Point getLastPosition() {
+		Point ret = getCaracSpatiale().getPosition();
 		for (int i = 0; i < pileAction.pile.size; i++) {
-			if(pileAction.pile.get(i) instanceof ActionDeplacement){
-				ret = ((ActionDeplacement)pileAction.pile.get(i)).getPath().get(((ActionDeplacement)pileAction.pile.get(i)).getPath().size-1);
+			if (pileAction.pile.get(i) instanceof ActionDeplacement) {
+				ret = ((ActionDeplacement) pileAction.pile.get(i)).getPath().get(((ActionDeplacement) pileAction.pile.get(i)).getPath().size - 1);
 			}
 		}
-		return ret==null?this.getCaracSpatiale().getPosition():ret;
+		return ret;
 	}
-	
+
 	public SortActif[] getTabSortActif() {
 		return tabSortActif;
 	}
