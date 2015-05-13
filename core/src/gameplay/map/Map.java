@@ -17,12 +17,15 @@ import java.awt.Point;
 /**
  * Map.java
  * Représente la map du combat.
- * Gère égelement le pathfinding.
+ * Gère également le pathfinding.
  *
  */
 public class Map implements IndexedGraph<Tuile> {
 
+	//Tableau des différentes tuiles de la map
 	private final Tuile[][] tabTuiles;
+
+	//Dimension x/y de la map
 	private final Dimension dimension;
 
 	//Pathfinding
@@ -67,6 +70,12 @@ public class Map implements IndexedGraph<Tuile> {
 		}
 	}
 
+	/**
+	 * Génère les connections pour la pathfinding
+	 *
+	 * @param y
+	 * @param x
+	 */
 	private void generateConnections(int y, int x) {
 		if (y - 1 >= 0 && (!tabTuiles[y - 1][x].getType().equals(Type.TROU) && !tabTuiles[y - 1][x].getType().equals(Type.OBSTACLE) && !tabTuiles[y - 1][x].isOccupe())) {
 			tabTuiles[y][x].addConnection(tabTuiles[y - 1][x]);
@@ -82,6 +91,13 @@ public class Map implements IndexedGraph<Tuile> {
 		}
 	}
 
+	/**
+	 * Rends la tuile ciblée occupé ou non
+	 *
+	 * @param occupe
+	 * @param y
+	 * @param x
+	 */
 	public void setTuileOccupe(boolean occupe, int y, int x) {
 		tabTuiles[y][x].setOccupe(occupe);
 		if (occupe) {
@@ -89,10 +105,6 @@ public class Map implements IndexedGraph<Tuile> {
 		} else {
 			generateConnections(y, x);
 		}
-	}
-
-	public Tuile[][] getTabTuiles() {
-		return tabTuiles;
 	}
 
 	/**
@@ -123,6 +135,13 @@ public class Map implements IndexedGraph<Tuile> {
 		return ret;
 	}
 
+	/**
+	 * Récupère les tuiles ciblées dans une zone précise
+	 *
+	 * @param zone
+	 * @param cible
+	 * @return
+	 */
 	public Tuile[] getTuilesAction(boolean[][] zone, Point cible) {
 		Array<Tuile> ret = new Array<Tuile>();
 
@@ -139,6 +158,10 @@ public class Map implements IndexedGraph<Tuile> {
 		}
 
 		return ret.toArray(Tuile.class);
+	}
+
+	public Tuile[][] getTabTuiles() {
+		return tabTuiles;
 	}
 
 	@Override

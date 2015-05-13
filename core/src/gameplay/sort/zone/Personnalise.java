@@ -16,6 +16,7 @@ public class Personnalise extends Zone {
 	/**
 	 *
 	 * @param posit
+	 * @param size
 	 */
 	public Personnalise(boolean posit, int size) {
 		super(posit, size);

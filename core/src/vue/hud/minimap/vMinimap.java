@@ -23,16 +23,26 @@ import java.awt.Point;
  *
  */
 public class vMinimap extends Table {
-	
+
+	//Texture de fond de la minimap
 	private static final Texture BACKGROUND = new Texture(Gdx.files.internal("minimap/minimap_back.png"));
 
+	//Taille et position de la minimap
 	private static final int SIZE = 115;
 	private static final int X = 1900 - SIZE;
 	private static final int Y = 20;
+
+	//Afficheur de forme pour les cases
 	private static final ShapeRenderer shapeRender = new ShapeRenderer();
 
+	static {
+		BACKGROUND.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+	}
+
+	//Taille d'une case
 	private final int caseWidth;
 
+	//Tableau de l'ensemble des cases
 	private final vCase[][] tabVcases;
 
 	public vMinimap(final cCombat controleur, Tuile[][] tabTuiles) {
@@ -65,7 +75,7 @@ public class vMinimap extends Table {
 			}
 			row();
 		}
-		this.setBackground(new TextureRegionDrawable(new TextureRegion(BACKGROUND)));
+		setBackground(new TextureRegionDrawable(new TextureRegion(BACKGROUND)));
 		pack();
 	}
 
@@ -81,18 +91,27 @@ public class vMinimap extends Table {
 		});
 	}
 
+	/**
+	 * Nettoie toutes les tuiles d'éventuels pathfinding
+	 */
 	public void clearColorTuile() {
 		getChildren().forEach((Actor vcase) -> {
 			((vCase) vcase).tuileDuChemin(false);
 		});
 	}
 
+	/**
+	 * Nettoie toutes les tuiles d'éventuelles actions
+	 */
 	public void clearActionTuile() {
 		getChildren().forEach((Actor vcase) -> {
 			((vCase) vcase).setAction(false);
 		});
 	}
-	
+
+	/**
+	 * Nettoie toutes les tuiles d'éventuels actions ou pathfinding
+	 */
 	public void clearAll() {
 		getChildren().forEach((Actor vcase) -> {
 			((vCase) vcase).setEtat(EtatTuile.NORMAL);
@@ -100,7 +119,10 @@ public class vMinimap extends Table {
 			((vCase) vcase).setAction(false);
 		});
 	}
-	
+
+	/**
+	 * Fin du tour de l'entité
+	 */
 	public void finTour() {
 		clearAll();
 	}

@@ -14,12 +14,20 @@ import gameplay.effet.Effet;
  */
 public abstract class Sort {
 
+	//Nom du sort
 	private String nom;
+
+	//Description
 	private String description;
+
+	//Niveau et expérience
 	private Niveau niveau;
+
+	//Tableau des effets
 	private Effet[] tabEffets;
 
-	private final int index;	//Pour la vue
+	//Index pour la vue
+	private final int index;
 
 	/**
 	 *

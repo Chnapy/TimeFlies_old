@@ -20,13 +20,19 @@ import static test.MainTest.MAX_HEIGHT;
  */
 public class vTimeline extends Group {
 
+	//Texture de fond
 	private static final Texture TEXTURE_FOND = new Texture(Gdx.files.internal("timeline/barre_timeline.png"));
+
+	//Position et taille de la timeline
 	private static final int X = 50;
 	private static final int WIDTH = 1820;
 	private static final int HEIGHT = 92;
 	private static final int Y = MAX_HEIGHT - HEIGHT - 12;
 
+	//Vue du temps d'action
 	private final vTimelineTempsAction vtemps;
+
+	//Vue des entités sur la timeline
 	private final Array<vTimelineEntite> listEntite;
 
 	public vTimeline(final Array<? extends EntiteActive> listEntites) {
@@ -53,6 +59,9 @@ public class vTimeline extends Group {
 		}
 	}
 
+	/**
+	 * Nouveau tour d'une entité
+	 */
 	public void nouveauTour() {
 		listEntite.forEach((entite) -> {
 			entite.nouveauTour(listEntite.size - 1);

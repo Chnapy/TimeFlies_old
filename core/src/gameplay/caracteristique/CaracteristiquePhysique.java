@@ -14,9 +14,12 @@ import java.util.Arrays;
  */
 public class CaracteristiquePhysique {
 
+	//Tableau des caractéristiques possédées
 	private Caracteristique[] listCaracteristiques;
 
 	/**
+	 * Représente l'ensemble des caractéristiques possédées : vitalité, temps
+	 * d'action, temps supplémentaire, fatigue, vitesse d'action
 	 *
 	 * @param vitaTotal
 	 * @param vitaActu
@@ -47,15 +50,17 @@ public class CaracteristiquePhysique {
 	}
 
 	/**
+	 * Ajoute une valeur à la valeur actu de la caractéristique donnée
 	 *
 	 * @param c
 	 * @param gain
 	 */
 	public void add(Carac c, int gain) {
-		getCaracteristique(c).supp(gain);
+		getCaracteristique(c).add(gain);
 	}
 
 	/**
+	 * Enleve une valeur à la valeur actu de la caractéristique donnée
 	 *
 	 * @param c
 	 * @param perte
@@ -65,6 +70,7 @@ public class CaracteristiquePhysique {
 	}
 
 	/**
+	 * Défini la valeur actu de la caractéristique donnée
 	 *
 	 * @param c
 	 * @param valeur
@@ -74,6 +80,7 @@ public class CaracteristiquePhysique {
 	}
 
 	/**
+	 * Défini la valeur totale de la caractéristique donnée
 	 *
 	 * @param c
 	 * @param valeur

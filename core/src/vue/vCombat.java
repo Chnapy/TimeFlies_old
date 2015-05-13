@@ -30,7 +30,10 @@ import vue.jeu.vJeu;
  */
 public class vCombat implements Screen {
 
+	//Vue du jeu (map, entités)
 	private final vJeu vjeu;
+
+	//Vue du HUD (timeline, sorts, etc...)
 	private final vHud vhud;
 
 	/**
@@ -48,16 +51,28 @@ public class vCombat implements Screen {
 		InputMultiplexer inputM = new InputMultiplexer(vjeu, vhud);
 		Gdx.input.setInputProcessor(inputM);
 	}
-	
+
+	/**
+	 * Colore les tuiles selon les points pour le pathfinding
+	 *
+	 * @param listePoint
+	 */
 	public void colorTuile(Array<Point> listePoint) {
 		vjeu.getVmap().colorTuile(listePoint);
 		vhud.getVminimap().colorTuile(listePoint);
 	}
-	
+
+	/**
+	 * Affiche la portée d'un sort sur une zone donnée depuis la position de
+	 * l'entité lanceuse.
+	 *
+	 * @param zone
+	 * @param posEntite
+	 */
 	public void afficherPortee(boolean[][] zone, Point posEntite) {
 		vjeu.getVmap().clearColorTuile();
 		vhud.getVminimap().clearColorTuile();
-		
+
 		vTuile[][] tabVtuiles = vjeu.getVmap().getTabVtuiles();
 		vCase[][] tabVcases = vhud.getVminimap().getTabVcases();
 
@@ -74,14 +89,21 @@ public class vCombat implements Screen {
 			}
 		}
 	}
-	
+
+	/**
+	 * Affiche la zone d'action du sort depuis une zone donnée et une position
+	 * cible
+	 *
+	 * @param zone
+	 * @param cible
+	 */
 	public void afficherAction(boolean[][] zone, Point cible) {
 		vjeu.getVmap().clearActionTuile();
 		vhud.getVminimap().clearActionTuile();
-		
+
 		vTuile[][] tabVtuiles = vjeu.getVmap().getTabVtuiles();
 		vCase[][] tabVcases = vhud.getVminimap().getTabVcases();
-		
+
 		for (int y = cible.y + zone.length / 2 - Math.abs(zone.length % 2 - 1), j = 0;
 				y > cible.y - zone.length / 2 - zone.length % 2 && j < zone.length;
 				y--, j++) {
@@ -95,17 +117,26 @@ public class vCombat implements Screen {
 			}
 		}
 	}
-	
+
+	/**
+	 * Nettoie toutes les tuiles d'éventuelles actions
+	 */
 	public void clearActionTuile() {
 		vjeu.getVmap().clearActionTuile();
 		vhud.getVminimap().clearActionTuile();
 	}
-	
+
+	/**
+	 * Nettoie toutes les tuiles d'éventuels pathfinding
+	 */
 	public void clearColorTuile() {
 		vjeu.getVmap().clearColorTuile();
 		vhud.getVminimap().clearColorTuile();
 	}
-	
+
+	/**
+	 * Nettoie toutes les tuiles d'éventuels pathfinding et actions
+	 */
 	public void clearAll() {
 		vjeu.getVmap().clearAll();
 		vhud.getVminimap().clearAll();
@@ -117,6 +148,7 @@ public class vCombat implements Screen {
 	}
 
 	/**
+	 * Affichage des différentes vues
 	 *
 	 * @param delta	espace de temps entre 2 frames (utilisé pour
 	 *              l'interpolation)
@@ -151,12 +183,21 @@ public class vCombat implements Screen {
 	@Override
 	public void dispose() {
 	}
-	
+
+	/**
+	 * Lancé lorsqu'un nouveau tour d'une entité commence
+	 *
+	 * @param controleur
+	 * @param entiteEnCours
+	 */
 	public void nouveauTour(cCombat controleur, EntiteActive entiteEnCours) {
 		vhud.nouveauTour(controleur, entiteEnCours);
 		vjeu.nouveauTour();
 	}
-	
+
+	/**
+	 * Lancé lorsqu'un tour d'une entité finit
+	 */
 	public void finTour() {
 		vhud.finTour();
 		vjeu.finTour();

@@ -3,11 +3,8 @@ package gameplay.sort.pileaction;
 import com.badlogic.gdx.utils.Array;
 
 /**
- *
- * @author ydardot
- *
- * la pile d'action permet de contenir toutes les
- * actions qui vont être réaliser par le joueur
+ * La pile d'action permet de contenir toutes les
+ * actions qui vont être réalisées par le joueur
  * et celui si peu les annulé
  */
 public class PileAction {
@@ -17,9 +14,6 @@ public class PileAction {
 	 */
 	public Array<Action> pile;
 
-	/**
-	 * contructeur initialise la pile
-	 */
 	public PileAction() {
 		pile = new Array<Action>();
 	}

@@ -10,12 +10,18 @@ import com.badlogic.gdx.utils.Array;
 /**
  * Declenchable.java
  * Représente la condition pour qu'un effet se déclenche.
+ * Est utilisé dans les sorts passifs et envoutements.
  *
  */
 public class Declenchable {
 
+	//Déclencheur comparable
 	private Declencheur declencheur;
+
+	//Valeur minimum du déclencheur
 	private int minimum;
+
+	//Valeur maximum du déclencheur
 	private int maximum;
 
 	/**
@@ -31,7 +37,7 @@ public class Declenchable {
 	}
 
 	/**
-	 * Défini si les effets activent le déclencheur
+	 * Défini si au moins un des effets active le déclencheur.
 	 *
 	 * @param effets
 	 * @return true si un des effets activent le déclencheur, sinon false

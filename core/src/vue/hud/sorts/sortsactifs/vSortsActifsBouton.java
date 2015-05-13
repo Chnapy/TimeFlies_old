@@ -21,13 +21,17 @@ import static vue.hud.vHud.FONT;
  */
 public class vSortsActifsBouton extends vSortsBouton {
 
+	//Tableau de textures des sorts
 	private static final Texture[] TEXTURES = {
 		new Texture(Gdx.files.internal("sort/sort_fond.png")),};
 
+	//Textures des icones
 	private static final Texture ICONE_TEMPS = new Texture(Gdx.files.internal("sort/icon/icon_temps.png"));
 	private static final Texture ICONE_PORTEE = new Texture(Gdx.files.internal("sort/icon/icon_portee.png"));
 	private static final Texture ICONE_ZONE = new Texture(Gdx.files.internal("sort/icon/icon_zone.png"));
 	private static final Texture ICONE_RELANCE = new Texture(Gdx.files.internal("sort/icon/icon_relance.png"));
+
+	//Taille des icones
 	private static final int ICONE_WIDTH = 16;
 	private static final int ICONE_HEIGHT = 16;
 
@@ -38,6 +42,7 @@ public class vSortsActifsBouton extends vSortsBouton {
 		ICONE_RELANCE.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 	}
 
+	//Valeur des différentes données du sort
 	private String temps;
 	private String portee;
 	private String zone;

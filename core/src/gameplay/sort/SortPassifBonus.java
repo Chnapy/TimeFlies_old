@@ -17,7 +17,10 @@ import gameplay.effet.Effet;
  */
 public abstract class SortPassifBonus extends SortPassif {
 
+	//Liste des caractéristiques donnant un bonus
 	private Array<Carac> listCaracteristiques;
+
+	//liste des valeur du bonus de chaque caractéristiques
 	private Array<Integer> listValeurs;
 
 	/**

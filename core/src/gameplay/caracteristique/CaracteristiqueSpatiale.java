@@ -13,10 +13,15 @@ import java.awt.Point;
  */
 public class CaracteristiqueSpatiale {
 
+	//Position de l'entité
 	private Point position;
+
+	//Orientation de l'entité (N S E O)
 	private Orientation orientation;
 
 	/**
+	 * Représente les caractéristiques spatiales de l'entité : position,
+	 * orientation
 	 *
 	 * @param posX
 	 * @param posY
@@ -28,6 +33,7 @@ public class CaracteristiqueSpatiale {
 	}
 
 	/**
+	 * Modifie la position via un mouvement
 	 *
 	 * @param x
 	 * @param y

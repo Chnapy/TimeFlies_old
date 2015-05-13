@@ -17,15 +17,20 @@ import gameplay.entite.EntiteActive;
  */
 public class vTimelineEntite extends Actor {
 
+	//Tableau des textures des portraits
 	private static final Texture[] TIMELINE_PORTRAIT = {
 		new Texture(Gdx.files.internal("timeline/perso.png")),
 		new Texture(Gdx.files.internal("timeline/perso2.png"))
 	};
 
+	//Texture du fond
 	private static final Texture TEXTURE = new Texture(Gdx.files.internal("timeline/fond_entite.png"));
+	//Position et taille d'une entité de timeline
 	private static final int TEXTURE_WIDTH = 75;
 	private static final int TEXTURE_HEIGHT = TEXTURE_WIDTH;
 	private static final int TEXTURE_Y = 10;
+
+	//Ecart X
 	private static final int TEXTURE_X_ECART = 50;
 
 	static {
@@ -34,9 +39,16 @@ public class vTimelineEntite extends Actor {
 		}
 	}
 
+	//Position X
 	private int TEXTURE_X;
+
+	//Index de la texture
 	private final int indexTexture;
+
+	//Ordre de la texture
 	private int ordre;
+
+	//Scale de la texture (modifie la taille)
 	private float scale;
 
 	/**
@@ -58,11 +70,19 @@ public class vTimelineEntite extends Actor {
 		batch.draw(TIMELINE_PORTRAIT[indexTexture], TEXTURE_X + 5, TEXTURE_Y + 5, TEXTURE_WIDTH * scale - 10, TEXTURE_HEIGHT * scale - 10);
 	}
 
+	/**
+	 * Nouveau tour d'une entité
+	 *
+	 * @param ordreMax
+	 */
 	public void nouveauTour(int ordreMax) {
 		ordre = (ordre == 0) ? ordreMax : ordre - 1;
 		setScale();
 	}
 
+	/**
+	 * Défini le coefficient de taille
+	 */
 	private void setScale() {
 		scale = (ordre == 0) ? 1.20f : 1f;
 		TEXTURE_X = ordre * (TEXTURE_WIDTH + TEXTURE_X_ECART) + TEXTURE_X_ECART;

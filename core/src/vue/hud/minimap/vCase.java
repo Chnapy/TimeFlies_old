@@ -21,15 +21,29 @@ import gameplay.map.EtatTuile;
  */
 public class vCase extends Actor {
 
+	//Forme de la case
 	private static final ShapeRenderer shapeRenderer = new ShapeRenderer();
+
+	//Matrice de projection définie ?
 	private static boolean projectionMatrixSet;
 
+	//Position relative
 	private final int x;
 	private final int y;
+
+	//Etat de la tuile
 	private EtatTuile etat;
+
+	//Survol de la case
 	private boolean hover;
+
+	//Case affectée par une zone d'action
 	private boolean action;
+
+	//Couleur de base
 	private Color basic;
+
+	//Couleur selon l'etat-hover-action
 	private Color couleur;
 
 	public vCase(cCombat controleur, int x, int y, int typeTuile, EtatTuile e) {
@@ -107,6 +121,9 @@ public class vCase extends Actor {
 		setCouleur();
 	}
 
+	/**
+	 * Défini la couleur selon l'etat, hover ou l'action
+	 */
 	private void setCouleur() {
 		if (action) {
 			couleur = Color.RED;

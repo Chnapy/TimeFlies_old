@@ -10,8 +10,8 @@ import gameplay.entite.Entite;
 
 /**
  * Effet.java
- * Représente un effet.
- * Peut être (un ou plusieurs) :
+ * Représente une liste de déclencheur pouvant lancer un effet.
+ * Peut posséder (un ou plusieurs) :
  * - un ou des bonus/malus de caractéristiques physiques
  * - un ou des envoutements
  * - un placement
@@ -20,29 +20,26 @@ import gameplay.entite.Entite;
  */
 public class Effet {
 
+	//Liste des déclencheurs
 	private Array<Declencheur> declencheur;
 
 	/**
 	 *
-	 * @param balus
-	 * @param envoutements
-	 * @param place
-	 * @param invoc
 	 */
 	public Effet(Array<Declencheur> declencheur) {
 		this.declencheur = declencheur;
 	}
 
 	/**
-	 * lance les effets sur la victime sans prendre en compte les passif
+	 * Lance les effets sur la cible sans prendre en compte les passifs
 	 *
-	 * @param victime
+	 * @param cible
 	 * @param pourcentageSupp
 	 */
-	public void lancerEffet(Entite victime, int pourcentageSupp) {
+	public void lancerEffet(Entite cible, int pourcentageSupp) {
 		if (declencheur != null && declencheur.size != 0) {
 			for (int i = 0; i < declencheur.size; i++) {
-				this.declencheur.get(i).lancer(victime, pourcentageSupp);
+				this.declencheur.get(i).lancer(cible, pourcentageSupp);
 			}
 		}
 	}

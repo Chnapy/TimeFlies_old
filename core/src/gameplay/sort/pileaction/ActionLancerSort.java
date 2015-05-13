@@ -1,16 +1,14 @@
 package gameplay.sort.pileaction;
 
 import gameplay.sort.SortActif;
-
 import java.awt.Point;
 
 /**
- *
- * @author ydardot
- * action de lancer un sort sur une position donné
+ * Action de lancer un sort sur une position donné
  */
 public class ActionLancerSort extends Action {
 
+	//Sort lancé
 	private SortActif sort;
 
 	public ActionLancerSort(Point p1, SortActif sort) {
@@ -28,6 +26,6 @@ public class ActionLancerSort extends Action {
 
 	@Override
 	public String toString() {
-		return "Lancer un sort: "+sort.getNom();
+		return "Lancer un sort: " + sort.getNom();
 	}
 }

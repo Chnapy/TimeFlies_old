@@ -16,6 +16,7 @@ import vue.hud.sorts.vSortsBouton;
  */
 public class vSortsPassifsBouton extends vSortsBouton {
 
+	//tableau des textures
 	private static final Texture[] TEXTURES = {
 		new Texture(Gdx.files.internal("sort/sort_fond.png")),};
 

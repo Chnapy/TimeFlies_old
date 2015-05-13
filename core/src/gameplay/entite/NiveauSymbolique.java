@@ -18,18 +18,20 @@ import java.util.Arrays;
  */
 public class NiveauSymbolique {
 
+	//Niveau symbolique de l'entité
 	private int niveau;
 
 	/**
+	 * Calcul le niveau d'après les sorts
 	 *
-	 * @param sortsPassifs
-	 * @param sortsActifs
+	 * @param sorts
 	 */
 	public NiveauSymbolique(final Sort[] sorts) {
 		calculNiveau(sorts);
 	}
 
 	/**
+	 * Récupère le niveau symbolique
 	 *
 	 * @return niveau
 	 */
@@ -88,6 +90,12 @@ public class NiveauSymbolique {
 
 	}
 
+	/**
+	 * Récupère la moyenne des valeurs du tableau
+	 *
+	 * @param tab
+	 * @return
+	 */
 	private double getMoyenne(int[] tab) {
 		int moyenne = 0;
 		for (int t : tab) {

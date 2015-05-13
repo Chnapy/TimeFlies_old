@@ -18,7 +18,10 @@ public class Niveau {
 	 */
 	private static final double ECHELLE = 0.1;
 
+	//Niveau actuel
 	private int niveauActu;
+
+	//Expérience actuelle
 	private int experienceActu;
 
 	/**

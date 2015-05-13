@@ -14,7 +14,7 @@ public class Diagonales extends Zone {
 
 	/**
 	 *
-	 * @param taille	taille de chaque diagonale
+	 * @param size	 taille de chaque diagonale
 	 * @param posit
 	 */
 	public Diagonales(int size, boolean posit) {

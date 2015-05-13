@@ -17,8 +17,13 @@ import gameplay.sort.zone.ZoneAction;
  */
 public abstract class SortActif extends Sort {
 
+	//Zone de portée
 	private ZoneAction zonePortee;
+
+	//Zone d'action
 	private ZoneAction zoneAction;
+
+	//Temps d'action demandé pour l'exécution du sort
 	private int tempsAction;
 
 	/**
@@ -34,7 +39,7 @@ public abstract class SortActif extends Sort {
 	public SortActif(String nom, String description, Niveau niveau,
 			Effet[] effets,
 			ZoneAction zportee, ZoneAction zaction,
-			int index,int tempsAction) {
+			int index, int tempsAction) {
 
 		super(nom, description, niveau, effets, index);
 

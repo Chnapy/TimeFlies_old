@@ -21,25 +21,23 @@ import java.util.Observable;
  */
 public abstract class Entite extends Observable {
 
+	//Caractéristiques physiques de l'entité
 	protected final CaracteristiquePhysique caracPhysique;
-	/**
-	 *
-	 */
+
+	//Nom de l'entité
 	protected final String nom;
+
+	//Etat de l'entité (déplacement, sort, ...) sans prendre en compte les 
+	//actions prévues de la pile d'actions
 	protected EtatEntite etat;
 
-	/**
-	 *
-	 */
+	//Niveau symbolique
 	protected NiveauSymbolique niveauSymbol;
-	/**
-	 *
-	 */
+
+	//Caractéristiques spatiales de l'entité
 	protected CaracteristiqueSpatiale caracSpatiale;
 
-	/**
-	 * Que l'entité soit active ou passive, elle peut posséder des sorts passifs
-	 */
+	//Sorts passifs de l'entité
 	protected SortPassif[] tabSortPassif;
 
 	/**
@@ -61,27 +59,12 @@ public abstract class Entite extends Observable {
 		etat = EtatEntite.DEPLACEMENT;
 	}
 
-	public void setCaracSpatiale(CaracteristiqueSpatiale caracSpatiale) {
-		this.caracSpatiale = caracSpatiale;
-	}
-
-	public CaracteristiquePhysique getCaracPhysique() {
-		return caracPhysique;
-	}
-
-	/**
-	 *
-	 * @return niveau symbolique
-	 */
-	public NiveauSymbolique getNiveauSymbol() {
-		return niveauSymbol;
-	}
-
+	//Jeu du tour de l'entité
 	public abstract void jouerTour();
 
 	/**
-	 * lance les effets sur la victime en prenant en compte les passif
-	 * si le lanceur != null
+	 * Recoit un sort d'une entité autre.
+	 * Lance les sorts passifs si possibilité.
 	 *
 	 * @param effets
 	 * @param lanceur
@@ -116,6 +99,7 @@ public abstract class Entite extends Observable {
 	}
 
 	/**
+	 * Récupère l'orientation de l'entité par rapport à un point donné.
 	 *
 	 * @param origine
 	 * @param point
@@ -156,6 +140,22 @@ public abstract class Entite extends Observable {
 		}
 	}
 
+	public void setCaracSpatiale(CaracteristiqueSpatiale caracSpatiale) {
+		this.caracSpatiale = caracSpatiale;
+	}
+
+	public CaracteristiquePhysique getCaracPhysique() {
+		return caracPhysique;
+	}
+
+	/**
+	 *
+	 * @return niveau symbolique
+	 */
+	public NiveauSymbolique getNiveauSymbol() {
+		return niveauSymbol;
+	}
+
 	/**
 	 *
 	 * @return le nom de l'entité
@@ -181,19 +181,19 @@ public abstract class Entite extends Observable {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return l'état de l'entité vue du joueur
 	 */
 	public EtatEntite getEtat() {
 		return etat;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @return l'état de l'entité en se moment
 	 */
 	public abstract EtatEntite getEtatNow();
-	
+
 	public void setEtat(EtatEntite etat) {
 		this.etat = etat;
 	}

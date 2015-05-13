@@ -14,9 +14,13 @@ import gameplay.entite.Personnage;
  */
 public class Joueur {
 
+	//Id du joueur
 	private final int id;
 
+	//Pseudo
 	private String pseudo;
+
+	//Tableau des personnages
 	private Personnage[] personnages;
 
 	/**

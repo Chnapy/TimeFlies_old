@@ -14,8 +14,8 @@ public class Cercle extends Zone {
 
 	/**
 	 *
-	 * @param rayon	rayon du cercle
-	 * @param posit	positif ?
+	 * @param radius	rayon du cercle
+	 * @param posit	 positif ?
 	 */
 	public Cercle(int radius, boolean posit) {
 		super(posit, radius);

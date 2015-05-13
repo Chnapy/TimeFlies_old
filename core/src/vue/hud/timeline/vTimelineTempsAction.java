@@ -19,13 +19,16 @@ import java.util.Observer;
  */
 public class vTimelineTempsAction extends Actor implements Observer {
 
+	//Texture de la barre
 	private static final Texture TEXTURE = new Texture(Gdx.files.internal("timeline/timeline_taction.png"));
 
+	//Position et taille de la texture
 	private static final int TEXTURE_X = 50;
 	private static final int TEXTURE_Y = 2;
 	private static final int TEXTURE_WIDTH = 1720;
 	private static final int TEXTURE_HEIGHT = 8;
 
+	//Coefficient de taille
 	private float scale;
 
 	static {

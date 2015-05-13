@@ -28,14 +28,26 @@ import vue.hud.timeline.vTimeline;
  */
 public final class vHud extends Stage {
 
+	//Générateur de font
 	private static final FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/kenvector_future_thin.ttf"));
 	private static final FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+
+	//Font pour l'affichage des FPS
 	public static BitmapFont FONT;
+
+	//Batch pour l'affichage des FPS
 	private final Batch batch = new SpriteBatch();
 
+	//Vue des sorts
 	private final vSorts vsorts;
+
+	//Vue de la timeline
 	private final vTimeline vtimeline;
+
+	//Vue de la minimap
 	private final vMinimap vminimap;
+
+	//Vue de la pile d'actions
 	private final vPileActions vpileactions;
 
 	public vHud(cCombat controleur, Tuile[][] tabTuiles, Array<? extends EntiteActive> personnages) {
@@ -52,11 +64,20 @@ public final class vHud extends Stage {
 		addActor(vpileactions);
 	}
 
+	/**
+	 * Début du tour d'une entité
+	 *
+	 * @param ccombat
+	 * @param entite
+	 */
 	public void nouveauTour(cCombat ccombat, EntiteActive entite) {
 		vsorts.nouveauTour(ccombat, entite.getTabSortActif(), entite.getTabSortPassif());
 		vtimeline.nouveauTour();
 	}
 
+	/**
+	 * Fin du tour d'une entité
+	 */
 	public void finTour() {
 		vsorts.finTour();
 		vminimap.finTour();

@@ -1,7 +1,5 @@
 package test;
 
-import java.util.ArrayList;
-
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -9,7 +7,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-
 import controleur.cCombat;
 import gameplay.caracteristique.Carac;
 import gameplay.caracteristique.CaracteristiquePhysique;
@@ -56,8 +53,8 @@ public class MainTest extends Game {
 			{Type.ECRAN, Type.ECRAN, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE},
 			{Type.ECRAN, Type.ECRAN, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE}
 		});
-		Array<Declencheur> declancheur=new Array<Declencheur>();
-		declancheur.add(new Balus(Carac.VITALITE,-30));
+		Array<Declencheur> declancheur = new Array<Declencheur>();
+		declancheur.add(new Balus(Carac.VITALITE, -30));
 		Personnage[] persosJ1 = {
 			new Guerrier(
 			"bite", 1, 2, Orientation.E,

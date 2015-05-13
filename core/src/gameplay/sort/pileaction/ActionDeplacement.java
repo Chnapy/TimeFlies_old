@@ -1,16 +1,14 @@
 package gameplay.sort.pileaction;
 
+import com.badlogic.gdx.utils.Array;
 import java.awt.Point;
 
-import com.badlogic.gdx.utils.Array;
-
 /**
- *
- * @author ydardot
  * Action de déplacement passant par le chemin path
  */
 public class ActionDeplacement extends Action {
 
+	//Chemin
 	private Array<Point> path;
 
 	public ActionDeplacement(Point p1, Array<Point> path) {
@@ -28,6 +26,6 @@ public class ActionDeplacement extends Action {
 
 	@Override
 	public String toString() {
-		return "Déplacement de "+path.get(0)+" à "+path.get(path.size-1);
+		return "Déplacement de " + path.get(0) + " à " + path.get(path.size - 1);
 	}
 }

@@ -10,13 +10,16 @@ import gameplay.entite.Entite;
 
 /**
  * Balus.java
- * Gère les bonus et malus.
+ * Gère les bonus et malus dans une caractéristique au choix.
  *
  */
 public class Balus implements Declencheur {
 
+	//Caractéristique ciblée
 	private Carac caracteristique;
-	private int nombre;
+
+	//Valeur du bonus/malus
+	private int valeur;
 
 	/**
 	 *
@@ -25,23 +28,7 @@ public class Balus implements Declencheur {
 	 */
 	public Balus(Carac caracteristique, int nombre) {
 		this.caracteristique = caracteristique;
-		this.nombre = nombre;
-	}
-
-	/**
-	 *
-	 * @return caracteristique
-	 */
-	public Carac getCaracteristique() {
-		return caracteristique;
-	}
-
-	/**
-	 *
-	 * @return le nombre à enlever/ajouter
-	 */
-	public int getNombre() {
-		return nombre;
+		this.valeur = nombre;
 	}
 
 	/**
@@ -77,12 +64,21 @@ public class Balus implements Declencheur {
 		return true;
 	}
 
+	/**
+	 * Définit si l'effet peut déclencher l'effet d'un sort passif ou
+	 * envoutement
+	 *
+	 * @param effet
+	 * @param min
+	 * @param max
+	 * @return
+	 */
 	@Override
 	public boolean canDeclencher(Effet effet, int min, int max) {
 		for (int i = 0; i < effet.getDeclencheur().size; i++) {
 			if (effet.getDeclencheur().get(i).equals(this)) {
 				Balus balus = (Balus) effet.getDeclencheur().get(i);
-				if (balus.getNombre() <= min && balus.getNombre() >= max) {
+				if (balus.getValeur() <= min && balus.getValeur() >= max) {
 					return true;
 				}
 			}
@@ -90,9 +86,31 @@ public class Balus implements Declencheur {
 		return false;
 	}
 
+	/**
+	 * Applique l'effet à l'entité cible
+	 *
+	 * @param cible
+	 * @param pourcentagesupp
+	 */
 	@Override
-	public void lancer(Entite victime, int pourcentagesupp) {
-		victime.getCaracPhysique().add(caracteristique, nombre + (pourcentagesupp * nombre / 100));
+	public void lancer(Entite cible, int pourcentagesupp) {
+		cible.getCaracPhysique().add(caracteristique, valeur + (pourcentagesupp * valeur / 100));
+	}
+
+	/**
+	 *
+	 * @return caracteristique
+	 */
+	public Carac getCaracteristique() {
+		return caracteristique;
+	}
+
+	/**
+	 *
+	 * @return le valeur à enlever/ajouter
+	 */
+	public int getValeur() {
+		return valeur;
 	}
 
 }

@@ -8,6 +8,10 @@ package gameplay.caracteristique;
 /**
  * Fatigue.java
  * Gère la fatigue de l'entité.
+ * Varie entre 0 et 100 et se compte en pourcentage.
+ * La fatigue réduit la valeur initiale du temps d'action.
+ * Une fatigue de 0% n'influencera pas le temps d'action.
+ * Une fatigue de 100% supprimera tout le temps d'action.
  *
  */
 public class Fatigue extends Caracteristique {

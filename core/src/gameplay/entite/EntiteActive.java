@@ -7,7 +7,6 @@ package gameplay.entite;
 
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
-
 import gameplay.caracteristique.Carac;
 import gameplay.caracteristique.Caracteristique;
 import gameplay.caracteristique.CaracteristiquePhysique;
@@ -20,7 +19,6 @@ import gameplay.sort.pileaction.Action;
 import gameplay.sort.pileaction.ActionDeplacement;
 import gameplay.sort.pileaction.ActionLancerSort;
 import gameplay.sort.pileaction.PileAction;
-
 import java.awt.Point;
 import java.util.Arrays;
 import java.util.stream.Stream;
@@ -28,21 +26,34 @@ import java.util.stream.Stream;
 /**
  * EntiteActive.java
  * Représente une entité active (controlable par un joueur).
+ * Joue son tour.
  *
  */
 public abstract class EntiteActive extends Entite {
 
+	//Tableau des sorts actifs
 	private SortActif[] tabSortActif;
+
+	//Liste des envoutements
 	private Array<Envoutement> listEnvoutements;
 
 	//Est en train de se déplacer
 	private boolean enDeplacement;
+
+	//Etat de l'entité en prenant en compte les actions prévues de la pile 
+	//d'actions
 	private EtatEntite etatNow;
 
+	//Sort actif en phase d'être lancé
 	private SortActif sortEnCours = null;
-	private long tempsFinSort =-1;
+
+	//Temps avant la fin du sort (en ms)
+	private long tempsFinSort = -1;
+
+	//Index de la texture de l'entité sur la timeline
 	private final int indexTextureTimeline;
 
+	//Pile des actions
 	private PileAction pileAction = new PileAction();
 
 	/**
@@ -71,6 +82,11 @@ public abstract class EntiteActive extends Entite {
 		indexTextureTimeline = iTextureTimeline;
 	}
 
+	/**
+	 * Joue le tour sur l'ensemble du temps d'action de l'entité.
+	 * Utilise les actions de la pile d'actions.
+	 *
+	 */
 	@Override
 	public void jouerTour() {
 		long debutTour = TimeUtils.millis();
@@ -89,25 +105,25 @@ public abstract class EntiteActive extends Entite {
 			}
 			if (!actionIsRunning() && pileAction.pile.size > 0) {
 				System.out.println("Action lancée");
-				if(pileAction.pile.get(0) instanceof ActionDeplacement){
+				if (pileAction.pile.get(0) instanceof ActionDeplacement) {
 					etatNow = EtatEntite.DEPLACEMENT;
-				}else{
+				} else {
 					etatNow = EtatEntite.SORT;
-					tempsFinSort=((ActionLancerSort)pileAction.pile.get(0)).getSort().getTempsAction()+time;
+					tempsFinSort = ((ActionLancerSort) pileAction.pile.get(0)).getSort().getTempsAction() + time;
 				}
 				setChanged();
 				notifyObservers(pileAction.getFirst());
 			}
-			if(tempsFinSort!=-1 && tempsFinSort<=time){
+			if (tempsFinSort != -1 && tempsFinSort <= time) {
 				tempsFinSort = -1;
 			}
 			/*else if (sortEnCours != null && TempsFinSort == -1) {
-				TempsFinSort = time + sortEnCours.getTempsAction();
-			} else if (sortEnCours != null && TempsFinSort <= time) {
-				sortEnCours = null;
-				TempsFinSort = -1;
-			}*/
-			
+			 TempsFinSort = time + sortEnCours.getTempsAction();
+			 } else if (sortEnCours != null && TempsFinSort <= time) {
+			 sortEnCours = null;
+			 TempsFinSort = -1;
+			 }*/
+
 			time = TimeUtils.millis();
 		}
 		pileAction.pile.clear();
@@ -115,6 +131,7 @@ public abstract class EntiteActive extends Entite {
 	}
 
 	/**
+	 * Renvoie si une action est en court d'exécution
 	 *
 	 * @return true si une action se déroule (déplacement ou sort) false sinon
 	 */
@@ -123,7 +140,7 @@ public abstract class EntiteActive extends Entite {
 	}
 
 	/**
-	 * ajoute une action dans la pile d'action
+	 * Ajoute une action dans la pile d'action
 	 *
 	 * @param a
 	 */
@@ -172,15 +189,19 @@ public abstract class EntiteActive extends Entite {
 		caracPhysique.setActu(Carac.TEMPSACTION, caracPhysique.getCaracteristique(Carac.TEMPSACTION).getTotal());
 	}
 
-	public EtatEntite getEtatNow(){
-		if(actionIsRunning()){
+	/**
+	 * Renvoie l'état de l'entité en prenant en compte la pile d'actions
+	 *
+	 * @return
+	 */
+	public EtatEntite getEtatNow() {
+		if (actionIsRunning()) {
 			return etatNow;
-		}
-		else{
+		} else {
 			return getEtat();
 		}
 	}
-	
+
 	/**
 	 * Change la position, notifie la vue
 	 *
@@ -210,6 +231,7 @@ public abstract class EntiteActive extends Entite {
 	}
 
 	/**
+	 * Renvoie la dernière position d'arrivée de la pile d'actions
 	 *
 	 * @return la position de l'entité une fois que la liste d'action sera fini
 	 */
@@ -231,11 +253,23 @@ public abstract class EntiteActive extends Entite {
 		return sortEnCours;
 	}
 
+	/**
+	 * Défini le sort en cours d'après son index, et le renvoie
+	 *
+	 * @param index
+	 * @return
+	 */
 	public SortActif setSortEnCours(int index) {
 		sortEnCours = getSort(index);
 		return sortEnCours;
 	}
 
+	/**
+	 * Récupère un sort depuis son index
+	 *
+	 * @param index
+	 * @return
+	 */
 	private SortActif getSort(int index) {
 		for (SortActif sort : tabSortActif) {
 			if (sort.getIndex() == index) {

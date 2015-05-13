@@ -23,8 +23,10 @@ import static vue.hud.vHud.FONT;
  */
 public class vBarreSortsActifs extends HorizontalGroup {
 
+	//Texture de fond de la barre
 	private final Texture TEXTURE = new Texture(Gdx.files.internal("sort/barre_sorts_actifs.png"));
 
+	//Position et taille de la barre
 	private static final int WIDTH = 800;
 	private static final int HEIGHT = 128;
 	private static final int X = MAX_WIDTH - WIDTH - 152;
@@ -52,6 +54,11 @@ public class vBarreSortsActifs extends HorizontalGroup {
 		FONT.setColor(1, 1, 1, 1);
 	}
 
+	/**
+	 * Ajoute un bouton de sort à la barre
+	 *
+	 * @param bouton
+	 */
 	public void addBouton(vSortsBouton bouton) {
 		this.addActor(bouton);
 		this.align(Align.left);
@@ -59,12 +66,22 @@ public class vBarreSortsActifs extends HorizontalGroup {
 		this.padTop(16);
 	}
 
+	/**
+	 * Nouveau tour d'une entité
+	 *
+	 * @param ccombat
+	 * @param sactifs
+	 */
 	public void nouveauTour(cCombat ccombat, SortActif[] sactifs) {
 		for (SortActif sort : sactifs) {
 			addBouton(new vSortsActifsBouton(ccombat, sort.getIndex(), 5, 10, 8, 2));
 		}
 	}
 
+	/**
+	 * Fin tour d'une entité
+	 *
+	 */
 	public void finTour() {
 		getChildren().removeRange(1, getChildren().size - 1);
 	}

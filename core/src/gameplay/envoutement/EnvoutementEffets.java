@@ -18,7 +18,10 @@ import gameplay.effet.Effet;
  */
 public abstract class EnvoutementEffets extends Envoutement {
 
+	//Liste des declenchables qui doivent être activés
 	private Array<Declenchable> listDeclenchables;
+
+	//Liste des effets lancés lorsque les déclenchables sont activés
 	private Array<Effet> listEffets;
 
 	/**

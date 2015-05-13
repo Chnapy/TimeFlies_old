@@ -10,15 +10,19 @@ import com.badlogic.gdx.utils.Array;
 /**
  * ZoneAction.java
  * Gère l'ensemble des zones permettant l'affichage de la portée d'un sort
- * actif.
+ * actif ou de sa zone d'action.
  *
  */
 public class ZoneAction {
 
+	//Liste des zones cumulables
 	private final Array<Zone> listZones;
 
+	//Zone finale sous forme de tableau 2D de booleen
 	//false = vide
 	private final boolean[][] zoneFinale;
+
+	//Taille de la moitié de la largeur de la zone
 	private int size;
 
 	/**
@@ -39,7 +43,11 @@ public class ZoneAction {
 //		};
 	}
 
-	//TODO
+	/**
+	 * Calcul de la zone finale
+	 *
+	 * @return
+	 */
 	private boolean[][] setZoneFinale() {
 		size = 0;
 

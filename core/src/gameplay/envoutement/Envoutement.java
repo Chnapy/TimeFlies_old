@@ -17,16 +17,11 @@ import gameplay.entite.Entite;
  */
 public abstract class Envoutement implements Declencheur {
 
-	public String getNom() {
-		return nom;
-	}
-
-	public int getDuree() {
-		return duree;
-	}
-
+	//Nom
 	private String nom;
-	private int duree;	//En nombre de tours
+
+	//Durée de l'envoutement en nombre de tours
+	private int duree;
 
 	/**
 	 *
@@ -68,6 +63,14 @@ public abstract class Envoutement implements Declencheur {
 	 * Cumulable avec actionFinTour()
 	 */
 	public abstract void actionFinEnvoutement();
+
+	public String getNom() {
+		return nom;
+	}
+
+	public int getDuree() {
+		return duree;
+	}
 
 	/**
 	 * hashCode

@@ -20,8 +20,13 @@ import vue.jeu.map.vMap;
  */
 public class vJeu extends Stage {
 
+	//Controleur
 	private final cCombat combat;
+
+	//Vue de la map
 	private final vMap vmap;
+
+	//Vue de toutes les entites
 	private final vEntites ventites;
 
 	public vJeu(final cCombat ccombat, final Tuile[][] tabTuiles, final Array<Personnage> personnages) {
@@ -33,6 +38,9 @@ public class vJeu extends Stage {
 		addActor(ventites);
 	}
 
+	/**
+	 * Affichage
+	 */
 	public void render() {
 		setViewport(MainTest.viewport);
 		act();
@@ -40,10 +48,16 @@ public class vJeu extends Stage {
 
 	}
 
+	/**
+	 * Lorsqu'une entité commence son tour
+	 */
 	public void nouveauTour() {
 
 	}
-	
+
+	/**
+	 * Lorsqu'une entité finit son tour
+	 */
 	public void finTour() {
 		vmap.finTour();
 	}

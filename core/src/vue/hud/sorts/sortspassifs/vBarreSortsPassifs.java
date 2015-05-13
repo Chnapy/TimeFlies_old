@@ -23,8 +23,10 @@ import static vue.hud.vHud.FONT;
  */
 public class vBarreSortsPassifs extends VerticalGroup {
 
+	//Texture de fond de la barre
 	private final Texture TEXTURE = new Texture(Gdx.files.internal("sort/barre_sorts_passifs.png"));
 
+	//Position et taille de la barre
 	private static final int WIDTH = 128;
 	private static final int HEIGHT = 800;
 	private static final int X = MAX_WIDTH - WIDTH - 12;
@@ -51,6 +53,7 @@ public class vBarreSortsPassifs extends VerticalGroup {
 		FONT.setColor(1, 1, 1, 1);
 	}
 
+	//Ajout d'un bouton de sort
 	public void addBouton(vSortsBouton bouton) {
 		this.addActor(bouton);
 		this.align(Align.top);
@@ -58,12 +61,22 @@ public class vBarreSortsPassifs extends VerticalGroup {
 		this.padTop(50);
 	}
 
+	/**
+	 * Nouveau tour d'une entité
+	 *
+	 * @param ccombat
+	 * @param spassifs
+	 */
 	public void nouveauTour(cCombat ccombat, SortPassif[] spassifs) {
 		for (SortPassif sort : spassifs) {
 			addBouton(new vSortsPassifsBouton(sort.getIndex()));
 		}
 	}
 
+	/**
+	 * Fin tour d'une entité
+	 *
+	 */
 	public void finTour() {
 		if (getChildren().size > 1) {
 			getChildren().removeRange(1, getChildren().size - 1);

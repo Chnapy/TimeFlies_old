@@ -26,12 +26,17 @@ import static gameplay.map.EtatTuile.NORMAL;
  */
 public class vTuile extends Actor {
 
+	//Taille du sprite de la tuile
 	public static final int TUILE_WIDTH = 256;
 	public static final int TUILE_HEIGHT = 128;
+
+	//Ecart entre les bords de la fenetre et les tuiles
 	public static final int OFFSET_X = 0;
 	public static final int OFFSET_Y = 500;
 
+	//Atlas des différents sprites de tuiles
 	private static final TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("tuile/tuile.atlas"));
+	//Tableau des différentes textures de l'atlas
 	private static final TextureRegion[] tabTexture = {
 		atlas.findRegion("tuile_simple"),
 		atlas.findRegion("tuile_trou"),
@@ -39,15 +44,30 @@ public class vTuile extends Actor {
 		atlas.findRegion("tuile_ecran")
 	};
 
+	//Etat de la tuile (sort, déplacement, ...)
 	private EtatTuile etat;
+
+	//Survol de la tuile par la souris
 	private boolean hover;
+
+	//Tuile affectée par la zone d'action
 	private boolean action;
+
+	//Position relative
 	private int posX;
 	private int posY;
+
+	//Position absolue
 	private float x;
 	private float y;
+
+	//Index du sprite
 	private int iSprite;
+
+	//Couleur de la tuile (WHITE = transparent)
 	private Color couleur = Color.WHITE;
+
+	//Debug position
 	private final BitmapFont lab;
 
 	public vTuile(int posx, int posy, int indexSprite, EtatTuile e, cCombat ccombat) {
@@ -65,6 +85,7 @@ public class vTuile extends Actor {
 		setPosition(x, y);
 		setSize(TUILE_WIDTH, TUILE_HEIGHT);
 		addListener(new InputListener() {
+			//Pression souris
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y,
 					int pointer, int button) {
@@ -72,6 +93,7 @@ public class vTuile extends Actor {
 				return true;
 			}
 
+			//Relachement souris
 			@Override
 			public void touchUp(InputEvent event, float X, float Y,
 					int pointer, int button) {
@@ -79,11 +101,13 @@ public class vTuile extends Actor {
 				ccombat.clicSurTuile(posx, posy);	//Déplacement/Lancement de sort
 			}
 
+			//Fin survol souris
 			@Override
 			public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
 				setHover(false);
 			}
 
+			//Debut survol souris
 			@Override
 			public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
 				setHover(true);
@@ -129,6 +153,9 @@ public class vTuile extends Actor {
 		setCouleur();
 	}
 
+	/**
+	 * Défini la couleur de la tuile selon son etat, hover et action
+	 */
 	private void setCouleur() {
 		if (action) {
 			couleur = Color.RED;
@@ -174,18 +201,28 @@ public class vTuile extends Actor {
 	public int getPosX() {
 		return posX;
 	}
-	
-	public Actor hit (float x, float y, boolean touchable) {
-		if(super.hit(x, y, touchable)!=null){
-			float Px=getWidth()/2,Py=getHeight()/2;
-			float Vx=Math.abs(x-Px),Vy=Math.abs(y-Py);
-			if(Py*((Px-Vx)/Px) >= Vy)
+
+	/**
+	 * Redéfini sa hitbox pour le survol de la souris
+	 *
+	 * @param x
+	 * @param y
+	 * @param touchable
+	 * @return
+	 */
+	@Override
+	public Actor hit(float x, float y, boolean touchable) {
+		if (super.hit(x, y, touchable) != null) {
+			float Px = getWidth() / 2, Py = getHeight() / 2;
+			float Vx = Math.abs(x - Px), Vy = Math.abs(y - Py);
+			if (Py * ((Px - Vx) / Px) >= Vy) {
 				return this;
+			}
 			return null;
-			
-		}else
-			return null;
+		}
+		return null;
 	}
+
 	public int getPosY() {
 		return posY;
 	}

@@ -14,14 +14,16 @@ package gameplay.sort.zone;
  */
 public abstract class Zone implements Comparable<Zone> {
 
+	//Ajoute de la surface si positif, en retire sinon
 	private boolean positive;
+
+	//Taille de la moitié de la largeur de la zone (est doublée)
 	protected final int size;
 
 	/**
 	 *
 	 * @param posit
 	 * @param size
-	 * @param currentMap
 	 */
 	public Zone(boolean posit, int size) {
 		positive = posit;
@@ -44,6 +46,11 @@ public abstract class Zone implements Comparable<Zone> {
 //			return value;
 //		}
 //	}
+	/**
+	 * Récupère la zone sous forme de tableau 2D de booleen
+	 *
+	 * @return
+	 */
 	public abstract boolean[][] getZoneOfInterest();
 
 //	public abstract Tuile[] getTilesOfInterrest(Point center);

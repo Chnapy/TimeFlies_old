@@ -19,6 +19,7 @@ import java.awt.Point;
  */
 public class vMap extends Group {
 
+	//Tableau des tuiles de la map
 	private final vTuile[][] tabVtuiles;
 
 	/**
@@ -66,18 +67,27 @@ public class vMap extends Group {
 		});
 	}
 
+	/**
+	 * Nettoie toutes les tuiles d'éventuels pathfinding
+	 */
 	public void clearColorTuile() {
 		getChildren().forEach((Actor vtuile) -> {
 			((vTuile) vtuile).tuileDuChemin(false);
 		});
 	}
 
+	/**
+	 * Nettoie toutes les tuiles d'éventuelles actions
+	 */
 	public void clearActionTuile() {
 		getChildren().forEach((Actor vtuile) -> {
 			((vTuile) vtuile).setAction(false);
 		});
 	}
-	
+
+	/**
+	 * Nettoie toutes les tuiles d'éventuels actions ou pathfinding
+	 */
 	public void clearAll() {
 		getChildren().forEach((Actor vtuile) -> {
 			((vTuile) vtuile).setEtat(EtatTuile.NORMAL);
@@ -85,7 +95,10 @@ public class vMap extends Group {
 			((vTuile) vtuile).setAction(false);
 		});
 	}
-	
+
+	/**
+	 * Fin du tour de l'entité
+	 */
 	public void finTour() {
 		clearAll();
 	}

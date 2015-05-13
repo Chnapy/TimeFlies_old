@@ -5,26 +5,22 @@
  */
 package vue.jeu.entites;
 
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.run;
-import static vue.jeu.map.vTuile.TUILE_HEIGHT;
-import gameplay.entite.Entite;
-import gameplay.entite.EntiteActive;
-import gameplay.entite.EtatEntite;
-import gameplay.sort.pileaction.Action;
-
-import java.awt.Point;
-import java.util.HashMap;
-import java.util.Observable;
-import java.util.Observer;
-
-import vue.jeu.map.vTuile;
-
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.run;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.utils.Array;
+import gameplay.entite.Entite;
+import gameplay.entite.EntiteActive;
+import gameplay.entite.EtatEntite;
+import java.awt.Point;
+import java.util.HashMap;
+import java.util.Observable;
+import java.util.Observer;
+import vue.jeu.map.vTuile;
+import static vue.jeu.map.vTuile.TUILE_HEIGHT;
 
 /**
  * vEntite.java
@@ -34,10 +30,12 @@ import com.badlogic.gdx.utils.Array;
  */
 public class vEntite extends Actor implements Observer {
 
+	//Tailles du sprite de l'entité
 	private static final int PERSO_WIDTH = 128;
 	private static final int PERSO_HEIGHT = 184;
 
 	/**
+	 * Liste des textures
 	 * Nom du perso -> nom de fichier
 	 */
 	private static final HashMap<String, Texture> mapEntiteSprite = new HashMap<>();
@@ -47,8 +45,10 @@ public class vEntite extends Actor implements Observer {
 		mapEntiteSprite.put("Guerrier2", new Texture("perso/perso2.png"));
 	}
 
+	//Texture de l'entité
 	private Texture texture = null;
 
+	//Position de l'entité relative
 	private int posX;
 	private int posY;
 
@@ -80,23 +80,23 @@ public class vEntite extends Actor implements Observer {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public void update(Observable o, Object arg){ 
-			Entite entite = (Entite) o;
-			if (arg instanceof Array<?> && entite.getEtatNow() == EtatEntite.DEPLACEMENT) {
-				Array<Point> listParcours = (Array<Point>) arg;
-				setPosition(((Entite) o).getCaracSpatiale().getPosition().x,
-						((Entite) o).getCaracSpatiale().getPosition().y, false);
-	
-				MoveToAction[] tabMoveTo = new MoveToAction[listParcours.size];
-				float[] position;
-				for (int i = 0; i < listParcours.size; i++) {
-					position = vTuile.getPosition(listParcours.get(i).x, listParcours.get(i).y);
-					tabMoveTo[i] = Actions.moveTo(position[0] + PERSO_WIDTH / 2, position[1] + TUILE_HEIGHT / 2, 0.5f);
-				}
-				this.addAction(Actions.sequence(Actions.sequence(tabMoveTo), run(() -> {
-					((EntiteActive) o).setEnDeplacement(false);
-				})));
+	public void update(Observable o, Object arg) {
+		Entite entite = (Entite) o;
+		if (arg instanceof Array<?> && entite.getEtatNow() == EtatEntite.DEPLACEMENT) {
+			Array<Point> listParcours = (Array<Point>) arg;
+			setPosition(((Entite) o).getCaracSpatiale().getPosition().x,
+					((Entite) o).getCaracSpatiale().getPosition().y, false);
+
+			MoveToAction[] tabMoveTo = new MoveToAction[listParcours.size];
+			float[] position;
+			for (int i = 0; i < listParcours.size; i++) {
+				position = vTuile.getPosition(listParcours.get(i).x, listParcours.get(i).y);
+				tabMoveTo[i] = Actions.moveTo(position[0] + PERSO_WIDTH / 2, position[1] + TUILE_HEIGHT / 2, 0.5f);
 			}
+			this.addAction(Actions.sequence(Actions.sequence(tabMoveTo), run(() -> {
+				((EntiteActive) o).setEnDeplacement(false);
+			})));
+		}
 	}
 
 	/**

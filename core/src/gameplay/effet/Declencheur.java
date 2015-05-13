@@ -5,24 +5,25 @@ import gameplay.entite.Entite;
 public interface Declencheur {
 
 	/**
-	 * permet de savoir si un éffet peu déclanger un autre effet
+	 * Permet de savoir si un effet peut déclancher un autre effet
+	 * (envoutements/sorts passifs)
 	 *
 	 * @param effet
 	 * @param min
 	 * @param max
-	 * @return true si le déclancheur peu avoir lieu
+	 * @return true si le déclancheur peut avoir lieu
 	 */
 	public boolean canDeclencher(Effet effet, int min, int max);
 
 	public boolean equals(Object o);
 
 	/**
-	 * réalise l'effet sur la victime
+	 * Réalise l'effet sur la cible
 	 * ex: balus de +5 en Vitalite
-	 * change la vie de la victime en ajoutant 5
+	 * Change la vie de la victime en ajoutant 5
 	 *
-	 * @param victime
+	 * @param cible
 	 * @param pourcentageSupp
 	 */
-	public void lancer(Entite victime, int pourcentageSupp);
+	public void lancer(Entite cible, int pourcentageSupp);
 }

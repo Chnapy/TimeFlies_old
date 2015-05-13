@@ -12,10 +12,15 @@ package gameplay.caracteristique;
  */
 public abstract class Caracteristique {
 
+	//Valeur totale de la caractéristique
 	private int total;
+
+	//Valeur actuelle de la caractéristique. Ne peut pas dépasser total
 	private int actu;
 
 	/**
+	 * Représente une caractéristique avec une valeur totale et une valeur
+	 * actuelle
 	 *
 	 * @param total
 	 * @param actu
@@ -26,6 +31,7 @@ public abstract class Caracteristique {
 	}
 
 	/**
+	 * Ajoute proprement une valeur à la valeur actu
 	 *
 	 * @param gain
 	 */
@@ -37,6 +43,7 @@ public abstract class Caracteristique {
 	}
 
 	/**
+	 * Retire proprement une valeur à la valeur actu
 	 *
 	 * @param perte
 	 */

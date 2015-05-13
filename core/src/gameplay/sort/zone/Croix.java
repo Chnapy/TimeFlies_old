@@ -14,7 +14,7 @@ public class Croix extends Zone {
 
 	/**
 	 *
-	 * @param taille	  taille d'une partie de la croix
+	 * @param size	    taille d'une partie de la croix
 	 * @param positive	positif ?
 	 */
 	public Croix(int size, boolean positive) {

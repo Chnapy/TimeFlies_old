@@ -22,13 +22,21 @@ import java.awt.Point;
  */
 public class Tuile implements IndexedNode<Tuile> {
 
+	//Type de la tuile (simple, obstacle, ...)
 	private Type type;
+
+	//Etat de la tuile (normal, zonesort, ...)
 	private EtatTuile etat;
+
+	//Position x/y
 	private final Point position;
+
+	//Pathfinding
 	private final int index;
 	private final Array<Connection<Tuile>> connections;
 
-	private boolean occupe;	//La tuile est occupée par une entité
+	//Occupation par une entité
+	private boolean occupe;
 
 	/**
 	 *
@@ -90,12 +98,15 @@ public class Tuile implements IndexedNode<Tuile> {
 		System.out.println("---");
 	}
 
+	/**
+	 * Détruit les connections de la tuile
+	 */
 	public void clearConnections() {
 		connections.clear();
 	}
 
 	/**
-	 * la tuile recoit le sort et invoque l'invocation ect si besoins
+	 * La tuile recoit le sort et invoque l'invocation ect si besoins
 	 *
 	 * @param effets
 	 * @param lanceur
@@ -112,6 +123,11 @@ public class Tuile implements IndexedNode<Tuile> {
 		}
 	}
 
+	/**
+	 * Ajoute une connexion depuis une tuile adjacente
+	 *
+	 * @param adjacent
+	 */
 	public void addConnection(Tuile adjacent) {
 		connections.add(new DefaultConnection<>(this, adjacent));
 	}

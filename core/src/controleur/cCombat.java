@@ -42,16 +42,25 @@ import vue.vCombat;
  */
 public class cCombat implements Observer {
 
+	//Vue
 	private final vCombat vue;
 
+	//Map (modele)
 	private final Map map;
+
+	//Tableau des joueurs
 	private final Joueur[] tabJoueurs;
+
+	//Timeline (modele)
 	private final Timeline timeline;
 
 	//Chemin (liste de points) de l'entité active à la tuile ciblée
 	private Array<Point> path;
 
+	//Entité jouant son tour
 	private EntiteActive entiteEnCours;
+
+	//Sort sélectionné par le joueur
 	private SortActif sortEnCours;
 
 	public cCombat(Map m, Joueur[] joueurs) {
@@ -64,6 +73,8 @@ public class cCombat implements Observer {
 
 		listPersonnages.forEach((perso) -> {
 			perso.addObserver(this);
+
+			//La position de chaque joueur devient occupée
 			map.setTuileOccupe(true, perso.getCaracSpatiale().getPosition().y, perso.getCaracSpatiale().getPosition().x);
 		});
 	}
@@ -82,11 +93,13 @@ public class cCombat implements Observer {
 		timeline.stop();
 	}
 
+	//Lancé lorsqu'un nouveau tour d'une entité commence
 	public void nouveauTour() {
 		map.setTuileOccupe(false, entiteEnCours.getCaracSpatiale().getPosition().y, entiteEnCours.getCaracSpatiale().getPosition().x);
 		vue.nouveauTour(this, entiteEnCours);
 	}
 
+	//Lancé lorsqu'un tour d'une entité finit
 	public void finTour() {
 		vue.finTour();
 		map.setTuileOccupe(true, entiteEnCours.getCaracSpatiale().getPosition().y, entiteEnCours.getCaracSpatiale().getPosition().x);
@@ -115,7 +128,6 @@ public class cCombat implements Observer {
 	 */
 	public void survolTuile(int x, int y) {
 		Tuile tuile = map.getTabTuiles()[y][x];
-//		System.out.println(tuile.getEtat());
 
 		if (entiteEnCours.getEtat() == EtatEntite.DEPLACEMENT) {
 
@@ -154,12 +166,12 @@ public class cCombat implements Observer {
 //		System.out.println(tuile.getEtat());
 
 		if (entiteEnCours.getEtat() == EtatEntite.DEPLACEMENT) {
-				entiteEnCours.addAction(new ActionDeplacement(new Point(x, y), new Array<Point>(path)));
-				path = null;
+			entiteEnCours.addAction(new ActionDeplacement(new Point(x, y), new Array<Point>(path)));
+			path = null;
 		} else if (entiteEnCours.getEtat() == EtatEntite.SORT) {
-				//Lancement de sort sur toute la zone action
+			//Lancement de sort sur toute la zone action
 			if (vue.getVmap().getTabVtuiles()[y][x].getEtat() == EtatTuile.ZONESORT) {
-				
+
 				entiteEnCours.addAction(new ActionLancerSort(new Point(x, y), sortEnCours));
 			}
 			modeDeplacement();
@@ -168,6 +180,7 @@ public class cCombat implements Observer {
 
 	/**
 	 * Passage en mode sort
+	 * Affichage de la zone de portée
 	 *
 	 * @param index
 	 */
@@ -178,12 +191,24 @@ public class cCombat implements Observer {
 		vue.afficherPortee(sortEnCours.getZonePortee().getZoneFinale(), depart);
 	}
 
+	/**
+	 * Passage en mode déplacement
+	 *
+	 */
 	public void modeDeplacement() {
 		entiteEnCours.setEtat(EtatEntite.DEPLACEMENT);
 		sortEnCours = null;
 		vue.clearAll();
 	}
 
+	/**
+	 * Lance les nouveaux tours, les fins tours
+	 *
+	 * Lance les actions sorts/déplacements
+	 *
+	 * @param o	  Timeline EntiteActive
+	 * @param arg
+	 */
 	@Override
 	public void update(Observable o, Object arg) {
 		if (o instanceof Timeline) {
@@ -217,7 +242,7 @@ public class cCombat implements Observer {
 	}
 
 	/**
-	 * permet de lancer un sort sur la tuile tuileCible
+	 * Permet de lancer un sort sur la tuile tuileCible
 	 *
 	 * @param lanceur
 	 * @param sort
@@ -233,9 +258,10 @@ public class cCombat implements Observer {
 	}
 
 	/**
+	 * Retourne le personnage présent sur la tuile.
 	 *
 	 * @param tuile
-	 * @return le personnage présent sur la tuile null si vide
+	 * @return le personnage présent sur la tuile. null si vide
 	 */
 	public Personnage getPerso(Tuile tuile) {
 		Personnage[] persos = null;

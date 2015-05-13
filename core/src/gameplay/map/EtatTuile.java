@@ -13,5 +13,5 @@ public enum EtatTuile {
 
 	NORMAL,
 	PATH, //Vue uniquement
-	ZONESORT
+	ZONESORT	//Peut être ciblé par le sort actif
 }

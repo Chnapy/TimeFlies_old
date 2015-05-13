@@ -6,17 +6,18 @@ import gameplay.entite.Entite;
 import java.util.Objects;
 
 /**
+ * Permet d'atirer/pousser un joueur
  *
- * @author ydardot
- * permet d'atirer/pousser un joueur
  */
 public class Deplacement extends Placement {
 
+	//Nombre de tuiles déplacées
 	private int nombre;
+
+	//Direction dans laquelle le deplacement se fait
 	private Orientation direction;
 
 	public Deplacement(int nombre, Orientation direction) {
-		super();
 		this.nombre = nombre;
 		this.direction = direction;
 	}

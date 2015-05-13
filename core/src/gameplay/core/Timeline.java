@@ -19,13 +19,22 @@ import java.util.Observable;
  */
 public class Timeline extends Observable implements Runnable {
 
+	//Thread possédant le runnable
 	private final Thread thread;
+
+	//Booleen définissant la poursuite ou non du combat
 	private boolean enJeu;
 
+	//Liste des entités actives du jeu
 	private final Array<EntiteActive> listEntiteActives;
+
+	//Entité active jouant actuellement son tour
 	private EntiteActive entiteEnCours;
 
+	//Etat du tour actuel
 	private Tour etatTour;
+
+	//Etat du tour global actuel
 	private Tour etatTourGlobal;
 
 	/**
@@ -40,6 +49,7 @@ public class Timeline extends Observable implements Runnable {
 	}
 
 	/**
+	 * Défini l'initiative.
 	 * Lance la timeline.
 	 */
 	public void start() {

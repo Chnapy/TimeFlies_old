@@ -6,13 +6,13 @@ import gameplay.entite.Entite;
 import java.awt.Point;
 
 /**
+ * Effet de téléportation (effet de placement)
+ * Téléporte le joueur au coordonée mises dans le constructeur
  *
- * @author ydardot
- * effet de téléportation (effet de placement)
- * téléporte le joueur au coordonée mis dans le constructeur
  */
 public class Teleportation extends Placement {
 
+	//Position cible
 	private Point position;
 
 	public Teleportation(Point pos) {

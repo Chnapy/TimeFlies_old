@@ -5,9 +5,6 @@
  */
 package test;
 
-import com.badlogic.gdx.utils.Array;
-
-import gameplay.effet.Declencheur;
 import gameplay.effet.Effet;
 import gameplay.sort.Niveau;
 import gameplay.sort.SortActif;
@@ -25,7 +22,7 @@ public class SortQuiFaitMal extends SortActif {
 				effets,
 				new ZoneAction(new Carre(2, true), new Carre(1, false)),
 				new ZoneAction(new Carre(2, true), new Carre(1, true)),
-				0,5000);
+				0, 5000);
 	}
 
 }
