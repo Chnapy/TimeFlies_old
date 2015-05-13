@@ -180,10 +180,20 @@ public abstract class Entite extends Observable {
 		return tabSortPassif;
 	}
 
+	/**
+	 * 
+	 * @return l'état de l'entité vue du joueur
+	 */
 	public EtatEntite getEtat() {
 		return etat;
 	}
-
+	
+	/**
+	 * 
+	 * @return l'état de l'entité en se moment
+	 */
+	public abstract EtatEntite getEtatNow();
+	
 	public void setEtat(EtatEntite etat) {
 		this.etat = etat;
 	}

@@ -82,7 +82,7 @@ public class vEntite extends Actor implements Observer {
 	@Override
 	public void update(Observable o, Object arg){ 
 			Entite entite = (Entite) o;
-			if (arg instanceof Array<?> && entite.getEtat() == EtatEntite.DEPLACEMENT) {
+			if (arg instanceof Array<?> && entite.getEtatNow() == EtatEntite.DEPLACEMENT) {
 				Array<Point> listParcours = (Array<Point>) arg;
 				setPosition(((Entite) o).getCaracSpatiale().getPosition().x,
 						((Entite) o).getCaracSpatiale().getPosition().y, false);

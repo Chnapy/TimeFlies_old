@@ -7,6 +7,7 @@ package gameplay.entite;
 
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
+
 import gameplay.caracteristique.Carac;
 import gameplay.caracteristique.Caracteristique;
 import gameplay.caracteristique.CaracteristiquePhysique;
@@ -17,7 +18,9 @@ import gameplay.sort.SortActif;
 import gameplay.sort.SortPassif;
 import gameplay.sort.pileaction.Action;
 import gameplay.sort.pileaction.ActionDeplacement;
+import gameplay.sort.pileaction.ActionLancerSort;
 import gameplay.sort.pileaction.PileAction;
+
 import java.awt.Point;
 import java.util.Arrays;
 import java.util.stream.Stream;
@@ -34,8 +37,10 @@ public abstract class EntiteActive extends Entite {
 
 	//Est en train de se déplacer
 	private boolean enDeplacement;
+	private EtatEntite etatNow;
 
 	private SortActif sortEnCours = null;
+	private long tempsFinSort =-1;
 	private final int indexTextureTimeline;
 
 	private PileAction pileAction = new PileAction();
@@ -72,7 +77,6 @@ public abstract class EntiteActive extends Entite {
 		long tempsAction = caracPhysique.getCaracteristique(Carac.TEMPSACTION).getActu();
 		long palier = debutTour;
 		long time = TimeUtils.millis();
-		long TempsFinSort = -1;
 
 		System.out.println("DEBUT Tour actif pendant " + caracPhysique.getCaracteristique(Carac.TEMPSACTION).getActu() + "ms : " + nom);
 
@@ -83,17 +87,27 @@ public abstract class EntiteActive extends Entite {
 				setChanged();
 				notifyObservers(-1);
 			}
-			if (sortEnCours != null && TempsFinSort == -1) {
+			if (!actionIsRunning() && pileAction.pile.size > 0) {
+				System.out.println("Action lancée");
+				if(pileAction.pile.get(0) instanceof ActionDeplacement){
+					etatNow = EtatEntite.DEPLACEMENT;
+				}else{
+					etatNow = EtatEntite.SORT;
+					tempsFinSort=((ActionLancerSort)pileAction.pile.get(0)).getSort().getTempsAction()+time;
+				}
+				setChanged();
+				notifyObservers(pileAction.getFirst());
+			}
+			if(tempsFinSort!=-1 && tempsFinSort<=time){
+				tempsFinSort = -1;
+			}
+			/*else if (sortEnCours != null && TempsFinSort == -1) {
 				TempsFinSort = time + sortEnCours.getTempsAction();
 			} else if (sortEnCours != null && TempsFinSort <= time) {
 				sortEnCours = null;
 				TempsFinSort = -1;
-			}
-			if (!actionIsRunning() && pileAction.pile.size > 0) {
-				System.out.println("Action lancée");
-				setChanged();
-				notifyObservers(pileAction.getFirst());
-			}
+			}*/
+			
 			time = TimeUtils.millis();
 		}
 		pileAction.pile.clear();
@@ -105,7 +119,7 @@ public abstract class EntiteActive extends Entite {
 	 * @return true si une action se déroule (déplacement ou sort) false sinon
 	 */
 	public boolean actionIsRunning() {
-		return enDeplacement || sortEnCours != null;
+		return enDeplacement || tempsFinSort != -1;
 	}
 
 	/**
@@ -158,6 +172,15 @@ public abstract class EntiteActive extends Entite {
 		caracPhysique.setActu(Carac.TEMPSACTION, caracPhysique.getCaracteristique(Carac.TEMPSACTION).getTotal());
 	}
 
+	public EtatEntite getEtatNow(){
+		if(actionIsRunning()){
+			return etatNow;
+		}
+		else{
+			return getEtat();
+		}
+	}
+	
 	/**
 	 * Change la position, notifie la vue
 	 *

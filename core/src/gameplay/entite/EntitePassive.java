@@ -32,5 +32,10 @@ public abstract class EntitePassive extends Entite {
 		super(n, posX, posY, orient, sortsPassifs, cPhysique);
 		this.niveauSymbol = new NiveauSymbolique(sortsPassifs);
 	}
+	
+
+	public EtatEntite getEtatNow(){
+		return getEtat();
+	}
 
 }

@@ -154,29 +154,13 @@ public class cCombat implements Observer {
 //		System.out.println(tuile.getEtat());
 
 		if (entiteEnCours.getEtat() == EtatEntite.DEPLACEMENT) {
-			if (entiteEnCours.actionIsRunning()) {
 				entiteEnCours.addAction(new ActionDeplacement(new Point(x, y), new Array<Point>(path)));
 				path = null;
-			} else {
-				//Déplacement
-				if (!entiteEnCours.isEnDeplacement() && path != null) {
-					vue.clearColorTuile();
-					entiteEnCours.setEnDeplacement(true);
-					entiteEnCours.setPosition(path);
-					path = null; //Purge
-				}
-			}
 		} else if (entiteEnCours.getEtat() == EtatEntite.SORT) {
 				//Lancement de sort sur toute la zone action
-				if (vue.getVmap().getTabVtuiles()[y][x].getEtat() == EtatTuile.ZONESORT) {
-					if (entiteEnCours.actionIsRunning()) {
-						entiteEnCours.addAction(new ActionLancerSort(new Point(x, y), sortEnCours));
-					} else {
-						Tuile[] tuilesTouchees = map.getTuilesAction(sortEnCours.getZoneAction().getZoneFinale(), new Point(x, y));
-						for (Tuile t : tuilesTouchees) {
-							t.recoitSort(sortEnCours.getTabEffets(), entiteEnCours);
-					}
-				}
+			if (vue.getVmap().getTabVtuiles()[y][x].getEtat() == EtatTuile.ZONESORT) {
+				
+				entiteEnCours.addAction(new ActionLancerSort(new Point(x, y), sortEnCours));
 			}
 			modeDeplacement();
 		}

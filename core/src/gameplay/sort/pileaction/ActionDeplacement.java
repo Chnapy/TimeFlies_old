@@ -25,4 +25,9 @@ public class ActionDeplacement extends Action {
 	public Array<Point> getPath() {
 		return path;
 	}
+
+	@Override
+	public String toString() {
+		return "Déplacement de "+path.get(0)+" à "+path.get(path.size-1);
+	}
 }

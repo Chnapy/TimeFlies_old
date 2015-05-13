@@ -174,7 +174,18 @@ public class vTuile extends Actor {
 	public int getPosX() {
 		return posX;
 	}
-
+	
+	public Actor hit (float x, float y, boolean touchable) {
+		if(super.hit(x, y, touchable)!=null){
+			float Px=getWidth()/2,Py=getHeight()/2;
+			float Vx=Math.abs(x-Px),Vy=Math.abs(y-Py);
+			if(Py*((Px-Vx)/Px) >= Vy)
+				return this;
+			return null;
+			
+		}else
+			return null;
+	}
 	public int getPosY() {
 		return posY;
 	}

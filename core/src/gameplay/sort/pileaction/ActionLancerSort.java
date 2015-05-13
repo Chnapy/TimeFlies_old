@@ -25,4 +25,9 @@ public class ActionLancerSort extends Action {
 	public SortActif getSort() {
 		return this.sort;
 	}
+
+	@Override
+	public String toString() {
+		return "Lancer un sort: "+sort.getNom();
+	}
 }

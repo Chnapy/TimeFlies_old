@@ -29,4 +29,6 @@ public abstract class Action {
 	public Point getPoint() {
 		return position;
 	}
+	
+	public abstract String toString();
 }

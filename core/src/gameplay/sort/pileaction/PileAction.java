@@ -40,6 +40,7 @@ public class PileAction {
 	 */
 	public Action getFirst() {
 		if (pile.size > 0) {
+			System.out.println(pile);
 			return pile.removeIndex(0);
 		}
 		return null;
