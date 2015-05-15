@@ -17,7 +17,7 @@ import java.util.Observer;
  * vTimelineTempsAction.java
  *
  */
-public class vTimelineTempsAction extends Actor implements Observer {
+public class vTimelineTempsAction extends Actor {
 
 	//Texture de la barre
 	private static final Texture TEXTURE = new Texture(Gdx.files.internal("timeline/timeline_taction.png"));
@@ -45,19 +45,17 @@ public class vTimelineTempsAction extends Actor implements Observer {
 	}
 
 	@Override
-	public void update(Observable o, Object arg) {
-		EntiteActive entite = (EntiteActive) o;
-		int tempsActu = entite.getTempsAction().getActu();
+	public void setScale(float scale) {
+		this.scale = scale;
+	}
+	
+	public void tourEnCours(EntiteActive entiteEnCours) {
+		int tempsActu = entiteEnCours.getTempsAction().getActu();
 		if (tempsActu >= 0) {
-			int tempsTotal = entite.getTempsAction().getTotal();
+			int tempsTotal = entiteEnCours.getTempsAction().getTotal();
 
 			scale = (float) tempsActu / tempsTotal;
 		}
-	}
-
-	@Override
-	public void setScale(float scale) {
-		this.scale = scale;
 	}
 
 }

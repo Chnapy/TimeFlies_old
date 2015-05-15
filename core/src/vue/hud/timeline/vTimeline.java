@@ -47,9 +47,6 @@ public class vTimeline extends Group {
 			}
 		});
 		vtemps = new vTimelineTempsAction();
-		listEntites.forEach((entite) -> {
-			((EntiteActive) entite).addObserver(vtemps);
-		});
 		addActor(vtemps);
 		vTimelineEntite temp2;
 		for (int i = 0; i < listEntites.size; i++) {
@@ -67,6 +64,10 @@ public class vTimeline extends Group {
 			entite.nouveauTour(listEntite.size - 1);
 		});
 		vtemps.setScale(1);
+	}
+	
+	public void tourEnCours(EntiteActive entiteEnCours) {
+		vtemps.tourEnCours(entiteEnCours);
 	}
 
 }

@@ -23,7 +23,9 @@ public class vSortsActifsBouton extends vSortsBouton {
 
 	//Tableau de textures des sorts
 	private static final Texture[] TEXTURES = {
-		new Texture(Gdx.files.internal("sort/sort_fond.png")),};
+		new Texture(Gdx.files.internal("sort/sort_fond.png")),
+		new Texture(Gdx.files.internal("sort/sort_fond.png"))
+	};
 
 	//Textures des icones
 	private static final Texture ICONE_TEMPS = new Texture(Gdx.files.internal("sort/icon/icon_temps.png"));

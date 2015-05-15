@@ -60,7 +60,7 @@ public abstract class Entite extends Observable {
 	}
 
 	//Jeu du tour de l'entité
-	public abstract void jouerTour();
+	public abstract void jouerTour(long time);
 
 	/**
 	 * Recoit un sort d'une entité autre.

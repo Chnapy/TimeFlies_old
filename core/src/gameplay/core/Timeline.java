@@ -6,9 +6,13 @@
 package gameplay.core;
 
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.TimeUtils;
 import gameplay.caracteristique.Carac;
 import gameplay.entite.EntiteActive;
+import gameplay.entite.EtatEntite;
 import gameplay.entite.Personnage;
+import gameplay.sort.pileaction.ActionDeplacement;
+import gameplay.sort.pileaction.ActionLancerSort;
 import java.util.Observable;
 
 /**
@@ -190,9 +194,29 @@ public class Timeline extends Observable implements Runnable {
 		debutTour(entActive);
 
 		etatTour = Tour.COURS;
-		entActive.jouerTour();
+		jouerTour(entActive);
 
 		finTour(entActive);
+	}
+	
+	private void jouerTour(EntiteActive entActive) {
+		long debutTour = TimeUtils.millis();
+		long tempsAction = entActive.getCaracPhysique().getCaracteristique(Carac.TEMPSACTION).getActu();
+		long palier = debutTour;
+		long time = TimeUtils.millis();
+
+		System.out.println("DEBUT Tour actif pendant " + entActive.getCaracPhysique().getCaracteristique(Carac.TEMPSACTION).getActu() + "ms : " + entActive.getNom());
+
+		while (time < debutTour + tempsAction || entActive.isEnDeplacement()) {
+			time = TimeUtils.millis();
+			if (time >= palier + 10) {
+				palier = time;
+				entActive.getCaracPhysique().supp(Carac.TEMPSACTION, 10);
+				setChanged();
+				notifyObservers(-1);
+			}
+			entActive.jouerTour(time);
+		}
 	}
 
 	/**

@@ -8,7 +8,6 @@ package controleur;
 import com.badlogic.gdx.utils.Array;
 import gameplay.core.Joueur;
 import gameplay.core.Timeline;
-import gameplay.core.Tour;
 import gameplay.entite.Entite;
 import gameplay.entite.EntiteActive;
 import gameplay.entite.EtatEntite;
@@ -18,6 +17,7 @@ import gameplay.map.Map;
 import gameplay.map.Tuile;
 import gameplay.map.Type;
 import gameplay.sort.SortActif;
+import gameplay.sort.pileaction.Action;
 import gameplay.sort.pileaction.ActionDeplacement;
 import gameplay.sort.pileaction.ActionLancerSort;
 import java.awt.Point;
@@ -95,6 +95,7 @@ public class cCombat implements Observer {
 
 	//Lancé lorsqu'un nouveau tour d'une entité commence
 	public void nouveauTour() {
+		path = null;
 		map.setTuileOccupe(false, entiteEnCours.getCaracSpatiale().getPosition().y, entiteEnCours.getCaracSpatiale().getPosition().x);
 		vue.nouveauTour(this, entiteEnCours);
 	}
@@ -103,6 +104,10 @@ public class cCombat implements Observer {
 	public void finTour() {
 		vue.finTour();
 		map.setTuileOccupe(true, entiteEnCours.getCaracSpatiale().getPosition().y, entiteEnCours.getCaracSpatiale().getPosition().x);
+	}
+
+	public void tourEnCours() {
+		vue.tourEnCours(entiteEnCours);
 	}
 
 	/**
@@ -142,6 +147,8 @@ public class cCombat implements Observer {
 				if (path != null) {
 					vue.colorTuile(path);
 				}
+			} else {
+				path = null;
 			}
 		} else if (entiteEnCours.getEtat() == EtatEntite.SORT) {
 			//Afficher zone action
@@ -166,13 +173,15 @@ public class cCombat implements Observer {
 //		System.out.println(tuile.getEtat());
 
 		if (entiteEnCours.getEtat() == EtatEntite.DEPLACEMENT) {
-			entiteEnCours.addAction(new ActionDeplacement(new Point(x, y), new Array<Point>(path)));
-			path = null;
+			if (path != null) {
+				addAction(new ActionDeplacement(new Point(x, y), new Array<Point>(path)));
+				path = null;
+			}
 		} else if (entiteEnCours.getEtat() == EtatEntite.SORT) {
 			//Lancement de sort sur toute la zone action
 			if (vue.getVmap().getTabVtuiles()[y][x].getEtat() == EtatTuile.ZONESORT) {
 
-				entiteEnCours.addAction(new ActionLancerSort(new Point(x, y), sortEnCours));
+				addAction(new ActionLancerSort(new Point(x, y), sortEnCours));
 			}
 			modeDeplacement();
 		}
@@ -201,6 +210,11 @@ public class cCombat implements Observer {
 		vue.clearAll();
 	}
 
+	private void addAction(Action action) {
+		entiteEnCours.addAction(action);
+		vue.addAction(action);
+	}
+
 	/**
 	 * Lance les nouveaux tours, les fins tours
 	 *
@@ -213,11 +227,17 @@ public class cCombat implements Observer {
 	public void update(Observable o, Object arg) {
 		if (o instanceof Timeline) {
 			Timeline tl = (Timeline) o;
-			if (tl.getEtatTour().equals(Tour.DEBUT)) {
-				entiteEnCours = tl.getEntiteEnCours();
-				nouveauTour();
-			} else if (tl.getEtatTour().equals(Tour.FIN)) {
-				finTour();
+			switch (tl.getEtatTour()) {
+				case COURS:
+					tourEnCours();
+					break;
+				case DEBUT:
+					entiteEnCours = tl.getEntiteEnCours();
+					nouveauTour();
+					break;
+				case FIN:
+					finTour();
+					break;
 			}
 		} else if (o instanceof EntiteActive) {
 			EntiteActive entite = (EntiteActive) o;

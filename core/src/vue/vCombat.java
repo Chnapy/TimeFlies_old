@@ -15,6 +15,7 @@ import gameplay.entite.EntiteActive;
 import gameplay.entite.Personnage;
 import gameplay.map.EtatTuile;
 import gameplay.map.Tuile;
+import gameplay.sort.pileaction.Action;
 import java.awt.Point;
 import vue.hud.minimap.vCase;
 import vue.hud.timeline.vTimeline;
@@ -201,6 +202,14 @@ public class vCombat implements Screen {
 	public void finTour() {
 		vhud.finTour();
 		vjeu.finTour();
+	}
+	
+	public void tourEnCours(EntiteActive entiteEnCours) {
+		vhud.tourEnCours(entiteEnCours);
+	}
+	
+	public void addAction(Action action) {
+		vhud.addAction(action);
 	}
 
 	public vTimeline getVtimeline() {

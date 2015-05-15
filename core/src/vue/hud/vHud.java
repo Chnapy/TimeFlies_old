@@ -16,6 +16,9 @@ import com.badlogic.gdx.utils.Array;
 import controleur.cCombat;
 import gameplay.entite.EntiteActive;
 import gameplay.map.Tuile;
+import gameplay.sort.pileaction.Action;
+import gameplay.sort.pileaction.ActionDeplacement;
+import gameplay.sort.pileaction.ActionLancerSort;
 import test.MainTest;
 import vue.hud.minimap.vMinimap;
 import vue.hud.pileactions.vPileActions;
@@ -73,6 +76,7 @@ public final class vHud extends Stage {
 	public void nouveauTour(cCombat ccombat, EntiteActive entite) {
 		vsorts.nouveauTour(ccombat, entite.getTabSortActif(), entite.getTabSortPassif());
 		vtimeline.nouveauTour();
+		vpileactions.nouveauTour(entite.getTempsAction().getActu());
 	}
 
 	/**
@@ -81,6 +85,20 @@ public final class vHud extends Stage {
 	public void finTour() {
 		vsorts.finTour();
 		vminimap.finTour();
+	}
+
+	public void tourEnCours(EntiteActive entiteEnCours) {
+		vtimeline.tourEnCours(entiteEnCours);
+		vpileactions.tourEnCours(entiteEnCours);
+	}
+
+	public void addAction(Action action) {
+		if (action instanceof ActionDeplacement) {
+			vpileactions.addAction(0, 1234);
+		} else {
+			vpileactions.addAction(((ActionLancerSort)action).getSort().getIndex(), 
+					((ActionLancerSort)action).getSort().getTempsAction());
+		}
 	}
 
 	public void render() {

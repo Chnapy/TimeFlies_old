@@ -86,48 +86,24 @@ public abstract class EntiteActive extends Entite {
 	 * Joue le tour sur l'ensemble du temps d'action de l'entité.
 	 * Utilise les actions de la pile d'actions.
 	 *
+	 * @param time
 	 */
 	@Override
-	public void jouerTour() {
-		long debutTour = TimeUtils.millis();
-		long tempsAction = caracPhysique.getCaracteristique(Carac.TEMPSACTION).getActu();
-		long palier = debutTour;
-		long time = TimeUtils.millis();
-
-		System.out.println("DEBUT Tour actif pendant " + caracPhysique.getCaracteristique(Carac.TEMPSACTION).getActu() + "ms : " + nom);
-
-		while (time < debutTour + tempsAction || enDeplacement) {
-			if (time >= palier + 10) {
-				palier = time;
-				caracPhysique.supp(Carac.TEMPSACTION, 10);
-				setChanged();
-				notifyObservers(-1);
+	public void jouerTour(long time) {
+		if (!actionIsRunning() && pileAction.pile.size > 0) {
+			System.out.println("Action lancée");
+			if (pileAction.pile.get(0) instanceof ActionDeplacement) {
+				etatNow = EtatEntite.DEPLACEMENT;
+			} else {
+				etatNow = EtatEntite.SORT;
+				tempsFinSort = ((ActionLancerSort) pileAction.pile.get(0)).getSort().getTempsAction() + time;
 			}
-			if (!actionIsRunning() && pileAction.pile.size > 0) {
-				System.out.println("Action lancée");
-				if (pileAction.pile.get(0) instanceof ActionDeplacement) {
-					etatNow = EtatEntite.DEPLACEMENT;
-				} else {
-					etatNow = EtatEntite.SORT;
-					tempsFinSort = ((ActionLancerSort) pileAction.pile.get(0)).getSort().getTempsAction() + time;
-				}
-				setChanged();
-				notifyObservers(pileAction.getFirst());
-			}
-			if (tempsFinSort != -1 && tempsFinSort <= time) {
-				tempsFinSort = -1;
-			}
-			/*else if (sortEnCours != null && TempsFinSort == -1) {
-			 TempsFinSort = time + sortEnCours.getTempsAction();
-			 } else if (sortEnCours != null && TempsFinSort <= time) {
-			 sortEnCours = null;
-			 TempsFinSort = -1;
-			 }*/
-
-			time = TimeUtils.millis();
+			setChanged();
+			notifyObservers(pileAction.getFirst());
 		}
-		pileAction.pile.clear();
-		System.out.println("FIN Tour actif : " + nom);
+		if (tempsFinSort != -1 && tempsFinSort <= time) {
+			tempsFinSort = -1;
+		}
 	}
 
 	/**
@@ -183,6 +159,8 @@ public abstract class EntiteActive extends Entite {
 	 * tours finira.
 	 */
 	public void finTour() {
+		pileAction.pile.clear();
+		System.out.println("FIN Tour actif : " + nom);
 		for (Envoutement envout : listEnvoutements) {
 			envout.actionFinTour();
 		}
@@ -194,6 +172,7 @@ public abstract class EntiteActive extends Entite {
 	 *
 	 * @return
 	 */
+	@Override
 	public EtatEntite getEtatNow() {
 		if (actionIsRunning()) {
 			return etatNow;

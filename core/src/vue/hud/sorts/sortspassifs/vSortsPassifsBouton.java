@@ -18,7 +18,9 @@ public class vSortsPassifsBouton extends vSortsBouton {
 
 	//tableau des textures
 	private static final Texture[] TEXTURES = {
-		new Texture(Gdx.files.internal("sort/sort_fond.png")),};
+		new Texture(Gdx.files.internal("sort/sort_fond.png")),
+		new Texture(Gdx.files.internal("sort/sort_fond.png"))
+	};
 
 	static {
 		for (Texture texture : TEXTURES) {
