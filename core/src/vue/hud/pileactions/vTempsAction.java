@@ -46,8 +46,10 @@ public class vTempsAction extends Actor {
 		shapeRenderer.setColor(COULEURS[index]);
 		shapeRenderer.getColor().a = 0.25f;
 		shapeRenderer.rect(getX(), getY(), getWidth(), getHeight());
-		shapeRenderer.getColor().a = 1;
-		shapeRenderer.rect(getX(), getY(), getWidth(), getHeight() * tempsActionActu / tempsActionMax);
+		if (tempsActionActu > 0) {
+			shapeRenderer.getColor().a = 1;
+			shapeRenderer.rect(getX(), getY(), getWidth(), getHeight() * tempsActionActu / tempsActionMax);
+		}
 		shapeRenderer.end();
 		Gdx.gl.glDisable(GL20.GL_BLEND);
 

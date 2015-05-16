@@ -22,7 +22,7 @@ public class SortQuiFaitMal extends SortActif {
 				effets,
 				new ZoneAction(new Carre(2, true), new Carre(1, false)),
 				new ZoneAction(new Carre(2, true), new Carre(1, true)),
-				0, 5000);
+				1, 5000);
 	}
 
 }
