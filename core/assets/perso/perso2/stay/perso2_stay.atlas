@@ -1,0 +1,32 @@
+perso2_stay.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+perso2_stay
+  rotate: false
+  xy: 2, 2
+  size: 316, 370
+  orig: 316, 370
+  offset: 0, 0
+  index: 1
+perso2_stay
+  rotate: false
+  xy: 320, 2
+  size: 316, 370
+  orig: 316, 370
+  offset: 0, 0
+  index: 2
+perso2_stay
+  rotate: false
+  xy: 638, 2
+  size: 316, 370
+  orig: 316, 370
+  offset: 0, 0
+  index: 3
+perso2_stay
+  rotate: false
+  xy: 2, 374
+  size: 316, 370
+  orig: 316, 370
+  offset: 0, 0
+  index: 4

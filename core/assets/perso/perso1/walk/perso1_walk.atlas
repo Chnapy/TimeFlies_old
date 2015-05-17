@@ -1,0 +1,18 @@
+perso1_walk.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+perso1_walk
+  rotate: false
+  xy: 2, 2
+  size: 64, 92
+  orig: 64, 92
+  offset: 0, 0
+  index: 1
+perso1_walk
+  rotate: false
+  xy: 2, 96
+  size: 64, 92
+  orig: 64, 92
+  offset: 0, 0
+  index: 2

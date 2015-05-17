@@ -27,6 +27,7 @@ public abstract class InvocationMobile extends EntiteActive implements Invocatio
 	 * @param sortsPassifs
 	 * @param sortsActifs
 	 * @param cPhysique
+	 * @param indexTexture
 	 * @param iTextureTimeline
 	 */
 	public InvocationMobile(String nom,
@@ -34,9 +35,10 @@ public abstract class InvocationMobile extends EntiteActive implements Invocatio
 			SortPassif[] sortsPassifs,
 			SortActif[] sortsActifs,
 			CaracteristiquePhysique cPhysique,
+			int indexTexture,
 			int iTextureTimeline) {
 
-		super(nom, posX, posY, orientation, cPhysique, sortsPassifs, sortsActifs, iTextureTimeline);
+		super(nom, posX, posY, orientation, cPhysique, sortsPassifs, sortsActifs, indexTexture, iTextureTimeline);
 
 	}
 

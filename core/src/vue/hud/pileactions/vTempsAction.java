@@ -27,7 +27,7 @@ public class vTempsAction extends Actor {
 	private final ShapeRenderer shapeRenderer;
 	private final int index;
 
-	private int tempsActionMax;
+	private final int tempsActionMax;
 	private int tempsActionActu;
 
 	public vTempsAction(ShapeRenderer shapeRender, int indexTexture, int tempsAction) {
@@ -43,12 +43,14 @@ public class vTempsAction extends Actor {
 		Gdx.gl.glEnable(GL20.GL_BLEND);
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+		shapeRenderer.setColor(0.75f, 0.75f, 0.75f, 0.75f);
+		shapeRenderer.rect(getX(), getY(), getWidth(), getHeight());
 		shapeRenderer.setColor(COULEURS[index]);
 		shapeRenderer.getColor().a = 0.25f;
-		shapeRenderer.rect(getX(), getY(), getWidth(), getHeight());
+		shapeRenderer.rect(getX() + 1, getY() + 1, getWidth() - 2, getHeight() - 2);
 		if (tempsActionActu > 0) {
 			shapeRenderer.getColor().a = 1;
-			shapeRenderer.rect(getX(), getY(), getWidth(), getHeight() * tempsActionActu / tempsActionMax);
+			shapeRenderer.rect(getX() + 1, getY() + 1, getWidth() - 2, (getHeight() - 2) * tempsActionActu / tempsActionMax);
 		}
 		shapeRenderer.end();
 		Gdx.gl.glDisable(GL20.GL_BLEND);

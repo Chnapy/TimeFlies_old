@@ -18,6 +18,7 @@ import gameplay.sort.SortPassif;
  */
 public class Guerrier2 extends Personnage {
 
+	private static final int INDEX_TEXTURE = 1;
 	private static final int INDEX_TEXTURE_TIMELINE = 1;
 
 	/**
@@ -36,7 +37,7 @@ public class Guerrier2 extends Personnage {
 			SortPassif[] sortsPassifs,
 			SortActif[] sortsActifs) {
 
-		super("Guerrier2", nom, posX, posY, orientation, cPhysique, sortsPassifs, sortsActifs, INDEX_TEXTURE_TIMELINE);
+		super("Guerrier2", nom, posX, posY, orientation, cPhysique, sortsPassifs, sortsActifs, INDEX_TEXTURE, INDEX_TEXTURE_TIMELINE);
 	}
 
 }

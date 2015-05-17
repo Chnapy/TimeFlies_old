@@ -26,6 +26,9 @@ public abstract class Entite extends Observable {
 
 	//Nom de l'entité
 	protected final String nom;
+	
+	//Index pour la vue
+	private final int index;
 
 	//Etat de l'entité (déplacement, sort, ...) sans prendre en compte les 
 	//actions prévues de la pile d'actions
@@ -48,15 +51,18 @@ public abstract class Entite extends Observable {
 	 * @param orient
 	 * @param sortsPassifs
 	 * @param caracPhysique
+	 * @param index
 	 */
 	public Entite(String n,
 			int posX, int posY, Orientation orient,
-			SortPassif[] sortsPassifs, CaracteristiquePhysique caracPhysique) {
+			SortPassif[] sortsPassifs, CaracteristiquePhysique caracPhysique,
+			int index) {
 		nom = n;
 		caracSpatiale = new CaracteristiqueSpatiale(posX, posY, orient);
 		tabSortPassif = sortsPassifs;
 		this.caracPhysique = caracPhysique;
 		etat = EtatEntite.DEPLACEMENT;
+		this.index = index;
 	}
 
 	//Jeu du tour de l'entité
@@ -83,17 +89,17 @@ public abstract class Entite extends Observable {
 			for (int i = 0; i < tabSortPassif.length; i++) {
 				if (tabSortPassif[i] instanceof SortPassifEffets) {
 					((SortPassifEffets) tabSortPassif[i]).applyEffect(effets, lanceur, this, true, pourcentageSupp);
-				};
+				}
 			}
 		}
-		for (int i = 0; i < effets.length; i++) {
-			effets[i].lancerEffet(this, pourcentageSupp);
+		for (Effet effet : effets) {
+			effet.lancerEffet(this, pourcentageSupp);
 		}
 		if (lanceur != null) {
-			for (int i = 0; i < tabSortPassif.length; i++) {
-				if (tabSortPassif[i] instanceof SortPassifEffets) {
-					((SortPassifEffets) tabSortPassif[i]).applyEffect(effets, lanceur, this, false, pourcentageSupp);
-				};
+			for (SortPassif tabSortPassif1 : tabSortPassif) {
+				if (tabSortPassif1 instanceof SortPassifEffets) {
+					((SortPassifEffets) tabSortPassif1).applyEffect(effets, lanceur, this, false, pourcentageSupp);
+				}
 			}
 		}
 	}
@@ -196,6 +202,10 @@ public abstract class Entite extends Observable {
 
 	public void setEtat(EtatEntite etat) {
 		this.etat = etat;
+	}
+
+	public int getIndex() {
+		return index;
 	}
 
 }

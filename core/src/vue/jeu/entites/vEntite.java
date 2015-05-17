@@ -5,7 +5,9 @@
  */
 package vue.jeu.entites;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -19,6 +21,7 @@ import java.awt.Point;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
+import vue.PackFrames;
 import vue.jeu.map.vTuile;
 import static vue.jeu.map.vTuile.TUILE_HEIGHT;
 
@@ -35,36 +38,42 @@ public class vEntite extends Actor implements Observer {
 	private static final int PERSO_HEIGHT = 184;
 
 	/**
-	 * Liste des textures
-	 * Nom du perso -> nom de fichier
+	 * 
 	 */
-	private static final HashMap<String, Texture> mapEntiteSprite = new HashMap<>();
+	private static final Animation[][] tabAnimations = {
+		{
+			new Animation(1, PackFrames.getPackFrames("perso/perso1/stay/perso1_stay.atlas")), 
+			new Animation(1, PackFrames.getPackFrames("perso/perso1/walk/perso1_walk.atlas"))
+		},
+		{
+			new Animation(1, PackFrames.getPackFrames("perso/perso2/stay/perso2_stay.atlas")), 
+			new Animation(1, PackFrames.getPackFrames("perso/perso2/walk/perso2_walk.atlas"))
+		}
+	};
 
 	static {
-		mapEntiteSprite.put("Guerrier", new Texture("perso/perso.png"));
-		mapEntiteSprite.put("Guerrier2", new Texture("perso/perso2.png"));
 	}
-
-	//Texture de l'entité
-	private Texture texture = null;
 
 	//Position de l'entité relative
 	private int posX;
 	private int posY;
+	
+	//Pour l'animation
+	private float stateTime;
+	private final int index;
+	private int etat;	//0 = stay, 1 = walk
 
 	public vEntite(final EntiteActive perso) {
-		texture = mapEntiteSprite.get(perso.getNom());
-		if (texture == null) {
-			throw new Error("Perso non géré : " + perso.getNom());
-		}
-		texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+		index = perso.getIndex();
+		etat = 0;
 		setPosition(perso.getCaracSpatiale().getPosition().x,
 				perso.getCaracSpatiale().getPosition().y, true);
 	}
 
 	@Override
-	public void draw(Batch batch, float parentAlpha) {
-		batch.draw(texture,
+	public void draw(Batch batch, float delta) {
+		stateTime += Gdx.graphics.getDeltaTime();
+		batch.draw(tabAnimations[index][etat].getKeyFrame(stateTime, true),
 				getX(), getY(),
 				PERSO_WIDTH, PERSO_HEIGHT
 		);
@@ -86,7 +95,7 @@ public class vEntite extends Actor implements Observer {
 			Array<Point> listParcours = (Array<Point>) arg;
 			setPosition(((Entite) o).getCaracSpatiale().getPosition().x,
 					((Entite) o).getCaracSpatiale().getPosition().y, false);
-
+			etat = 1;
 			MoveToAction[] tabMoveTo = new MoveToAction[listParcours.size];
 			float[] position;
 			for (int i = 0; i < listParcours.size; i++) {
@@ -95,6 +104,7 @@ public class vEntite extends Actor implements Observer {
 			}
 			this.addAction(Actions.sequence(Actions.sequence(tabMoveTo), run(() -> {
 				((EntiteActive) o).setEnDeplacement(false);
+				etat = 0;
 			})));
 		}
 	}

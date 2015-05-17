@@ -29,6 +29,7 @@ public abstract class Personnage extends EntiteActive {
 	 * @param cPhysique	       caractéristiques physiques du personnage
 	 * @param sortsPassifs	    sorts passifs du personnages
 	 * @param sortsActifs	     sorts actifs du personnages
+	 * @param indexTexture
 	 * @param iTextureTimeline
 	 */
 	public Personnage(String nom, String nomDonne,
@@ -36,8 +37,9 @@ public abstract class Personnage extends EntiteActive {
 			CaracteristiquePhysique cPhysique,
 			SortPassif[] sortsPassifs,
 			SortActif[] sortsActifs,
+			int indexTexture,
 			int iTextureTimeline) {
-		super(nom, posX, posY, orientation, cPhysique, sortsPassifs, sortsActifs, iTextureTimeline);
+		super(nom, posX, posY, orientation, cPhysique, sortsPassifs, sortsActifs, indexTexture, iTextureTimeline);
 
 		this.nomDonne = nomDonne;
 		// TODO calculer le ratio : nbVictoire/nbPartieJouer*facteur

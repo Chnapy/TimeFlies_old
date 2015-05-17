@@ -6,7 +6,6 @@
 package gameplay.entite;
 
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.TimeUtils;
 import gameplay.caracteristique.Carac;
 import gameplay.caracteristique.Caracteristique;
 import gameplay.caracteristique.CaracteristiquePhysique;
@@ -65,6 +64,7 @@ public abstract class EntiteActive extends Entite {
 	 * @param cPhysique
 	 * @param sortsPassifs
 	 * @param sortsActifs
+	 * @param indexTexture
 	 * @param iTextureTimeline
 	 */
 	public EntiteActive(String nom,
@@ -72,9 +72,10 @@ public abstract class EntiteActive extends Entite {
 			CaracteristiquePhysique cPhysique,
 			SortPassif[] sortsPassifs,
 			SortActif[] sortsActifs,
+			int indexTexture,
 			int iTextureTimeline) {
 
-		super(nom, posX, posY, orientation, sortsPassifs, cPhysique);
+		super(nom, posX, posY, orientation, sortsPassifs, cPhysique, indexTexture);
 
 		tabSortActif = sortsActifs;
 		listEnvoutements = new Array<Envoutement>();
