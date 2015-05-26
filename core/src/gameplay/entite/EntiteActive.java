@@ -48,6 +48,8 @@ public abstract class EntiteActive extends Entite {
 
 	//Temps avant la fin du sort (en ms)
 	private long tempsFinSort = -1;
+	private long timeLeft= -1;
+	private long oldTime=-1;
 
 	//Index de la texture de l'entité sur la timeline
 	private final int indexTextureTimeline;
@@ -92,7 +94,6 @@ public abstract class EntiteActive extends Entite {
 	@Override
 	public void jouerTour(long time) {
 		if (!actionIsRunning() && pileAction.pile.size > 0) {
-			System.out.println("Action lancée");
 			if (pileAction.pile.get(0) instanceof ActionDeplacement) {
 				etatNow = EtatEntite.DEPLACEMENT;
 			} else {
@@ -105,6 +106,13 @@ public abstract class EntiteActive extends Entite {
 		if (tempsFinSort != -1 && tempsFinSort <= time) {
 			tempsFinSort = -1;
 		}
+		if(oldTime!=-1){
+			timeLeft-=time-oldTime;
+			oldTime=time;
+		}else{
+			timeLeft=this.caracPhysique.getCaracteristique(Carac.TEMPSACTION).getActu();
+		}
+				
 	}
 
 	/**
@@ -116,6 +124,22 @@ public abstract class EntiteActive extends Entite {
 		return enDeplacement || tempsFinSort != -1;
 	}
 
+	/**
+	 * permet de changer le temps restant
+	 * @param time
+	 */
+	public void subTime(int time){
+		this.timeLeft-=time;
+	}
+	
+	/**
+	 * 
+	 * @return le temps dispot total avec le temps supplémentaire
+	 */
+	public long tempsDispo(){
+		return timeLeft+this.caracPhysique.getCaracteristique(Carac.TEMPSSUP).getActu();
+	}
+	
 	/**
 	 * Ajoute une action dans la pile d'action
 	 *

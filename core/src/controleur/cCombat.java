@@ -180,8 +180,10 @@ public class cCombat implements Observer {
 		} else if (entiteEnCours.getEtat() == EtatEntite.SORT) {
 			//Lancement de sort sur toute la zone action
 			if (vue.getVmap().getTabVtuiles()[y][x].getEtat() == EtatTuile.ZONESORT) {
-
-				addAction(new ActionLancerSort(new Point(x, y), sortEnCours));
+				if(entiteEnCours.tempsDispo()>=sortEnCours.getTempsAction()){
+					addAction(new ActionLancerSort(new Point(x, y), sortEnCours));
+					entiteEnCours.subTime(sortEnCours.getTempsAction());
+				}
 			}
 			modeDeplacement();
 		}
