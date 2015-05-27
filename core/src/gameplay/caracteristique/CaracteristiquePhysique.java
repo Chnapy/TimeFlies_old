@@ -57,8 +57,21 @@ public class CaracteristiquePhysique {
 	 */
 	public void add(Carac c, int gain) {
 		getCaracteristique(c).add(gain);
+		testForFatigue(c);
 	}
 
+	/**
+	 * le test permettant d'enlever aussi le temps d'action a la fatigue
+	 * @param c
+	 */
+	public void testForFatigue(Carac c){
+		if(c.equals(Carac.FATIGUE)){
+			((TempsAction)getCaracteristique(Carac.TEMPSACTION)).setTotal(
+				((TempsAction)getCaracteristique(Carac.TEMPSACTION)).getTempsBase()-
+				( (((TempsAction)getCaracteristique(Carac.TEMPSACTION)).getTempsBase()*getCaracteristique(c).getActu())/100 )
+			);
+		}
+	}
 	/**
 	 * Enleve une valeur à la valeur actu de la caractéristique donnée
 	 *
@@ -67,6 +80,7 @@ public class CaracteristiquePhysique {
 	 */
 	public void supp(Carac c, int perte) {
 		getCaracteristique(c).supp(perte);
+		testForFatigue(c);
 	}
 
 	/**
@@ -77,6 +91,7 @@ public class CaracteristiquePhysique {
 	 */
 	public void setActu(Carac c, int valeur) {
 		getCaracteristique(c).setActu(valeur);
+		testForFatigue(c);
 	}
 
 	/**
