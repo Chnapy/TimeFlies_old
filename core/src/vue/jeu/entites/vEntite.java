@@ -6,8 +6,8 @@
 package vue.jeu.entites;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import static com.badlogic.gdx.graphics.g2d.Animation.PlayMode.LOOP_PINGPONG;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -18,7 +18,6 @@ import gameplay.entite.Entite;
 import gameplay.entite.EntiteActive;
 import gameplay.entite.EtatEntite;
 import java.awt.Point;
-import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 import vue.PackFrames;
@@ -35,14 +34,14 @@ public class vEntite extends Actor implements Observer {
 
 	//Tailles du sprite de l'entité
 	private static final int PERSO_WIDTH = 128;
-	private static final int PERSO_HEIGHT = 184;
+	private static final int PERSO_HEIGHT = 192;
 
 	/**
 	 * 
 	 */
 	private static final Animation[][] tabAnimations = {
 		{
-			new Animation(1, PackFrames.getPackFrames("perso/perso1/stay/perso1_stay.atlas")), 
+			new Animation(0.2f, PackFrames.getPackFrames("perso/perso1/stay/perso1_stay.atlas")), 
 			new Animation(1, PackFrames.getPackFrames("perso/perso1/walk/perso1_walk.atlas"))
 		},
 		{
@@ -66,8 +65,11 @@ public class vEntite extends Actor implements Observer {
 	public vEntite(final EntiteActive perso) {
 		index = perso.getIndex();
 		etat = 0;
+		setSize(PERSO_WIDTH, PERSO_HEIGHT);
 		setPosition(perso.getCaracSpatiale().getPosition().x,
 				perso.getCaracSpatiale().getPosition().y, true);
+		
+		debug();
 	}
 
 	@Override
@@ -75,7 +77,7 @@ public class vEntite extends Actor implements Observer {
 		stateTime += Gdx.graphics.getDeltaTime();
 		batch.draw(tabAnimations[index][etat].getKeyFrame(stateTime, true),
 				getX(), getY(),
-				PERSO_WIDTH, PERSO_HEIGHT
+				getWidth(), getHeight()
 		);
 	}
 

@@ -5,28 +5,35 @@ repeat: none
 perso1_stay
   rotate: false
   xy: 2, 2
-  size: 64, 92
-  orig: 64, 92
+  size: 128, 192
+  orig: 128, 192
   offset: 0, 0
   index: 1
 perso1_stay
   rotate: false
-  xy: 68, 2
-  size: 64, 92
-  orig: 64, 92
+  xy: 132, 2
+  size: 128, 192
+  orig: 128, 192
   offset: 0, 0
   index: 2
 perso1_stay
   rotate: false
-  xy: 134, 2
-  size: 64, 92
-  orig: 64, 92
+  xy: 262, 2
+  size: 128, 192
+  orig: 128, 192
   offset: 0, 0
   index: 3
 perso1_stay
   rotate: false
-  xy: 2, 96
-  size: 64, 92
-  orig: 64, 92
+  xy: 2, 196
+  size: 128, 192
+  orig: 128, 192
   offset: 0, 0
   index: 4
+perso1_stay
+  rotate: false
+  xy: 132, 196
+  size: 128, 192
+  orig: 128, 192
+  offset: 0, 0
+  index: 5
