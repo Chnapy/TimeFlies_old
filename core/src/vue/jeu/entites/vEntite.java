@@ -42,7 +42,7 @@ public class vEntite extends Actor implements Observer {
 	private static final Animation[][] tabAnimations = {
 		{
 			new Animation(0.2f, PackFrames.getPackFrames("perso/perso1/stay/perso1_stay.atlas")), 
-			new Animation(1, PackFrames.getPackFrames("perso/perso1/walk/perso1_walk.atlas"))
+			new Animation(0.1f, PackFrames.getPackFrames("perso/perso1/walk/perso1_walk.atlas"))
 		},
 		{
 			new Animation(1, PackFrames.getPackFrames("perso/perso2/stay/perso2_stay.atlas")), 
