@@ -5,6 +5,8 @@
  */
 package vue.jeu.map;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
@@ -12,12 +14,15 @@ import controleur.cCombat;
 import gameplay.map.EtatTuile;
 import gameplay.map.Tuile;
 import java.awt.Point;
+import test.MainTest;
 
 /**
  * vMap.java
  *
  */
 public class vMap extends Group {
+	
+	private final Batch polyBatch = new PolygonSpriteBatch();
 
 	//Tableau des tuiles de la map
 	private final vTuile[][] tabVtuiles;
@@ -28,6 +33,7 @@ public class vMap extends Group {
 	 * @param tabTuiles
 	 */
 	public vMap(final cCombat ccombat, final Tuile[][] tabTuiles) {
+		polyBatch.setProjectionMatrix(MainTest.camera.combined);
 		tabVtuiles = new vTuile[tabTuiles.length][tabTuiles[0].length];
 		int x, y, t;
 		for (y = 0; y < tabTuiles.length; y++) {
@@ -53,6 +59,15 @@ public class vMap extends Group {
 			}
 		}
 
+	}
+
+	@Override
+	public void draw(Batch batch, float parentAlpha) {
+		batch.end();
+		polyBatch.begin();
+		super.draw(polyBatch, parentAlpha);
+		polyBatch.end();
+		batch.begin();
 	}
 
 	/**

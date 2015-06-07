@@ -5,11 +5,14 @@
  */
 package vue.jeu.map;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.PolygonRegion;
+import com.badlogic.gdx.graphics.g2d.PolygonSprite;
+import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -30,19 +33,35 @@ public class vTuile extends Actor {
 	public static final int TUILE_WIDTH = 256;
 	public static final int TUILE_HEIGHT = 128;
 
+	private static final int TUILE_MARGIN = 24;
+
 	//Ecart entre les bords de la fenetre et les tuiles
 	public static final int OFFSET_X = 0;
 	public static final int OFFSET_Y = 500;
 
-	//Atlas des différents sprites de tuiles
-	private static final TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("tuile/tuile.atlas"));
-	//Tableau des différentes textures de l'atlas
-	private static final TextureRegion[] tabTexture = {
-		atlas.findRegion("tuile_simple"),
-		atlas.findRegion("tuile_trou"),
-		atlas.findRegion("tuile_obstacle"),
-		atlas.findRegion("tuile_ecran")
+	private static final Color[] tabInitColor = {
+		new Color(1, 1, 1, 0.5f),
+		new Color(0, 0, 0, 0.5f),
+		new Color(1, 0, 0, 0.5f),
+		new Color(0, 1, 0, 0.5f)
 	};
+
+	private static final Color[] tabColor = {
+		Color.RED, //Action
+		Color.YELLOW, //Path
+		Color.CYAN, //Zone sort
+		Color.ORANGE, //Hover normal
+		Color.BLUE, //Hover zone sort
+	};
+
+	static {
+		for (Color color : tabColor) {
+			color.a = 0.75f;
+		}
+	}
+
+	private final PolygonSprite polySprite;
+	private final Texture textureSolid;
 
 	//Etat de la tuile (sort, déplacement, ...)
 	private EtatTuile etat;
@@ -65,7 +84,7 @@ public class vTuile extends Actor {
 	private int iSprite;
 
 	//Couleur de la tuile (WHITE = transparent)
-	private Color couleur = Color.WHITE;
+	private Color couleur;
 
 	//Debug position
 	private final BitmapFont lab;
@@ -80,6 +99,24 @@ public class vTuile extends Actor {
 		y = pos[1];
 		iSprite = indexSprite;
 		etat = e;
+
+		Pixmap pix = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+		pix.setColor(1, 1, 1, 0.75f);
+		pix.fill();
+		textureSolid = new Texture(pix);
+		PolygonRegion polyReg = new PolygonRegion(new TextureRegion(textureSolid),
+				new float[]{
+					TUILE_WIDTH / 2, 0 + TUILE_MARGIN / 2,
+					TUILE_WIDTH - TUILE_MARGIN, TUILE_HEIGHT / 2,
+					TUILE_WIDTH / 2, TUILE_HEIGHT - TUILE_MARGIN / 2,
+					0 + TUILE_MARGIN, TUILE_HEIGHT / 2
+				}, new short[]{
+					0, 1, 2,
+					0, 3, 2
+				});
+
+		polySprite = new PolygonSprite(polyReg);
+		polySprite.setPosition(x, y);
 
 		setBounds(x, y, TUILE_WIDTH, TUILE_HEIGHT);
 		setPosition(x, y);
@@ -114,13 +151,13 @@ public class vTuile extends Actor {
 				ccombat.survolTuile(posx, posy);	//Affichage déplacement possible
 			}
 		});
+		setCouleur();
 	}
 
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
-		batch.setColor(couleur);
-		batch.draw(tabTexture[iSprite], getX(), getY(), getWidth(), getHeight());
-		batch.setColor(Color.WHITE);
+		polySprite.setColor(couleur);
+		polySprite.draw((PolygonSpriteBatch) batch);
 //		lab.draw(batch, "x" + posX + "_y" + posY, getX() + getWidth() / 2, getY() + getHeight() / 2);
 
 	}
@@ -158,17 +195,17 @@ public class vTuile extends Actor {
 	 */
 	private void setCouleur() {
 		if (action) {
-			couleur = Color.RED;
+			couleur = tabColor[0];
 		} else if (!hover) {
 			switch (etat) {
 				case NORMAL:
-					couleur = Color.WHITE;
+					couleur = tabInitColor[iSprite];
 					break;
 				case PATH:
-					couleur = Color.YELLOW;
+					couleur = tabColor[1];
 					break;
 				case ZONESORT:
-					couleur = Color.CYAN;
+					couleur = tabColor[2];
 					break;
 				default:
 					throw new Error("Etat tuile non géré");
@@ -176,12 +213,12 @@ public class vTuile extends Actor {
 		} else {
 			switch (etat) {
 				case NORMAL:
-					couleur = Color.ORANGE;
+					couleur = tabColor[3];
 					break;
 				case PATH:
 					break;
 				case ZONESORT:
-					couleur = Color.BLUE;
+					couleur = tabColor[4];
 					break;
 				default:
 					throw new Error("Etat tuile non géré");

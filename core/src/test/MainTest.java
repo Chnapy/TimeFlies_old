@@ -20,6 +20,7 @@ import gameplay.map.Map;
 import gameplay.map.Type;
 import gameplay.sort.SortActif;
 import gameplay.sort.SortPassif;
+import org.lwjgl.opengl.GL11;
 
 /**
  * MainTest.java
@@ -89,7 +90,7 @@ public class MainTest extends Game {
 	 */
 	@Override
 	public void render() {
-		Gdx.gl.glClearColor(0.25f, 0.25f, 0.25f, 1);	//Fond blanc
+		Gdx.gl.glClearColor(0.75f, 0.75f, 0.75f, 1);	//Fond blanc
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);	//Efface
 		super.render(); //Important ! Lance le render() du Screen
 	}
