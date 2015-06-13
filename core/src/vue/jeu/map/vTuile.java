@@ -149,6 +149,7 @@ public class vTuile extends Actor {
 			public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
 				setHover(true);
 				ccombat.survolTuile(posx, posy);	//Affichage déplacement possible
+//				System.out.println(etat);
 			}
 		});
 		setCouleur();

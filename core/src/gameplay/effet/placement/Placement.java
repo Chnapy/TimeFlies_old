@@ -5,6 +5,7 @@
  */
 package gameplay.effet.placement;
 
+import gameplay.caracteristique.Orientation;
 import gameplay.effet.Declencheur;
 import gameplay.effet.Effet;
 import gameplay.entite.Entite;
@@ -24,6 +25,8 @@ public abstract class Placement implements Declencheur {
 
 	/**
 	 * Equals en fonction de la caracSpatiale
+	 *
+	 * @return
 	 */
 	@Override
 	public abstract boolean equals(Object obj);
@@ -32,6 +35,6 @@ public abstract class Placement implements Declencheur {
 	public abstract boolean canDeclencher(Effet effet, int min, int max);
 
 	@Override
-	public abstract void lancer(Entite victime, int pourcentage);
+	public abstract void lancerEntite(Entite victime, Orientation oriLanceur, boolean ccritique);
 
 }

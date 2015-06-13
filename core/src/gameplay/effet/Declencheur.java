@@ -1,6 +1,8 @@
 package gameplay.effet;
 
+import gameplay.caracteristique.Orientation;
 import gameplay.entite.Entite;
+import gameplay.map.Tuile;
 
 public interface Declencheur {
 
@@ -15,6 +17,7 @@ public interface Declencheur {
 	 */
 	public boolean canDeclencher(Effet effet, int min, int max);
 
+	@Override
 	public boolean equals(Object o);
 
 	/**
@@ -23,7 +26,10 @@ public interface Declencheur {
 	 * Change la vie de la victime en ajoutant 5
 	 *
 	 * @param cible
-	 * @param pourcentageSupp
+	 * @param oriLanceur
+	 * @param ccritique
 	 */
-	public void lancer(Entite cible, int pourcentageSupp);
+	public void lancerEntite(Entite cible, Orientation oriLanceur, boolean ccritique);
+
+	public void lancerTuile(Tuile cible, Entite lanceur, Orientation oriLanceur, boolean ccritique);
 }

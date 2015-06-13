@@ -14,9 +14,9 @@ import gameplay.envoutement.Envoutement;
 import gameplay.sort.Sort;
 import gameplay.sort.SortActif;
 import gameplay.sort.SortPassif;
+import gameplay.sort.base.Deplacer;
+import gameplay.sort.base.Orienter;
 import gameplay.sort.pileaction.Action;
-import gameplay.sort.pileaction.ActionDeplacement;
-import gameplay.sort.pileaction.ActionLancerSort;
 import gameplay.sort.pileaction.PileAction;
 import java.awt.Point;
 import java.util.Arrays;
@@ -33,6 +33,10 @@ public abstract class EntiteActive extends Entite {
 	//Tableau des sorts actifs
 	private SortActif[] tabSortActif;
 
+	private final Orienter orienter;
+
+	private final Deplacer deplacer;
+
 	//Liste des envoutements
 	private Array<Envoutement> listEnvoutements;
 
@@ -48,14 +52,14 @@ public abstract class EntiteActive extends Entite {
 
 	//Temps avant la fin du sort (en ms)
 	private long tempsFinSort = -1;
-	private long timeLeft= -1;
-	private long oldTime=-1;
+	private long timeLeft = -1;
+	private long oldTime = -1;
 
 	//Index de la texture de l'entité sur la timeline
 	private final int indexTextureTimeline;
 
 	//Pile des actions
-	private PileAction pileAction = new PileAction();
+	private final PileAction pileAction = new PileAction();
 
 	/**
 	 *
@@ -83,6 +87,16 @@ public abstract class EntiteActive extends Entite {
 		listEnvoutements = new Array<Envoutement>();
 		niveauSymbol = new NiveauSymbolique(Stream.concat(Arrays.stream(sortsPassifs), Arrays.stream(sortsActifs)).toArray(Sort[]::new));
 		indexTextureTimeline = iTextureTimeline;
+		orienter = new Orienter();
+		deplacer = new Deplacer();
+	}
+
+	public Orienter getOrienter() {
+		return orienter;
+	}
+
+	public Deplacer getDeplacer() {
+		return deplacer;
 	}
 
 	/**
@@ -94,25 +108,25 @@ public abstract class EntiteActive extends Entite {
 	@Override
 	public void jouerTour(long time) {
 		if (!actionIsRunning() && pileAction.pile.size > 0) {
-			if (pileAction.pile.get(0) instanceof ActionDeplacement) {
+			if (pileAction.pile.get(0).getEtat() == Action.EtatAction.DEPLACEMENT) {
 				etatNow = EtatEntite.DEPLACEMENT;
 			} else {
 				etatNow = EtatEntite.SORT;
-				tempsFinSort = ((ActionLancerSort) pileAction.pile.get(0)).getSort().getTempsAction() + time;
 			}
+			tempsFinSort = pileAction.pile.get(0).getSort().getTempsAction() + time;
 			setChanged();
 			notifyObservers(pileAction.getFirst());
 		}
 		if (tempsFinSort != -1 && tempsFinSort <= time) {
 			tempsFinSort = -1;
 		}
-		if(oldTime!=-1){
-			timeLeft-=time-oldTime;
-			oldTime=time;
-		}else{
-			timeLeft=this.caracPhysique.getCaracteristique(Carac.TEMPSACTION).getActu();
+		if (oldTime != -1) {
+			timeLeft -= time - oldTime;
+			oldTime = time;
+		} else {
+			timeLeft = this.caracPhysique.getCaracteristique(Carac.TEMPSACTION).getActu();
 		}
-				
+
 	}
 
 	/**
@@ -126,20 +140,21 @@ public abstract class EntiteActive extends Entite {
 
 	/**
 	 * permet de changer le temps restant
+	 *
 	 * @param time
 	 */
-	public void subTime(int time){
-		this.timeLeft-=time;
+	public void subTime(int time) {
+		this.timeLeft -= time;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @return le temps dispot total avec le temps supplémentaire
 	 */
-	public long tempsDispo(){
-		return timeLeft+this.caracPhysique.getCaracteristique(Carac.TEMPSSUP).getActu();
+	public long tempsDispo() {
+		return timeLeft + this.caracPhysique.getCaracteristique(Carac.TEMPSSUP).getActu();
 	}
-	
+
 	/**
 	 * Ajoute une action dans la pile d'action
 	 *
@@ -207,18 +222,6 @@ public abstract class EntiteActive extends Entite {
 	}
 
 	/**
-	 * Change la position, notifie la vue
-	 *
-	 * @param listeParcours
-	 */
-	public void setPosition(Array<Point> listeParcours) {
-		caracSpatiale.getPosition().x = listeParcours.peek().x;
-		caracSpatiale.getPosition().y = listeParcours.peek().y;
-		setChanged();
-		notifyObservers(listeParcours);
-	}
-
-	/**
 	 *
 	 * @return true si l'entitée est en déplacement
 	 */
@@ -240,11 +243,9 @@ public abstract class EntiteActive extends Entite {
 	 * @return la position de l'entité une fois que la liste d'action sera fini
 	 */
 	public Point getLastPosition() {
-		Point ret = getCaracSpatiale().getPosition();
-		for (int i = 0; i < pileAction.pile.size; i++) {
-			if (pileAction.pile.get(i) instanceof ActionDeplacement) {
-				ret = ((ActionDeplacement) pileAction.pile.get(i)).getPath().get(((ActionDeplacement) pileAction.pile.get(i)).getPath().size - 1);
-			}
+		Point ret = pileAction.getLastPosition();
+		if (ret == null) {
+			return getCaracSpatiale().getPosition();
 		}
 		return ret;
 	}

@@ -10,8 +10,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import gameplay.entite.EntiteActive;
-import java.util.Observable;
-import java.util.Observer;
 
 /**
  * vTimelineTempsAction.java
@@ -48,7 +46,7 @@ public class vTimelineTempsAction extends Actor {
 	public void setScale(float scale) {
 		this.scale = scale;
 	}
-	
+
 	public void tourEnCours(EntiteActive entiteEnCours) {
 		int tempsActu = entiteEnCours.getTempsAction().getActu();
 		if (tempsActu >= 0) {

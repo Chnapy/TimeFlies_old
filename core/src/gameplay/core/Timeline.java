@@ -9,10 +9,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 import gameplay.caracteristique.Carac;
 import gameplay.entite.EntiteActive;
-import gameplay.entite.EtatEntite;
 import gameplay.entite.Personnage;
-import gameplay.sort.pileaction.ActionDeplacement;
-import gameplay.sort.pileaction.ActionLancerSort;
 import java.util.Observable;
 
 /**
@@ -198,7 +195,7 @@ public class Timeline extends Observable implements Runnable {
 
 		finTour(entActive);
 	}
-	
+
 	private void jouerTour(EntiteActive entActive) {
 		long debutTour = TimeUtils.millis();
 		long tempsAction = entActive.getCaracPhysique().getCaracteristique(Carac.TEMPSACTION).getActu();

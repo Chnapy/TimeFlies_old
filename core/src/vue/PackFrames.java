@@ -14,10 +14,10 @@ import com.badlogic.gdx.utils.Array;
 
 /**
  * PackFrames.java
- * 
+ *
  */
 public class PackFrames {
-	
+
 	public static TextureRegion[] getPackFrames(String pathAtlas) {
 		TextureAtlas atlas = new TextureAtlas(Gdx.files.internal(pathAtlas));
 		Array<AtlasRegion> array = atlas.getRegions();

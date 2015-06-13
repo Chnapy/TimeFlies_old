@@ -1,5 +1,9 @@
 package gameplay.sort.pileaction;
 
+import gameplay.caracteristique.Orientation;
+import gameplay.sort.SortActif;
+import gameplay.sort.base.Deplacer;
+import gameplay.sort.base.Orienter;
 import java.awt.Point;
 
 /**
@@ -8,15 +12,35 @@ import java.awt.Point;
  * elle est utiliser dans la pile d'action pour sauvegarder les
  * lancement de sort et déplacement du personnage d'un joueur
  */
-public abstract class Action {
+public class Action {
 
 	/**
 	 * La position du lieu ou vas se déroulé l'action
 	 */
-	private Point position;
+	private final Point position;
+	private final SortActif sort;
+	private final EtatAction etat;
+	private final Orientation oriAttaque;
+	private final Orientation precOriAttaque;
+	private final boolean critique;
 
-	public Action(Point p1) {
+	public Action(Point p1, SortActif sort, Orientation oriAttaque, Orientation precOriAttaque, boolean critique) {
 		this.position = p1;
+		this.sort = sort;
+		this.oriAttaque = oriAttaque;
+		this.precOriAttaque = precOriAttaque;
+		this.critique = critique;
+		etat = definirEtat();
+	}
+
+	private EtatAction definirEtat() {
+		if (sort instanceof Deplacer) {
+			return EtatAction.DEPLACEMENT;
+		}
+		if (sort instanceof Orienter) {
+			return EtatAction.ROTATION;
+		}
+		return EtatAction.SORT;
 	}
 
 	/**
@@ -28,6 +52,26 @@ public abstract class Action {
 		return position;
 	}
 
-	@Override
-	public abstract String toString();
+	public SortActif getSort() {
+		return sort;
+	}
+
+	public EtatAction getEtat() {
+		return etat;
+	}
+
+	public Orientation getOriAttaque() {
+		return oriAttaque;
+	}
+
+	public boolean isCritique() {
+		return critique;
+	}
+
+	public enum EtatAction {
+
+		SORT,
+		DEPLACEMENT,
+		ROTATION
+	}
 }

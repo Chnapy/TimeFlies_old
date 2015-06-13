@@ -9,6 +9,7 @@ import com.badlogic.gdx.ai.pfa.Connection;
 import com.badlogic.gdx.ai.pfa.DefaultConnection;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedNode;
 import com.badlogic.gdx.utils.Array;
+import gameplay.caracteristique.Orientation;
 import gameplay.effet.Effet;
 import gameplay.entite.Entite;
 import gameplay.invocation.Invocation;
@@ -110,14 +111,16 @@ public class Tuile implements IndexedNode<Tuile> {
 	 *
 	 * @param effets
 	 * @param lanceur
+	 * @param oriAttaque
+	 * @param critique
 	 */
-	public void recoitSort(Effet[] effets, Entite lanceur) {
-		for (int i = 0; i < effets.length; i++) {
-			for (int j = 0; j < effets[i].getDeclencheur().size; j++) {
-				if (effets[i].getDeclencheur().get(j) instanceof Invocation) {
-					((Invocation) effets[i].getDeclencheur().get(j)).invoquer(this.getPosition());
+	public void recoitSort(Effet[] effets, Entite lanceur, Orientation oriAttaque, boolean critique) {
+		for (Effet effet : effets) {
+			for (int j = 0; j < effet.getDeclencheur().size; j++) {
+				if (effet.getDeclencheur().get(j) instanceof Invocation) {
+					((Invocation) effet.getDeclencheur().get(j)).invoquer(this.getPosition());
 				} else {
-					//TODO effets qui change la tuile bitch
+					effet.lancerEffetTuile(this, lanceur, oriAttaque, critique);
 				}
 			}
 		}

@@ -21,8 +21,8 @@ public class SortQuiFaitMal extends SortActif {
 		super("SortQuiFaitMal", "Ca fait mal", new Niveau(0),
 				effets,
 				new ZoneAction(new Carre(2, true), new Carre(1, false)),
-				new ZoneAction(new Carre(2, true), new Carre(1, true)),
-				1, 5000);
+				new ZoneAction(new Carre(1, true)),
+				1, 1000);
 	}
 
 }

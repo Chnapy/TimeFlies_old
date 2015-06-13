@@ -5,9 +5,11 @@
  */
 package gameplay.sort;
 
+import gameplay.caracteristique.Orientation;
 import gameplay.effet.Effet;
 import gameplay.entite.Entite;
 import gameplay.entite.EntiteActive;
+import gameplay.map.Tuile;
 import gameplay.sort.zone.ZoneAction;
 
 /**
@@ -35,6 +37,7 @@ public abstract class SortActif extends Sort {
 	 * @param zportee
 	 * @param zaction
 	 * @param index
+	 * @param tempsAction
 	 */
 	public SortActif(String nom, String description, Niveau niveau,
 			Effet[] effets,
@@ -53,10 +56,14 @@ public abstract class SortActif extends Sort {
 	 * renvoi les effets des passifs au lanceur si effectif
 	 *
 	 * @param cible
+	 * @param cible2
 	 * @param lanceur
+	 * @param oriAttaque
+	 * @param critique
 	 */
-	public void lancerSort(Entite cible, EntiteActive lanceur) {
-		cible.recoitSort(getTabEffets(), lanceur);
+	public void lancerSort(Entite cible, Tuile cible2, EntiteActive lanceur, Orientation oriAttaque, boolean critique) {
+		cible.recoitSort(getTabEffets(), lanceur, oriAttaque, critique);
+		cible2.recoitSort(getTabEffets(), lanceur, oriAttaque, critique);
 	}
 
 	public int getTempsAction() {

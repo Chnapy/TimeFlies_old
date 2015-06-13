@@ -65,7 +65,7 @@ public class vTimeline extends Group {
 		});
 		vtemps.setScale(1);
 	}
-	
+
 	public void tourEnCours(EntiteActive entiteEnCours) {
 		vtemps.tourEnCours(entiteEnCours);
 	}

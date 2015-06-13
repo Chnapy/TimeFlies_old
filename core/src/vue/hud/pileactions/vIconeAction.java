@@ -22,9 +22,9 @@ public class vIconeAction extends Actor {
 		new Texture(Gdx.files.internal("sort/sort_fond.png")),
 		new Texture(Gdx.files.internal("sort/sort_fond.png"))
 	};
-	
+
 	static {
-		for(Texture texture : TEXTURES) {
+		for (Texture texture : TEXTURES) {
 			texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 		}
 	}

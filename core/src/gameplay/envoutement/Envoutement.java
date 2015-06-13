@@ -5,6 +5,7 @@
  */
 package gameplay.envoutement;
 
+import gameplay.caracteristique.Orientation;
 import gameplay.effet.Declencheur;
 import gameplay.effet.Effet;
 import gameplay.entite.Entite;
@@ -122,5 +123,5 @@ public abstract class Envoutement implements Declencheur {
 	}
 
 	@Override
-	public abstract void lancer(Entite victime, int pourcentageSupp);
+	public abstract void lancerEntite(Entite victime, Orientation oriLanceur, boolean ccritique);
 }

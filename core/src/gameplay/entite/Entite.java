@@ -26,7 +26,7 @@ public abstract class Entite extends Observable {
 
 	//Nom de l'entité
 	protected final String nom;
-	
+
 	//Index pour la vue
 	private final int index;
 
@@ -74,76 +74,48 @@ public abstract class Entite extends Observable {
 	 *
 	 * @param effets
 	 * @param lanceur
+	 * @param oriAttaque
+	 * @param critique
 	 */
-	public void recoitSort(Effet[] effets, Entite lanceur) {
-		int pourcentageSupp = 0;
-		Orientation oriAttaque = getOrientation(this.getCaracSpatiale().getPosition(), lanceur.getCaracSpatiale().getPosition());
-		if (!oriAttaque.equals(this.getCaracSpatiale().getOrientation())) {
-			if (oriAttaque.invert().equals(this.getCaracSpatiale().getOrientation())) {
-				//TODO pourcentage de Cous critique a définir
-				pourcentageSupp = 30;
-			}
-			this.getCaracSpatiale().setOrientation(oriAttaque);
-		}
+	public void recoitSort(Effet[] effets, Entite lanceur, Orientation oriAttaque, boolean critique) {
 		if (lanceur != null) {
-			for (int i = 0; i < tabSortPassif.length; i++) {
-				if (tabSortPassif[i] instanceof SortPassifEffets) {
-					((SortPassifEffets) tabSortPassif[i]).applyEffect(effets, lanceur, this, true, pourcentageSupp);
+			for (SortPassif sortPassif : tabSortPassif) {
+				if (sortPassif instanceof SortPassifEffets) {
+					((SortPassifEffets) sortPassif).applyEffect(effets, lanceur, this, true, critique);
 				}
 			}
 		}
 		for (Effet effet : effets) {
-			effet.lancerEffet(this, pourcentageSupp);
+			effet.lancerEffetEntite(this, oriAttaque, critique);
 		}
 		if (lanceur != null) {
 			for (SortPassif tabSortPassif1 : tabSortPassif) {
 				if (tabSortPassif1 instanceof SortPassifEffets) {
-					((SortPassifEffets) tabSortPassif1).applyEffect(effets, lanceur, this, false, pourcentageSupp);
+					((SortPassifEffets) tabSortPassif1).applyEffect(effets, lanceur, this, false, critique);
 				}
 			}
 		}
 	}
 
 	/**
-	 * Récupère l'orientation de l'entité par rapport à un point donné.
+	 * Change la position, notifie la vue
 	 *
-	 * @param origine
-	 * @param point
-	 * @return l'orientation de l'origine qui regarde vers le point
+	 * @param pt
 	 */
-	private Orientation getOrientation(Point origine, Point point) {
-		double vecX = point.getX() - origine.getX();
-		double vecY = point.getY() - origine.getY();
+	public void setPosition(Point pt) {
+		caracSpatiale.getPosition().x = pt.x;
+		caracSpatiale.getPosition().y = pt.y;
+//		setChanged();
+//		notifyObservers(pt);
+	}
 
-		if (vecX > 0) {
-			if (vecY > 0) {
-				if (vecX < vecY) {
-					return Orientation.S;
-				} else {
-					return Orientation.E;
-				}
-			} else {
-				if (vecX < vecY) {
-					return Orientation.N;
-				} else {
-					return Orientation.E;
-				}
-			}
-		} else {
-			if (vecY > 0) {
-				if (vecX < vecY) {
-					return Orientation.S;
-				} else {
-					return Orientation.O;
-				}
-			} else {
-				if (vecX < vecY) {
-					return Orientation.N;
-				} else {
-					return Orientation.O;
-				}
-			}
-		}
+	public void move(int x, int y) {
+		caracSpatiale.move(x, y);
+	}
+
+	public void notifierObserveurs(Object[] envois) {
+		setChanged();
+		notifyObservers(envois);
 	}
 
 	public void setCaracSpatiale(CaracteristiqueSpatiale caracSpatiale) {

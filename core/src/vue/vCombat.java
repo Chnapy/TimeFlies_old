@@ -203,11 +203,11 @@ public class vCombat implements Screen {
 		vhud.finTour();
 		vjeu.finTour();
 	}
-	
+
 	public void tourEnCours(EntiteActive entiteEnCours) {
 		vhud.tourEnCours(entiteEnCours);
 	}
-	
+
 	public void addAction(Action action) {
 		vhud.addAction(action);
 	}

@@ -14,12 +14,12 @@ package gameplay.caracteristique;
  *
  */
 public class TempsAction extends Caracteristique {
-	
+
 	/**
 	 * c'est le temps défini de base pour le calcule de la fatigue
 	 */
 	private int tempsBase;
-	
+
 	/**
 	 *
 	 * @param total	en ms
@@ -27,12 +27,13 @@ public class TempsAction extends Caracteristique {
 	 */
 	public TempsAction(int total, int actu) {
 		super(total, actu);
-		this.tempsBase=total;
+		this.tempsBase = total;
 	}
 
-	public int getTempsBase(){
+	public int getTempsBase() {
 		return tempsBase;
 	}
+
 	/**
 	 * equals en fontion du type de la classe (TempsAction)
 	 */

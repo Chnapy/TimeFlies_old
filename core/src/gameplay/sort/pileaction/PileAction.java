@@ -1,6 +1,7 @@
 package gameplay.sort.pileaction;
 
 import com.badlogic.gdx.utils.Array;
+import java.awt.Point;
 
 /**
  * La pile d'action permet de contenir toutes les
@@ -34,8 +35,18 @@ public class PileAction {
 	 */
 	public Action getFirst() {
 		if (pile.size > 0) {
-			System.out.println(pile);
 			return pile.removeIndex(0);
+		}
+		return null;
+	}
+
+	public Point getLastPosition() {
+		if (pile.size > 0) {
+			for (int i = pile.size - 1; i >= 0; i--) {
+				if (pile.get(i).getEtat() == Action.EtatAction.DEPLACEMENT) {
+					return pile.get(i).getPoint();
+				}
+			}
 		}
 		return null;
 	}

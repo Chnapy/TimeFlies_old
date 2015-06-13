@@ -20,7 +20,6 @@ import gameplay.map.Map;
 import gameplay.map.Type;
 import gameplay.sort.SortActif;
 import gameplay.sort.SortPassif;
-import org.lwjgl.opengl.GL11;
 
 /**
  * MainTest.java
@@ -54,15 +53,15 @@ public class MainTest extends Game {
 			{Type.ECRAN, Type.ECRAN, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE},
 			{Type.ECRAN, Type.ECRAN, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE}
 		});
-		Array<Declencheur> declancheur = new Array<Declencheur>();
-		declancheur.add(new Balus(Carac.VITALITE, -30));
+		Array<Declencheur> declencheur = new Array<Declencheur>();
+		declencheur.add(new Balus(Carac.VITALITE, -30));
 		Personnage[] persosJ1 = {
 			new Guerrier(
 			"bite", 1, 2, Orientation.E,
 			new CaracteristiquePhysique(100, 100, 10000, 10000, 100, 100, 100, 100, 100, 100),
 			new SortPassif[]{},
 			new SortActif[]{
-				new SortQuiFaitMal(new Effet[]{new Effet(declancheur)})
+				new SortQuiFaitMal(new Effet[]{new Effet(declencheur)})
 			})
 		};
 		Personnage[] persosJ2 = {
@@ -71,7 +70,7 @@ public class MainTest extends Game {
 			new CaracteristiquePhysique(100, 100, 10000, 10000, 100, 100, 100, 100, 100, 100),
 			new SortPassif[]{},
 			new SortActif[]{
-				new SortQuiFaitMal(new Effet[]{new Effet(declancheur)})
+				new SortQuiFaitMal(new Effet[]{new Effet(declencheur)})
 			})
 		};
 		Joueur[] joueurs = {

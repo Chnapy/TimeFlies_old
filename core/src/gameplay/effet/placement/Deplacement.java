@@ -3,7 +3,7 @@ package gameplay.effet.placement;
 import gameplay.caracteristique.Orientation;
 import gameplay.effet.Effet;
 import gameplay.entite.Entite;
-import java.util.Objects;
+import gameplay.map.Tuile;
 
 /**
  * Permet d'atirer/pousser un joueur
@@ -14,20 +14,12 @@ public class Deplacement extends Placement {
 	//Nombre de tuiles déplacées
 	private int nombre;
 
-	//Direction dans laquelle le deplacement se fait
-	private Orientation direction;
-
-	public Deplacement(int nombre, Orientation direction) {
+	public Deplacement(int nombre) {
 		this.nombre = nombre;
-		this.direction = direction;
 	}
 
 	public int getNombre() {
 		return nombre;
-	}
-
-	public Orientation getDirection() {
-		return direction;
 	}
 
 	@Override
@@ -42,9 +34,6 @@ public class Deplacement extends Placement {
 			return false;
 		}
 		Deplacement other = (Deplacement) obj;
-		if (direction != other.direction) {
-			return false;
-		}
 		return nombre == other.nombre;
 	}
 
@@ -52,7 +41,6 @@ public class Deplacement extends Placement {
 	public int hashCode() {
 		int hash = 7;
 		hash = 23 * hash + this.nombre;
-		hash = 23 * hash + Objects.hashCode(this.direction);
 		return hash;
 	}
 
@@ -67,19 +55,24 @@ public class Deplacement extends Placement {
 	}
 
 	@Override
-	public void lancer(Entite victime, int pourcentage) {
-		switch (direction) {
+	public void lancerEntite(Entite victime, Orientation oriLanceur, boolean ccritique) {
+	}
+
+	@Override
+	public void lancerTuile(Tuile cible, Entite lanceur, Orientation oriLanceur, boolean ccritique) {
+		System.out.println(lanceur.getCaracSpatiale().getPosition());
+		switch (oriLanceur) {
 			case E:
-				victime.getCaracSpatiale().move(nombre, 0);
+				lanceur.move(nombre, 0);
 				break;
 			case N:
-				victime.getCaracSpatiale().move(0, -nombre);
+				lanceur.move(0, -nombre);
 				break;
 			case O:
-				victime.getCaracSpatiale().move(-nombre, 0);
+				lanceur.move(-nombre, 0);
 				break;
 			case S:
-				victime.getCaracSpatiale().move(0, nombre);
+				lanceur.move(0, nombre);
 				break;
 			default:
 				throw new Error("direction non gérée.");

@@ -15,6 +15,7 @@ import java.awt.Point;
  */
 public interface Invocation extends Declencheur {
 
+	@Override
 	public abstract boolean equals(Object o);
 
 	/**

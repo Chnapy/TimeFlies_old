@@ -6,14 +6,15 @@
 package vue.jeu.entites;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import static com.badlogic.gdx.graphics.g2d.Animation.PlayMode.LOOP_PINGPONG;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.run;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
-import com.badlogic.gdx.utils.Array;
+import gameplay.caracteristique.Orientation;
 import gameplay.entite.Entite;
 import gameplay.entite.EntiteActive;
 import gameplay.entite.EtatEntite;
@@ -37,15 +38,15 @@ public class vEntite extends Actor implements Observer {
 	private static final int PERSO_HEIGHT = 192;
 
 	/**
-	 * 
+	 *
 	 */
 	private static final Animation[][] tabAnimations = {
 		{
-			new Animation(0.2f, PackFrames.getPackFrames("perso/perso1/stay/perso1_stay.atlas")), 
+			new Animation(0.2f, PackFrames.getPackFrames("perso/perso1/stay/perso1_stay.atlas")),
 			new Animation(0.1f, PackFrames.getPackFrames("perso/perso1/walk/perso1_walk.atlas"))
 		},
 		{
-			new Animation(1, PackFrames.getPackFrames("perso/perso2/stay/perso2_stay.atlas")), 
+			new Animation(1, PackFrames.getPackFrames("perso/perso2/stay/perso2_stay.atlas")),
 			new Animation(1, PackFrames.getPackFrames("perso/perso2/walk/perso2_walk.atlas"))
 		}
 	};
@@ -56,19 +57,25 @@ public class vEntite extends Actor implements Observer {
 	//Position de l'entité relative
 	private int posX;
 	private int posY;
-	
+
 	//Pour l'animation
 	private float stateTime;
 	private final int index;
 	private int etat;	//0 = stay, 1 = walk
 
+	private final BitmapFont lab;
+	private String labs;
+
 	public vEntite(final EntiteActive perso) {
+		this.lab = new BitmapFont();
+		lab.setColor(Color.BLACK);
+		labs = "-";
 		index = perso.getIndex();
 		etat = 0;
 		setSize(PERSO_WIDTH, PERSO_HEIGHT);
 		setPosition(perso.getCaracSpatiale().getPosition().x,
 				perso.getCaracSpatiale().getPosition().y, true);
-		
+
 		debug();
 	}
 
@@ -79,6 +86,7 @@ public class vEntite extends Actor implements Observer {
 				getX(), getY(),
 				getWidth(), getHeight()
 		);
+		lab.draw(batch, labs, getX() + 40, getY() + 220);
 	}
 
 	/**
@@ -93,21 +101,28 @@ public class vEntite extends Actor implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		Entite entite = (Entite) o;
-		if (arg instanceof Array<?> && entite.getEtatNow() == EtatEntite.DEPLACEMENT) {
-			Array<Point> listParcours = (Array<Point>) arg;
-			setPosition(((Entite) o).getCaracSpatiale().getPosition().x,
-					((Entite) o).getCaracSpatiale().getPosition().y, false);
-			etat = 1;
-			MoveToAction[] tabMoveTo = new MoveToAction[listParcours.size];
-			float[] position;
-			for (int i = 0; i < listParcours.size; i++) {
-				position = vTuile.getPosition(listParcours.get(i).x, listParcours.get(i).y);
-				tabMoveTo[i] = Actions.moveTo(position[0] + PERSO_WIDTH / 2, position[1] + TUILE_HEIGHT / 2, 0.5f);
+		labs = entite.getCaracSpatiale().getOrientation().toString();
+		if (arg instanceof Object[] && entite.getEtatNow() == EtatEntite.DEPLACEMENT) {
+			Object[] tabObjets = (Object[]) arg;
+			int dureeAnim = (int) tabObjets[1];
+			if (tabObjets[0] instanceof Point) {
+				Point point = (Point) tabObjets[0];
+				setPosition(((Entite) o).getCaracSpatiale().getPosition().x,
+						((Entite) o).getCaracSpatiale().getPosition().y, false);
+				etat = 1;
+				MoveToAction[] tabMoveTo = new MoveToAction[1];
+				float[] position;
+				for (int i = 0; i < 1; i++) {
+					position = vTuile.getPosition(point.x, point.y);
+					tabMoveTo[i] = Actions.moveTo(position[0] + PERSO_WIDTH / 2, position[1] + TUILE_HEIGHT / 2, (float) dureeAnim / 1000);
+				}
+				this.addAction(Actions.sequence(Actions.sequence(tabMoveTo), run(() -> {
+					((EntiteActive) o).setEnDeplacement(false);
+					etat = 0;
+				})));
+			} else if (tabObjets[0] instanceof Orientation) {
+				//Rotation
 			}
-			this.addAction(Actions.sequence(Actions.sequence(tabMoveTo), run(() -> {
-				((EntiteActive) o).setEnDeplacement(false);
-				etat = 0;
-			})));
 		}
 	}
 

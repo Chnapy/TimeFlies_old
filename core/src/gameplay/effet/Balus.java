@@ -6,7 +6,9 @@
 package gameplay.effet;
 
 import gameplay.caracteristique.Carac;
+import gameplay.caracteristique.Orientation;
 import gameplay.entite.Entite;
+import gameplay.map.Tuile;
 
 /**
  * Balus.java
@@ -45,6 +47,8 @@ public class Balus implements Declencheur {
 
 	/**
 	 * equals en fonction de la caracteristique uniquement
+	 *
+	 * @return
 	 */
 	@Override
 	public boolean equals(Object obj) {
@@ -58,10 +62,7 @@ public class Balus implements Declencheur {
 			return false;
 		}
 		Balus other = (Balus) obj;
-		if (caracteristique != other.caracteristique) {
-			return false;
-		}
-		return true;
+		return caracteristique == other.caracteristique;
 	}
 
 	/**
@@ -87,17 +88,6 @@ public class Balus implements Declencheur {
 	}
 
 	/**
-	 * Applique l'effet à l'entité cible
-	 *
-	 * @param cible
-	 * @param pourcentagesupp
-	 */
-	@Override
-	public void lancer(Entite cible, int pourcentagesupp) {
-		cible.getCaracPhysique().add(caracteristique, valeur + (pourcentagesupp * valeur / 100));
-	}
-
-	/**
 	 *
 	 * @return caracteristique
 	 */
@@ -111,6 +101,20 @@ public class Balus implements Declencheur {
 	 */
 	public int getValeur() {
 		return valeur;
+	}
+
+	/**
+	 * Applique l'effet à l'entité cible
+	 *
+	 * @param cible
+	 */
+	@Override
+	public void lancerEntite(Entite cible, Orientation oriLanceur, boolean ccritique) {
+		cible.getCaracPhysique().add(caracteristique, ccritique ? valeur : valeur + (30 * valeur / 100));
+	}
+
+	@Override
+	public void lancerTuile(Tuile cible, Entite lanceur, Orientation oriLanceur, boolean ccritique) {
 	}
 
 }

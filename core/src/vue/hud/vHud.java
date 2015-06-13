@@ -17,8 +17,6 @@ import controleur.cCombat;
 import gameplay.entite.EntiteActive;
 import gameplay.map.Tuile;
 import gameplay.sort.pileaction.Action;
-import gameplay.sort.pileaction.ActionDeplacement;
-import gameplay.sort.pileaction.ActionLancerSort;
 import test.MainTest;
 import vue.hud.minimap.vMinimap;
 import vue.hud.pileactions.vPileActions;
@@ -93,12 +91,8 @@ public final class vHud extends Stage {
 	}
 
 	public void addAction(Action action) {
-		if (action instanceof ActionDeplacement) {
-			vpileactions.addAction(0, 1234);
-		} else {
-			vpileactions.addAction(((ActionLancerSort)action).getSort().getIndex(), 
-					((ActionLancerSort)action).getSort().getTempsAction());
-		}
+		vpileactions.addAction(action.getSort().getIndex(),
+				action.getSort().getTempsAction());
 	}
 
 	public void render() {

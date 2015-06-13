@@ -44,8 +44,8 @@ public abstract class SortPassifEffets extends SortPassif {
 	 * @param lanceur
 	 * @param cible
 	 * @param isAvant
-	 * @param pourcentageSupplementaire
+	 * @param ccritique
 	 */
-	public abstract void applyEffect(Effet[] effets, Entite lanceur, Entite cible, boolean isAvant, int pourcentageSupplementaire);
+	public abstract void applyEffect(Effet[] effets, Entite lanceur, Entite cible, boolean isAvant, boolean ccritique);
 
 }

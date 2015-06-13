@@ -144,6 +144,7 @@ public class Map implements IndexedGraph<Tuile> {
 	 */
 	public Tuile[] getTuilesAction(boolean[][] zone, Point cible) {
 		Array<Tuile> ret = new Array<Tuile>();
+		ret.add(tabTuiles[cible.y][cible.x]);
 
 		for (int y = cible.y + zone.length / 2 - Math.abs(zone.length % 2 - 1), j = 0;
 				y > cible.y - zone.length / 2 - zone.length % 2 && j < zone.length;

@@ -21,7 +21,7 @@ import test.MainTest;
  *
  */
 public class vMap extends Group {
-	
+
 	private final Batch polyBatch = new PolygonSpriteBatch();
 
 	//Tableau des tuiles de la map
