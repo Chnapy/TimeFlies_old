@@ -108,6 +108,7 @@ public abstract class EntiteActive extends Entite {
 	@Override
 	public void jouerTour(long time) {
 		if (!actionIsRunning() && pileAction.pile.size > 0) {
+//			System.out.println(pileAction.pile.get(0));
 			if (pileAction.pile.get(0).getEtat() == Action.EtatAction.DEPLACEMENT) {
 				etatNow = EtatEntite.DEPLACEMENT;
 			} else {
