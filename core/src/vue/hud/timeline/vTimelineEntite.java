@@ -19,7 +19,7 @@ public class vTimelineEntite extends Actor {
 
 	//Tableau des textures des portraits
 	private static final Texture[] TIMELINE_PORTRAIT = {
-		new Texture(Gdx.files.internal("timeline/perso.png")),
+		new Texture(Gdx.files.internal("timeline/perso1.png")),
 		new Texture(Gdx.files.internal("timeline/perso2.png"))
 	};
 

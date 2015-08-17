@@ -5,14 +5,49 @@ repeat: none
 perso2_walk
   rotate: false
   xy: 2, 2
-  size: 316, 370
-  orig: 316, 370
+  size: 128, 192
+  orig: 128, 192
   offset: 0, 0
   index: 1
 perso2_walk
   rotate: false
-  xy: 2, 374
-  size: 316, 370
-  orig: 316, 370
+  xy: 132, 2
+  size: 128, 192
+  orig: 128, 192
   offset: 0, 0
   index: 2
+perso2_walk
+  rotate: false
+  xy: 262, 2
+  size: 128, 192
+  orig: 128, 192
+  offset: 0, 0
+  index: 3
+perso2_walk
+  rotate: false
+  xy: 392, 2
+  size: 128, 192
+  orig: 128, 192
+  offset: 0, 0
+  index: 4
+perso2_walk
+  rotate: false
+  xy: 522, 2
+  size: 128, 192
+  orig: 128, 192
+  offset: 0, 0
+  index: 5
+perso2_walk
+  rotate: false
+  xy: 652, 2
+  size: 128, 192
+  orig: 128, 192
+  offset: 0, 0
+  index: 6
+perso2_walk
+  rotate: false
+  xy: 782, 2
+  size: 128, 192
+  orig: 128, 192
+  offset: 0, 0
+  index: 7

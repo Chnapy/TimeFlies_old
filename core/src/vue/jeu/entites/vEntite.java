@@ -46,8 +46,8 @@ public class vEntite extends Actor implements Observer {
 			new Animation(0.1f, PackFrames.getPackFrames("perso/perso1/walk/perso1_walk.atlas"))
 		},
 		{
-			new Animation(1, PackFrames.getPackFrames("perso/perso2/stay/perso2_stay.atlas")),
-			new Animation(1, PackFrames.getPackFrames("perso/perso2/walk/perso2_walk.atlas"))
+			new Animation(0.2f, PackFrames.getPackFrames("perso/perso2/stay/perso2_stay.atlas")),
+			new Animation(0.1f, PackFrames.getPackFrames("perso/perso2/walk/perso2_walk.atlas"))
 		}
 	};
 
