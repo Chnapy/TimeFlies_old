@@ -6,10 +6,13 @@
 package vue.hud.timeline;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import gameplay.entite.EntiteActive;
+import vue.Couleur;
+import vue.hud.vHud;
 
 /**
  * vTimelineEntite.java
@@ -17,14 +20,16 @@ import gameplay.entite.EntiteActive;
  */
 public class vTimelineEntite extends Actor {
 
+	//Couleur de fond
+	private static final Color FOND_COULEUR = Couleur.get("fond_perso", "hud", "timeline");
+	private static final Color FOND_CONTOUR_COULEUR = Couleur.get("fond_perso_contour", "hud", "timeline");
+
 	//Tableau des textures des portraits
 	private static final Texture[] TIMELINE_PORTRAIT = {
 		new Texture(Gdx.files.internal("timeline/perso1.png")),
 		new Texture(Gdx.files.internal("timeline/perso2.png"))
 	};
 
-	//Texture du fond
-	private static final Texture TEXTURE = new Texture(Gdx.files.internal("timeline/fond_entite.png"));
 	//Position et taille d'une entité de timeline
 	private static final int TEXTURE_WIDTH = 75;
 	private static final int TEXTURE_HEIGHT = TEXTURE_WIDTH;
@@ -60,13 +65,14 @@ public class vTimelineEntite extends Actor {
 	public vTimelineEntite(EntiteActive entite, int ordreX) {
 		ordre = ordreX;
 		setScale();
-		TEXTURE.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 		indexTexture = entite.getIndexTextureTimeline();
 	}
 
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
-		batch.draw(TEXTURE, TEXTURE_X, TEXTURE_Y, TEXTURE_WIDTH * scale, TEXTURE_HEIGHT * scale);
+		batch.end();
+		vHud.drawBackground(getParent().getX() + TEXTURE_X, getParent().getY() + TEXTURE_Y, TEXTURE_WIDTH * scale, TEXTURE_HEIGHT * scale, FOND_COULEUR, FOND_CONTOUR_COULEUR);
+		batch.begin();
 		batch.draw(TIMELINE_PORTRAIT[indexTexture], TEXTURE_X + 5, TEXTURE_Y + 5, TEXTURE_WIDTH * scale - 10, TEXTURE_HEIGHT * scale - 10);
 	}
 

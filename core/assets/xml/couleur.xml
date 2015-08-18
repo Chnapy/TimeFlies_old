@@ -1,0 +1,38 @@
+<!-- Couleur sous forme RRGGBBAA -->
+<root>
+	<font>FFFFFF</font>
+	<hud>
+		<timeline>
+			<fond>33333388</fond>
+			<fond_contour>33333344</fond_contour>
+			<fond_perso>22222288</fond_perso>
+			<fond_perso_contour>222222FF</fond_perso_contour>
+		</timeline>
+		<sort>
+			<actif>
+				<fond>33333388</fond>
+				<fond_contour>33333344</fond_contour>
+				<fond_sort>22222288</fond_sort>
+				<fond_sort_contour>222222FF</fond_sort_contour>
+			</actif>
+			<passif>
+				<fond>33333388</fond>
+				<fond_contour>33333344</fond_contour>
+				<fond_sort>22222288</fond_sort>
+				<fond_sort_contour>222222FF</fond_sort_contour>
+			</passif>
+		</sort>
+		<minimap>
+			<fond>33333388</fond>
+			<fond_contour>33333344</fond_contour>
+			<case_contour>00000000</case_contour>
+		</minimap>
+		<pile_action>
+			<fond>33333388</fond>
+			<fond_contour>33333344</fond_contour>
+			<jauge>FFFFFFCC</jauge>
+			<sort>E1370D88</sort>
+			<deplacement>1AC41A88</deplacement>
+		</pile_action>
+	</hud>
+</root>

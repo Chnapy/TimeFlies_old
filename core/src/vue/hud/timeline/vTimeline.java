@@ -6,13 +6,18 @@
 package vue.hud.timeline;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
 import gameplay.entite.EntiteActive;
 import static test.MainTest.MAX_HEIGHT;
+import vue.Couleur;
+import vue.hud.vHud;
 
 /**
  * vTimeline.java
@@ -20,14 +25,17 @@ import static test.MainTest.MAX_HEIGHT;
  */
 public class vTimeline extends Group {
 
-	//Texture de fond
-	private static final Texture TEXTURE_FOND = new Texture(Gdx.files.internal("timeline/barre_timeline.png"));
+	//Couleurs de fond
+	private static final Color FOND_COULEUR = Couleur.get("fond", "hud", "timeline");
+	private static final Color FOND_CONTOUR_COULEUR = Couleur.get("fond_contour", "hud", "timeline");
 
 	//Position et taille de la timeline
 	private static final int X = 50;
 	private static final int WIDTH = 1820;
 	private static final int HEIGHT = 92;
 	private static final int Y = MAX_HEIGHT - HEIGHT - 12;
+
+	private final ShapeRenderer shapeRenderer;
 
 	//Vue du temps d'action
 	private final vTimelineTempsAction vtemps;
@@ -36,24 +44,29 @@ public class vTimeline extends Group {
 	private final Array<vTimelineEntite> listEntite;
 
 	public vTimeline(final Array<? extends EntiteActive> listEntites) {
-		TEXTURE_FOND.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 		setSize(WIDTH, HEIGHT);
 		setPosition(X, Y);
 		listEntite = new Array<vTimelineEntite>();
-		addActor(new Actor() {
-			@Override
-			public void draw(Batch batch, float parentAlpha) {
-				batch.draw(TEXTURE_FOND, 0, 0, WIDTH, HEIGHT);
-			}
-		});
+		shapeRenderer = new ShapeRenderer();
 		vtemps = new vTimelineTempsAction();
-		addActor(vtemps);
-		vTimelineEntite temp2;
+//		addActor(vtemps);	//Jauge horizontale temps action
+		vTimelineEntite temp;
 		for (int i = 0; i < listEntites.size; i++) {
-			temp2 = new vTimelineEntite(listEntites.get(i), i);
-			addActor(temp2);
-			listEntite.add(temp2);
+			temp = new vTimelineEntite(listEntites.get(i), i);
+			addActor(temp);
+			listEntite.add(temp);
 		}
+	}
+
+	@Override
+	public void draw(Batch batch, float parentAlpha) {
+		batch.end();
+
+		vHud.drawBackground(X, Y, getWidth(), getHeight(), FOND_COULEUR, FOND_CONTOUR_COULEUR);
+
+		//Batch
+		batch.begin();
+		super.draw(batch, parentAlpha);
 	}
 
 	/**

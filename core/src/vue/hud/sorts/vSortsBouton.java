@@ -5,10 +5,12 @@
  */
 package vue.hud.sorts;
 
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import vue.Couleur;
+import vue.hud.vHud;
 
 /**
  * vSortsBouton.java
@@ -16,18 +18,15 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
  */
 public abstract class vSortsBouton extends Actor {
 
-	//Texture de fond du sort
-	private static final Texture TEXTURE_FOND = new Texture(Gdx.files.internal("sort/sort_fond.png"));
-
 	//Taille de la texture
 	private static final int TEXTURE_WIDTH = 64;
 	private static final int TEXTURE_HEIGHT = 64;
 
-//	private static final Texture[] ICONES;
-	static {
-		TEXTURE_FOND.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-	}
+	//Couleur de fond
+	private static final Color FOND_COULEUR = Couleur.get("fond_sort", "hud", "sort", "actif");
+	private static final Color FOND_CONTOUR_COULEUR = Couleur.get("fond_sort_contour", "hud", "sort", "actif");
 
+//	private static final Texture[] ICONES;
 	//Texture du sort
 	private final Texture TEXTURE;
 
@@ -41,7 +40,9 @@ public abstract class vSortsBouton extends Actor {
 
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
-		batch.draw(TEXTURE_FOND, getX(), getY(), getWidth(), getHeight());
+		batch.end();
+		vHud.drawBackground(getParent().getX() + getX(), getParent().getY() + getY(), getWidth(), getHeight(), FOND_COULEUR, FOND_CONTOUR_COULEUR);
+		batch.begin();
 		batch.draw(TEXTURE, getX(), getY(), getWidth(), getHeight());
 		drawIcon(batch, parentAlpha);
 	}

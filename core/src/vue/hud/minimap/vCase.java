@@ -5,15 +5,18 @@
  */
 package vue.hud.minimap;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import controleur.cCombat;
 import gameplay.map.EtatTuile;
+import vue.Couleur;
+import vue.hud.vHud;
 
 /**
  * vCase.java
@@ -21,11 +24,7 @@ import gameplay.map.EtatTuile;
  */
 public class vCase extends Actor {
 
-	//Forme de la case
-	private static final ShapeRenderer shapeRenderer = new ShapeRenderer();
-
-	//Matrice de projection définie ?
-	private static boolean projectionMatrixSet;
+	private static final Color CONTOUR_COULEUR = Couleur.get("case_contour", "hud", "minimap");
 
 	//Position relative
 	private final int x;
@@ -94,16 +93,15 @@ public class vCase extends Actor {
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
 		batch.end();
-		if (!projectionMatrixSet) {
-			projectionMatrixSet = true;
-			shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
-		}
-		shapeRenderer.begin(ShapeType.Filled);
-		shapeRenderer.setColor(Color.WHITE);
-		shapeRenderer.rect(getX(), getY(), getWidth(), getHeight());
-		shapeRenderer.setColor(couleur);
-		shapeRenderer.rect(getX() + 1, getY() + 1, getWidth() - 2, getHeight() - 2);
-		shapeRenderer.end();
+		Gdx.gl.glEnable(GL20.GL_BLEND);
+		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+		vHud.shapeRenderer.begin(ShapeType.Filled);
+		vHud.shapeRenderer.setColor(CONTOUR_COULEUR);
+		vHud.shapeRenderer.rect(getX(), getY(), getWidth(), getHeight());
+		vHud.shapeRenderer.setColor(couleur);
+		vHud.shapeRenderer.rect(getX() + 1, getY() + 1, getWidth() - 2, getHeight() - 2);
+		vHud.shapeRenderer.end();
+		Gdx.gl.glDisable(GL20.GL_BLEND);
 		batch.begin();
 	}
 

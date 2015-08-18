@@ -6,7 +6,10 @@
 package vue.hud.minimap;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -17,6 +20,8 @@ import controleur.cCombat;
 import gameplay.map.EtatTuile;
 import gameplay.map.Tuile;
 import java.awt.Point;
+import vue.Couleur;
+import vue.hud.vHud;
 
 /**
  * vMinimap.java
@@ -24,8 +29,9 @@ import java.awt.Point;
  */
 public class vMinimap extends Table {
 
-	//Texture de fond de la minimap
-	private static final Texture BACKGROUND = new Texture(Gdx.files.internal("minimap/minimap_back.png"));
+	//Couleurs de fond
+	private static final Color FOND_COULEUR = Couleur.get("fond", "hud", "minimap");
+	private static final Color FOND_CONTOUR_COULEUR = Couleur.get("fond_contour", "hud", "minimap");
 
 	//Taille et position de la minimap
 	private static final int SIZE = 115;
@@ -34,10 +40,6 @@ public class vMinimap extends Table {
 
 	//Afficheur de forme pour les cases
 	private static final ShapeRenderer shapeRender = new ShapeRenderer();
-
-	static {
-		BACKGROUND.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-	}
 
 	//Taille d'une case
 	private final int caseWidth;
@@ -75,8 +77,18 @@ public class vMinimap extends Table {
 			}
 			row();
 		}
-		setBackground(new TextureRegionDrawable(new TextureRegion(BACKGROUND)));
 		pack();
+	}
+
+	@Override
+	protected void drawBackground(Batch batch, float parentAlpha, float x, float y) {
+		batch.end();
+		
+		vHud.drawBackground(X, Y, getWidth(), getHeight(), FOND_COULEUR, FOND_CONTOUR_COULEUR);
+
+		//Batch
+		batch.begin();
+		super.drawBackground(batch, parentAlpha, x, y); //TODO
 	}
 
 	/**

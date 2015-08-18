@@ -24,7 +24,7 @@ import gameplay.sort.zone.ZoneAction;
  */
 public class Orienter extends SortActif {
 
-	private static final int TEMPS_ACTION = 100;
+	private static final int TEMPS_ACTION = 0;
 
 	public Orienter() {
 		super("Orienter", "Oriente l'entité", new Niveau(0),

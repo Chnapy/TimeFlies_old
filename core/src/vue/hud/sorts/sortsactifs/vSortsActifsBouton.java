@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import controleur.cCombat;
 import vue.hud.sorts.vSortsBouton;
+import vue.hud.vHud;
 import static vue.hud.vHud.FONT;
 
 /**
@@ -91,14 +92,14 @@ public class vSortsActifsBouton extends vSortsBouton {
 
 	@Override
 	protected void drawIcon(Batch batch, float parentAlpha) {
-		batch.setColor(1, 1, 1, 0.5f);
-		batch.draw(ICONE_TEMPS, getX() + 8, getY() + getHeight() - ICONE_HEIGHT - 8, ICONE_WIDTH, ICONE_HEIGHT);
-		batch.draw(ICONE_RELANCE, getX() + 8, getY() + ICONE_HEIGHT - 8, ICONE_WIDTH, ICONE_HEIGHT);
-		batch.draw(ICONE_PORTEE, getX() + getWidth() - ICONE_WIDTH - 8, getY() + getHeight() - ICONE_HEIGHT - 8, ICONE_WIDTH, ICONE_HEIGHT);
-		batch.draw(ICONE_ZONE, getX() + getWidth() - ICONE_WIDTH - 8, getY() + ICONE_HEIGHT - 8, ICONE_WIDTH, ICONE_HEIGHT);
-		batch.setColor(1, 1, 1, 1);
+//		batch.setColor(1, 1, 1, 0.5f);
+//		batch.draw(ICONE_TEMPS, getX() + 8, getY() + getHeight() - ICONE_HEIGHT - 8, ICONE_WIDTH, ICONE_HEIGHT);
+//		batch.draw(ICONE_RELANCE, getX() + 8, getY() + ICONE_HEIGHT - 8, ICONE_WIDTH, ICONE_HEIGHT);
+//		batch.draw(ICONE_PORTEE, getX() + getWidth() - ICONE_WIDTH - 8, getY() + getHeight() - ICONE_HEIGHT - 8, ICONE_WIDTH, ICONE_HEIGHT);
+//		batch.draw(ICONE_ZONE, getX() + getWidth() - ICONE_WIDTH - 8, getY() + ICONE_HEIGHT - 8, ICONE_WIDTH, ICONE_HEIGHT);
+//		batch.setColor(1, 1, 1, 1);
 
-		FONT.setColor(0, 0, 0, 1);
+		FONT.setColor(vHud.FONT_COLOR);
 		FONT.draw(batch, temps, getX() + 8, getY() + getHeight() - 8);
 		FONT.draw(batch, portee, getX() + 8, getY() + ICONE_HEIGHT + 8);
 		FONT.draw(batch, zone, getX() + getWidth() - ICONE_WIDTH - 8, getY() + getHeight() - ICONE_HEIGHT + 8);

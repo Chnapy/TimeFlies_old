@@ -6,16 +6,22 @@
 package vue.hud.sorts.sortsactifs;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import controleur.cCombat;
 import gameplay.sort.SortActif;
 import static test.MainTest.MAX_WIDTH;
+import vue.Couleur;
 import vue.hud.sorts.vSortsBouton;
+import vue.hud.vHud;
 import static vue.hud.vHud.FONT;
+import static vue.hud.vHud.FONT_COLOR;
 
 /**
  * vBarreSortsActifs.java
@@ -23,8 +29,9 @@ import static vue.hud.vHud.FONT;
  */
 public class vBarreSortsActifs extends HorizontalGroup {
 
-	//Texture de fond de la barre
-	private final Texture TEXTURE = new Texture(Gdx.files.internal("sort/barre_sorts_actifs.png"));
+	//Couleurs de fond
+	private static final Color FOND_COULEUR = Couleur.get("fond", "hud", "sort", "actif");
+	private static final Color FOND_CONTOUR_COULEUR = Couleur.get("fond_contour", "hud", "sort", "actif");
 
 	//Position et taille de la barre
 	private static final int WIDTH = 800;
@@ -32,26 +39,28 @@ public class vBarreSortsActifs extends HorizontalGroup {
 	private static final int X = MAX_WIDTH - WIDTH - 152;
 	private static final int Y = 12;
 
+	private final ShapeRenderer shapeRenderer;
+
 	public vBarreSortsActifs() {
-		TEXTURE.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 		setSize(WIDTH, HEIGHT);
 		setPosition(X, Y);
-		this.addActor(new Actor() {
-			@Override
-			public void draw(Batch batch, float parentAlpha) {
-				batch.draw(TEXTURE, 0, 0, WIDTH, HEIGHT);
-			}
-		});
+		shapeRenderer = new ShapeRenderer();
 		vSortsActifsBouton.filterTexture();
+		this.padLeft(15);
 //		debugAll();
 	}
 
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
+		batch.end();
+
+		vHud.drawBackground(X, Y, getWidth(), getHeight(), FOND_COULEUR, FOND_CONTOUR_COULEUR);
+
+		//Batch
+		batch.begin();
 		super.draw(batch, parentAlpha);
-		FONT.setColor(1, 1, 1, 0.75f);
-		FONT.drawMultiLine(batch, "SORTS ACTIFS", getX() + 14, getY() + getHeight() - 10);
-		FONT.setColor(1, 1, 1, 1);
+		FONT.setColor(FONT_COLOR);
+		FONT.drawMultiLine(batch, "SORTS ACTIFS", X + 14, Y + getHeight() - 10);
 	}
 
 	/**
@@ -83,7 +92,7 @@ public class vBarreSortsActifs extends HorizontalGroup {
 	 *
 	 */
 	public void finTour() {
-		getChildren().removeRange(1, getChildren().size - 1);
+		getChildren().removeRange(0, getChildren().size - 1);
 	}
 
 }

@@ -104,7 +104,7 @@ public class MainTest extends Game {
 	@Override
 	public void resize(int width, int height) {
 		super.resize(width, height);
-		viewport.update(width, height);
+//		viewport.update(width, height);
 	}
 
 	/**

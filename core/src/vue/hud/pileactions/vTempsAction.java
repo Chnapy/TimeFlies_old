@@ -11,6 +11,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import vue.Couleur;
+import vue.hud.vHud;
 
 /**
  * vTempsAction.java
@@ -19,19 +21,17 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 public class vTempsAction extends Actor {
 
 	private static final Color[] COULEURS = {
-		new Color(Color.GREEN), //Déplacement
-		new Color(Color.RED),
+		Couleur.get("deplacement", "hud", "pile_action"), //Déplacement
+		Couleur.get("sort", "hud", "pile_action"), //Sort
 		new Color(Color.ORANGE)
 	};
 
-	private final ShapeRenderer shapeRenderer;
 	private final int index;
 
 	private final int tempsActionMax;
 	private int tempsActionActu;
 
-	public vTempsAction(ShapeRenderer shapeRender, int indexTexture, int tempsAction) {
-		shapeRenderer = shapeRender;
+	public vTempsAction(int indexTexture, int tempsAction) {
 		index = indexTexture;
 		tempsActionMax = tempsActionActu = tempsAction;
 	}
@@ -42,17 +42,10 @@ public class vTempsAction extends Actor {
 
 		Gdx.gl.glEnable(GL20.GL_BLEND);
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-		shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-		shapeRenderer.setColor(0.75f, 0.75f, 0.75f, 0.75f);
-		shapeRenderer.rect(getX(), getY(), getWidth(), getHeight());
-		shapeRenderer.setColor(COULEURS[index]);
-		shapeRenderer.getColor().a = 0.25f;
-		shapeRenderer.rect(getX() + 1, getY() + 1, getWidth() - 2, getHeight() - 2);
-		if (tempsActionActu > 0) {
-			shapeRenderer.getColor().a = 1;
-			shapeRenderer.rect(getX() + 1, getY() + 1, getWidth() - 2, (getHeight() - 2) * tempsActionActu / tempsActionMax);
-		}
-		shapeRenderer.end();
+		vHud.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+		vHud.shapeRenderer.setColor(COULEURS[index]);
+		vHud.shapeRenderer.rect(getX() + 1, getY(), getWidth() - 2, getHeight());
+		vHud.shapeRenderer.end();
 		Gdx.gl.glDisable(GL20.GL_BLEND);
 
 		batch.begin();

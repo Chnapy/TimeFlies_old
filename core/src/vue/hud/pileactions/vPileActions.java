@@ -6,6 +6,7 @@
 package vue.hud.pileactions;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -13,6 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import gameplay.entite.EntiteActive;
+import vue.Couleur;
+import vue.hud.vHud;
 
 /**
  * vPileActions.java
@@ -26,8 +29,10 @@ public class vPileActions extends Table {
 	private static int WIDTH = 100;
 	private static int HEIGHT = 200;
 	private static int LEFT_WIDTH = 50;
+	private static Color FOND_COULEUR = Couleur.get("fond", "hud", "pile_action");
+	private static Color FOND_CONTOUR_COULEUR = Couleur.get("fond_contour", "hud", "pile_action");
+	private static Color JAUGE_COULEUR = Couleur.get("jauge", "hud", "pile_action");
 
-	private final ShapeRenderer shapeRenderer;
 	private final Array<vAction> listActions;
 
 	private int tempsActionMax;
@@ -37,7 +42,6 @@ public class vPileActions extends Table {
 
 	public vPileActions() {
 //		debugAll();
-		shapeRenderer = new ShapeRenderer();
 		setPosition(X, Y);
 		setSize(WIDTH, HEIGHT);
 		listActions = new Array<>();
@@ -49,19 +53,18 @@ public class vPileActions extends Table {
 	public void draw(Batch batch, float parentAlpha) {
 		batch.end();
 
-		//Shape
-		Gdx.gl.glEnable(GL20.GL_BLEND);
-		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-		if (!shapeRenderer.getProjectionMatrix().equals(batch.getProjectionMatrix())) {
-			shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
+		vHud.drawBackground(X, Y, LEFT_WIDTH, HEIGHT, FOND_COULEUR, FOND_CONTOUR_COULEUR);
+
+		if (tempsActionMax > 0) {
+			//Shape
+			Gdx.gl.glEnable(GL20.GL_BLEND);
+			Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+			vHud.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+			vHud.shapeRenderer.setColor(JAUGE_COULEUR);
+			vHud.shapeRenderer.rect(X + 1, Y + 1, LEFT_WIDTH - 2, (HEIGHT - 2) * tempsActionActu / tempsActionMax);
+			vHud.shapeRenderer.end();
+			Gdx.gl.glDisable(GL20.GL_BLEND);
 		}
-		shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-		shapeRenderer.setColor(228 / 255f, 228 / 255f, 228 / 255f, 1f);
-		shapeRenderer.rect(X, Y, LEFT_WIDTH, HEIGHT);
-		shapeRenderer.setColor(255 / 255f, 153 / 255f, 0 / 255f, 0.50f);
-		shapeRenderer.rect(X + 1, Y + 1, LEFT_WIDTH - 2, (HEIGHT - 2) * tempsActionActu / tempsActionMax);
-		shapeRenderer.end();
-		Gdx.gl.glDisable(GL20.GL_BLEND);
 
 		//Batch
 		batch.begin();
@@ -74,7 +77,7 @@ public class vPileActions extends Table {
 			tempsActionDepense += tempsActionMax - tempsActionActu - tempsActionDepense;
 		}
 		tempsActionDepense += tempsAction;
-		vAction nouveau = new vAction(shapeRenderer, indexTexture, tempsAction);
+		vAction nouveau = new vAction(indexTexture, tempsAction);
 		listActions.add(nouveau);
 		add(nouveau.getTempsAction()).left().width(LEFT_WIDTH).height(HEIGHT * tempsAction / tempsActionMax).expandX();
 		add(nouveau.getIconeAction()).right().bottom()

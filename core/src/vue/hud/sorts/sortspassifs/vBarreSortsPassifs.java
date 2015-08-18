@@ -6,16 +6,22 @@
 package vue.hud.sorts.sortspassifs;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import controleur.cCombat;
 import gameplay.sort.SortPassif;
 import static test.MainTest.MAX_WIDTH;
+import vue.Couleur;
 import vue.hud.sorts.vSortsBouton;
+import vue.hud.vHud;
 import static vue.hud.vHud.FONT;
+import static vue.hud.vHud.FONT_COLOR;
 
 /**
  * vBarreSortsPassifs.java
@@ -23,8 +29,9 @@ import static vue.hud.vHud.FONT;
  */
 public class vBarreSortsPassifs extends VerticalGroup {
 
-	//Texture de fond de la barre
-	private final Texture TEXTURE = new Texture(Gdx.files.internal("sort/barre_sorts_passifs.png"));
+	//Couleurs de fond
+	private static final Color FOND_COULEUR = Couleur.get("fond", "hud", "sort", "passif");
+	private static final Color FOND_CONTOUR_COULEUR = Couleur.get("fond_contour", "hud", "sort", "passif");
 
 	//Position et taille de la barre
 	private static final int WIDTH = 128;
@@ -32,25 +39,26 @@ public class vBarreSortsPassifs extends VerticalGroup {
 	private static final int X = MAX_WIDTH - WIDTH - 12;
 	private static final int Y = 152;
 
+	private final ShapeRenderer shapeRenderer;
+
 	public vBarreSortsPassifs() {
-		TEXTURE.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 		setSize(WIDTH, HEIGHT);
 		setPosition(X, Y);
-		this.addActor(new Actor() {
-			@Override
-			public void draw(Batch batch, float parentAlpha) {
-				batch.draw(TEXTURE, 0, 0, WIDTH, HEIGHT);
-			}
-		});
+		shapeRenderer = new ShapeRenderer();
 //		debugAll();
 	}
 
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
+		batch.end();
+
+		vHud.drawBackground(X, Y, getWidth(), getHeight(), FOND_COULEUR, FOND_CONTOUR_COULEUR);
+
+		//Batch
+		batch.begin();
 		super.draw(batch, parentAlpha);
-		FONT.setColor(1, 1, 1, 0.75f);
+		FONT.setColor(FONT_COLOR);
 		FONT.drawMultiLine(batch, "SORTS\nPASSIFS", getX() + 14, getY() + getHeight() - 10);
-		FONT.setColor(1, 1, 1, 1);
 	}
 
 	//Ajout d'un bouton de sort
@@ -78,8 +86,8 @@ public class vBarreSortsPassifs extends VerticalGroup {
 	 *
 	 */
 	public void finTour() {
-		if (getChildren().size > 1) {
-			getChildren().removeRange(1, getChildren().size - 1);
+		if (getChildren().size > 0) {
+			getChildren().removeRange(0, getChildren().size - 1);
 		}
 	}
 
