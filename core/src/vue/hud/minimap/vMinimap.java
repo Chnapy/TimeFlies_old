@@ -83,7 +83,7 @@ public class vMinimap extends Table {
 	@Override
 	protected void drawBackground(Batch batch, float parentAlpha, float x, float y) {
 		batch.end();
-		
+
 		vHud.drawBackground(X, Y, getWidth(), getHeight(), FOND_COULEUR, FOND_CONTOUR_COULEUR);
 
 		//Batch

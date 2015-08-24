@@ -13,10 +13,10 @@ import vue.hud.sorts.sortsactifs.vBarreSortsActifs;
 import vue.hud.sorts.sortspassifs.vBarreSortsPassifs;
 
 /**
- * vSorts.java
+ * vSortsBout.java
  *
  */
-public class vSorts extends Group {
+public class vSortsBout extends Group {
 
 	//Vue des sorts actifs
 	private final vBarreSortsActifs barreSortsActifs;
@@ -24,7 +24,7 @@ public class vSorts extends Group {
 	//Vue des sorts passifs
 	private final vBarreSortsPassifs barreSortsPassifs;
 
-	public vSorts() {
+	public vSortsBout() {
 		barreSortsActifs = new vBarreSortsActifs();
 		barreSortsPassifs = new vBarreSortsPassifs();
 		addActor(barreSortsActifs);

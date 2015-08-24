@@ -23,7 +23,7 @@ import test.MainTest;
 import vue.Couleur;
 import vue.hud.minimap.vMinimap;
 import vue.hud.pileactions.vPileActions;
-import vue.hud.sorts.vSorts;
+import vue.hud.sorts.vSortsBout;
 import vue.hud.timeline.vTimeline;
 
 /**
@@ -35,16 +35,16 @@ public final class vHud extends Stage {
 	//Générateur de font
 	private static final FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/kenvector_future_thin.ttf"));
 	private static final FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-	
+
 	public static final ShapeRenderer shapeRenderer = new ShapeRenderer();
-	
+
 	static {
 		shapeRenderer.setProjectionMatrix(MainTest.camera.combined);
 	}
 
 	//Font pour l'affichage des FPS
 	public static BitmapFont FONT;
-	
+
 	//Couleur par défaut de la font
 	public static final Color FONT_COLOR = Couleur.get("font");
 
@@ -52,7 +52,7 @@ public final class vHud extends Stage {
 	private final Batch batch = new SpriteBatch();
 
 	//Vue des sorts
-	private final vSorts vsorts;
+	private final vSortsBout vsorts;
 
 	//Vue de la timeline
 	private final vTimeline vtimeline;
@@ -66,7 +66,7 @@ public final class vHud extends Stage {
 	public vHud(cCombat controleur, Tuile[][] tabTuiles, Array<? extends EntiteActive> personnages) {
 		parameter.size = 18;
 		FONT = generator.generateFont(parameter);
-		vsorts = new vSorts();
+		vsorts = new vSortsBout();
 		vtimeline = new vTimeline(personnages);
 		vminimap = new vMinimap(controleur, tabTuiles);
 		vpileactions = new vPileActions();
@@ -119,7 +119,7 @@ public final class vHud extends Stage {
 		batch.end();
 		FONT.setColor(FONT_COLOR);
 	}
-	
+
 	public static void drawBackground(float x, float y, float width, float height, Color fond_couleur, Color fond_contour_couleur) {
 
 		Gdx.gl.glEnable(GL20.GL_BLEND);
@@ -135,10 +135,10 @@ public final class vHud extends Stage {
 		shapeRenderer.rect(x - 2, y - 2, width + 4, height + 4);
 		shapeRenderer.end();
 		Gdx.gl.glDisable(GL20.GL_BLEND);
-		
+
 	}
 
-	public vSorts getVsorts() {
+	public vSortsBout getVsorts() {
 		return vsorts;
 	}
 

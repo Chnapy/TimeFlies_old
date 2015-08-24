@@ -283,6 +283,7 @@ public class cCombat implements Observer {
 					for (Tuile t : tuilesTouchees) {
 						lancerSort(entite, action.getSort(), t, action.getOriAttaque(), action.isCritique());
 					}
+					vue.getVjeu().addSort(action.getSort().getIndex(), action.getSort().getTempsAction(), entiteEnCours.getCaracSpatiale().getPosition(), action.getPoint());
 				}
 			}
 		}

@@ -10,9 +10,11 @@ import com.badlogic.gdx.utils.Array;
 import controleur.cCombat;
 import gameplay.entite.Personnage;
 import gameplay.map.Tuile;
+import java.awt.Point;
 import test.MainTest;
 import vue.jeu.entites.vEntites;
 import vue.jeu.map.vMap;
+import vue.jeu.sorts.vSorts;
 
 /**
  * vJeu.java
@@ -29,13 +31,18 @@ public class vJeu extends Stage {
 	//Vue de toutes les entites
 	private final vEntites ventites;
 
+	//Vue des sorts
+	private final vSorts vsorts;
+
 	public vJeu(final cCombat ccombat, final Tuile[][] tabTuiles, final Array<Personnage> personnages) {
 		combat = ccombat;
 		vmap = new vMap(ccombat, tabTuiles);
 		ventites = new vEntites(personnages);
+		vsorts = new vSorts();
 
 		addActor(vmap);
 		addActor(ventites);
+		addActor(vsorts);
 	}
 
 	/**
@@ -46,6 +53,10 @@ public class vJeu extends Stage {
 		act();
 		draw();
 
+	}
+
+	public void addSort(int index, int tempsAction, Point start, Point end) {
+		vsorts.addSort(index, tempsAction, start, end);
 	}
 
 	/**

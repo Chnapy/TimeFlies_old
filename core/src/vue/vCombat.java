@@ -228,4 +228,8 @@ public class vCombat implements Screen {
 		return vhud;
 	}
 
+	public vJeu getVjeu() {
+		return vjeu;
+	}
+
 }
