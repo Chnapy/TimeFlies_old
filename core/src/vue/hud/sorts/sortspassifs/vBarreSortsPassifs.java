@@ -5,19 +5,14 @@
  */
 package vue.hud.sorts.sortspassifs;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
-import com.badlogic.gdx.scenes.scene2d.utils.Align;
+import com.badlogic.gdx.utils.Align;
 import controleur.cCombat;
 import gameplay.sort.SortPassif;
 import static test.MainTest.MAX_WIDTH;
 import vue.Couleur;
+import vue.hud.Bloc;
 import vue.hud.sorts.vSortsBouton;
 import vue.hud.vHud;
 import static vue.hud.vHud.FONT;
@@ -27,7 +22,7 @@ import static vue.hud.vHud.FONT_COLOR;
  * vBarreSortsPassifs.java
  *
  */
-public class vBarreSortsPassifs extends VerticalGroup {
+public class vBarreSortsPassifs extends Bloc {
 
 	//Couleurs de fond
 	private static final Color FOND_COULEUR = Couleur.get("fond", "hud", "sort", "passif");
@@ -39,34 +34,20 @@ public class vBarreSortsPassifs extends VerticalGroup {
 	private static final int X = MAX_WIDTH - WIDTH - 12;
 	private static final int Y = 152;
 
-	private final ShapeRenderer shapeRenderer;
-
 	public vBarreSortsPassifs() {
+		super("Sorts passifs", WIDTH, HEIGHT);
 		setSize(WIDTH, HEIGHT);
 		setPosition(X, Y);
-		shapeRenderer = new ShapeRenderer();
 //		debugAll();
 	}
 
 	@Override
-	public void draw(Batch batch, float parentAlpha) {
-		batch.end();
-
-		vHud.drawBackground(X, Y, getWidth(), getHeight(), FOND_COULEUR, FOND_CONTOUR_COULEUR);
-
-		//Batch
-		batch.begin();
-		super.draw(batch, parentAlpha);
-		FONT.setColor(FONT_COLOR);
-		FONT.drawMultiLine(batch, "SORTS\nPASSIFS", getX() + 14, getY() + getHeight() - 10);
+	public void render(Batch batch, float parentAlpha) {
 	}
 
 	//Ajout d'un bouton de sort
 	public void addBouton(vSortsBouton bouton) {
-		this.addActor(bouton);
-		this.align(Align.top);
-		this.space(16);
-		this.padTop(50);
+		this.add(bouton).top().padTop(16);
 	}
 
 	/**
@@ -86,8 +67,9 @@ public class vBarreSortsPassifs extends VerticalGroup {
 	 *
 	 */
 	public void finTour() {
-		if (getChildren().size > 0) {
-			getChildren().removeRange(0, getChildren().size - 1);
+		getCells().clear();
+		while (getChildren().size > 1) {
+			getChildren().removeIndex(1);
 		}
 	}
 

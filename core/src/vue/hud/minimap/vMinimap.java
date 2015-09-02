@@ -5,29 +5,24 @@
  */
 package vue.hud.minimap;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import controleur.cCombat;
 import gameplay.map.EtatTuile;
 import gameplay.map.Tuile;
 import java.awt.Point;
 import vue.Couleur;
+import vue.hud.Bloc;
 import vue.hud.vHud;
 
 /**
  * vMinimap.java
  *
  */
-public class vMinimap extends Table {
+public class vMinimap extends Bloc {
 
 	//Couleurs de fond
 	private static final Color FOND_COULEUR = Couleur.get("fond", "hud", "minimap");
@@ -48,9 +43,9 @@ public class vMinimap extends Table {
 	private final vCase[][] tabVcases;
 
 	public vMinimap(final cCombat controleur, Tuile[][] tabTuiles) {
+		super("Minimap", SIZE, SIZE);
 		tabVcases = new vCase[tabTuiles.length][tabTuiles[0].length];
 //		debugAll();
-		setSize(SIZE, SIZE);
 		setPosition(X, Y);
 		caseWidth = SIZE / tabTuiles[0].length;
 		int x, y, t;
@@ -80,17 +75,6 @@ public class vMinimap extends Table {
 		pack();
 	}
 
-	@Override
-	protected void drawBackground(Batch batch, float parentAlpha, float x, float y) {
-		batch.end();
-
-		vHud.drawBackground(X, Y, getWidth(), getHeight(), FOND_COULEUR, FOND_CONTOUR_COULEUR);
-
-		//Batch
-		batch.begin();
-		super.drawBackground(batch, parentAlpha, x, y); //TODO
-	}
-
 	/**
 	 * Colorie les tuiles du chemin visible.
 	 *
@@ -107,29 +91,35 @@ public class vMinimap extends Table {
 	 * Nettoie toutes les tuiles d'éventuels pathfinding
 	 */
 	public void clearColorTuile() {
-		getChildren().forEach((Actor vcase) -> {
-			((vCase) vcase).tuileDuChemin(false);
-		});
+		vCase vcase;
+		for (int i = 1; i < getChildren().size; i++) {
+			vcase = (vCase) getChildren().get(i);
+			vcase.tuileDuChemin(false);
+		}
 	}
 
 	/**
 	 * Nettoie toutes les tuiles d'éventuelles actions
 	 */
 	public void clearActionTuile() {
-		getChildren().forEach((Actor vcase) -> {
-			((vCase) vcase).setAction(false);
-		});
+		vCase vcase;
+		for (int i = 1; i < getChildren().size; i++) {
+			vcase = (vCase) getChildren().get(i);
+			vcase.setAction(false);
+		}
 	}
 
 	/**
 	 * Nettoie toutes les tuiles d'éventuels actions ou pathfinding
 	 */
 	public void clearAll() {
-		getChildren().forEach((Actor vcase) -> {
-			((vCase) vcase).setEtat(EtatTuile.NORMAL);
-			((vCase) vcase).tuileDuChemin(false);
-			((vCase) vcase).setAction(false);
-		});
+		vCase vcase;
+		for (int i = 1; i < getChildren().size; i++) {
+			vcase = (vCase) getChildren().get(i);
+			vcase.setEtat(EtatTuile.NORMAL);
+			vcase.tuileDuChemin(false);
+			vcase.setAction(false);
+		}
 	}
 
 	/**
@@ -141,6 +131,10 @@ public class vMinimap extends Table {
 
 	public vCase[][] getTabVcases() {
 		return tabVcases;
+	}
+
+	@Override
+	protected void render(Batch batch, float parentAlpha) {
 	}
 
 }

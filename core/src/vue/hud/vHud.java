@@ -8,12 +8,15 @@ package vue.hud;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.TextureData;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Window.WindowStyle;
 import com.badlogic.gdx.utils.Array;
 import controleur.cCombat;
 import gameplay.entite.EntiteActive;
@@ -21,6 +24,7 @@ import gameplay.map.Tuile;
 import gameplay.sort.pileaction.Action;
 import test.MainTest;
 import vue.Couleur;
+import vue.hud.chatbox.vChatBox;
 import vue.hud.minimap.vMinimap;
 import vue.hud.pileactions.vPileActions;
 import vue.hud.sorts.vSortsBout;
@@ -32,15 +36,13 @@ import vue.hud.timeline.vTimeline;
  */
 public final class vHud extends Stage {
 
-	//Générateur de font
-	private static final FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/kenvector_future_thin.ttf"));
-	private static final FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-
 	public static final ShapeRenderer shapeRenderer = new ShapeRenderer();
 
 	static {
 		shapeRenderer.setProjectionMatrix(MainTest.camera.combined);
 	}
+
+	public static final Skin defaultSkin = new Skin(Gdx.files.internal("skin/default/uiskin.json"));
 
 	//Font pour l'affichage des FPS
 	public static BitmapFont FONT;
@@ -63,18 +65,23 @@ public final class vHud extends Stage {
 	//Vue de la pile d'actions
 	private final vPileActions vpileactions;
 
+	//Vue du chat
+	private final vChatBox vchatbox;
+
 	public vHud(cCombat controleur, Tuile[][] tabTuiles, Array<? extends EntiteActive> personnages) {
-		parameter.size = 18;
-		FONT = generator.generateFont(parameter);
+		FONT = defaultSkin.get(WindowStyle.class).titleFont;
+
 		vsorts = new vSortsBout();
 		vtimeline = new vTimeline(personnages);
 		vminimap = new vMinimap(controleur, tabTuiles);
 		vpileactions = new vPileActions();
-
+		vchatbox = new vChatBox();
+		
 		addActor(vsorts);
 		addActor(vtimeline);
 		addActor(vminimap);
 		addActor(vpileactions);
+		addActor(vchatbox);
 	}
 
 	/**
@@ -87,6 +94,7 @@ public final class vHud extends Stage {
 		vsorts.nouveauTour(ccombat, entite.getTabSortActif(), entite.getTabSortPassif());
 		vtimeline.nouveauTour();
 		vpileactions.nouveauTour(entite.getTempsAction().getActu());
+		vchatbox.nouveauTour();
 	}
 
 	/**
@@ -95,6 +103,7 @@ public final class vHud extends Stage {
 	public void finTour() {
 		vsorts.finTour();
 		vminimap.finTour();
+		vchatbox.finTour();
 	}
 
 	public void tourEnCours(EntiteActive entiteEnCours) {
@@ -115,7 +124,7 @@ public final class vHud extends Stage {
 		//Affichage FPS
 		FONT.setColor(Color.RED);
 		batch.begin();
-		FONT.draw(batch, "fps: " + String.valueOf(Math.round(1 / Gdx.graphics.getRawDeltaTime())), 10, 50);
+		FONT.draw(batch, "fps: " + String.valueOf(Math.round(1 / Gdx.graphics.getRawDeltaTime())), 500, 20);
 		batch.end();
 		FONT.setColor(FONT_COLOR);
 	}
@@ -126,13 +135,12 @@ public final class vHud extends Stage {
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 		shapeRenderer.setColor(fond_couleur);
-		shapeRenderer.rect(x, y, width, height);
+		shapeRenderer.rect(x + 2, y + 2, width - 3, height - 3);
 		shapeRenderer.end();
 		shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
 		shapeRenderer.setColor(fond_contour_couleur);
+		shapeRenderer.rect(x + 1, y + 1, width - 2, height - 2);
 		shapeRenderer.rect(x, y, width, height);
-		shapeRenderer.rect(x - 1, y - 1, width + 2, height + 2);
-		shapeRenderer.rect(x - 2, y - 2, width + 4, height + 4);
 		shapeRenderer.end();
 		Gdx.gl.glDisable(GL20.GL_BLEND);
 

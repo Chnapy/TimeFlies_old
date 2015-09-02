@@ -4,6 +4,8 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -89,7 +91,7 @@ public class MainTest extends Game {
 	 */
 	@Override
 	public void render() {
-		Gdx.gl.glClearColor(0.75f, 0.75f, 0.75f, 1);	//Fond blanc
+		Gdx.gl.glClearColor(0.75f, 0.75f, 0.75f, 1);	//Fond gris
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);	//Efface
 		super.render(); //Important ! Lance le render() du Screen
 	}

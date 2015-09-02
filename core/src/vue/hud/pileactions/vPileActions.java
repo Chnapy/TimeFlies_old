@@ -10,18 +10,19 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.Align;
+import com.badlogic.gdx.scenes.scene2d.ui.Cell;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import gameplay.entite.EntiteActive;
 import vue.Couleur;
+import vue.hud.Bloc;
 import vue.hud.vHud;
 
 /**
  * vPileActions.java
  *
  */
-public class vPileActions extends Table {
+public class vPileActions extends Bloc {
 
 	//Position et taille de la pile d'actions
 	private static int X = 20;
@@ -41,34 +42,25 @@ public class vPileActions extends Table {
 	private boolean actionEnCours;
 
 	public vPileActions() {
-//		debugAll();
+		super("Pile d'actions", WIDTH, HEIGHT);
 		setPosition(X, Y);
-		setSize(WIDTH, HEIGHT);
 		listActions = new Array<>();
 		tempsActionDepense = 0;
-		align(Align.top);
+		align(Align.topLeft);
 	}
 
 	@Override
-	public void draw(Batch batch, float parentAlpha) {
-		batch.end();
-
-		vHud.drawBackground(X, Y, LEFT_WIDTH, HEIGHT, FOND_COULEUR, FOND_CONTOUR_COULEUR);
-
+	protected void render(Batch batch, float parentAlpha) {
 		if (tempsActionMax > 0) {
 			//Shape
 			Gdx.gl.glEnable(GL20.GL_BLEND);
 			Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 			vHud.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 			vHud.shapeRenderer.setColor(JAUGE_COULEUR);
-			vHud.shapeRenderer.rect(X + 1, Y + 1, LEFT_WIDTH - 2, (HEIGHT - 2) * tempsActionActu / tempsActionMax);
+			vHud.shapeRenderer.rect(getX() + 1, getY() + 1, LEFT_WIDTH - 1, (HEIGHT - 2) * tempsActionActu / tempsActionMax);
 			vHud.shapeRenderer.end();
 			Gdx.gl.glDisable(GL20.GL_BLEND);
 		}
-
-		//Batch
-		batch.begin();
-		super.draw(batch, parentAlpha);
 	}
 
 	public void addAction(int indexTexture, int tempsAction) {
@@ -96,7 +88,10 @@ public class vPileActions extends Table {
 
 	public void nouveauTour(int tempsAction) {
 		listActions.clear();
-		clear();
+		getCells().clear();
+		while (getChildren().size > 1) {
+			getChildren().removeIndex(1);
+		}
 		tempsActionMax = tempsActionActu = tempsAction;
 		tempsActionDepense = 0;
 	}

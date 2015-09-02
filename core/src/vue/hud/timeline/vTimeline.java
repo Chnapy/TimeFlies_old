@@ -5,25 +5,21 @@
  */
 package vue.hud.timeline;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
 import gameplay.entite.EntiteActive;
 import static test.MainTest.MAX_HEIGHT;
 import vue.Couleur;
+import vue.hud.Bloc;
 import vue.hud.vHud;
 
 /**
  * vTimeline.java
  *
  */
-public class vTimeline extends Group {
+public class vTimeline extends Bloc {
 
 	//Couleurs de fond
 	private static final Color FOND_COULEUR = Couleur.get("fond", "hud", "timeline");
@@ -44,7 +40,7 @@ public class vTimeline extends Group {
 	private final Array<vTimelineEntite> listEntite;
 
 	public vTimeline(final Array<? extends EntiteActive> listEntites) {
-		setSize(WIDTH, HEIGHT);
+		super("Timeline", WIDTH, HEIGHT);
 		setPosition(X, Y);
 		listEntite = new Array<vTimelineEntite>();
 		shapeRenderer = new ShapeRenderer();
@@ -56,17 +52,6 @@ public class vTimeline extends Group {
 			addActor(temp);
 			listEntite.add(temp);
 		}
-	}
-
-	@Override
-	public void draw(Batch batch, float parentAlpha) {
-		batch.end();
-
-		vHud.drawBackground(X, Y, getWidth(), getHeight(), FOND_COULEUR, FOND_CONTOUR_COULEUR);
-
-		//Batch
-		batch.begin();
-		super.draw(batch, parentAlpha);
 	}
 
 	/**
@@ -81,6 +66,10 @@ public class vTimeline extends Group {
 
 	public void tourEnCours(EntiteActive entiteEnCours) {
 		vtemps.tourEnCours(entiteEnCours);
+	}
+
+	@Override
+	protected void render(Batch batch, float parentAlpha) {
 	}
 
 }

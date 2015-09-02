@@ -26,12 +26,8 @@ public abstract class vSortsBouton extends Actor {
 	private static final Color FOND_COULEUR = Couleur.get("fond_sort", "hud", "sort", "actif");
 	private static final Color FOND_CONTOUR_COULEUR = Couleur.get("fond_sort_contour", "hud", "sort", "actif");
 
-//	private static final Texture[] ICONES;
 	//Texture du sort
 	private final Texture TEXTURE;
-
-	//Index de la texture
-	private int index;
 
 	public vSortsBouton(Texture texture) {
 		TEXTURE = texture;

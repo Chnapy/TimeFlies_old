@@ -34,5 +34,8 @@
 			<sort>E1370D88</sort>
 			<deplacement>1AC41A88</deplacement>
 		</pile_action>
+		<chat>
+			<separateur>CCCCCCFF</separateur>
+		</chat>
 	</hud>
 </root>

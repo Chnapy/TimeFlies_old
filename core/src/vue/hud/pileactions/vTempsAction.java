@@ -39,12 +39,11 @@ public class vTempsAction extends Actor {
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
 		batch.end();
-
 		Gdx.gl.glEnable(GL20.GL_BLEND);
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		vHud.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 		vHud.shapeRenderer.setColor(COULEURS[index]);
-		vHud.shapeRenderer.rect(getX() + 1, getY(), getWidth() - 2, getHeight());
+		vHud.shapeRenderer.rect(getParent().getX() + getX() + 1, getParent().getY() + getY(), getWidth() - 2, getHeight());
 		vHud.shapeRenderer.end();
 		Gdx.gl.glDisable(GL20.GL_BLEND);
 

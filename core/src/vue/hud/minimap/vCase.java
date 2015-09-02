@@ -97,9 +97,9 @@ public class vCase extends Actor {
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		vHud.shapeRenderer.begin(ShapeType.Filled);
 		vHud.shapeRenderer.setColor(CONTOUR_COULEUR);
-		vHud.shapeRenderer.rect(getX(), getY(), getWidth(), getHeight());
+		vHud.shapeRenderer.rect(getParent().getX() + getX(), getParent().getY() + getY(), getWidth(), getHeight());
 		vHud.shapeRenderer.setColor(couleur);
-		vHud.shapeRenderer.rect(getX() + 1, getY() + 1, getWidth() - 2, getHeight() - 2);
+		vHud.shapeRenderer.rect(getParent().getX() + getX() + 1, getParent().getY() + getY() + 1, getWidth() - 2, getHeight() - 2);
 		vHud.shapeRenderer.end();
 		Gdx.gl.glDisable(GL20.GL_BLEND);
 		batch.begin();
