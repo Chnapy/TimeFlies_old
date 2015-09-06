@@ -63,13 +63,7 @@ public class vEntite extends Actor implements Observer {
 	private final int index;
 	private int etat;	//0 = stay, 1 = walk
 
-	private final BitmapFont lab;
-	private String labs;
-
 	public vEntite(final EntiteActive perso) {
-		this.lab = new BitmapFont();
-		lab.setColor(Color.BLACK);
-		labs = "-";
 		index = perso.getIndex();
 		etat = 0;
 		setSize(PERSO_WIDTH, PERSO_HEIGHT);
@@ -86,7 +80,6 @@ public class vEntite extends Actor implements Observer {
 				getX(), getY(),
 				getWidth(), getHeight()
 		);
-		lab.draw(batch, labs, getX() + 40, getY() + 220);
 	}
 
 	/**
@@ -101,7 +94,6 @@ public class vEntite extends Actor implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		Entite entite = (Entite) o;
-		labs = entite.getCaracSpatiale().getOrientation().toString();
 		if (arg instanceof Object[] && entite.getEtatNow() == EtatEntite.DEPLACEMENT) {
 			Object[] tabObjets = (Object[]) arg;
 			int dureeAnim = (int) tabObjets[1];

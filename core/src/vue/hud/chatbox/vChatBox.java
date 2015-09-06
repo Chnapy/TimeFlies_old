@@ -5,6 +5,7 @@
  */
 package vue.hud.chatbox;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -19,11 +20,16 @@ import vue.hud.Bloc;
  */
 public class vChatBox extends Bloc {
 
-	//Position et taille du chat
+	//Position et taille du chatbox
 	private static int X = 20;
 	private static int Y = 12;
 	private static int WIDTH = 500;
 	private static int HEIGHT = 300;
+	
+	//Positions et taille des chats
+	private static int HEIGHT_SEPARATEUR = 10;
+	private static int HEIGHT_COMBAT = HEIGHT / 3 * 2 - HEIGHT_SEPARATEUR - 2;
+	private static int HEIGHT_GENERAL = HEIGHT / 3;
 
 	private final vChatCombat vchatCombat;
 	private final vSeparateur vseparateur;
@@ -31,15 +37,15 @@ public class vChatBox extends Bloc {
 
 	private final VerticalGroup vgroup;
 
-	private boolean onResize;
+	private boolean hasRender;
 
 	public vChatBox() {
 		super("Chat", WIDTH, HEIGHT);
 		setPosition(X, Y);
 
-		vchatCombat = new vChatCombat(WIDTH, HEIGHT / 3 * 2 - 12);
-		vseparateur = new vSeparateur(WIDTH, 10);
-		vchatGeneral = new vChatGeneral(WIDTH, HEIGHT / 3);
+		vchatCombat = new vChatCombat(WIDTH, HEIGHT_COMBAT);
+		vseparateur = new vSeparateur(WIDTH, HEIGHT_SEPARATEUR);
+		vchatGeneral = new vChatGeneral(WIDTH, HEIGHT_GENERAL);
 
 		vgroup = new VerticalGroup();
 
@@ -49,8 +55,10 @@ public class vChatBox extends Bloc {
 		vgroup.pad(0);
 		vgroup.space(0);
 		vgroup.addActor(vchatCombat);
+		vgroup.addActor(vchatCombat.getTextfield());
 		vgroup.addActor(vseparateur);
 		vgroup.addActor(vchatGeneral);
+		vgroup.addActor(vchatGeneral.getTextfield());
 
 		vseparateur.addListener(new DragListener() {
 			@Override
@@ -67,7 +75,6 @@ public class vChatBox extends Bloc {
 				vchatCombat.setY(vchatCombat.getInitY() + y);
 				vchatCombat.setHeight(vchatCombat.getInitHeight() - y);
 				vchatGeneral.setHeight(vchatGeneral.getInitHeight() + y);
-//				vseparateur.setY(vchatCombat.getInitY() + y);
 			}
 
 			@Override
@@ -86,15 +93,19 @@ public class vChatBox extends Bloc {
 
 	@Override
 	protected void render(Batch batch, float parentAlpha) {
-
+		if(!hasRender) {
+			hasRender = true;
+			vchatCombat.actuHeight();
+			vchatGeneral.actuHeight();
+		}
 	}
 
 	public void nouveauTour() {
-
+		vchatCombat.addText("Nouveau tour !");
 	}
 
 	public void finTour() {
-
+		vchatCombat.addText("Fin du tour !");
 	}
 
 }
