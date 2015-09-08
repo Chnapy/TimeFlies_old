@@ -108,15 +108,18 @@ public abstract class EntiteActive extends Entite {
 	@Override
 	public void jouerTour(long time) {
 		if (!actionIsRunning() && pileAction.pile.size > 0) {
-//			System.out.println(pileAction.pile.get(0));
 			if (pileAction.pile.get(0).getEtat() == Action.EtatAction.DEPLACEMENT) {
 				etatNow = EtatEntite.DEPLACEMENT;
+//				pileAction.pile.forEach((Action a) -> {
+//					System.out.println(a.getPoint());
+//				});
+//				System.out.println();
 			} else {
 				etatNow = EtatEntite.SORT;
 			}
 			tempsFinSort = pileAction.pile.get(0).getSort().getTempsAction() + time;
 			setChanged();
-			notifyObservers(pileAction.getFirst());
+			notifyObservers(pileAction.removeFirst());
 		}
 		if (tempsFinSort != -1 && tempsFinSort <= time) {
 			tempsFinSort = -1;
@@ -201,7 +204,6 @@ public abstract class EntiteActive extends Entite {
 	 */
 	public void finTour() {
 		pileAction.pile.clear();
-		System.out.println("FIN Tour actif : " + nom);
 		for (Envoutement envout : listEnvoutements) {
 			envout.actionFinTour();
 		}

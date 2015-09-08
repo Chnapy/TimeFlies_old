@@ -33,13 +33,14 @@ public class vJeu extends Stage {
 
 	//Vue des sorts
 	private final vSorts vsorts;
+	Personnage p;//asupp
 
 	public vJeu(final cCombat ccombat, final Tuile[][] tabTuiles, final Array<Personnage> personnages) {
 		combat = ccombat;
 		vmap = new vMap(ccombat, tabTuiles);
 		ventites = new vEntites(personnages);
 		vsorts = new vSorts();
-
+		p = personnages.first();//asupp
 		addActor(vmap);
 		addActor(ventites);
 		addActor(vsorts);
@@ -52,7 +53,7 @@ public class vJeu extends Stage {
 		setViewport(MainTest.viewport);
 		act();
 		draw();
-
+//		System.out.println(p.getCaracSpatiale().getPosition());//asupp
 	}
 
 	public void addSort(int index, int tempsAction, Point start, Point end) {

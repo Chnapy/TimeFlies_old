@@ -6,10 +6,8 @@
 package vue.jeu.entites;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.run;
@@ -54,10 +52,6 @@ public class vEntite extends Actor implements Observer {
 	static {
 	}
 
-	//Position de l'entité relative
-	private int posX;
-	private int posY;
-
 	//Pour l'animation
 	private float stateTime;
 	private final int index;
@@ -67,8 +61,8 @@ public class vEntite extends Actor implements Observer {
 		index = perso.getIndex();
 		etat = 0;
 		setSize(PERSO_WIDTH, PERSO_HEIGHT);
-		setPosition(perso.getCaracSpatiale().getPosition().x,
-				perso.getCaracSpatiale().getPosition().y, true);
+		setPos(perso.getCaracSpatiale().getPosition().x,
+				perso.getCaracSpatiale().getPosition().y);
 
 		debug();
 	}
@@ -99,8 +93,7 @@ public class vEntite extends Actor implements Observer {
 			int dureeAnim = (int) tabObjets[1];
 			if (tabObjets[0] instanceof Point) {
 				Point point = (Point) tabObjets[0];
-				setPosition(((Entite) o).getCaracSpatiale().getPosition().x,
-						((Entite) o).getCaracSpatiale().getPosition().y, false);
+//				System.out.println(point.x + " " + point.y);
 				etat = 1;
 				MoveToAction[] tabMoveTo = new MoveToAction[1];
 				float[] position;
@@ -113,7 +106,7 @@ public class vEntite extends Actor implements Observer {
 					etat = 0;
 				})));
 			} else if (tabObjets[0] instanceof Orientation) {
-				//Rotation
+				//TODO Rotation
 			}
 		}
 	}
@@ -126,14 +119,10 @@ public class vEntite extends Actor implements Observer {
 	 * @param y
 	 * @param set_xy
 	 */
-	private void setPosition(int x, int y, boolean set_xy) {
-		posX = x;
-		posY = y;
-		if (set_xy) {
-			float[] position = vTuile.getPosition(x, y);
-			setX(position[0] + PERSO_WIDTH / 2);
-			setY(position[1] + TUILE_HEIGHT / 2);
-		}
+	private void setPos(int x, int y) {
+		float[] position = vTuile.getPosition(x, y);
+		setX(position[0] + PERSO_WIDTH / 2);
+		setY(position[1] + TUILE_HEIGHT / 2);
 	}
 
 }

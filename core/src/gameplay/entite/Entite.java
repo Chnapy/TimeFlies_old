@@ -98,7 +98,7 @@ public abstract class Entite extends Observable {
 	}
 
 	/**
-	 * Change la position, notifie la vue
+	 * Change la position
 	 *
 	 * @param pt
 	 */
@@ -110,7 +110,9 @@ public abstract class Entite extends Observable {
 	}
 
 	public void move(int x, int y) {
+//		System.out.println("move " + x + " " + y);
 		caracSpatiale.move(x, y);
+//		System.out.println(caracSpatiale.getPosition());
 	}
 
 	public void notifierObserveurs(Object[] envois) {

@@ -60,7 +60,7 @@ public class Deplacement extends Placement {
 
 	@Override
 	public void lancerTuile(Tuile cible, Entite lanceur, Orientation oriLanceur, boolean ccritique) {
-		System.out.println(lanceur.getCaracSpatiale().getPosition());
+//		System.out.println(lanceur.getCaracSpatiale().getPosition());
 		switch (oriLanceur) {
 			case E:
 				lanceur.move(nombre, 0);

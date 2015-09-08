@@ -202,8 +202,6 @@ public class Timeline extends Observable implements Runnable {
 		long palier = debutTour;
 		long time = TimeUtils.millis();
 
-		System.out.println("DEBUT Tour actif pendant " + entActive.getCaracPhysique().getCaracteristique(Carac.TEMPSACTION).getActu() + "ms : " + entActive.getNom());
-
 		while (time < debutTour + tempsAction || entActive.isEnDeplacement()) {
 			time = TimeUtils.millis();
 			if (time >= palier + 10) {

@@ -8,8 +8,6 @@ package vue.hud;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.TextureData;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -76,7 +74,7 @@ public final class vHud extends Stage {
 		vminimap = new vMinimap(controleur, tabTuiles);
 		vpileactions = new vPileActions();
 		vchatbox = new vChatBox();
-		
+
 		addActor(vsorts);
 		addActor(vtimeline);
 		addActor(vminimap);
@@ -156,6 +154,10 @@ public final class vHud extends Stage {
 
 	public vMinimap getVminimap() {
 		return vminimap;
+	}
+
+	public vChatBox getVchatbox() {
+		return vchatbox;
 	}
 
 }

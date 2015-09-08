@@ -35,7 +35,10 @@
 			<deplacement>1AC41A88</deplacement>
 		</pile_action>
 		<chat>
-			<separateur>CCCCCCFF</separateur>
+			<important>FF8800FF</important>
+			<mp>AADDFFFF</mp>
+			<general>FFFFDDFF</general>
+			<combat>AAFFAAFF</combat>
 		</chat>
 	</hud>
 </root>

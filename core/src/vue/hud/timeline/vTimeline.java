@@ -13,7 +13,6 @@ import gameplay.entite.EntiteActive;
 import static test.MainTest.MAX_HEIGHT;
 import vue.Couleur;
 import vue.hud.Bloc;
-import vue.hud.vHud;
 
 /**
  * vTimeline.java
@@ -33,9 +32,6 @@ public class vTimeline extends Bloc {
 
 	private final ShapeRenderer shapeRenderer;
 
-	//Vue du temps d'action
-	private final vTimelineTempsAction vtemps;
-
 	//Vue des entités sur la timeline
 	private final Array<vTimelineEntite> listEntite;
 
@@ -44,8 +40,6 @@ public class vTimeline extends Bloc {
 		setPosition(X, Y);
 		listEntite = new Array<vTimelineEntite>();
 		shapeRenderer = new ShapeRenderer();
-		vtemps = new vTimelineTempsAction();
-//		addActor(vtemps);	//Jauge horizontale temps action
 		vTimelineEntite temp;
 		for (int i = 0; i < listEntites.size; i++) {
 			temp = new vTimelineEntite(listEntites.get(i), i);
@@ -61,11 +55,9 @@ public class vTimeline extends Bloc {
 		listEntite.forEach((entite) -> {
 			entite.nouveauTour(listEntite.size - 1);
 		});
-		vtemps.setScale(1);
 	}
 
 	public void tourEnCours(EntiteActive entiteEnCours) {
-		vtemps.tourEnCours(entiteEnCours);
 	}
 
 	@Override

@@ -4,8 +4,6 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -39,12 +37,16 @@ public class MainTest extends Game {
 	public static final OrthographicCamera camera = new OrthographicCamera();
 	public static final Viewport viewport = new FitViewport(MAX_WIDTH, MAX_HEIGHT, camera);
 
+	private static boolean loading;
+
 	/**
 	 * Au lancement de l'application.
 	 *
 	 */
 	@Override
 	public void create() {
+		loading = true;
+
 		camera.setToOrtho(false, MAX_WIDTH, MAX_HEIGHT);
 		Map map = new Map(new Type[][]{
 			{Type.SIMPLE, Type.SIMPLE, Type.OBSTACLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE},
@@ -60,7 +62,7 @@ public class MainTest extends Game {
 		Personnage[] persosJ1 = {
 			new Guerrier(
 			"bite", 1, 2, Orientation.E,
-			new CaracteristiquePhysique(100, 100, 10000, 10000, 100, 100, 100, 100, 100, 100),
+			new CaracteristiquePhysique(100, 100, 20000, 20000, 100, 100, 100, 100, 100, 100),
 			new SortPassif[]{},
 			new SortActif[]{
 				new SortQuiFaitMal(new Effet[]{new Effet(declencheur)})
@@ -69,7 +71,7 @@ public class MainTest extends Game {
 		Personnage[] persosJ2 = {
 			new Guerrier2(
 			"bite", 0, 0, Orientation.E,
-			new CaracteristiquePhysique(100, 100, 10000, 10000, 100, 100, 100, 100, 100, 100),
+			new CaracteristiquePhysique(100, 100, 20000, 20000, 100, 100, 100, 100, 100, 100),
 			new SortPassif[]{},
 			new SortActif[]{
 				new SortQuiFaitMal(new Effet[]{new Effet(declencheur)})
@@ -83,6 +85,8 @@ public class MainTest extends Game {
 		cCombat contCombat = new cCombat(map, joueurs);
 		this.setScreen(contCombat.getVue());
 		contCombat.lancer();
+
+		loading = false;
 	}
 
 	/**
@@ -124,5 +128,9 @@ public class MainTest extends Game {
 	 */
 	@Override
 	public void dispose() {
+	}
+
+	public static boolean isLoading() {
+		return loading;
 	}
 }

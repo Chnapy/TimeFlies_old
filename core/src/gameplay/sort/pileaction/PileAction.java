@@ -13,7 +13,7 @@ public class PileAction {
 	/**
 	 * la pile qui vas contenir toutes les actions
 	 */
-	public Array<Action> pile;
+	public final Array<Action> pile;
 
 	public PileAction() {
 		pile = new Array<Action>();
@@ -33,7 +33,7 @@ public class PileAction {
 	 *
 	 * @return le premier de la pile ou null si la pile est vide
 	 */
-	public Action getFirst() {
+	public Action removeFirst() {
 		if (pile.size > 0) {
 			return pile.removeIndex(0);
 		}

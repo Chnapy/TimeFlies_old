@@ -14,8 +14,6 @@ public class DesktopLauncher {
 	private static final int WINDOW_HEIGHT = FULLSCREEN ? dm.height : dm.height * 4/5;
 
 	public static void main(String[] arg) {
-		System.out.println(WINDOW_WIDTH);
-		System.out.println(WINDOW_HEIGHT);
 		LwjglApplication application = new LwjglApplication(new MainTest(), getConfig(
 				"TimeFlies",
 				FULLSCREEN

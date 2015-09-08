@@ -55,15 +55,15 @@ public abstract class SortActif extends Sort {
 	 * lance le sort sur la victime check ses passif et
 	 * renvoi les effets des passifs au lanceur si effectif
 	 *
-	 * @param cible
-	 * @param cible2
+	 * @param cibleEntite
+	 * @param cibleTuile
 	 * @param lanceur
 	 * @param oriAttaque
 	 * @param critique
 	 */
-	public void lancerSort(Entite cible, Tuile cible2, EntiteActive lanceur, Orientation oriAttaque, boolean critique) {
-		cible.recoitSort(getTabEffets(), lanceur, oriAttaque, critique);
-		cible2.recoitSort(getTabEffets(), lanceur, oriAttaque, critique);
+	public void lancerSort(Entite cibleEntite, Tuile cibleTuile, EntiteActive lanceur, Orientation oriAttaque, boolean critique) {
+		cibleEntite.recoitSort(getTabEffets(), lanceur, oriAttaque, critique);
+		cibleTuile.recoitSort(getTabEffets(), lanceur, oriAttaque, critique);
 	}
 
 	public int getTempsAction() {
