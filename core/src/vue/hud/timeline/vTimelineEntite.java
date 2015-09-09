@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import gameplay.entite.EntiteActive;
 import vue.Couleur;
+import vue.hud.bulle.BulleListener;
 import vue.hud.vHud;
 
 /**
@@ -64,16 +65,24 @@ public class vTimelineEntite extends Actor {
 	 */
 	public vTimelineEntite(EntiteActive entite, int ordreX) {
 		ordre = ordreX;
+		setY(TEXTURE_Y);
 		setScale();
 		indexTexture = entite.getIndexTextureTimeline();
+		addListener(new BulleListener(this) {
+
+			@Override
+			public String getBulleContent() {
+				return "TODO";
+			}
+		});
 	}
 
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
 		batch.end();
-		vHud.drawBackground(getParent().getX() + TEXTURE_X, getParent().getY() + TEXTURE_Y, TEXTURE_WIDTH * scale, TEXTURE_HEIGHT * scale, FOND_COULEUR, FOND_CONTOUR_COULEUR);
+		vHud.drawBackground(getParent().getX() + getX(), getParent().getY() + getY(), getWidth(), getHeight(), FOND_COULEUR, FOND_CONTOUR_COULEUR);
 		batch.begin();
-		batch.draw(TIMELINE_PORTRAIT[indexTexture], TEXTURE_X + 5, TEXTURE_Y + 5, TEXTURE_WIDTH * scale - 10, TEXTURE_HEIGHT * scale - 10);
+		batch.draw(TIMELINE_PORTRAIT[indexTexture], getX() + 5, getY() + 5, getWidth() - 10, getHeight() - 10);
 	}
 
 	/**
@@ -92,6 +101,8 @@ public class vTimelineEntite extends Actor {
 	private void setScale() {
 		scale = (ordre == 0) ? 1.20f : 1f;
 		TEXTURE_X = ordre * (TEXTURE_WIDTH + TEXTURE_X_ECART) + TEXTURE_X_ECART;
+		setX(TEXTURE_X);
+		setSize(TEXTURE_WIDTH * scale, TEXTURE_HEIGHT * scale);
 	}
 
 }

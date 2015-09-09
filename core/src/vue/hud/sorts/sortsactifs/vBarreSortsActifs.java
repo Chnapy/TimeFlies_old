@@ -14,6 +14,7 @@ import gameplay.sort.SortActif;
 import static test.MainTest.MAX_WIDTH;
 import vue.Couleur;
 import vue.hud.Bloc;
+import vue.hud.bulle.BulleListener;
 import vue.hud.sorts.vSortsBouton;
 
 /**
@@ -37,6 +38,13 @@ public class vBarreSortsActifs extends Bloc {
 		setPosition(X, Y);
 		vSortsActifsBouton.filterTexture();
 		this.align(Align.left);
+		addListener(new BulleListener(this) {
+
+			@Override
+			public String getBulleContent() {
+				return "Cette barre liste les sorts actifs utilisables par l'entite active.";
+			}
+		});
 	}
 
 	/**
@@ -56,7 +64,7 @@ public class vBarreSortsActifs extends Bloc {
 	 */
 	public void nouveauTour(cCombat ccombat, SortActif[] sactifs) {
 		for (SortActif sort : sactifs) {
-			addBouton(new vSortsActifsBouton(ccombat, sort.getIndex(), 5, 10, 8, 2));
+			addBouton(new vSortsActifsBouton(ccombat, sort.getIndex(), 5, 10, 8, 2, sort.getDescription()));
 		}
 	}
 

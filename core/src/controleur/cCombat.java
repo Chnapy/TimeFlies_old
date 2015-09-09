@@ -211,7 +211,6 @@ public class cCombat implements Observer {
 		for (int i = 0; i < path.size; i++) {
 			precOriAttaque = oriAttaque;
 			if (i == 0) {
-				System.err.println("ERREUR");
 				oriAttaque = getOrientation(entiteEnCours.isEnDeplacement() ? lastPosFixe : entiteEnCours.getCaracSpatiale().getPosition(), path.get(i));
 			} else {
 				oriAttaque = getOrientation(path.get(i - 1), path.get(i));

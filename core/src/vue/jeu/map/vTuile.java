@@ -20,6 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import controleur.cCombat;
 import gameplay.map.EtatTuile;
 import static gameplay.map.EtatTuile.NORMAL;
+import vue.hud.bulle.BulleListener;
 
 /**
  * vTuile.java
@@ -153,6 +154,13 @@ public class vTuile extends Actor {
 			}
 		});
 		setCouleur();
+		addListener(new BulleListener(this) {
+
+			@Override
+			public String getBulleContent() {
+				return "Cette tuile est de type n°" + iSprite;
+			}
+		});
 	}
 
 	@Override

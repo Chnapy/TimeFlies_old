@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.run;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
+import gameplay.caracteristique.Carac;
 import gameplay.caracteristique.Orientation;
 import gameplay.entite.Entite;
 import gameplay.entite.EntiteActive;
@@ -20,6 +21,7 @@ import java.awt.Point;
 import java.util.Observable;
 import java.util.Observer;
 import vue.PackFrames;
+import vue.hud.bulle.BulleListener;
 import vue.jeu.map.vTuile;
 import static vue.jeu.map.vTuile.TUILE_HEIGHT;
 
@@ -64,6 +66,13 @@ public class vEntite extends Actor implements Observer {
 		setPos(perso.getCaracSpatiale().getPosition().x,
 				perso.getCaracSpatiale().getPosition().y);
 
+		addListener(new BulleListener(this) {
+
+			@Override
+			public String getBulleContent() {
+				return perso.getNom() + " possede " + perso.getCaracPhysique().getCaracteristique(Carac.VITALITE).getActu() + " pdv.";
+			}
+		});
 		debug();
 	}
 

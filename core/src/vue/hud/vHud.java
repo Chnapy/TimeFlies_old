@@ -22,6 +22,8 @@ import gameplay.map.Tuile;
 import gameplay.sort.pileaction.Action;
 import test.MainTest;
 import vue.Couleur;
+import vue.hud.bulle.Bulle;
+import vue.hud.bulle.BulleListener;
 import vue.hud.chatbox.vChatBox;
 import vue.hud.minimap.vMinimap;
 import vue.hud.pileactions.vPileActions;
@@ -66,6 +68,9 @@ public final class vHud extends Stage {
 	//Vue du chat
 	private final vChatBox vchatbox;
 
+	//Bulle
+	public static final Bulle bulle = new Bulle();
+
 	public vHud(cCombat controleur, Tuile[][] tabTuiles, Array<? extends EntiteActive> personnages) {
 		FONT = defaultSkin.get(WindowStyle.class).titleFont;
 
@@ -80,6 +85,7 @@ public final class vHud extends Stage {
 		addActor(vminimap);
 		addActor(vpileactions);
 		addActor(vchatbox);
+		addActor(bulle);
 	}
 
 	/**

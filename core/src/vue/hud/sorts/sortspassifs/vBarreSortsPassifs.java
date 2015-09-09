@@ -7,16 +7,13 @@ package vue.hud.sorts.sortspassifs;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.utils.Align;
 import controleur.cCombat;
 import gameplay.sort.SortPassif;
 import static test.MainTest.MAX_WIDTH;
 import vue.Couleur;
 import vue.hud.Bloc;
+import vue.hud.bulle.BulleListener;
 import vue.hud.sorts.vSortsBouton;
-import vue.hud.vHud;
-import static vue.hud.vHud.FONT;
-import static vue.hud.vHud.FONT_COLOR;
 
 /**
  * vBarreSortsPassifs.java
@@ -38,6 +35,13 @@ public class vBarreSortsPassifs extends Bloc {
 		super("Sorts passifs", WIDTH, HEIGHT);
 		setSize(WIDTH, HEIGHT);
 		setPosition(X, Y);
+		addListener(new BulleListener(this) {
+
+			@Override
+			public String getBulleContent() {
+				return "Cette barre liste les sorts passifs de l'entite active.";
+			}
+		});
 //		debugAll();
 	}
 

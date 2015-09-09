@@ -8,7 +8,6 @@ package vue.hud.minimap;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import controleur.cCombat;
 import gameplay.map.EtatTuile;
@@ -16,7 +15,7 @@ import gameplay.map.Tuile;
 import java.awt.Point;
 import vue.Couleur;
 import vue.hud.Bloc;
-import vue.hud.vHud;
+import vue.hud.bulle.BulleListener;
 
 /**
  * vMinimap.java
@@ -73,6 +72,13 @@ public class vMinimap extends Bloc {
 			row();
 		}
 		pack();
+		addListener(new BulleListener(this) {
+
+			@Override
+			public String getBulleContent() {
+				return "La minimap permet d'avoir une vue d'ensemble de la map.\nVous pouvez interagir avec celle-ci.";
+			}
+		});
 	}
 
 	/**

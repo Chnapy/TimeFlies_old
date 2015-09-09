@@ -8,6 +8,7 @@ package vue.hud.sorts.sortspassifs;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import vue.hud.bulle.BulleListener;
 import vue.hud.sorts.vSortsBouton;
 
 /**

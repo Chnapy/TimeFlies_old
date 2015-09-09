@@ -10,12 +10,12 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import gameplay.entite.EntiteActive;
 import vue.Couleur;
 import vue.hud.Bloc;
+import vue.hud.bulle.BulleListener;
 import vue.hud.vHud;
 
 /**
@@ -47,6 +47,13 @@ public class vPileActions extends Bloc {
 		listActions = new Array<>();
 		tempsActionDepense = 0;
 		align(Align.topLeft);
+		addListener(new BulleListener(this) {
+
+			@Override
+			public String getBulleContent() {
+				return "La pile d'actions affiche en temps reel votre temps d'action et les differentes actions que vous effectuez.";
+			}
+		});
 	}
 
 	@Override

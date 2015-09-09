@@ -13,6 +13,7 @@ import gameplay.entite.EntiteActive;
 import static test.MainTest.MAX_HEIGHT;
 import vue.Couleur;
 import vue.hud.Bloc;
+import vue.hud.bulle.BulleListener;
 
 /**
  * vTimeline.java
@@ -46,6 +47,13 @@ public class vTimeline extends Bloc {
 			addActor(temp);
 			listEntite.add(temp);
 		}
+		addListener(new BulleListener(this) {
+
+			@Override
+			public String getBulleContent() {
+				return "La timeline liste les entite de la partie dans l'ordre.\nElle montre aussi leurs caracteristiques.";
+			}
+		});
 	}
 
 	/**

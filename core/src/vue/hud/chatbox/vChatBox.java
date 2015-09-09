@@ -6,11 +6,9 @@
 package vue.hud.chatbox;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.SplitPane;
-import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
-import com.badlogic.gdx.utils.Align;
 import vue.hud.Bloc;
+import vue.hud.bulle.BulleListener;
 import vue.hud.chatbox.chattext.vChatText;
 import static vue.hud.vHud.defaultSkin;
 
@@ -36,7 +34,7 @@ public class vChatBox extends Bloc {
 	private final SplitPane splitpane;
 
 	public vChatBox() {
-		super("Chat", WIDTH, HEIGHT);
+		super("ChatBox", WIDTH, HEIGHT);
 		setPosition(X, Y);
 
 		vchatCombat = new vChatCombat(WIDTH, HEIGHT_COMBAT);
@@ -47,6 +45,16 @@ public class vChatBox extends Bloc {
 		defaults().fill();
 		add(splitpane).expand().row();
 		add(vchatGeneral.getTextfield());
+
+		addListener(new BulleListener(this) {
+
+			@Override
+			public String getBulleContent() {
+				return "La chatbox est separee en deux : le chat combat, et le chat general.\n"
+						+ "Le premier est entierement dedie aux combats.\n"
+						+ "Le second est dedie aux discussions entre joueurs.";
+			}
+		});
 
 //		debugAll();
 	}
