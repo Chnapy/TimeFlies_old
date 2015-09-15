@@ -6,10 +6,10 @@
 package test;
 
 import gameplay.caracteristique.CaracteristiquePhysique;
-import gameplay.caracteristique.Orientation;
 import gameplay.entite.Personnage;
 import gameplay.sort.SortActif;
 import gameplay.sort.SortPassif;
+import general.Orientation;
 
 /**
  * Guerrier.java

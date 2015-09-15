@@ -6,24 +6,26 @@
 package vue.jeu.entites;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.run;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import gameplay.caracteristique.Carac;
-import gameplay.caracteristique.Orientation;
 import gameplay.entite.Entite;
 import gameplay.entite.EntiteActive;
-import gameplay.entite.EtatEntite;
+import general.EtatGraphique;
+import static general.EtatGraphique.STAY;
+import static general.EtatGraphique.WALK;
+import general.Mode;
+import general.Orientation;
 import java.awt.Point;
 import java.util.Observable;
 import java.util.Observer;
-import vue.PackFrames;
 import vue.hud.bulle.BulleListener;
 import vue.jeu.map.vTuile;
 import static vue.jeu.map.vTuile.TUILE_HEIGHT;
+import static vue.jeu.map.vTuile.TUILE_WIDTH;
 
 /**
  * vEntite.java
@@ -40,28 +42,19 @@ public class vEntite extends Actor implements Observer {
 	/**
 	 *
 	 */
-	private static final Animation[][] tabAnimations = {
-		{
-			new Animation(0.2f, PackFrames.getPackFrames("perso/perso1/stay/perso1_stay.atlas")),
-			new Animation(0.1f, PackFrames.getPackFrames("perso/perso1/walk/perso1_walk.atlas"))
-		},
-		{
-			new Animation(0.2f, PackFrames.getPackFrames("perso/perso2/stay/perso2_stay.atlas")),
-			new Animation(0.1f, PackFrames.getPackFrames("perso/perso2/walk/perso2_walk.atlas"))
-		}
+	private static final AnimationManager[] tabManager = {
+		new AnimationManager("perso1", 0.8f, 0.5f),
+		new AnimationManager("perso2", 0.8f, 0.5f)
 	};
 
-	static {
-	}
-
-	//Pour l'animation
-	private float stateTime;
 	private final int index;
-	private int etat;	//0 = stay, 1 = walk
+	private EtatGraphique etat;
+	private Orientation orientation;
 
 	public vEntite(final EntiteActive perso) {
 		index = perso.getIndex();
-		etat = 0;
+		etat = STAY;
+		orientation = perso.getCaracSpatiale().getOrientation();
 		setSize(PERSO_WIDTH, PERSO_HEIGHT);
 		setPos(perso.getCaracSpatiale().getPosition().x,
 				perso.getCaracSpatiale().getPosition().y);
@@ -73,16 +66,12 @@ public class vEntite extends Actor implements Observer {
 				return perso.getNom() + " possede " + perso.getCaracPhysique().getCaracteristique(Carac.VITALITE).getActu() + " pdv.";
 			}
 		});
-		debug();
+//		debug();
 	}
 
 	@Override
 	public void draw(Batch batch, float delta) {
-		stateTime += Gdx.graphics.getDeltaTime();
-		batch.draw(tabAnimations[index][etat].getKeyFrame(stateTime, true),
-				getX(), getY(),
-				getWidth(), getHeight()
-		);
+		batch.draw(tabManager[index].getFrame(etat, orientation, Gdx.graphics.getDeltaTime()), getX(), getY());
 	}
 
 	/**
@@ -97,22 +86,24 @@ public class vEntite extends Actor implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		Entite entite = (Entite) o;
-		if (arg instanceof Object[] && entite.getEtatNow() == EtatEntite.DEPLACEMENT) {
+		orientation = entite.getCaracSpatiale().getOrientation();
+//		System.out.println(orientation);
+		if (arg instanceof Object[] && entite.getEtatNow() == Mode.DEPLACEMENT) {
 			Object[] tabObjets = (Object[]) arg;
 			int dureeAnim = (int) tabObjets[1];
 			if (tabObjets[0] instanceof Point) {
+				etat = WALK;
 				Point point = (Point) tabObjets[0];
 //				System.out.println(point.x + " " + point.y);
-				etat = 1;
 				MoveToAction[] tabMoveTo = new MoveToAction[1];
 				float[] position;
 				for (int i = 0; i < 1; i++) {
 					position = vTuile.getPosition(point.x, point.y);
-					tabMoveTo[i] = Actions.moveTo(position[0] + PERSO_WIDTH / 2, position[1] + TUILE_HEIGHT / 2, (float) dureeAnim / 1000);
+					tabMoveTo[i] = Actions.moveTo(position[0] + (TUILE_WIDTH - PERSO_WIDTH) / 2, position[1] + TUILE_HEIGHT / 4, (float) dureeAnim / 1000);
 				}
 				this.addAction(Actions.sequence(Actions.sequence(tabMoveTo), run(() -> {
 					((EntiteActive) o).setEnDeplacement(false);
-					etat = 0;
+					etat = STAY;
 				})));
 			} else if (tabObjets[0] instanceof Orientation) {
 				//TODO Rotation
@@ -130,8 +121,8 @@ public class vEntite extends Actor implements Observer {
 	 */
 	private void setPos(int x, int y) {
 		float[] position = vTuile.getPosition(x, y);
-		setX(position[0] + PERSO_WIDTH / 2);
-		setY(position[1] + TUILE_HEIGHT / 2);
+		setX(position[0] + (TUILE_WIDTH - PERSO_WIDTH) / 2);
+		setY(position[1] + TUILE_HEIGHT / 4);
 	}
 
 }

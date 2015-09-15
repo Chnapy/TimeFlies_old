@@ -5,9 +5,10 @@
  */
 package gameplay.entite;
 
+import general.Mode;
 import gameplay.caracteristique.CaracteristiquePhysique;
-import gameplay.caracteristique.Orientation;
 import gameplay.sort.SortPassif;
+import general.Orientation;
 
 /**
  * EntitePassive.java
@@ -35,7 +36,7 @@ public abstract class EntitePassive extends Entite {
 		this.niveauSymbol = new NiveauSymbolique(sortsPassifs);
 	}
 
-	public EtatEntite getEtatNow() {
+	public Mode getEtatNow() {
 		return getEtat();
 	}
 

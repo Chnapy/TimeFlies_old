@@ -1,6 +1,35 @@
 <!-- Couleur sous forme RRGGBBAA -->
 <root>
 	<font>FFFFFF</font>
+	<jeu>
+		<map>
+			<fond>
+				<simple>FFFFFF88</simple>
+				<trou>00000088</trou>
+				<ecran>FF000088</ecran>
+				<obstacle>00FF0088</obstacle>
+				<cible>0000FF88</cible>
+				<zoneportee>4488FF88</zoneportee>
+				<zoneaction>FF000088</zoneaction>
+				<chemin>FFFF0088</chemin>
+				<destination>FFBB0088</destination>
+			</fond>
+			<contour>
+				<simple>FFFFFFFF</simple>
+				<trou>000000FF</trou>
+				<ecran>FF0000FF</ecran>
+				<obstacle>00FF00FF</obstacle>
+				<cible>0000FFFF</cible>
+				<zoneportee>4488FFFF</zoneportee>
+				<zoneaction>FF0000FF</zoneaction>
+				<chemin>FFFF00FF</chemin>
+				<destination>FFBB00FF</destination>
+				<ghostzoneaction>FF0000FF</ghostzoneaction>
+				<ghostchemin>FFFF00FF</ghostchemin>
+				<ghostdestination>FFBB00FF</ghostdestination>
+			</contour>
+		</map>
+	</jeu>
 	<hud>
 		<timeline>
 			<fond>33333388</fond>

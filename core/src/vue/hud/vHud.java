@@ -23,7 +23,6 @@ import gameplay.sort.pileaction.Action;
 import test.MainTest;
 import vue.Couleur;
 import vue.hud.bulle.Bulle;
-import vue.hud.bulle.BulleListener;
 import vue.hud.chatbox.vChatBox;
 import vue.hud.minimap.vMinimap;
 import vue.hud.pileactions.vPileActions;

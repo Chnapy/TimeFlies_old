@@ -1,9 +1,9 @@
 package gameplay.sort.pileaction;
 
-import gameplay.caracteristique.Orientation;
 import gameplay.sort.SortActif;
 import gameplay.sort.base.Deplacer;
 import gameplay.sort.base.Orienter;
+import general.Orientation;
 import java.awt.Point;
 
 /**

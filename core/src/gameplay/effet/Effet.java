@@ -6,9 +6,9 @@
 package gameplay.effet;
 
 import com.badlogic.gdx.utils.Array;
-import gameplay.caracteristique.Orientation;
 import gameplay.entite.Entite;
 import gameplay.map.Tuile;
+import general.Orientation;
 
 /**
  * Effet.java

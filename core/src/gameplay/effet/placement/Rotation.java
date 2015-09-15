@@ -5,10 +5,10 @@
  */
 package gameplay.effet.placement;
 
-import gameplay.caracteristique.Orientation;
 import gameplay.effet.Effet;
 import gameplay.entite.Entite;
 import gameplay.map.Tuile;
+import general.Orientation;
 
 /**
  * Rotation.java
@@ -32,6 +32,7 @@ public class Rotation extends Placement {
 
 	@Override
 	public boolean canDeclencher(Effet effet, int min, int max) {
+//		System.out.println("declench");
 		for (int i = 0; i < effet.getDeclencheur().size; i++) {
 			if (effet.getDeclencheur().get(i) instanceof Rotation) {
 				return true;
@@ -42,11 +43,13 @@ public class Rotation extends Placement {
 
 	@Override
 	public void lancerEntite(Entite victime, Orientation oriLanceur, boolean ccritique) {
+//		System.out.println(victime.getNom());
 		victime.getCaracSpatiale().setOrientation(oriLanceur);
 	}
 
 	@Override
 	public void lancerTuile(Tuile cible, Entite lanceur, Orientation oriLanceur, boolean ccritique) {
+//		System.out.println("tuile");
 	}
 
 }

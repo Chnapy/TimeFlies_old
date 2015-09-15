@@ -5,11 +5,11 @@
  */
 package gameplay.entite;
 
+import general.Mode;
 import com.badlogic.gdx.utils.Array;
 import gameplay.caracteristique.Carac;
 import gameplay.caracteristique.Caracteristique;
 import gameplay.caracteristique.CaracteristiquePhysique;
-import gameplay.caracteristique.Orientation;
 import gameplay.envoutement.Envoutement;
 import gameplay.sort.Sort;
 import gameplay.sort.SortActif;
@@ -18,6 +18,7 @@ import gameplay.sort.base.Deplacer;
 import gameplay.sort.base.Orienter;
 import gameplay.sort.pileaction.Action;
 import gameplay.sort.pileaction.PileAction;
+import general.Orientation;
 import java.awt.Point;
 import java.util.Arrays;
 import java.util.stream.Stream;
@@ -45,7 +46,7 @@ public abstract class EntiteActive extends Entite {
 
 	//Etat de l'entité en prenant en compte les actions prévues de la pile 
 	//d'actions
-	private EtatEntite etatNow;
+	private Mode etatNow;
 
 	//Sort actif en phase d'être lancé
 	private SortActif sortEnCours = null;
@@ -109,13 +110,13 @@ public abstract class EntiteActive extends Entite {
 	public void jouerTour(long time) {
 		if (!actionIsRunning() && pileAction.pile.size > 0) {
 			if (pileAction.pile.get(0).getEtat() == Action.EtatAction.DEPLACEMENT) {
-				etatNow = EtatEntite.DEPLACEMENT;
+				etatNow = Mode.DEPLACEMENT;
 //				pileAction.pile.forEach((Action a) -> {
 //					System.out.println(a.getPoint());
 //				});
 //				System.out.println();
 			} else {
-				etatNow = EtatEntite.SORT;
+				etatNow = Mode.SORT;
 			}
 			tempsFinSort = pileAction.pile.get(0).getSort().getTempsAction() + time;
 			setChanged();
@@ -216,7 +217,7 @@ public abstract class EntiteActive extends Entite {
 	 * @return
 	 */
 	@Override
-	public EtatEntite getEtatNow() {
+	public Mode getEtatNow() {
 		if (actionIsRunning()) {
 			return etatNow;
 		} else {

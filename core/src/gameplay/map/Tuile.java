@@ -9,11 +9,11 @@ import com.badlogic.gdx.ai.pfa.Connection;
 import com.badlogic.gdx.ai.pfa.DefaultConnection;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedNode;
 import com.badlogic.gdx.utils.Array;
-import gameplay.caracteristique.Orientation;
 import gameplay.effet.Effet;
 import gameplay.entite.Entite;
 import gameplay.invocation.Invocation;
 import static gameplay.map.EtatTuile.NORMAL;
+import general.Orientation;
 import java.awt.Point;
 
 /**

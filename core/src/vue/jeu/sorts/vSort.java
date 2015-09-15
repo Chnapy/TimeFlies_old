@@ -36,11 +36,11 @@ public class vSort extends Group {
 	}
 
 	@Override
-	public void draw(Batch batch, float parentAlpha) {
+	public void act(float delta) {
 		if (System.currentTimeMillis() - tempsStart <= tempsAction) {
-			super.draw(batch, parentAlpha); //TODO
+			super.act(delta);
 		} else {
-			remove();
+			((vSorts)getParent()).removeSort(this);
 		}
 	}
 

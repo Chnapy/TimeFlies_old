@@ -5,12 +5,13 @@
  */
 package gameplay.entite;
 
+import general.Mode;
 import gameplay.caracteristique.CaracteristiquePhysique;
 import gameplay.caracteristique.CaracteristiqueSpatiale;
-import gameplay.caracteristique.Orientation;
 import gameplay.effet.Effet;
 import gameplay.sort.SortPassif;
 import gameplay.sort.SortPassifEffets;
+import general.Orientation;
 import java.awt.Point;
 import java.util.Observable;
 
@@ -32,7 +33,7 @@ public abstract class Entite extends Observable {
 
 	//Etat de l'entité (déplacement, sort, ...) sans prendre en compte les 
 	//actions prévues de la pile d'actions
-	protected EtatEntite etat;
+	protected Mode etat;
 
 	//Niveau symbolique
 	protected NiveauSymbolique niveauSymbol;
@@ -61,7 +62,7 @@ public abstract class Entite extends Observable {
 		caracSpatiale = new CaracteristiqueSpatiale(posX, posY, orient);
 		tabSortPassif = sortsPassifs;
 		this.caracPhysique = caracPhysique;
-		etat = EtatEntite.DEPLACEMENT;
+		etat = Mode.DEPLACEMENT;
 		this.index = index;
 	}
 
@@ -164,7 +165,7 @@ public abstract class Entite extends Observable {
 	 *
 	 * @return l'état de l'entité vue du joueur
 	 */
-	public EtatEntite getEtat() {
+	public Mode getEtat() {
 		return etat;
 	}
 
@@ -172,9 +173,9 @@ public abstract class Entite extends Observable {
 	 *
 	 * @return l'état de l'entité en se moment
 	 */
-	public abstract EtatEntite getEtatNow();
+	public abstract Mode getEtatNow();
 
-	public void setEtat(EtatEntite etat) {
+	public void setEtat(Mode etat) {
 		this.etat = etat;
 	}
 

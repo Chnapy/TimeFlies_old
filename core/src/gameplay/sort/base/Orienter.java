@@ -6,7 +6,6 @@
 package gameplay.sort.base;
 
 import com.badlogic.gdx.utils.Array;
-import gameplay.caracteristique.Orientation;
 import gameplay.effet.Declencheur;
 import gameplay.effet.Effet;
 import gameplay.effet.placement.Rotation;
@@ -17,6 +16,7 @@ import gameplay.sort.Niveau;
 import gameplay.sort.SortActif;
 import gameplay.sort.zone.Carre;
 import gameplay.sort.zone.ZoneAction;
+import general.Orientation;
 
 /**
  * Orienter.java
@@ -45,6 +45,7 @@ public class Orienter extends SortActif {
 
 	@Override
 	public void lancerSort(Entite cible, Tuile cible2, EntiteActive lanceur, Orientation oriAttaque, boolean critique) {
+//		System.out.println(cible.getNom());
 		super.lancerSort(cible, cible2, lanceur, oriAttaque, critique);
 		lanceur.notifierObserveurs(new Object[]{
 			lanceur.getCaracSpatiale().getOrientation(),

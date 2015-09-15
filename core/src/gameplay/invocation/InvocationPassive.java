@@ -6,9 +6,9 @@
 package gameplay.invocation;
 
 import gameplay.caracteristique.CaracteristiquePhysique;
-import gameplay.caracteristique.Orientation;
 import gameplay.entite.EntitePassive;
 import gameplay.sort.SortPassif;
+import general.Orientation;
 
 /**
  * InvocationPassive.java

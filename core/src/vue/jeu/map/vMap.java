@@ -86,7 +86,7 @@ public class vMap extends Group {
 	 * Nettoie toutes les tuiles d'éventuels pathfinding
 	 */
 	public void clearColorTuile() {
-		getChildren().forEach((Actor vtuile) -> {
+		getChildren().forEach((vtuile) -> {
 			((vTuile) vtuile).tuileDuChemin(false);
 		});
 	}
@@ -95,8 +95,14 @@ public class vMap extends Group {
 	 * Nettoie toutes les tuiles d'éventuelles actions
 	 */
 	public void clearActionTuile() {
-		getChildren().forEach((Actor vtuile) -> {
+		getChildren().forEach((vtuile) -> {
 			((vTuile) vtuile).setAction(false);
+		});
+	}
+	
+	public void clearGhostZoneAction() {
+		getChildren().forEach((vtuile) -> {
+			((vTuile) vtuile).clearGhostZoneAction();
 		});
 	}
 
@@ -104,10 +110,12 @@ public class vMap extends Group {
 	 * Nettoie toutes les tuiles d'éventuels actions ou pathfinding
 	 */
 	public void clearAll() {
-		getChildren().forEach((Actor vtuile) -> {
+		getChildren().forEach((vtuile) -> {
 			((vTuile) vtuile).setEtat(EtatTuile.NORMAL);
 			((vTuile) vtuile).tuileDuChemin(false);
 			((vTuile) vtuile).setAction(false);
+			((vTuile) vtuile).clearGhostZoneAction();
+			((vTuile) vtuile).clearGhostPath(true);
 		});
 	}
 
@@ -120,6 +128,12 @@ public class vMap extends Group {
 
 	public vTuile[][] getTabVtuiles() {
 		return tabVtuiles;
+	}
+
+	public void ghostPath(Array<Point> path) {
+		path.forEach((pt) -> {
+			tabVtuiles[pt.y][pt.x].addGhostPath();
+		});
 	}
 
 }

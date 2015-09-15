@@ -1,19 +1,19 @@
 package test;
 
 import gameplay.caracteristique.CaracteristiquePhysique;
-import gameplay.caracteristique.Orientation;
 import gameplay.effet.Effet;
 import gameplay.entite.Entite;
 import gameplay.invocation.InvocationMobile;
 import gameplay.map.Tuile;
 import gameplay.sort.SortActif;
 import gameplay.sort.SortPassif;
+import general.Orientation;
 import java.awt.Point;
 
 public class InvocationBite extends InvocationMobile {
 
 	public InvocationBite() {
-		super("une bite", 0, 0, Orientation.N, new SortPassif[]{},
+		super("une bite", 0, 0, Orientation.NORD, new SortPassif[]{},
 				new SortActif[]{new SortQuiFaitMal(new Effet[]{})},
 				new CaracteristiquePhysique(100, 100, 100, 100, 10, 10, 0, 0, 1, 1),
 				1, 1);

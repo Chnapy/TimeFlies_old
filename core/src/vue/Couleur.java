@@ -37,7 +37,12 @@ public class Couleur {
 				elem = elem.getChildByName(enf);
 			}
 		}
-		return Color.valueOf(elem.get(color));
+		try {
+			return Color.valueOf(elem.get(color));
+		} catch (Exception e) {
+			System.err.println(e);
+			return Color.BLACK;
+		}
 	}
 
 	public static Color get(String color) {

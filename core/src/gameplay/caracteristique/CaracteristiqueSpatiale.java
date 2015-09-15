@@ -5,6 +5,7 @@
  */
 package gameplay.caracteristique;
 
+import general.Orientation;
 import java.awt.Point;
 
 /**

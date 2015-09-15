@@ -1,9 +1,9 @@
 package gameplay.effet.placement;
 
-import gameplay.caracteristique.Orientation;
 import gameplay.effet.Effet;
 import gameplay.entite.Entite;
 import gameplay.map.Tuile;
+import general.Orientation;
 
 /**
  * Permet d'atirer/pousser un joueur
@@ -62,16 +62,16 @@ public class Deplacement extends Placement {
 	public void lancerTuile(Tuile cible, Entite lanceur, Orientation oriLanceur, boolean ccritique) {
 //		System.out.println(lanceur.getCaracSpatiale().getPosition());
 		switch (oriLanceur) {
-			case E:
+			case EST:
 				lanceur.move(nombre, 0);
 				break;
-			case N:
+			case NORD:
 				lanceur.move(0, -nombre);
 				break;
-			case O:
+			case OUEST:
 				lanceur.move(-nombre, 0);
 				break;
-			case S:
+			case SUD:
 				lanceur.move(0, nombre);
 				break;
 			default:

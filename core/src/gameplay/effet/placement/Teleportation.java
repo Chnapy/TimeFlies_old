@@ -1,10 +1,10 @@
 package gameplay.effet.placement;
 
 import gameplay.caracteristique.CaracteristiqueSpatiale;
-import gameplay.caracteristique.Orientation;
 import gameplay.effet.Effet;
 import gameplay.entite.Entite;
 import gameplay.map.Tuile;
+import general.Orientation;
 import java.awt.Point;
 
 /**

@@ -6,7 +6,6 @@
 package gameplay.sort.base;
 
 import com.badlogic.gdx.utils.Array;
-import gameplay.caracteristique.Orientation;
 import gameplay.effet.Declencheur;
 import gameplay.effet.Effet;
 import gameplay.effet.placement.Deplacement;
@@ -17,6 +16,7 @@ import gameplay.sort.Niveau;
 import gameplay.sort.SortActif;
 import gameplay.sort.zone.Carre;
 import gameplay.sort.zone.ZoneAction;
+import general.Orientation;
 
 /**
  * Deplacer.java

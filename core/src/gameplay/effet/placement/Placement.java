@@ -5,10 +5,10 @@
  */
 package gameplay.effet.placement;
 
-import gameplay.caracteristique.Orientation;
 import gameplay.effet.Declencheur;
 import gameplay.effet.Effet;
 import gameplay.entite.Entite;
+import general.Orientation;
 
 /**
  * Placement.java

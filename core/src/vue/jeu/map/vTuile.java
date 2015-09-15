@@ -5,22 +5,29 @@
  */
 package vue.jeu.map;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.PolygonRegion;
 import com.badlogic.gdx.graphics.g2d.PolygonSprite;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.utils.Array;
 import controleur.cCombat;
 import gameplay.map.EtatTuile;
 import static gameplay.map.EtatTuile.NORMAL;
+import static test.MainTest.camera;
+import vue.Couleur;
 import vue.hud.bulle.BulleListener;
+import static vue.hud.vHud.shapeRenderer;
+import static vue.jeu.map.vTuile.couleurs.*;
 
 /**
  * vTuile.java
@@ -40,29 +47,44 @@ public class vTuile extends Actor {
 	public static final int OFFSET_X = 0;
 	public static final int OFFSET_Y = 500;
 
-	private static final Color[] tabInitColor = {
-		new Color(1, 1, 1, 0.5f),
-		new Color(0, 0, 0, 0.5f),
-		new Color(1, 0, 0, 0.5f),
-		new Color(0, 1, 0, 0.5f)
-	};
+	public enum couleurs {
 
-	private static final Color[] tabColor = {
-		Color.RED, //Action
-		Color.YELLOW, //Path
-		Color.CYAN, //Zone sort
-		Color.ORANGE, //Hover normal
-		Color.BLUE, //Hover zone sort
-	};
+		SIMPLE(Couleur.get("simple", "jeu", "map", "fond"), Couleur.get("simple", "jeu", "map", "contour"), 0),
+		TROU(Couleur.get("trou", "jeu", "map", "fond"), Couleur.get("trou", "jeu", "map", "contour"), 1),
+		ECRAN(Couleur.get("ecran", "jeu", "map", "fond"), Couleur.get("ecran", "jeu", "map", "contour"), 2),
+		OBSTACLE(Couleur.get("obstacle", "jeu", "map", "fond"), Couleur.get("obstacle", "jeu", "map", "contour"), 3),
+		CIBLE(Couleur.get("cible", "jeu", "map", "fond"), Couleur.get("cible", "jeu", "map", "contour"), 4),
+		ZONEPORTEE(Couleur.get("zoneportee", "jeu", "map", "fond"), Couleur.get("zoneportee", "jeu", "map", "contour"), 5),
+		ZONEACTION(Couleur.get("zoneaction", "jeu", "map", "fond"), Couleur.get("zoneaction", "jeu", "map", "contour"), 6),
+		CHEMIN(Couleur.get("chemin", "jeu", "map", "fond"), Couleur.get("chemin", "jeu", "map", "contour"), 7),
+		DESTINATION(Couleur.get("destination", "jeu", "map", "fond"), Couleur.get("destination", "jeu", "map", "contour"), 8),
+		GHOSTZONEACTION(null, Couleur.get("ghostzoneaction", "jeu", "map", "contour"), 9),
+		GHOSTCHEMIN(null, Couleur.get("ghostchemin", "jeu", "map", "contour"), 10),
+		GHOSTDESTINATION(null, Couleur.get("ghostdestination", "jeu", "map", "contour"), 11);
 
-	static {
-		for (Color color : tabColor) {
-			color.a = 0.75f;
+		public final Color fond;
+		public final Color contour;
+		private final int index;
+
+		couleurs(Color _fond, Color _contour, int _index) {
+			fond = _fond;
+			contour = _contour;
+			index = _index;
 		}
-	}
+
+		static couleurs getColor(int index) {
+			for (couleurs c : values()) {
+				if (c.index == index) {
+					return c;
+				}
+			}
+			throw new IllegalArgumentException();
+		}
+	};
 
 	private final PolygonSprite polySprite;
-	private final Texture textureSolid;
+	private final PolygonSpriteBatch polyContour;
+	private final Polygon poly;
 
 	//Etat de la tuile (sort, déplacement, ...)
 	private EtatTuile etat;
@@ -81,43 +103,53 @@ public class vTuile extends Actor {
 	private float x;
 	private float y;
 
-	//Index du sprite
-	private int iSprite;
+	//Couleur du type de la tuile
+	private couleurs TYPE;
 
 	//Couleur de la tuile (WHITE = transparent)
-	private Color couleur;
+	private couleurs theme;
 
-	//Debug position
-	private final BitmapFont lab;
+	private couleurs contour;
 
-	public vTuile(int posx, int posy, int indexSprite, EtatTuile e, cCombat ccombat) {
-		this.lab = new BitmapFont();
-		lab.setColor(Color.BLACK);
+	private Array<couleurs> pile_deplacement;
+
+	public vTuile(int posx, int posy, int indexType, EtatTuile e, cCombat ccombat) {
 		posX = posx;
 		posY = posy;
 		float[] pos = getPosition(posx, posy);
 		x = pos[0];
 		y = pos[1];
-		iSprite = indexSprite;
+		TYPE = couleurs.getColor(indexType);
 		etat = e;
 
+		poly = new Polygon(new float[]{
+			TUILE_WIDTH / 2, 0 + TUILE_MARGIN / 2,
+			TUILE_WIDTH - TUILE_MARGIN, TUILE_HEIGHT / 2,
+			TUILE_WIDTH / 2, TUILE_HEIGHT - TUILE_MARGIN / 2,
+			0 + TUILE_MARGIN, TUILE_HEIGHT / 2
+		});
+		poly.setPosition(x, y);
+
 		Pixmap pix = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
-		pix.setColor(1, 1, 1, 0.75f);
+		pix.setColor(1, 1, 1, 1);
 		pix.fill();
-		textureSolid = new Texture(pix);
+		Texture textureSolid = new Texture(pix);
 		PolygonRegion polyReg = new PolygonRegion(new TextureRegion(textureSolid),
-				new float[]{
-					TUILE_WIDTH / 2, 0 + TUILE_MARGIN / 2,
-					TUILE_WIDTH - TUILE_MARGIN, TUILE_HEIGHT / 2,
-					TUILE_WIDTH / 2, TUILE_HEIGHT - TUILE_MARGIN / 2,
-					0 + TUILE_MARGIN, TUILE_HEIGHT / 2
-				}, new short[]{
+				poly.getVertices(),
+				new short[]{
 					0, 1, 2,
 					0, 3, 2
 				});
 
 		polySprite = new PolygonSprite(polyReg);
 		polySprite.setPosition(x, y);
+
+		polyContour = new PolygonSpriteBatch();
+		polyContour.setProjectionMatrix(camera.combined);
+
+		contour = null;
+
+		pile_deplacement = new Array<couleurs>();
 
 		setBounds(x, y, TUILE_WIDTH, TUILE_HEIGHT);
 		setPosition(x, y);
@@ -158,16 +190,27 @@ public class vTuile extends Actor {
 
 			@Override
 			public String getBulleContent() {
-				return "Cette tuile est de type n°" + iSprite;
+				return "Cette tuile est de type n" + TYPE;
 			}
 		});
 	}
 
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
-		polySprite.setColor(couleur);
-		polySprite.draw((PolygonSpriteBatch) batch);
-//		lab.draw(batch, "x" + posX + "_y" + posY, getX() + getWidth() / 2, getY() + getHeight() / 2);
+		polyContour.begin();
+		polySprite.setColor(theme.fond);
+		polySprite.draw(polyContour);
+		polyContour.end();
+		Gdx.gl20.glLineWidth(3 / camera.zoom);
+		shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+		if (contour == null) {
+			shapeRenderer.setColor(theme.contour);
+		} else {
+			shapeRenderer.setColor(contour.contour);
+		}
+		shapeRenderer.polygon(poly.getTransformedVertices());
+		shapeRenderer.end();
+		Gdx.gl20.glLineWidth(1 / camera.zoom);
 
 	}
 
@@ -200,21 +243,21 @@ public class vTuile extends Actor {
 	}
 
 	/**
-	 * Défini la couleur de la tuile selon son etat, hover et action
+	 * Défini la fond de la tuile selon son etat, hover et action
 	 */
 	private void setCouleur() {
 		if (action) {
-			couleur = tabColor[0];
+			theme = ZONEACTION;
 		} else if (!hover) {
 			switch (etat) {
 				case NORMAL:
-					couleur = tabInitColor[iSprite];
+					theme = TYPE;
 					break;
 				case PATH:
-					couleur = tabColor[1];
+					theme = CHEMIN;
 					break;
 				case ZONESORT:
-					couleur = tabColor[2];
+					theme = ZONEPORTEE;
 					break;
 				default:
 					throw new Error("Etat tuile non géré");
@@ -222,12 +265,12 @@ public class vTuile extends Actor {
 		} else {
 			switch (etat) {
 				case NORMAL:
-					couleur = tabColor[3];
+					theme = DESTINATION;
 					break;
 				case PATH:
 					break;
 				case ZONESORT:
-					couleur = tabColor[4];
+					theme = CIBLE;
 					break;
 				default:
 					throw new Error("Etat tuile non géré");
@@ -281,6 +324,43 @@ public class vTuile extends Actor {
 	public void tuileDuChemin(boolean dansChemin) {
 		if (!hover) {
 			setEtat(dansChemin ? EtatTuile.PATH : EtatTuile.NORMAL);
+		}
+	}
+
+	public void addGhostPath() {
+		pile_deplacement.add(hover ? GHOSTDESTINATION : GHOSTCHEMIN);
+		if (contour != GHOSTDESTINATION) {
+			contour = hover ? GHOSTDESTINATION : GHOSTCHEMIN;
+		}
+	}
+
+	public void addGhostAction() {
+		contour = GHOSTZONEACTION;
+	}
+
+	public void clearGhostPath() {
+		clearGhostPath(false);
+	}
+
+	public void clearGhostPath(boolean forcing) {
+		if (forcing) {
+			pile_deplacement.clear();
+			contour = null;
+		} else {
+			if (pile_deplacement.size > 0) {
+				pile_deplacement.removeIndex(0);
+			}
+			if (pile_deplacement.size > 0) {
+				contour = pile_deplacement.first();
+			} else {
+				contour = null;
+			}
+		}
+	}
+
+	public void clearGhostZoneAction() {
+		if (contour == GHOSTZONEACTION) {
+			contour = null;
 		}
 	}
 

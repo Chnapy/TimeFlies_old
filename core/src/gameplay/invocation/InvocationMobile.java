@@ -6,10 +6,10 @@
 package gameplay.invocation;
 
 import gameplay.caracteristique.CaracteristiquePhysique;
-import gameplay.caracteristique.Orientation;
 import gameplay.entite.EntiteActive;
 import gameplay.sort.SortActif;
 import gameplay.sort.SortPassif;
+import general.Orientation;
 
 /**
  * InvocationMobile.java

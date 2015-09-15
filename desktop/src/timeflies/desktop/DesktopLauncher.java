@@ -8,6 +8,7 @@ import test.MainTest;
 public class DesktopLauncher {
 
 	private static final boolean FULLSCREEN = false;
+	private static final int ANTIALIASING = 4;
 	private static final DisplayMode dm = LwjglApplicationConfiguration.getDesktopDisplayMode();
 	//Resolution HD
 	private static final int WINDOW_WIDTH = FULLSCREEN ? dm.width : dm.width * 4/5;
@@ -15,12 +16,13 @@ public class DesktopLauncher {
 
 	public static void main(String[] arg) {
 		LwjglApplication application = new LwjglApplication(new MainTest(), getConfig(
-				"TimeFlies",
-				FULLSCREEN
+				"TimeFlies - developper edition",
+				FULLSCREEN,
+				ANTIALIASING
 		));
 	}
 
-	private static LwjglApplicationConfiguration getConfig(String title, boolean fullscreen) {
+	private static LwjglApplicationConfiguration getConfig(String title, boolean fullscreen, int antialiasing) {
 
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.title = title;
@@ -30,6 +32,7 @@ public class DesktopLauncher {
 		config.width = WINDOW_WIDTH;
 		config.height = WINDOW_HEIGHT;
 		config.fullscreen = fullscreen;
+		config.samples = antialiasing;
 
 		return config;
 	}

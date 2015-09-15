@@ -6,9 +6,9 @@
 package gameplay.effet;
 
 import gameplay.caracteristique.Carac;
-import gameplay.caracteristique.Orientation;
 import gameplay.entite.Entite;
 import gameplay.map.Tuile;
+import general.Orientation;
 
 /**
  * Balus.java

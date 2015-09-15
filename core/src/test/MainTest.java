@@ -10,7 +10,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import controleur.cCombat;
 import gameplay.caracteristique.Carac;
 import gameplay.caracteristique.CaracteristiquePhysique;
-import gameplay.caracteristique.Orientation;
 import gameplay.core.Joueur;
 import gameplay.effet.Balus;
 import gameplay.effet.Declencheur;
@@ -20,6 +19,7 @@ import gameplay.map.Map;
 import gameplay.map.Type;
 import gameplay.sort.SortActif;
 import gameplay.sort.SortPassif;
+import static general.Orientation.EST;
 
 /**
  * MainTest.java
@@ -61,7 +61,7 @@ public class MainTest extends Game {
 		declencheur.add(new Balus(Carac.VITALITE, -30));
 		Personnage[] persosJ1 = {
 			new Guerrier(
-			"bite", 1, 2, Orientation.E,
+			"bite", 1, 2, EST,
 			new CaracteristiquePhysique(100, 100, 20000, 20000, 100, 100, 100, 100, 100, 100),
 			new SortPassif[]{},
 			new SortActif[]{
@@ -70,7 +70,7 @@ public class MainTest extends Game {
 		};
 		Personnage[] persosJ2 = {
 			new Guerrier2(
-			"bite", 0, 0, Orientation.E,
+			"bite", 0, 0, EST,
 			new CaracteristiquePhysique(100, 100, 20000, 20000, 100, 100, 100, 100, 100, 100),
 			new SortPassif[]{},
 			new SortActif[]{

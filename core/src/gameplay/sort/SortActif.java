@@ -5,12 +5,12 @@
  */
 package gameplay.sort;
 
-import gameplay.caracteristique.Orientation;
 import gameplay.effet.Effet;
 import gameplay.entite.Entite;
 import gameplay.entite.EntiteActive;
 import gameplay.map.Tuile;
 import gameplay.sort.zone.ZoneAction;
+import general.Orientation;
 
 /**
  * SortActif.java
