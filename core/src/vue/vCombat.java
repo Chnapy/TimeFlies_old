@@ -84,8 +84,8 @@ public class vCombat implements Screen {
 					x < posEntite.x + zone[0].length / 2 + zone[0].length % 2 && i < zone[0].length;
 					x++, i++) {
 				if (zone[j][i] && y >= 0 && x >= 0 && y < tabVtuiles.length && x < tabVtuiles[0].length) {
-					tabVtuiles[y][x].setEtat(EtatTuile.ZONESORT);
-					tabVcases[y][x].setEtat(EtatTuile.ZONESORT);
+					tabVtuiles[y][x].setEtat(EtatTuile.ZONEPORTEE);
+					tabVcases[y][x].setEtat(EtatTuile.ZONEPORTEE);
 				}
 			}
 		}

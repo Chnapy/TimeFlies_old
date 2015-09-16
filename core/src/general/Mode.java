@@ -10,7 +10,8 @@ package general;
  * @author Richard Haddad <richardhaddad@hotmail.fr>
  */
 public enum Mode {
+
 	DEPLACEMENT,
 	SORT;
-	
+
 }

@@ -56,7 +56,7 @@ public class cCombat implements Observer {
 
 	//Chemin (liste de points) de l'entité active à la tuile ciblée
 	private Array<Point> path;
-	
+
 	private Point lastPosFixe;
 
 	//Entité jouant son tour
@@ -64,13 +64,13 @@ public class cCombat implements Observer {
 
 	//Sort sélectionné par le joueur
 	private SortActif sortEnCours;
-	
+
 	private Orientation oriAttaque;
-	
+
 	private Orientation precOriAttaque;
-	
+
 	private boolean critique;
-	
+
 	public cCombat(Map m, Joueur[] joueurs) {
 		map = m;
 		tabJoueurs = joueurs;
@@ -78,7 +78,7 @@ public class cCombat implements Observer {
 		timeline = new Timeline(listPersonnages);
 		vue = new vCombat(this, m.getTabTuiles(), listPersonnages, timeline);
 		timeline.addObserver(this);
-		
+
 		listPersonnages.forEach((perso) -> {
 			perso.addObserver(this);
 
@@ -115,7 +115,7 @@ public class cCombat implements Observer {
 		vue.finTour();
 		map.setTuileOccupe(true, entiteEnCours.getCaracSpatiale().getPosition().y, entiteEnCours.getCaracSpatiale().getPosition().x);
 	}
-	
+
 	public void tourEnCours() {
 		vue.tourEnCours(entiteEnCours);
 	}
@@ -143,9 +143,9 @@ public class cCombat implements Observer {
 	 */
 	public void survolTuile(int x, int y) {
 		Tuile tuile = map.getTabTuiles()[y][x];
-		
+
 		if (entiteEnCours.getEtat() == Mode.DEPLACEMENT) {
-			
+
 			vue.clearColorTuile();
 			//Déplacement
 			Point depart = entiteEnCours.getLastPosition();
@@ -163,7 +163,7 @@ public class cCombat implements Observer {
 		} else if (entiteEnCours.getEtat() == Mode.SORT) {
 			//Afficher zone action
 
-			if (vue.getVmap().getTabVtuiles()[y][x].getEtat() == EtatTuile.ZONESORT) {
+			if (vue.getVmap().getTabVtuiles()[y][x].getMinietat() == EtatTuile.ZONEPORTEE) {
 				vue.afficherAction(sortEnCours.getZoneAction().getZoneFinale(), new Point(x, y));
 			} else {
 				vue.clearActionTuile();
@@ -180,7 +180,7 @@ public class cCombat implements Observer {
 	 */
 	public void clicSurTuile(int x, int y) {
 		Point pt = new Point(x, y);
-		
+
 		if (entiteEnCours.getEtat() == Mode.DEPLACEMENT) {
 //			System.out.println(path);
 			if (path != null) {
@@ -194,7 +194,7 @@ public class cCombat implements Observer {
 			}
 		} else if (entiteEnCours.getEtat() == Mode.SORT) {
 			//Lancement de sort sur toute la zone action
-			if (vue.getVmap().getTabVtuiles()[y][x].getEtat() == EtatTuile.ZONESORT) {
+			if (vue.getVmap().getTabVtuiles()[y][x].getMinietat() == EtatTuile.ZONEPORTEE) {
 				if (entiteEnCours.tempsDispo() >= sortEnCours.getTempsAction()) {
 					precOriAttaque = oriAttaque;
 					oriAttaque = getOrientation(entiteEnCours.getCaracSpatiale().getPosition(), pt);
@@ -210,7 +210,7 @@ public class cCombat implements Observer {
 			modeDeplacement();
 		}
 	}
-	
+
 	private void deplacer(int x, int y) {
 		for (int i = 0; i < path.size; i++) {
 			precOriAttaque = oriAttaque;
@@ -247,9 +247,9 @@ public class cCombat implements Observer {
 	public void modeDeplacement() {
 		entiteEnCours.setEtat(Mode.DEPLACEMENT);
 		sortEnCours = null;
-		vue.clearAll();
+		vue.getVmap().clearMiniTuiles();
 	}
-	
+
 	private void addAction(Action action) {
 		entiteEnCours.addAction(action);
 		vue.addAction(action);
@@ -288,7 +288,7 @@ public class cCombat implements Observer {
 					action.getSort().lancerSort(entite, map.getTabTuiles()[action.getPoint().x][action.getPoint().y], entite, action.getOriAttaque(), action.isCritique());
 					vue.getVmap().getTabVtuiles()[action.getPoint().y][action.getPoint().x].clearGhostPath();
 					chatCombatPrint(entite.getNom() + " effectue un deplacement.", ChatTextType.COMBAT);
-					
+
 				} else if (action.getEtat() == Action.EtatAction.ROTATION) {
 					action.getSort().lancerSort(entite, map.getTabTuiles()[action.getPoint().x][action.getPoint().y], entite, action.getOriAttaque(), action.isCritique());
 				} else if (action.getEtat() == Action.EtatAction.SORT) {
@@ -305,7 +305,7 @@ public class cCombat implements Observer {
 			}
 		}
 	}
-	
+
 	public vCombat getVue() {
 		return vue;
 	}
@@ -357,7 +357,7 @@ public class cCombat implements Observer {
 			System.err.println(point);
 			throw new IllegalArgumentException("Les deux points sont egaux !");
 		}
-		
+
 		double vecX = point.getX() - origine.getX();
 		double vecY = point.getY() - origine.getY();
 //		System.out.println(vecX + " " + vecY);
@@ -391,18 +391,18 @@ public class cCombat implements Observer {
 			}
 		}
 	}
-	
+
 	private boolean isCoupCritique(Orientation oriCible, Orientation oriAttaque) {
 		if (oriAttaque == null || oriCible == null || oriAttaque.equals(oriCible)) {
 			return false;
 		}
 		return oriAttaque.invert().equals(oriCible);
 	}
-	
+
 	private void chatCombatPrint(String text, ChatTextType type) {
 		vue.getVhud().getVchatbox().vchatCombat.addText(text, type);
 	}
-	
+
 	private void chatGeneralPrint(String text, ChatTextType type) {
 		vue.getVhud().getVchatbox().vchatGeneral.addText(text, type);
 	}

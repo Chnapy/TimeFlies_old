@@ -133,7 +133,7 @@ public class vCase extends Actor {
 				case PATH:
 					couleur = Color.YELLOW;
 					break;
-				case ZONESORT:
+				case ZONEPORTEE:
 					couleur = Color.CYAN;
 					break;
 				default:
@@ -146,7 +146,7 @@ public class vCase extends Actor {
 					break;
 				case PATH:
 					break;
-				case ZONESORT:
+				case ZONEPORTEE:
 					couleur = Color.BLUE;
 					break;
 				default:

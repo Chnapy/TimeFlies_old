@@ -11,7 +11,13 @@ package gameplay.map;
  */
 public enum EtatTuile {
 
+	//Petite tuile
+	NULL,
+	PATH,
+	ZONEPORTEE,
+	//Grande tuile
 	NORMAL,
-	PATH, //Vue uniquement
-	ZONESORT	//Peut être ciblé par le sort actif
+	GHOSTZONEACTION,
+	GHOSTPATH,
+	GHOSTDESTINATION
 }

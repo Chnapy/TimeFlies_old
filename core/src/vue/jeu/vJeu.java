@@ -57,7 +57,7 @@ public class vJeu extends Stage {
 	public void addSort(int index, int tempsAction, Point start, Point end) {
 		vsorts.addSort(index, tempsAction, start, end);
 	}
-	
+
 	public void removeSort() {
 		vmap.clearGhostZoneAction();
 	}

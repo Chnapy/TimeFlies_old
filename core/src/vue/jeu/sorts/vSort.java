@@ -40,7 +40,7 @@ public class vSort extends Group {
 		if (System.currentTimeMillis() - tempsStart <= tempsAction) {
 			super.act(delta);
 		} else {
-			((vSorts)getParent()).removeSort(this);
+			((vSorts) getParent()).removeSort(this);
 		}
 	}
 

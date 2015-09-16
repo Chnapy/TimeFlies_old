@@ -3,7 +3,6 @@
  * 
  * 
  */
-
 package general;
 
 /**
@@ -11,6 +10,7 @@ package general;
  * Enum
  */
 public enum EtatGraphique {
+
 	STAY("stay", 0),
 	WALK("walk", 1),
 	ATTACK("attack", 2),

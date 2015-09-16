@@ -78,7 +78,7 @@ public class vMap extends Group {
 	public void colorTuile(Array<Point> listePoint) {
 		clearColorTuile();
 		listePoint.forEach((Point point) -> {
-			tabVtuiles[point.y][point.x].tuileDuChemin(true);
+			tabVtuiles[point.y][point.x].addPath();
 		});
 	}
 
@@ -87,7 +87,7 @@ public class vMap extends Group {
 	 */
 	public void clearColorTuile() {
 		getChildren().forEach((vtuile) -> {
-			((vTuile) vtuile).tuileDuChemin(false);
+			((vTuile) vtuile).clearPath();
 		});
 	}
 
@@ -99,10 +99,17 @@ public class vMap extends Group {
 			((vTuile) vtuile).setAction(false);
 		});
 	}
-	
+
 	public void clearGhostZoneAction() {
 		getChildren().forEach((vtuile) -> {
 			((vTuile) vtuile).clearGhostZoneAction();
+		});
+	}
+
+	public void clearMiniTuiles() {
+		getChildren().forEach((vtuile) -> {
+			((vTuile) vtuile).clearPath();
+			((vTuile) vtuile).setAction(false);
 		});
 	}
 
@@ -111,8 +118,7 @@ public class vMap extends Group {
 	 */
 	public void clearAll() {
 		getChildren().forEach((vtuile) -> {
-			((vTuile) vtuile).setEtat(EtatTuile.NORMAL);
-			((vTuile) vtuile).tuileDuChemin(false);
+			((vTuile) vtuile).clearPath();
 			((vTuile) vtuile).setAction(false);
 			((vTuile) vtuile).clearGhostZoneAction();
 			((vTuile) vtuile).clearGhostPath(true);

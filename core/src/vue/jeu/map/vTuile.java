@@ -23,6 +23,8 @@ import com.badlogic.gdx.utils.Array;
 import controleur.cCombat;
 import gameplay.map.EtatTuile;
 import static gameplay.map.EtatTuile.NORMAL;
+import static gameplay.map.EtatTuile.NULL;
+import static gameplay.map.EtatTuile.PATH;
 import static test.MainTest.camera;
 import vue.Couleur;
 import vue.hud.bulle.BulleListener;
@@ -40,8 +42,14 @@ public class vTuile extends Actor {
 	//Taille du sprite de la tuile
 	public static final int TUILE_WIDTH = 256;
 	public static final int TUILE_HEIGHT = 128;
-
 	private static final int TUILE_MARGIN = 24;
+
+	private static final float COEFF_MINITUILE = 0.15f;
+
+	private static final int MINITUILE_WIDTH = (int) (TUILE_WIDTH * (1 - COEFF_MINITUILE));
+	private static final int MINITUILE_HEIGHT = (int) (TUILE_HEIGHT * (1 - COEFF_MINITUILE));
+	private static final int MINITUILE_MARGIN_X = (int) (TUILE_WIDTH * COEFF_MINITUILE);
+	private static final int MINITUILE_MARGIN_Y = (int) (TUILE_HEIGHT * COEFF_MINITUILE);
 
 	//Ecart entre les bords de la fenetre et les tuiles
 	public static final int OFFSET_X = 0;
@@ -83,11 +91,16 @@ public class vTuile extends Actor {
 	};
 
 	private final PolygonSprite polySprite;
+	private final PolygonSprite minipolySprite;
 	private final PolygonSpriteBatch polyContour;
 	private final Polygon poly;
+	private final Polygon minipoly;
 
-	//Etat de la tuile (sort, déplacement, ...)
+	//Etat grande tuile
 	private EtatTuile etat;
+
+	//Etat petite tuile
+	private EtatTuile minietat;
 
 	//Survol de la tuile par la souris
 	private boolean hover;
@@ -106,12 +119,13 @@ public class vTuile extends Actor {
 	//Couleur du type de la tuile
 	private couleurs TYPE;
 
-	//Couleur de la tuile (WHITE = transparent)
-	private couleurs theme;
+	//Couleur de la grande tuile (contour uniquement)
+	private couleurs tuileColor;
 
-	private couleurs contour;
+	//Couleur de la petite tuile
+	private couleurs miniTuileColor;
 
-	private Array<couleurs> pile_deplacement;
+	private Array<EtatTuile> pile_deplacement;
 
 	public vTuile(int posx, int posy, int indexType, EtatTuile e, cCombat ccombat) {
 		posX = posx;
@@ -120,7 +134,8 @@ public class vTuile extends Actor {
 		x = pos[0];
 		y = pos[1];
 		TYPE = couleurs.getColor(indexType);
-		etat = e;
+		etat = NORMAL;
+		minietat = NULL;
 
 		poly = new Polygon(new float[]{
 			TUILE_WIDTH / 2, 0 + TUILE_MARGIN / 2,
@@ -129,6 +144,14 @@ public class vTuile extends Actor {
 			0 + TUILE_MARGIN, TUILE_HEIGHT / 2
 		});
 		poly.setPosition(x, y);
+
+		minipoly = new Polygon(new float[]{
+			TUILE_WIDTH / 2, TUILE_MARGIN / 2 + MINITUILE_MARGIN_Y,
+			TUILE_WIDTH - TUILE_MARGIN - MINITUILE_MARGIN_X, TUILE_HEIGHT / 2,
+			TUILE_WIDTH / 2, TUILE_HEIGHT - TUILE_MARGIN / 2 - MINITUILE_MARGIN_Y,
+			TUILE_MARGIN + MINITUILE_MARGIN_X, TUILE_HEIGHT / 2
+		});
+		minipoly.setPosition(x, y);
 
 		Pixmap pix = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
 		pix.setColor(1, 1, 1, 1);
@@ -144,12 +167,23 @@ public class vTuile extends Actor {
 		polySprite = new PolygonSprite(polyReg);
 		polySprite.setPosition(x, y);
 
+		PolygonRegion minipolyReg = new PolygonRegion(new TextureRegion(textureSolid),
+				minipoly.getVertices(),
+				new short[]{
+					0, 1, 2,
+					0, 3, 2
+				});
+
+		minipolySprite = new PolygonSprite(minipolyReg);
+		minipolySprite.setPosition(x, y);
+
 		polyContour = new PolygonSpriteBatch();
 		polyContour.setProjectionMatrix(camera.combined);
 
-		contour = null;
+		tuileColor = TYPE;
+		miniTuileColor = null;
 
-		pile_deplacement = new Array<couleurs>();
+		pile_deplacement = new Array<EtatTuile>();
 
 		setBounds(x, y, TUILE_WIDTH, TUILE_HEIGHT);
 		setPosition(x, y);
@@ -197,18 +231,28 @@ public class vTuile extends Actor {
 
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
+
 		polyContour.begin();
-		polySprite.setColor(theme.fond);
+		polySprite.setColor(TYPE.fond);
 		polySprite.draw(polyContour);
+		if (miniTuileColor != null) {
+			minipolySprite.setColor(miniTuileColor.fond);
+			minipolySprite.draw(polyContour);
+		}
 		polyContour.end();
+
 		Gdx.gl20.glLineWidth(3 / camera.zoom);
 		shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-		if (contour == null) {
-			shapeRenderer.setColor(theme.contour);
-		} else {
-			shapeRenderer.setColor(contour.contour);
-		}
+
+		shapeRenderer.setColor(tuileColor.contour);
 		shapeRenderer.polygon(poly.getTransformedVertices());
+
+		if (miniTuileColor != null) {
+			Gdx.gl20.glLineWidth(2 / camera.zoom);
+			shapeRenderer.setColor(miniTuileColor.contour);
+			shapeRenderer.polygon(minipoly.getTransformedVertices());
+		}
+
 		shapeRenderer.end();
 		Gdx.gl20.glLineWidth(1 / camera.zoom);
 
@@ -228,12 +272,16 @@ public class vTuile extends Actor {
 		};
 	}
 
-	public EtatTuile getEtat() {
-		return etat;
+	public EtatTuile getMinietat() {
+		return minietat;
 	}
 
 	public void setEtat(EtatTuile newEtat) {
-		etat = newEtat;
+		if (newEtat == NULL || newEtat == PATH || newEtat == EtatTuile.ZONEPORTEE) {
+			minietat = newEtat;
+		} else {
+			etat = newEtat;
+		}
 		setCouleur();
 	}
 
@@ -246,34 +294,45 @@ public class vTuile extends Actor {
 	 * Défini la fond de la tuile selon son etat, hover et action
 	 */
 	private void setCouleur() {
+		switch (etat) {
+			case NORMAL:
+				tuileColor = TYPE;
+				break;
+			case GHOSTZONEACTION:
+				tuileColor = GHOSTZONEACTION;
+				break;
+			case GHOSTPATH:
+				tuileColor = GHOSTCHEMIN;
+				break;
+			case GHOSTDESTINATION:
+				tuileColor = GHOSTDESTINATION;
+				break;
+		}
 		if (action) {
-			theme = ZONEACTION;
+			miniTuileColor = ZONEACTION;
 		} else if (!hover) {
-			switch (etat) {
-				case NORMAL:
-					theme = TYPE;
+			switch (minietat) {
+				case NULL:
+					miniTuileColor = null;
 					break;
 				case PATH:
-					theme = CHEMIN;
+					miniTuileColor = CHEMIN;
 					break;
-				case ZONESORT:
-					theme = ZONEPORTEE;
+				case ZONEPORTEE:
+					miniTuileColor = ZONEPORTEE;
 					break;
-				default:
-					throw new Error("Etat tuile non géré");
 			}
 		} else {
-			switch (etat) {
-				case NORMAL:
-					theme = DESTINATION;
+			switch (minietat) {
+				case NULL:
+					miniTuileColor = null;
 					break;
 				case PATH:
+					miniTuileColor = DESTINATION;
 					break;
-				case ZONESORT:
-					theme = CIBLE;
+				case ZONEPORTEE:
+					miniTuileColor = CIBLE;
 					break;
-				default:
-					throw new Error("Etat tuile non géré");
 			}
 		}
 	}
@@ -318,24 +377,22 @@ public class vTuile extends Actor {
 
 	/**
 	 * Lancé lors de l'application du pathfinding dans la vue.
-	 *
-	 * @param dansChemin
 	 */
-	public void tuileDuChemin(boolean dansChemin) {
-		if (!hover) {
-			setEtat(dansChemin ? EtatTuile.PATH : EtatTuile.NORMAL);
-		}
+	public void addPath() {
+		setEtat(EtatTuile.PATH);
+	}
+
+	public void clearPath() {
+		setEtat(EtatTuile.NULL);
 	}
 
 	public void addGhostPath() {
-		pile_deplacement.add(hover ? GHOSTDESTINATION : GHOSTCHEMIN);
-		if (contour != GHOSTDESTINATION) {
-			contour = hover ? GHOSTDESTINATION : GHOSTCHEMIN;
-		}
+		pile_deplacement.add(hover ? EtatTuile.GHOSTDESTINATION : EtatTuile.GHOSTPATH);
+		setEtat(pile_deplacement.peek());
 	}
 
 	public void addGhostAction() {
-		contour = GHOSTZONEACTION;
+		setEtat(EtatTuile.GHOSTZONEACTION);
 	}
 
 	public void clearGhostPath() {
@@ -345,22 +402,22 @@ public class vTuile extends Actor {
 	public void clearGhostPath(boolean forcing) {
 		if (forcing) {
 			pile_deplacement.clear();
-			contour = null;
+			setEtat(EtatTuile.NORMAL);
 		} else {
 			if (pile_deplacement.size > 0) {
 				pile_deplacement.removeIndex(0);
 			}
 			if (pile_deplacement.size > 0) {
-				contour = pile_deplacement.first();
+				setEtat(pile_deplacement.first());
 			} else {
-				contour = null;
+				setEtat(EtatTuile.NORMAL);
 			}
 		}
 	}
 
 	public void clearGhostZoneAction() {
-		if (contour == GHOSTZONEACTION) {
-			contour = null;
+		if (etat == EtatTuile.GHOSTZONEACTION) {
+			setEtat(EtatTuile.NORMAL);
 		}
 	}
 
