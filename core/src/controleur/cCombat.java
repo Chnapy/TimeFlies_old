@@ -184,7 +184,7 @@ public class cCombat implements Observer {
 		if (entiteEnCours.getEtat() == Mode.DEPLACEMENT) {
 //			System.out.println(path);
 			if (path != null) {
-				deplacer(x, y);
+				deplacer();
 				if (path.first().equals(entiteEnCours.getCaracSpatiale().getPosition())) {
 					path.removeIndex(0);
 				}
@@ -211,7 +211,7 @@ public class cCombat implements Observer {
 		}
 	}
 
-	private void deplacer(int x, int y) {
+	private void deplacer() {
 		for (int i = 0; i < path.size; i++) {
 			precOriAttaque = oriAttaque;
 			if (i == 0) {
