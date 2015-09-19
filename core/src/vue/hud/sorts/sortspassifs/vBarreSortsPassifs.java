@@ -8,7 +8,9 @@ package vue.hud.sorts.sortspassifs;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import controleur.cCombat;
+import gameplay.entite.EntiteActive;
 import gameplay.sort.SortPassif;
+import general.Tourable;
 import static test.MainTest.MAX_WIDTH;
 import vue.Couleur;
 import vue.hud.Bloc;
@@ -19,7 +21,7 @@ import vue.hud.sorts.vSortsBouton;
  * vBarreSortsPassifs.java
  *
  */
-public class vBarreSortsPassifs extends Bloc {
+public class vBarreSortsPassifs extends Bloc implements Tourable {
 
 	//Couleurs de fond
 	private static final Color FOND_COULEUR = Couleur.get("fond", "hud", "sort", "passif");
@@ -54,27 +56,23 @@ public class vBarreSortsPassifs extends Bloc {
 		this.add(bouton).top().padTop(16);
 	}
 
-	/**
-	 * Nouveau tour d'une entité
-	 *
-	 * @param ccombat
-	 * @param spassifs
-	 */
-	public void nouveauTour(cCombat ccombat, SortPassif[] spassifs) {
-		for (SortPassif sort : spassifs) {
+	@Override
+	public void nouveauTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
+		for (SortPassif sort : entiteEnCours.getTabSortPassif()) {
 			addBouton(new vSortsPassifsBouton(sort.getIndex()));
 		}
 	}
 
-	/**
-	 * Fin tour d'une entité
-	 *
-	 */
-	public void finTour() {
+	@Override
+	public void finTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
 		getCells().clear();
 		while (getChildren().size > 1) {
 			getChildren().removeIndex(1);
 		}
+	}
+
+	@Override
+	public void enTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
 	}
 
 }

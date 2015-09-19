@@ -10,7 +10,9 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import controleur.cCombat;
 import gameplay.entite.EntiteActive;
+import general.Tourable;
 import vue.Couleur;
 import vue.hud.bulle.BulleListener;
 import vue.hud.vHud;
@@ -19,7 +21,7 @@ import vue.hud.vHud;
  * vTimelineEntite.java
  *
  */
-public class vTimelineEntite extends Actor {
+public class vTimelineEntite extends Actor implements Tourable {
 
 	//Couleur de fond
 	private static final Color FOND_COULEUR = Couleur.get("fond_perso", "hud", "timeline");
@@ -86,16 +88,6 @@ public class vTimelineEntite extends Actor {
 	}
 
 	/**
-	 * Nouveau tour d'une entité
-	 *
-	 * @param ordreMax
-	 */
-	public void nouveauTour(int ordreMax) {
-		ordre = (ordre == 0) ? ordreMax : ordre - 1;
-		setScale();
-	}
-
-	/**
 	 * Défini le coefficient de taille
 	 */
 	private void setScale() {
@@ -103,6 +95,20 @@ public class vTimelineEntite extends Actor {
 		TEXTURE_X = ordre * (TEXTURE_WIDTH + TEXTURE_X_ECART) + TEXTURE_X_ECART;
 		setX(TEXTURE_X);
 		setSize(TEXTURE_WIDTH * scale, TEXTURE_HEIGHT * scale);
+	}
+
+	@Override
+	public void nouveauTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
+		ordre = (ordre == 0) ? (int) objs[0] : ordre - 1;
+		setScale();
+	}
+
+	@Override
+	public void finTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
+	}
+
+	@Override
+	public void enTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
 	}
 
 }

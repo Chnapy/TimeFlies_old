@@ -7,12 +7,12 @@ package vue.jeu.map;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
 import controleur.cCombat;
-import gameplay.map.EtatTuile;
+import gameplay.entite.EntiteActive;
 import gameplay.map.Tuile;
+import general.Tourable;
 import java.awt.Point;
 import test.MainTest;
 
@@ -20,7 +20,7 @@ import test.MainTest;
  * vMap.java
  *
  */
-public class vMap extends Group {
+public class vMap extends Group implements Tourable {
 
 	private final Batch polyBatch = new PolygonSpriteBatch();
 
@@ -125,13 +125,6 @@ public class vMap extends Group {
 		});
 	}
 
-	/**
-	 * Fin du tour de l'entité
-	 */
-	public void finTour() {
-		clearAll();
-	}
-
 	public vTuile[][] getTabVtuiles() {
 		return tabVtuiles;
 	}
@@ -140,6 +133,19 @@ public class vMap extends Group {
 		path.forEach((pt) -> {
 			tabVtuiles[pt.y][pt.x].addGhostPath();
 		});
+	}
+
+	@Override
+	public void nouveauTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
+	}
+
+	@Override
+	public void finTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
+		clearAll();
+	}
+
+	@Override
+	public void enTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
 	}
 
 }

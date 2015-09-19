@@ -6,6 +6,7 @@
 package vue.jeu.entites;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -55,9 +56,17 @@ public class AnimationManager {
 			walkArray
 		};
 
-//		array.forEach((texture) -> {
-//			texture.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-//		});
+		for (Animation anim : stayArray) {
+			for (TextureRegion region : anim.getKeyFrames()) {
+				region.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+			}
+		}
+
+		for (Animation anim : walkArray) {
+			for (TextureRegion region : anim.getKeyFrames()) {
+				region.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+			}
+		}
 	}
 
 	public TextureRegion getFrame(EtatGraphique e, Orientation o, float delta) {

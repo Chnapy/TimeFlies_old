@@ -7,6 +7,9 @@ package vue.hud.chatbox;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.ui.SplitPane;
+import controleur.cCombat;
+import gameplay.entite.EntiteActive;
+import general.Tourable;
 import vue.hud.Bloc;
 import vue.hud.bulle.BulleListener;
 import vue.hud.chatbox.chattext.vChatText;
@@ -16,7 +19,7 @@ import static vue.hud.vHud.defaultSkin;
  * vChatBox.java
  *
  */
-public class vChatBox extends Bloc {
+public class vChatBox extends Bloc implements Tourable {
 
 	//Position et taille du chatbox
 	private static int X = 20;
@@ -64,12 +67,18 @@ public class vChatBox extends Bloc {
 
 	}
 
-	public void nouveauTour() {
-		vchatCombat.addText("Nouveau tour !", vChatText.ChatTextType.COMBAT);
+	@Override
+	public void nouveauTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
+		vchatCombat.addText("Nouveau tour de " + entiteEnCours.getNom() + " ! Duree : " + entiteEnCours.getTempsAction().getTotal() / 1000 + "s.", vChatText.ChatTextType.COMBAT);
 	}
 
-	public void finTour() {
-		vchatCombat.addText("Fin du tour !", vChatText.ChatTextType.COMBAT);
+	@Override
+	public void finTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
+		vchatCombat.addText("Fin du tour de " + entiteEnCours.getNom() + " !", vChatText.ChatTextType.COMBAT);
+	}
+
+	@Override
+	public void enTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
 	}
 
 }

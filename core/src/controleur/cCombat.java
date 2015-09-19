@@ -19,6 +19,7 @@ import gameplay.map.Type;
 import gameplay.sort.SortActif;
 import gameplay.sort.pileaction.Action;
 import general.Orientation;
+import general.Tourable;
 import java.awt.Point;
 import java.util.Observable;
 import java.util.Observer;
@@ -40,7 +41,7 @@ import vue.vCombat;
  * - Lancement du combat (CLIENT-SERVEUR)
  *
  */
-public class cCombat implements Observer {
+public class cCombat implements Observer, Tourable {
 
 	//Vue
 	private final vCombat vue;
@@ -101,8 +102,8 @@ public class cCombat implements Observer {
 		timeline.stop();
 	}
 
-	//Lancé lorsqu'un nouveau tour d'une entité commence
-	public void nouveauTour() {
+	@Override
+	public void nouveauTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
 		path = null;
 		lastPosFixe = null;
 		map.setTuileOccupe(false, entiteEnCours.getCaracSpatiale().getPosition().y, entiteEnCours.getCaracSpatiale().getPosition().x);
@@ -110,14 +111,15 @@ public class cCombat implements Observer {
 		vue.nouveauTour(this, entiteEnCours);
 	}
 
-	//Lancé lorsqu'un tour d'une entité finit
-	public void finTour() {
-		vue.finTour();
+	@Override
+	public void finTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
+		vue.finTour(controleur, entiteEnCours, objs);
 		map.setTuileOccupe(true, entiteEnCours.getCaracSpatiale().getPosition().y, entiteEnCours.getCaracSpatiale().getPosition().x);
 	}
 
-	public void tourEnCours() {
-		vue.tourEnCours(entiteEnCours);
+	@Override
+	public void enTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
+		vue.enTour(controleur, entiteEnCours, objs);
 	}
 
 	/**
@@ -269,14 +271,14 @@ public class cCombat implements Observer {
 			Timeline tl = (Timeline) o;
 			switch (tl.getEtatTour()) {
 				case COURS:
-					tourEnCours();
+					enTour(this, entiteEnCours);
 					break;
 				case DEBUT:
 					entiteEnCours = tl.getEntiteEnCours();
-					nouveauTour();
+					nouveauTour(this, entiteEnCours);
 					break;
 				case FIN:
-					finTour();
+					finTour(this, entiteEnCours);
 					break;
 			}
 		} else if (o instanceof EntiteActive) {

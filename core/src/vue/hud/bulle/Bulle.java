@@ -5,17 +5,15 @@
  */
 package vue.hud.bulle;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Container;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip.TextTooltipStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.UIUtils;
-import test.MainTest;
 import static test.MainTest.MAX_HEIGHT;
 import static test.MainTest.MAX_WIDTH;
 import static vue.hud.vHud.defaultSkin;
+import static vue.vCombat.mouse_position;
 
 /**
  * Bulle.java
@@ -27,7 +25,6 @@ public class Bulle extends Container {
 	private static final String MESSAGE_DEFAULT = "Garder la touche CTRL appuyée et glissez votre souris sur un element pour decouvrir sa fonction.";
 
 	private final Label label;
-	private Vector3 mousePosition;
 
 	public Bulle() {
 		TextTooltipStyle style = defaultSkin.get(TextTooltipStyle.class);
@@ -47,10 +44,9 @@ public class Bulle extends Container {
 		super.act(delta);
 
 		if (UIUtils.ctrl()) {
-			mousePosition = MainTest.camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0f));
 			setPosition(
-					mousePosition.x + getWidth() > MAX_WIDTH ? MAX_WIDTH - getWidth() : (mousePosition.x >= 0 ? mousePosition.x : 0),
-					mousePosition.y + getHeight() > MAX_HEIGHT ? MAX_HEIGHT - getHeight() : (mousePosition.y >= 0 ? mousePosition.y : 0));
+					mouse_position.x + getWidth() > MAX_WIDTH ? MAX_WIDTH - getWidth() : (mouse_position.x >= 0 ? mouse_position.x : 0),
+					mouse_position.y + getHeight() > MAX_HEIGHT ? MAX_HEIGHT - getHeight() : (mouse_position.y >= 0 ? mouse_position.y : 0));
 			toFront();
 			if (!isVisible()) {
 				setVisible(true);

@@ -32,7 +32,7 @@ import javax.swing.SwingUtilities;
  */
 public class ExceptionHandler extends JOptionPane implements Thread.UncaughtExceptionHandler {
 
-	private static int SIZE = 500;
+	private static final int SIZE = 500;
 
 	private final Runnable run;
 	private final JTextArea area;
@@ -70,10 +70,10 @@ public class ExceptionHandler extends JOptionPane implements Thread.UncaughtExce
 		panel.add(area);
 
 		run = () -> {
+			Gdx.app.exit();
 			frame.setVisible(true);
 			JOptionPane.showOptionDialog(frame, panel, "Un bug sauvage apparait !", JOptionPane.CLOSED_OPTION,
 					JOptionPane.ERROR_MESSAGE, null, null, null);
-			Gdx.app.exit();
 			System.exit(0);
 		};
 	}

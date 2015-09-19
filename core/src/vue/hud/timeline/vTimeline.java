@@ -9,7 +9,9 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Array;
+import controleur.cCombat;
 import gameplay.entite.EntiteActive;
+import general.Tourable;
 import static test.MainTest.MAX_HEIGHT;
 import vue.Couleur;
 import vue.hud.Bloc;
@@ -19,7 +21,7 @@ import vue.hud.bulle.BulleListener;
  * vTimeline.java
  *
  */
-public class vTimeline extends Bloc {
+public class vTimeline extends Bloc implements Tourable {
 
 	//Couleurs de fond
 	private static final Color FOND_COULEUR = Couleur.get("fond", "hud", "timeline");
@@ -56,16 +58,19 @@ public class vTimeline extends Bloc {
 		});
 	}
 
-	/**
-	 * Nouveau tour d'une entité
-	 */
-	public void nouveauTour() {
+	@Override
+	public void nouveauTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
 		listEntite.forEach((entite) -> {
-			entite.nouveauTour(listEntite.size - 1);
+			entite.nouveauTour(controleur, entiteEnCours, listEntite.size - 1);
 		});
 	}
 
-	public void tourEnCours(EntiteActive entiteEnCours) {
+	@Override
+	public void enTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
+	}
+
+	@Override
+	public void finTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
 	}
 
 	@Override

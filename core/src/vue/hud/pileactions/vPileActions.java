@@ -12,7 +12,9 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
+import controleur.cCombat;
 import gameplay.entite.EntiteActive;
+import general.Tourable;
 import vue.Couleur;
 import vue.hud.Bloc;
 import vue.hud.bulle.BulleListener;
@@ -22,7 +24,7 @@ import vue.hud.vHud;
  * vPileActions.java
  *
  */
-public class vPileActions extends Bloc {
+public class vPileActions extends Bloc implements Tourable {
 
 	//Position et taille de la pile d'actions
 	private static int X = 20;
@@ -93,7 +95,9 @@ public class vPileActions extends Bloc {
 		}
 	}
 
-	public void nouveauTour(int tempsAction) {
+	@Override
+	public void nouveauTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
+		int tempsAction = entiteEnCours.getTempsAction().getActu();
 		listActions.clear();
 		getCells().clear();
 		while (getChildren().size > 1) {
@@ -103,12 +107,17 @@ public class vPileActions extends Bloc {
 		tempsActionDepense = 0;
 	}
 
-	public void tourEnCours(final EntiteActive entiteEnCours) {
+	@Override
+	public void enTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
 		tempsActionActu = entiteEnCours.getTempsAction().getActu();
 		if (listActions.size > 0) {
 			if (!listActions.first().getTempsAction().actu()) {
 				delAction();
 			}
 		}
+	}
+
+	@Override
+	public void finTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
 	}
 }

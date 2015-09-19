@@ -8,8 +8,10 @@ package vue.jeu;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import controleur.cCombat;
+import gameplay.entite.EntiteActive;
 import gameplay.entite.Personnage;
 import gameplay.map.Tuile;
+import general.Tourable;
 import java.awt.Point;
 import test.MainTest;
 import vue.jeu.entites.vEntites;
@@ -20,7 +22,7 @@ import vue.jeu.sorts.vSorts;
  * vJeu.java
  *
  */
-public class vJeu extends Stage {
+public class vJeu extends Stage implements Tourable {
 
 	//Controleur
 	private final cCombat combat;
@@ -51,7 +53,6 @@ public class vJeu extends Stage {
 		setViewport(MainTest.viewport);
 		act();
 		draw();
-//		System.out.println(p.getCaracSpatiale().getPosition());//asupp
 	}
 
 	public void addSort(int index, int tempsAction, Point start, Point end) {
@@ -62,18 +63,19 @@ public class vJeu extends Stage {
 		vmap.clearGhostZoneAction();
 	}
 
-	/**
-	 * Lorsqu'une entité commence son tour
-	 */
-	public void nouveauTour() {
-
+	@Override
+	public void nouveauTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
+		vmap.nouveauTour(controleur, entiteEnCours, objs);
 	}
 
-	/**
-	 * Lorsqu'une entité finit son tour
-	 */
-	public void finTour() {
-		vmap.finTour();
+	@Override
+	public void finTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
+		vmap.finTour(controleur, entiteEnCours, objs);
+	}
+
+	@Override
+	public void enTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
+		vmap.enTour(controleur, entiteEnCours, objs);
 	}
 
 	public cCombat getCombat() {

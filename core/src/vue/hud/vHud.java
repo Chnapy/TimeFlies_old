@@ -20,6 +20,7 @@ import controleur.cCombat;
 import gameplay.entite.EntiteActive;
 import gameplay.map.Tuile;
 import gameplay.sort.pileaction.Action;
+import general.Tourable;
 import test.MainTest;
 import vue.Couleur;
 import vue.hud.bulle.Bulle;
@@ -33,7 +34,7 @@ import vue.hud.timeline.vTimeline;
  * vHud.java
  *
  */
-public final class vHud extends Stage {
+public final class vHud extends Stage implements Tourable {
 
 	public static final ShapeRenderer shapeRenderer = new ShapeRenderer();
 
@@ -87,31 +88,31 @@ public final class vHud extends Stage {
 		addActor(bulle);
 	}
 
-	/**
-	 * Début du tour d'une entité
-	 *
-	 * @param ccombat
-	 * @param entite
-	 */
-	public void nouveauTour(cCombat ccombat, EntiteActive entite) {
-		vsorts.nouveauTour(ccombat, entite.getTabSortActif(), entite.getTabSortPassif());
-		vtimeline.nouveauTour();
-		vpileactions.nouveauTour(entite.getTempsAction().getActu());
-		vchatbox.nouveauTour();
+	@Override
+	public void nouveauTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
+		vsorts.nouveauTour(controleur, entiteEnCours, objs);
+		vtimeline.nouveauTour(controleur, entiteEnCours, objs);
+		vpileactions.nouveauTour(controleur, entiteEnCours, objs);
+		vminimap.nouveauTour(controleur, entiteEnCours, objs);
+		vchatbox.nouveauTour(controleur, entiteEnCours, objs);
 	}
 
-	/**
-	 * Fin du tour d'une entité
-	 */
-	public void finTour() {
-		vsorts.finTour();
-		vminimap.finTour();
-		vchatbox.finTour();
+	@Override
+	public void finTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
+		vsorts.finTour(controleur, entiteEnCours, objs);
+		vtimeline.finTour(controleur, entiteEnCours, objs);
+		vpileactions.finTour(controleur, entiteEnCours, objs);
+		vminimap.finTour(controleur, entiteEnCours, objs);
+		vchatbox.finTour(controleur, entiteEnCours, objs);
 	}
 
-	public void tourEnCours(EntiteActive entiteEnCours) {
-		vtimeline.tourEnCours(entiteEnCours);
-		vpileactions.tourEnCours(entiteEnCours);
+	@Override
+	public void enTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
+		vsorts.enTour(controleur, entiteEnCours, objs);
+		vtimeline.enTour(controleur, entiteEnCours, objs);
+		vpileactions.enTour(controleur, entiteEnCours, objs);
+		vminimap.enTour(controleur, entiteEnCours, objs);
+		vchatbox.enTour(controleur, entiteEnCours, objs);
 	}
 
 	public void addAction(Action action) {

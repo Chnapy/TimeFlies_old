@@ -6,6 +6,9 @@
 package vue.hud;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 
 /**
@@ -18,7 +21,18 @@ public abstract class Bloc extends Window {
 		super(titre, vHud.defaultSkin);
 		setSize(width, height + getPadTop());
 		setMovable(true);
-//		debugAll();
+		getColor().a = 0.75f;
+		addListener(new InputListener() {
+			@Override
+			public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+				getColor().a = 0.75f;
+			}
+
+			@Override
+			public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+				getColor().a = 1;
+			}
+		});
 	}
 
 	@Override

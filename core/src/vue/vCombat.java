@@ -8,6 +8,7 @@ package vue;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import controleur.cCombat;
 import gameplay.core.Timeline;
@@ -16,7 +17,9 @@ import gameplay.entite.Personnage;
 import gameplay.map.EtatTuile;
 import gameplay.map.Tuile;
 import gameplay.sort.pileaction.Action;
+import general.Tourable;
 import java.awt.Point;
+import test.MainTest;
 import vue.hud.minimap.vCase;
 import vue.hud.timeline.vTimeline;
 import vue.hud.vHud;
@@ -29,13 +32,18 @@ import vue.jeu.vJeu;
  * vCombat.java
  *
  */
-public class vCombat implements Screen {
+public class vCombat implements Screen, Tourable {
+	
+	public static Vector3 mouse_position = new Vector3();
 
 	//Vue du jeu (map, entités)
 	private final vJeu vjeu;
 
 	//Vue du HUD (timeline, sorts, etc...)
 	private final vHud vhud;
+	
+	//Curseur de la souris
+	private final Curseur curseur;
 
 	/**
 	 *
@@ -47,7 +55,11 @@ public class vCombat implements Screen {
 	public vCombat(final cCombat ccombat, final Tuile[][] tabTuiles, final Array<Personnage> personnages, final Timeline timel) {
 		vjeu = new vJeu(ccombat, tabTuiles, personnages);
 		vhud = new vHud(ccombat, tabTuiles, personnages);
-
+		
+		curseur = new Curseur();
+		vhud.addActor(curseur);
+		
+		
 		//Accepter les input
 		InputMultiplexer inputM = new InputMultiplexer(vjeu, vhud);
 		Gdx.input.setInputProcessor(inputM);
@@ -156,6 +168,7 @@ public class vCombat implements Screen {
 	 */
 	@Override
 	public void render(float delta) {
+		mouse_position = MainTest.camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0f));
 		vjeu.render();
 		vhud.render();
 	}
@@ -185,27 +198,25 @@ public class vCombat implements Screen {
 	public void dispose() {
 	}
 
-	/**
-	 * Lancé lorsqu'un nouveau tour d'une entité commence
-	 *
-	 * @param controleur
-	 * @param entiteEnCours
-	 */
-	public void nouveauTour(cCombat controleur, EntiteActive entiteEnCours) {
-		vhud.nouveauTour(controleur, entiteEnCours);
-		vjeu.nouveauTour();
+	@Override
+	public void nouveauTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
+		vhud.nouveauTour(controleur, entiteEnCours, objs);
+		vjeu.nouveauTour(controleur, entiteEnCours, objs);
+		curseur.nouveauTour(controleur, entiteEnCours, objs);
 	}
 
-	/**
-	 * Lancé lorsqu'un tour d'une entité finit
-	 */
-	public void finTour() {
-		vhud.finTour();
-		vjeu.finTour();
+	@Override
+	public void finTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
+		vhud.finTour(controleur, entiteEnCours, objs);
+		vjeu.finTour(controleur, entiteEnCours, objs);
+		curseur.finTour(controleur, entiteEnCours, objs);
 	}
 
-	public void tourEnCours(EntiteActive entiteEnCours) {
-		vhud.tourEnCours(entiteEnCours);
+	@Override
+	public void enTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
+		vhud.enTour(controleur, entiteEnCours, objs);
+		vjeu.enTour(controleur, entiteEnCours, objs);
+		curseur.enTour(controleur, entiteEnCours, objs);
 	}
 
 	public void addAction(Action action) {

@@ -224,7 +224,7 @@ public class vTuile extends Actor {
 
 			@Override
 			public String getBulleContent() {
-				return "Cette tuile est de type n" + TYPE;
+				return "Cette tuile est de type " + TYPE;
 			}
 		});
 	}

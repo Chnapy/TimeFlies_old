@@ -10,8 +10,10 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Array;
 import controleur.cCombat;
+import gameplay.entite.EntiteActive;
 import gameplay.map.EtatTuile;
 import gameplay.map.Tuile;
+import general.Tourable;
 import java.awt.Point;
 import vue.Couleur;
 import vue.hud.Bloc;
@@ -21,7 +23,7 @@ import vue.hud.bulle.BulleListener;
  * vMinimap.java
  *
  */
-public class vMinimap extends Bloc {
+public class vMinimap extends Bloc implements Tourable {
 
 	//Couleurs de fond
 	private static final Color FOND_COULEUR = Couleur.get("fond", "hud", "minimap");
@@ -128,19 +130,25 @@ public class vMinimap extends Bloc {
 		}
 	}
 
-	/**
-	 * Fin du tour de l'entité
-	 */
-	public void finTour() {
-		clearAll();
-	}
-
 	public vCase[][] getTabVcases() {
 		return tabVcases;
 	}
 
 	@Override
 	protected void render(Batch batch, float parentAlpha) {
+	}
+
+	@Override
+	public void nouveauTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
+	}
+
+	@Override
+	public void finTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
+		clearAll();
+	}
+
+	@Override
+	public void enTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
 	}
 
 }

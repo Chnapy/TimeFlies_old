@@ -7,10 +7,11 @@ package vue.hud.sorts.sortsactifs;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Align;
 import controleur.cCombat;
+import gameplay.entite.EntiteActive;
 import gameplay.sort.SortActif;
+import general.Tourable;
 import static test.MainTest.MAX_WIDTH;
 import vue.Couleur;
 import vue.hud.Bloc;
@@ -21,7 +22,7 @@ import vue.hud.sorts.vSortsBouton;
  * vBarreSortsActifs.java
  *
  */
-public class vBarreSortsActifs extends Bloc {
+public class vBarreSortsActifs extends Bloc implements Tourable {
 
 	//Couleurs de fond
 	private static final Color FOND_COULEUR = Couleur.get("fond", "hud", "sort", "actif");
@@ -56,23 +57,19 @@ public class vBarreSortsActifs extends Bloc {
 		this.add(bouton).left().padLeft(16);
 	}
 
-	/**
-	 * Nouveau tour d'une entité
-	 *
-	 * @param ccombat
-	 * @param sactifs
-	 */
-	public void nouveauTour(cCombat ccombat, SortActif[] sactifs) {
-		for (SortActif sort : sactifs) {
-			addBouton(new vSortsActifsBouton(ccombat, sort.getIndex(), 5, 10, 8, 2, sort.getDescription()));
+	@Override
+	protected void render(Batch batch, float parentAlpha) {
+	}
+
+	@Override
+	public void nouveauTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
+		for (SortActif sort : entiteEnCours.getTabSortActif()) {
+			addBouton(new vSortsActifsBouton(controleur, sort.getIndex(), 5, 10, 8, 2, sort.getDescription()));
 		}
 	}
 
-	/**
-	 * Fin tour d'une entité
-	 *
-	 */
-	public void finTour() {
+	@Override
+	public void finTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
 		getCells().clear();
 		while (getChildren().size > 1) {
 			getChildren().removeIndex(1);
@@ -80,7 +77,7 @@ public class vBarreSortsActifs extends Bloc {
 	}
 
 	@Override
-	protected void render(Batch batch, float parentAlpha) {
+	public void enTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
 	}
 
 }
