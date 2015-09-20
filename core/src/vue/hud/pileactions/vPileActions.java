@@ -12,7 +12,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
-import controleur.cCombat;
+import controleur.Controleur;
 import gameplay.entite.EntiteActive;
 import general.Tourable;
 import vue.Couleur;
@@ -96,7 +96,7 @@ public class vPileActions extends Bloc implements Tourable {
 	}
 
 	@Override
-	public void nouveauTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
+	public void nouveauTour(Controleur controleur, EntiteActive entiteEnCours, Object... objs) {
 		int tempsAction = entiteEnCours.getTempsAction().getActu();
 		listActions.clear();
 		getCells().clear();
@@ -108,7 +108,7 @@ public class vPileActions extends Bloc implements Tourable {
 	}
 
 	@Override
-	public void enTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
+	public void enTour(Controleur controleur, EntiteActive entiteEnCours, Object... objs) {
 		tempsActionActu = entiteEnCours.getTempsAction().getActu();
 		if (listActions.size > 0) {
 			if (!listActions.first().getTempsAction().actu()) {
@@ -118,6 +118,6 @@ public class vPileActions extends Bloc implements Tourable {
 	}
 
 	@Override
-	public void finTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
+	public void finTour(Controleur controleur, EntiteActive entiteEnCours, Object... objs) {
 	}
 }

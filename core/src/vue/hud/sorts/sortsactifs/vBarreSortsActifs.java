@@ -5,10 +5,11 @@
  */
 package vue.hud.sorts.sortsactifs;
 
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.utils.Align;
-import controleur.cCombat;
+import controleur.Controleur;
 import gameplay.entite.EntiteActive;
 import gameplay.sort.SortActif;
 import general.Tourable;
@@ -31,14 +32,17 @@ public class vBarreSortsActifs extends Bloc implements Tourable {
 	//Position et taille de la barre
 	private static final int WIDTH = 800;
 	private static final int HEIGHT = 128;
-	private static final int X = MAX_WIDTH - WIDTH - 152;
+	private static final int X = MAX_WIDTH - WIDTH - 160;
 	private static final int Y = 12;
 
-	public vBarreSortsActifs() {
+	private final AssetManager manager;
+
+	public vBarreSortsActifs(AssetManager _manager) {
 		super("Sorts actifs", WIDTH, HEIGHT);
+		manager = _manager;
 		setPosition(X, Y);
-		vSortsActifsBouton.filterTexture();
 		this.align(Align.left);
+//		filtrerTextures();
 		addListener(new BulleListener(this) {
 
 			@Override
@@ -54,7 +58,7 @@ public class vBarreSortsActifs extends Bloc implements Tourable {
 	 * @param bouton
 	 */
 	public void addBouton(vSortsBouton bouton) {
-		this.add(bouton).left().padLeft(16);
+		this.add(bouton).left().padLeft(20);
 	}
 
 	@Override
@@ -62,22 +66,24 @@ public class vBarreSortsActifs extends Bloc implements Tourable {
 	}
 
 	@Override
-	public void nouveauTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
-		for (SortActif sort : entiteEnCours.getTabSortActif()) {
-			addBouton(new vSortsActifsBouton(controleur, sort.getIndex(), 5, 10, 8, 2, sort.getDescription()));
-		}
-	}
-
-	@Override
-	public void finTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
+	public void nouveauTour(Controleur controleur, EntiteActive entiteEnCours, Object... objs) {
 		getCells().clear();
 		while (getChildren().size > 1) {
+			((vSortsActifsBouton) getChildren().get(1)).clearSortObserver();
 			getChildren().removeIndex(1);
+		}
+		for (SortActif sort : entiteEnCours.getTabSortActif()) {
+			System.out.println(sort.getCooldownActu());
+			addBouton(new vSortsActifsBouton(controleur, sort, manager));
 		}
 	}
 
 	@Override
-	public void enTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
+	public void finTour(Controleur controleur, EntiteActive entiteEnCours, Object... objs) {
+	}
+
+	@Override
+	public void enTour(Controleur controleur, EntiteActive entiteEnCours, Object... objs) {
 	}
 
 }

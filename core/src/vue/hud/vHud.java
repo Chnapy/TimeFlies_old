@@ -6,6 +6,7 @@
 package vue.hud;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -16,7 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Window.WindowStyle;
 import com.badlogic.gdx.utils.Array;
-import controleur.cCombat;
+import controleur.Controleur;
 import gameplay.entite.EntiteActive;
 import gameplay.map.Tuile;
 import gameplay.sort.pileaction.Action;
@@ -28,6 +29,7 @@ import vue.hud.chatbox.vChatBox;
 import vue.hud.minimap.vMinimap;
 import vue.hud.pileactions.vPileActions;
 import vue.hud.sorts.vSortsBout;
+import vue.hud.tabcarac.TableauCarac;
 import vue.hud.timeline.vTimeline;
 
 /**
@@ -67,50 +69,58 @@ public final class vHud extends Stage implements Tourable {
 
 	//Vue du chat
 	private final vChatBox vchatbox;
+	
+	//Vue des carac's
+	private final TableauCarac vtabcarac;
 
 	//Bulle
 	public static final Bulle bulle = new Bulle();
 
-	public vHud(cCombat controleur, Tuile[][] tabTuiles, Array<? extends EntiteActive> personnages) {
+	public vHud(Controleur controleur, Tuile[][] tabTuiles, Array<? extends EntiteActive> personnages, AssetManager manager) {
 		FONT = defaultSkin.get(WindowStyle.class).titleFont;
 
-		vsorts = new vSortsBout();
+		vsorts = new vSortsBout(manager);
 		vtimeline = new vTimeline(personnages);
 		vminimap = new vMinimap(controleur, tabTuiles);
 		vpileactions = new vPileActions();
 		vchatbox = new vChatBox();
+		vtabcarac = new TableauCarac();
 
 		addActor(vsorts);
 		addActor(vtimeline);
-		addActor(vminimap);
 		addActor(vpileactions);
+		addActor(vtabcarac);
+		addActor(vminimap);
 		addActor(vchatbox);
 		addActor(bulle);
 	}
 
 	@Override
-	public void nouveauTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
+	public void nouveauTour(Controleur controleur, EntiteActive entiteEnCours, Object... objs) {
 		vsorts.nouveauTour(controleur, entiteEnCours, objs);
 		vtimeline.nouveauTour(controleur, entiteEnCours, objs);
 		vpileactions.nouveauTour(controleur, entiteEnCours, objs);
+		vtabcarac.nouveauTour(controleur, entiteEnCours, objs);
 		vminimap.nouveauTour(controleur, entiteEnCours, objs);
 		vchatbox.nouveauTour(controleur, entiteEnCours, objs);
 	}
 
 	@Override
-	public void finTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
+	public void finTour(Controleur controleur, EntiteActive entiteEnCours, Object... objs) {
 		vsorts.finTour(controleur, entiteEnCours, objs);
 		vtimeline.finTour(controleur, entiteEnCours, objs);
 		vpileactions.finTour(controleur, entiteEnCours, objs);
+		vtabcarac.finTour(controleur, entiteEnCours, objs);
 		vminimap.finTour(controleur, entiteEnCours, objs);
 		vchatbox.finTour(controleur, entiteEnCours, objs);
 	}
 
 	@Override
-	public void enTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
+	public void enTour(Controleur controleur, EntiteActive entiteEnCours, Object... objs) {
 		vsorts.enTour(controleur, entiteEnCours, objs);
 		vtimeline.enTour(controleur, entiteEnCours, objs);
 		vpileactions.enTour(controleur, entiteEnCours, objs);
+		vtabcarac.enTour(controleur, entiteEnCours, objs);
 		vminimap.enTour(controleur, entiteEnCours, objs);
 		vchatbox.enTour(controleur, entiteEnCours, objs);
 	}

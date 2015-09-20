@@ -7,7 +7,7 @@ package vue.hud.sorts.sortspassifs;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import controleur.cCombat;
+import controleur.Controleur;
 import gameplay.entite.EntiteActive;
 import gameplay.sort.SortPassif;
 import general.Tourable;
@@ -29,13 +29,12 @@ public class vBarreSortsPassifs extends Bloc implements Tourable {
 
 	//Position et taille de la barre
 	private static final int WIDTH = 128;
-	private static final int HEIGHT = 800;
-	private static final int X = MAX_WIDTH - WIDTH - 12;
-	private static final int Y = 152;
+	private static final int HEIGHT = 750;
+	private static final int X = MAX_WIDTH - WIDTH - 20;
+	private static final int Y = 170;
 
 	public vBarreSortsPassifs() {
 		super("Sorts passifs", WIDTH, HEIGHT);
-		setSize(WIDTH, HEIGHT);
 		setPosition(X, Y);
 		addListener(new BulleListener(this) {
 
@@ -57,14 +56,14 @@ public class vBarreSortsPassifs extends Bloc implements Tourable {
 	}
 
 	@Override
-	public void nouveauTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
+	public void nouveauTour(Controleur controleur, EntiteActive entiteEnCours, Object... objs) {
 		for (SortPassif sort : entiteEnCours.getTabSortPassif()) {
-			addBouton(new vSortsPassifsBouton(sort.getIndex()));
+			addBouton(new vSortsPassifsBouton(sort, sort.getIndex()));
 		}
 	}
 
 	@Override
-	public void finTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
+	public void finTour(Controleur controleur, EntiteActive entiteEnCours, Object... objs) {
 		getCells().clear();
 		while (getChildren().size > 1) {
 			getChildren().removeIndex(1);
@@ -72,7 +71,7 @@ public class vBarreSortsPassifs extends Bloc implements Tourable {
 	}
 
 	@Override
-	public void enTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
+	public void enTour(Controleur controleur, EntiteActive entiteEnCours, Object... objs) {
 	}
 
 }

@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Array;
-import controleur.cCombat;
+import controleur.Controleur;
 import gameplay.entite.EntiteActive;
 import gameplay.map.EtatTuile;
 import gameplay.map.Tuile;
@@ -25,14 +25,10 @@ import vue.hud.bulle.BulleListener;
  */
 public class vMinimap extends Bloc implements Tourable {
 
-	//Couleurs de fond
-	private static final Color FOND_COULEUR = Couleur.get("fond", "hud", "minimap");
-	private static final Color FOND_CONTOUR_COULEUR = Couleur.get("fond_contour", "hud", "minimap");
-
 	//Taille et position de la minimap
-	private static final int SIZE = 115;
-	private static final int X = 1900 - SIZE;
-	private static final int Y = 20;
+	private static final int SIZE = 112;
+	private static final int X = 1900 - SIZE - 20;
+	private static final int Y = 12;
 
 	//Afficheur de forme pour les cases
 	private static final ShapeRenderer shapeRender = new ShapeRenderer();
@@ -43,7 +39,7 @@ public class vMinimap extends Bloc implements Tourable {
 	//Tableau de l'ensemble des cases
 	private final vCase[][] tabVcases;
 
-	public vMinimap(final cCombat controleur, Tuile[][] tabTuiles) {
+	public vMinimap(final Controleur controleur, Tuile[][] tabTuiles) {
 		super("Minimap", SIZE, SIZE);
 		tabVcases = new vCase[tabTuiles.length][tabTuiles[0].length];
 //		debugAll();
@@ -139,16 +135,16 @@ public class vMinimap extends Bloc implements Tourable {
 	}
 
 	@Override
-	public void nouveauTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
+	public void nouveauTour(Controleur controleur, EntiteActive entiteEnCours, Object... objs) {
 	}
 
 	@Override
-	public void finTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
+	public void finTour(Controleur controleur, EntiteActive entiteEnCours, Object... objs) {
 		clearAll();
 	}
 
 	@Override
-	public void enTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
+	public void enTour(Controleur controleur, EntiteActive entiteEnCours, Object... objs) {
 	}
 
 }

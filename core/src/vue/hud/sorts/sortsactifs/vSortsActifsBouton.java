@@ -5,113 +5,82 @@
  */
 package vue.hud.sorts.sortsactifs;
 
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import controleur.cCombat;
+import controleur.Controleur;
+import gameplay.sort.SortActif;
+import java.util.Observable;
+import java.util.Observer;
 import vue.hud.bulle.BulleListener;
+import vue.hud.sorts.donnees.Donnee;
+import vue.hud.sorts.donnees.Donnee.TypeDonnee;
 import vue.hud.sorts.vSortsBouton;
-import vue.hud.vHud;
-import static vue.hud.vHud.FONT;
 
 /**
  * vSortsActifsBouton.java
  *
  */
-public class vSortsActifsBouton extends vSortsBouton {
+public class vSortsActifsBouton extends vSortsBouton implements Observer {
 
 	//Tableau de textures des sorts
-	private static final Texture[] TEXTURES = {
-		new Texture(Gdx.files.internal("sort/sort_fond.png")),
-		new Texture(Gdx.files.internal("sort/sort_fond.png"))
+	private static final String[] TEXTURES = {
+		"sort/sort_fond.png",
+		"sort/sort_fond.png"
 	};
+	private static final float OFFSET_ICONES = 1.2f;
 
-	//Textures des icones
-	private static final Texture ICONE_TEMPS = new Texture(Gdx.files.internal("sort/icon/icon_temps.png"));
-	private static final Texture ICONE_PORTEE = new Texture(Gdx.files.internal("sort/icon/icon_portee.png"));
-	private static final Texture ICONE_ZONE = new Texture(Gdx.files.internal("sort/icon/icon_zone.png"));
-	private static final Texture ICONE_RELANCE = new Texture(Gdx.files.internal("sort/icon/icon_relance.png"));
-
-	//Taille des icones
-	private static final int ICONE_WIDTH = 16;
-	private static final int ICONE_HEIGHT = 16;
-
-	static {
-		ICONE_TEMPS.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-		ICONE_PORTEE.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-		ICONE_ZONE.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-		ICONE_RELANCE.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-	}
-
-	//Valeur des différentes données du sort
-	private String temps;
-	private String portee;
-	private String zone;
-	private String relance;
-
-	public vSortsActifsBouton(cCombat ccombat, int index, int temps, int portee, int zone, int relance, String description) {
-		super(TEXTURES[index]);
-		this.temps = Integer.toString(temps);
-		this.portee = Integer.toString(portee);
-		this.zone = Integer.toString(zone);
-		this.relance = Integer.toString(relance);
+	public vSortsActifsBouton(Controleur ccombat, SortActif sort, AssetManager manager) {
+		super(sort, manager.get(TEXTURES[sort.getIndex()], Texture.class));
+		sort.addObserver(this);
 		addListener(new InputListener() {
 			@Override
-			public boolean touchDown(InputEvent event, float x, float y,
-					int pointer, int button) {
-
-				return true;
-			}
-
-			@Override
-			public void touchUp(InputEvent event, float X, float Y,
-					int pointer, int button) {
-				//Envoyer au controleur
-				ccombat.modeSort(index);
-			}
-
-			@Override
-			public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-
-			}
-
-			@Override
-			public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+				ccombat.modeSort(sort.getIndex());
+				return super.touchDown(event, x, y, pointer, button); //TODO
 			}
 		});
 		addListener(new BulleListener(this) {
 
 			@Override
 			public String getBulleContent() {
-				return "Description du sort : " + description;
+				return "Description : " + sort.getDescription();
 			}
 		});
-	}
+		donnees.addAll(
+				new Donnee(TypeDonnee.TEMPSACTION, sort.getTempsAction(), manager),
+				new Donnee(TypeDonnee.ZONEPORTEE, -1, manager),
+				new Donnee(TypeDonnee.ZONEACTION, -1, manager),
+				new Donnee(TypeDonnee.COOLDOWN, sort.getCooldownActu(), manager),
+				new Donnee(TypeDonnee.DEGATS, -1, manager)
+		);
 
-	public static final void filterTexture() {
-		for (Texture texture : TEXTURES) {
-			texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+		float posXbase = getWidth() / 2 * OFFSET_ICONES, posYbase = getHeight() / 2 * OFFSET_ICONES, coeff, posX, posY;
+		for (int i = 0; i < donnees.size; i++) {
+			coeff = (float) i / (float) (donnees.size);
+			coeff = coeff * 2 * (float) Math.PI + (float) Math.PI / 2;
+			posX = (float) Math.cos(coeff);
+			posY = (float) Math.sin(coeff);
+			addActor(donnees.get(i));
+			donnees.get(i).setPosition(posXbase * posX + getWidth() / 2 - donnees.get(i).getTextureSize() / 2,
+					posYbase * posY + getHeight() / 2 - donnees.get(i).getTextureSize() / 2);
 		}
 	}
 
 	@Override
-	protected void drawIcon(Batch batch, float parentAlpha) {
-//		batch.setColor(1, 1, 1, 0.5f);
-//		batch.draw(ICONE_TEMPS, getX() + 8, getY() + getHeight() - ICONE_HEIGHT - 8, ICONE_WIDTH, ICONE_HEIGHT);
-//		batch.draw(ICONE_RELANCE, getX() + 8, getY() + ICONE_HEIGHT - 8, ICONE_WIDTH, ICONE_HEIGHT);
-//		batch.draw(ICONE_PORTEE, getX() + getWidth() - ICONE_WIDTH - 8, getY() + getHeight() - ICONE_HEIGHT - 8, ICONE_WIDTH, ICONE_HEIGHT);
-//		batch.draw(ICONE_ZONE, getX() + getWidth() - ICONE_WIDTH - 8, getY() + ICONE_HEIGHT - 8, ICONE_WIDTH, ICONE_HEIGHT);
-//		batch.setColor(1, 1, 1, 1);
-
-		FONT.setColor(vHud.FONT_COLOR);
-		FONT.draw(batch, temps, getX() + 8, getY() + getHeight() - 8);
-		FONT.draw(batch, portee, getX() + 8, getY() + ICONE_HEIGHT + 8);
-		FONT.draw(batch, zone, getX() + getWidth() - ICONE_WIDTH - 8, getY() + getHeight() - ICONE_HEIGHT + 8);
-		FONT.draw(batch, relance, getX() + getWidth() - ICONE_WIDTH - 8, getY() + ICONE_HEIGHT + 8);
+	public void update(Observable o, Object arg) {
+		TypeDonnee type = (TypeDonnee) ((Object[]) arg)[0];
+		int d = (int) ((Object[]) arg)[1];
+		for(Donnee donnee : donnees) {
+			if(donnee.getType().equals(type)) {
+				donnee.setValeur(d);
+			}
+		}
+	}
+	
+	public void clearSortObserver() {
+		sort.deleteObservers();
 	}
 
 }

@@ -6,13 +6,14 @@
 package gameplay.sort;
 
 import gameplay.effet.Effet;
+import java.util.Observable;
 
 /**
  * Sort.java
  * Représente un sort, actif ou passif.
  *
  */
-public abstract class Sort {
+public abstract class Sort extends Observable {
 
 	//Nom du sort
 	private String nom;

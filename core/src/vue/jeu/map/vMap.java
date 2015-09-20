@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
-import controleur.cCombat;
+import controleur.Controleur;
 import gameplay.entite.EntiteActive;
 import gameplay.map.Tuile;
 import general.Tourable;
@@ -32,7 +32,7 @@ public class vMap extends Group implements Tourable {
 	 * @param ccombat
 	 * @param tabTuiles
 	 */
-	public vMap(final cCombat ccombat, final Tuile[][] tabTuiles) {
+	public vMap(final Controleur ccombat, final Tuile[][] tabTuiles) {
 		polyBatch.setProjectionMatrix(MainTest.camera.combined);
 		tabVtuiles = new vTuile[tabTuiles.length][tabTuiles[0].length];
 		int x, y, t;
@@ -136,16 +136,16 @@ public class vMap extends Group implements Tourable {
 	}
 
 	@Override
-	public void nouveauTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
+	public void nouveauTour(Controleur controleur, EntiteActive entiteEnCours, Object... objs) {
 	}
 
 	@Override
-	public void finTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
+	public void finTour(Controleur controleur, EntiteActive entiteEnCours, Object... objs) {
 		clearAll();
 	}
 
 	@Override
-	public void enTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
+	public void enTour(Controleur controleur, EntiteActive entiteEnCours, Object... objs) {
 	}
 
 }

@@ -5,9 +5,10 @@
  */
 package vue.jeu;
 
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
-import controleur.cCombat;
+import controleur.Controleur;
 import gameplay.entite.EntiteActive;
 import gameplay.entite.Personnage;
 import gameplay.map.Tuile;
@@ -25,7 +26,7 @@ import vue.jeu.sorts.vSorts;
 public class vJeu extends Stage implements Tourable {
 
 	//Controleur
-	private final cCombat combat;
+	private final Controleur combat;
 
 	//Vue de la map
 	private final vMap vmap;
@@ -36,7 +37,7 @@ public class vJeu extends Stage implements Tourable {
 	//Vue des sorts
 	private final vSorts vsorts;
 
-	public vJeu(final cCombat ccombat, final Tuile[][] tabTuiles, final Array<Personnage> personnages) {
+	public vJeu(final Controleur ccombat, final Tuile[][] tabTuiles, final Array<Personnage> personnages, AssetManager manager) {
 		combat = ccombat;
 		vmap = new vMap(ccombat, tabTuiles);
 		ventites = new vEntites(personnages);
@@ -64,21 +65,21 @@ public class vJeu extends Stage implements Tourable {
 	}
 
 	@Override
-	public void nouveauTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
+	public void nouveauTour(Controleur controleur, EntiteActive entiteEnCours, Object... objs) {
 		vmap.nouveauTour(controleur, entiteEnCours, objs);
 	}
 
 	@Override
-	public void finTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
+	public void finTour(Controleur controleur, EntiteActive entiteEnCours, Object... objs) {
 		vmap.finTour(controleur, entiteEnCours, objs);
 	}
 
 	@Override
-	public void enTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
+	public void enTour(Controleur controleur, EntiteActive entiteEnCours, Object... objs) {
 		vmap.enTour(controleur, entiteEnCours, objs);
 	}
 
-	public cCombat getCombat() {
+	public Controleur getCombat() {
 		return combat;
 	}
 

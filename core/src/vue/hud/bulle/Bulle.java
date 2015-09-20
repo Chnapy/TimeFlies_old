@@ -13,7 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.UIUtils;
 import static test.MainTest.MAX_HEIGHT;
 import static test.MainTest.MAX_WIDTH;
 import static vue.hud.vHud.defaultSkin;
-import static vue.vCombat.mouse_position;
+import static vue.Vue.mouse_position;
 
 /**
  * Bulle.java

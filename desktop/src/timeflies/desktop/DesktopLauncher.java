@@ -19,7 +19,7 @@ public class DesktopLauncher {
 		registerExceptionHandler();
 		
 		LwjglApplication application = new LwjglApplication(new MainTest(), getConfig(
-				"TimeFlies - developper edition",
+				"TimeFlies - developer edition",
 				FULLSCREEN,
 				ANTIALIASING
 		));

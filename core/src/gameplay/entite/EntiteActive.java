@@ -279,7 +279,7 @@ public abstract class EntiteActive extends Entite {
 	 * @param index
 	 * @return
 	 */
-	private SortActif getSort(int index) {
+	public SortActif getSort(int index) {
 		for (SortActif sort : tabSortActif) {
 			if (sort.getIndex() == index) {
 				return sort;

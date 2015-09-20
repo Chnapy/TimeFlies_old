@@ -11,6 +11,7 @@ import gameplay.entite.EntiteActive;
 import gameplay.map.Tuile;
 import gameplay.sort.zone.ZoneAction;
 import general.Orientation;
+import vue.hud.sorts.donnees.Donnee;
 
 /**
  * SortActif.java
@@ -28,6 +29,12 @@ public abstract class SortActif extends Sort {
 	//Temps d'action demandé pour l'exécution du sort
 	private int tempsAction;
 
+	//Nombre de tours avant réutilisation possible
+	private int cooldown;
+
+	//Cooldown actuel
+	protected int cooldownActu;
+
 	/**
 	 *
 	 * @param nom
@@ -38,17 +45,20 @@ public abstract class SortActif extends Sort {
 	 * @param zaction
 	 * @param index
 	 * @param tempsAction
+	 * @param _cooldown
 	 */
 	public SortActif(String nom, String description, Niveau niveau,
 			Effet[] effets,
 			ZoneAction zportee, ZoneAction zaction,
-			int index, int tempsAction) {
+			int index, int tempsAction, int _cooldown) {
 
 		super(nom, description, niveau, effets, index);
 
 		zonePortee = zportee;
 		zoneAction = zaction;
 		this.tempsAction = tempsAction;
+		cooldown = _cooldown;
+		cooldownActu = 0;
 	}
 
 	/**
@@ -76,6 +86,33 @@ public abstract class SortActif extends Sort {
 
 	public ZoneAction getZoneAction() {
 		return zoneAction;
+	}
+
+	public int getCooldown() {
+		return cooldown;
+	}
+
+	public int getCooldownActu() {
+		return cooldownActu;
+	}
+
+	public void setCooldownActu(int _cooldownactu) {
+		cooldownActu = _cooldownactu;
+		setChanged();
+		notifyObservers(new Object[]{
+			Donnee.TypeDonnee.COOLDOWN,
+			cooldownActu
+		});
+	}
+
+	public void resetCooldown() {
+		setCooldownActu(cooldown);
+	}
+
+	public void subCooldown() {
+		if (cooldownActu > 0) {
+			setCooldownActu(cooldownActu - 1);
+		}
 	}
 
 }

@@ -10,11 +10,11 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.Gdx2DPixmap;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import controleur.cCombat;
+import controleur.Controleur;
 import gameplay.entite.EntiteActive;
 import general.Tourable;
 import vue.hud.vHud;
-import static vue.vCombat.mouse_position;
+import static vue.Vue.mouse_position;
 
 /**
  * Curseur.java
@@ -38,18 +38,18 @@ public class Curseur extends Label implements Tourable {
 	}
 
 	@Override
-	public void nouveauTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
+	public void nouveauTour(Controleur controleur, EntiteActive entiteEnCours, Object... objs) {
 		tempsActu = (int) (entiteEnCours.getTempsAction().getActu() / 1000);
 		setText(tempsActu + "");
 	}
 
 	@Override
-	public void finTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
+	public void finTour(Controleur controleur, EntiteActive entiteEnCours, Object... objs) {
 		setText("");
 	}
 
 	@Override
-	public void enTour(cCombat controleur, EntiteActive entiteEnCours, Object... objs) {
+	public void enTour(Controleur controleur, EntiteActive entiteEnCours, Object... objs) {
 		if (tempsActu != (int) (entiteEnCours.getTempsAction().getActu() / 1000)) {
 			tempsActu = (int) (entiteEnCours.getTempsAction().getActu() / 1000);
 			setText(tempsActu + "");

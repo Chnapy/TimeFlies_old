@@ -7,8 +7,7 @@ package vue.hud.sorts.sortspassifs;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import vue.hud.bulle.BulleListener;
+import gameplay.sort.SortPassif;
 import vue.hud.sorts.vSortsBouton;
 
 /**
@@ -29,15 +28,11 @@ public class vSortsPassifsBouton extends vSortsBouton {
 		}
 	}
 
-	public vSortsPassifsBouton(int index) {
-		super(TEXTURES[index]);
+	public vSortsPassifsBouton(SortPassif sort, int index) {
+		super(sort, TEXTURES[index]);
 	}
 
 	public static final void filterTexture() {
-	}
-
-	@Override
-	protected void drawIcon(Batch batch, float parentAlpha) {
 	}
 
 }

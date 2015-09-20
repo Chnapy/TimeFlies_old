@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import controleur.cCombat;
+import controleur.Controleur;
 import gameplay.caracteristique.Carac;
 import gameplay.caracteristique.CaracteristiquePhysique;
 import gameplay.core.Joueur;
@@ -82,7 +82,7 @@ public class MainTest extends Game {
 			new Joueur(6, "J2", persosJ2)
 		};
 
-		cCombat contCombat = new cCombat(map, joueurs);
+		Controleur contCombat = new Controleur(map, joueurs);
 		this.setScreen(contCombat.getVue());
 		contCombat.lancer();
 
