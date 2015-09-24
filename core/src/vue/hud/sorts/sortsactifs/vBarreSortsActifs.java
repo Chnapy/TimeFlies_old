@@ -9,7 +9,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.utils.Align;
-import controleur.Controleur;
+import controleur.ControleurPrincipal;
 import gameplay.entite.EntiteActive;
 import gameplay.sort.SortActif;
 import general.Tourable;
@@ -66,7 +66,7 @@ public class vBarreSortsActifs extends Bloc implements Tourable {
 	}
 
 	@Override
-	public void nouveauTour(Controleur controleur, EntiteActive entiteEnCours, Object... objs) {
+	public void nouveauTour(ControleurPrincipal controleur, EntiteActive entiteEnCours, Object... objs) {
 		getCells().clear();
 		while (getChildren().size > 1) {
 			((vSortsActifsBouton) getChildren().get(1)).clearSortObserver();
@@ -79,11 +79,11 @@ public class vBarreSortsActifs extends Bloc implements Tourable {
 	}
 
 	@Override
-	public void finTour(Controleur controleur, EntiteActive entiteEnCours, Object... objs) {
+	public void finTour(ControleurPrincipal controleur, EntiteActive entiteEnCours, Object... objs) {
 	}
 
 	@Override
-	public void enTour(Controleur controleur, EntiteActive entiteEnCours, Object... objs) {
+	public void enTour(ControleurPrincipal controleur, EntiteActive entiteEnCours, Object... objs) {
 	}
 
 }

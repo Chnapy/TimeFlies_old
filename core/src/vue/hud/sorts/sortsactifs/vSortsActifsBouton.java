@@ -9,7 +9,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import controleur.Controleur;
+import controleur.ControleurPrincipal;
 import gameplay.sort.SortActif;
 import java.util.Observable;
 import java.util.Observer;
@@ -31,13 +31,13 @@ public class vSortsActifsBouton extends vSortsBouton implements Observer {
 	};
 	private static final float OFFSET_ICONES = 1.2f;
 
-	public vSortsActifsBouton(Controleur ccombat, SortActif sort, AssetManager manager) {
+	public vSortsActifsBouton(ControleurPrincipal ccombat, SortActif sort, AssetManager manager) {
 		super(sort, manager.get(TEXTURES[sort.getIndex()], Texture.class));
 		sort.addObserver(this);
 		addListener(new InputListener() {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				ccombat.modeSort(sort.getIndex());
+				ccombat.controleurSort.modeSort(sort.getIndex());
 				return super.touchDown(event, x, y, pointer, button); //TODO
 			}
 		});

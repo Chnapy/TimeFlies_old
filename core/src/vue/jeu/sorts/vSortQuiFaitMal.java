@@ -5,6 +5,7 @@
  */
 package vue.jeu.sorts;
 
+import com.badlogic.gdx.assets.AssetManager;
 import vue.jeu.sorts.effets.vCercle0;
 import vue.jeu.sorts.effets.vCercle1;
 import vue.jeu.sorts.effets.vEffet;
@@ -15,15 +16,13 @@ import vue.jeu.sorts.effets.vEffet;
  */
 public class vSortQuiFaitMal extends vSort {
 
-	private static final vEffet[] veffets = {
-		new vCercle0(),
-		new vCercle1(30, 60, 128),
-		new vCercle1(35, 60, 128),
-		new vCercle1(40, 65, 128)
-	};
-
-	public vSortQuiFaitMal() {
-		super(veffets);
+	public vSortQuiFaitMal(AssetManager manager) {
+		super(new vEffet[]{
+			new vCercle0(manager),
+			new vCercle1(manager, 30, 60, 128),
+			new vCercle1(manager, 35, 60, 128),
+			new vCercle1(manager, 40, 65, 128)
+		});
 	}
 
 }

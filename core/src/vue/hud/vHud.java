@@ -17,7 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Window.WindowStyle;
 import com.badlogic.gdx.utils.Array;
-import controleur.Controleur;
+import controleur.ControleurPrincipal;
 import gameplay.entite.EntiteActive;
 import gameplay.map.Tuile;
 import gameplay.sort.pileaction.Action;
@@ -76,13 +76,13 @@ public final class vHud extends Stage implements Tourable {
 	//Bulle
 	public static final Bulle bulle = new Bulle();
 
-	public vHud(Controleur controleur, Tuile[][] tabTuiles, Array<? extends EntiteActive> personnages, AssetManager manager) {
+	public vHud(ControleurPrincipal controleur, Tuile[][] tabTuiles, Array<? extends EntiteActive> personnages, AssetManager manager) {
 		FONT = defaultSkin.get(WindowStyle.class).titleFont;
 
 		vsorts = new vSortsBout(manager);
 		vtimeline = new vTimeline(personnages);
 		vminimap = new vMinimap(controleur, tabTuiles);
-		vpileactions = new vPileActions();
+		vpileactions = new vPileActions(manager);
 		vchatbox = new vChatBox();
 		vtabcarac = new TableauCarac();
 
@@ -96,7 +96,7 @@ public final class vHud extends Stage implements Tourable {
 	}
 
 	@Override
-	public void nouveauTour(Controleur controleur, EntiteActive entiteEnCours, Object... objs) {
+	public void nouveauTour(ControleurPrincipal controleur, EntiteActive entiteEnCours, Object... objs) {
 		vsorts.nouveauTour(controleur, entiteEnCours, objs);
 		vtimeline.nouveauTour(controleur, entiteEnCours, objs);
 		vpileactions.nouveauTour(controleur, entiteEnCours, objs);
@@ -106,7 +106,7 @@ public final class vHud extends Stage implements Tourable {
 	}
 
 	@Override
-	public void finTour(Controleur controleur, EntiteActive entiteEnCours, Object... objs) {
+	public void finTour(ControleurPrincipal controleur, EntiteActive entiteEnCours, Object... objs) {
 		vsorts.finTour(controleur, entiteEnCours, objs);
 		vtimeline.finTour(controleur, entiteEnCours, objs);
 		vpileactions.finTour(controleur, entiteEnCours, objs);
@@ -116,7 +116,7 @@ public final class vHud extends Stage implements Tourable {
 	}
 
 	@Override
-	public void enTour(Controleur controleur, EntiteActive entiteEnCours, Object... objs) {
+	public void enTour(ControleurPrincipal controleur, EntiteActive entiteEnCours, Object... objs) {
 		vsorts.enTour(controleur, entiteEnCours, objs);
 		vtimeline.enTour(controleur, entiteEnCours, objs);
 		vpileactions.enTour(controleur, entiteEnCours, objs);

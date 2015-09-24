@@ -5,9 +5,10 @@
  */
 package vue.hud.sorts.sortspassifs;
 
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import controleur.Controleur;
+import controleur.ControleurPrincipal;
 import gameplay.entite.EntiteActive;
 import gameplay.sort.SortPassif;
 import general.Tourable;
@@ -32,9 +33,12 @@ public class vBarreSortsPassifs extends Bloc implements Tourable {
 	private static final int HEIGHT = 750;
 	private static final int X = MAX_WIDTH - WIDTH - 20;
 	private static final int Y = 170;
+	
+	private final AssetManager manager;
 
-	public vBarreSortsPassifs() {
+	public vBarreSortsPassifs(AssetManager _manager) {
 		super("Sorts passifs", WIDTH, HEIGHT);
+		manager = _manager;
 		setPosition(X, Y);
 		addListener(new BulleListener(this) {
 
@@ -56,14 +60,14 @@ public class vBarreSortsPassifs extends Bloc implements Tourable {
 	}
 
 	@Override
-	public void nouveauTour(Controleur controleur, EntiteActive entiteEnCours, Object... objs) {
+	public void nouveauTour(ControleurPrincipal controleur, EntiteActive entiteEnCours, Object... objs) {
 		for (SortPassif sort : entiteEnCours.getTabSortPassif()) {
 			addBouton(new vSortsPassifsBouton(sort, sort.getIndex()));
 		}
 	}
 
 	@Override
-	public void finTour(Controleur controleur, EntiteActive entiteEnCours, Object... objs) {
+	public void finTour(ControleurPrincipal controleur, EntiteActive entiteEnCours, Object... objs) {
 		getCells().clear();
 		while (getChildren().size > 1) {
 			getChildren().removeIndex(1);
@@ -71,7 +75,7 @@ public class vBarreSortsPassifs extends Bloc implements Tourable {
 	}
 
 	@Override
-	public void enTour(Controleur controleur, EntiteActive entiteEnCours, Object... objs) {
+	public void enTour(ControleurPrincipal controleur, EntiteActive entiteEnCours, Object... objs) {
 	}
 
 }

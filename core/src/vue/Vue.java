@@ -14,7 +14,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
-import controleur.Controleur;
+import controleur.ControleurPrincipal;
 import gameplay.core.Timeline;
 import gameplay.entite.EntiteActive;
 import gameplay.entite.Personnage;
@@ -40,7 +40,17 @@ public class Vue implements Screen, Tourable {
 
 	public static Vector3 mouse_position = new Vector3();
 
-	private AssetManager manager;
+	private static final String[] assetsPath = {
+		"sort/sort_fond.png",
+		"icons/tempsaction.png",
+		"icons/degats.png",
+		"icons/zoneportee.png",
+		"icons/zoneaction.png",
+		"icons/cooldown.png",
+		"sort_fx/SortQuiFaitMal_0/cercle.png",
+	};
+
+	private final AssetManager manager;
 
 	//Vue du jeu (map, entités)
 	private final vJeu vjeu;
@@ -58,7 +68,7 @@ public class Vue implements Screen, Tourable {
 	 * @param personnages
 	 * @param timel
 	 */
-	public Vue(final Controleur ccombat, final Tuile[][] tabTuiles, final Array<Personnage> personnages, final Timeline timel) {
+	public Vue(final ControleurPrincipal ccombat, final Tuile[][] tabTuiles, final Array<Personnage> personnages, final Timeline timel) {
 		manager = new AssetManager();
 		loadAllAssets();
 		vjeu = new vJeu(ccombat, tabTuiles, personnages, manager);
@@ -171,7 +181,7 @@ public class Vue implements Screen, Tourable {
 	 * Affichage des différentes vues
 	 *
 	 * @param delta	espace de temps entre 2 frames (utilisé pour
-	 *              l'interpolation)
+	 * l'interpolation)
 	 */
 	@Override
 	public void render(float delta) {
@@ -206,21 +216,21 @@ public class Vue implements Screen, Tourable {
 	}
 
 	@Override
-	public void nouveauTour(Controleur controleur, EntiteActive entiteEnCours, Object... objs) {
+	public void nouveauTour(ControleurPrincipal controleur, EntiteActive entiteEnCours, Object... objs) {
 		vhud.nouveauTour(controleur, entiteEnCours, objs);
 		vjeu.nouveauTour(controleur, entiteEnCours, objs);
 		curseur.nouveauTour(controleur, entiteEnCours, objs);
 	}
 
 	@Override
-	public void finTour(Controleur controleur, EntiteActive entiteEnCours, Object... objs) {
+	public void finTour(ControleurPrincipal controleur, EntiteActive entiteEnCours, Object... objs) {
 		vhud.finTour(controleur, entiteEnCours, objs);
 		vjeu.finTour(controleur, entiteEnCours, objs);
 		curseur.finTour(controleur, entiteEnCours, objs);
 	}
 
 	@Override
-	public void enTour(Controleur controleur, EntiteActive entiteEnCours, Object... objs) {
+	public void enTour(ControleurPrincipal controleur, EntiteActive entiteEnCours, Object... objs) {
 		vhud.enTour(controleur, entiteEnCours, objs);
 		vjeu.enTour(controleur, entiteEnCours, objs);
 		curseur.enTour(controleur, entiteEnCours, objs);
@@ -257,12 +267,9 @@ public class Vue implements Screen, Tourable {
 		long temps = System.currentTimeMillis();
 		System.out.print("Chargement des textures...");
 
-		manager.load("sort/sort_fond.png", Texture.class, param);
-		manager.load("icons/tempsaction.png", Texture.class, param);
-		manager.load("icons/degats.png", Texture.class, param);
-		manager.load("icons/zoneportee.png", Texture.class, param);
-		manager.load("icons/zoneaction.png", Texture.class, param);
-		manager.load("icons/cooldown.png", Texture.class, param);
+		for (String path : assetsPath) {
+			manager.load(path, Texture.class, param);
+		}
 		manager.finishLoading();
 
 		temps = System.currentTimeMillis() - temps;

@@ -31,8 +31,8 @@ public class vTempsAction extends Actor {
 	private final int tempsActionMax;
 	private int tempsActionActu;
 
-	public vTempsAction(int indexTexture, int tempsAction) {
-		index = indexTexture;
+	public vTempsAction(int indexCouleur, int tempsAction) {
+		index = indexCouleur;
 		tempsActionMax = tempsActionActu = tempsAction;
 	}
 

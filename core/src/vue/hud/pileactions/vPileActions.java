@@ -6,13 +6,14 @@
 package vue.hud.pileactions;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
-import controleur.Controleur;
+import controleur.ControleurPrincipal;
 import gameplay.entite.EntiteActive;
 import general.Tourable;
 import vue.Couleur;
@@ -36,6 +37,7 @@ public class vPileActions extends Bloc implements Tourable {
 	private static Color FOND_CONTOUR_COULEUR = Couleur.get("fond_contour", "hud", "pile_action");
 	private static Color JAUGE_COULEUR = Couleur.get("jauge", "hud", "pile_action");
 
+	private final AssetManager manager;
 	private final Array<vAction> listActions;
 
 	private int tempsActionMax;
@@ -43,8 +45,9 @@ public class vPileActions extends Bloc implements Tourable {
 	private int tempsActionDepense;
 	private boolean actionEnCours;
 
-	public vPileActions() {
+	public vPileActions(AssetManager _manager) {
 		super("Pile d'actions", WIDTH, HEIGHT);
+		manager = _manager;
 		setPosition(X, Y);
 		listActions = new Array<>();
 		tempsActionDepense = 0;
@@ -78,7 +81,7 @@ public class vPileActions extends Bloc implements Tourable {
 			tempsActionDepense += tempsActionMax - tempsActionActu - tempsActionDepense;
 		}
 		tempsActionDepense += tempsAction;
-		vAction nouveau = new vAction(indexTexture, tempsAction);
+		vAction nouveau = new vAction(manager, indexTexture, tempsAction);
 		listActions.add(nouveau);
 		add(nouveau.getTempsAction()).left().width(LEFT_WIDTH).height(HEIGHT * tempsAction / tempsActionMax).expandX();
 		add(nouveau.getIconeAction()).right().bottom()
@@ -96,7 +99,7 @@ public class vPileActions extends Bloc implements Tourable {
 	}
 
 	@Override
-	public void nouveauTour(Controleur controleur, EntiteActive entiteEnCours, Object... objs) {
+	public void nouveauTour(ControleurPrincipal controleur, EntiteActive entiteEnCours, Object... objs) {
 		int tempsAction = entiteEnCours.getTempsAction().getActu();
 		listActions.clear();
 		getCells().clear();
@@ -108,7 +111,7 @@ public class vPileActions extends Bloc implements Tourable {
 	}
 
 	@Override
-	public void enTour(Controleur controleur, EntiteActive entiteEnCours, Object... objs) {
+	public void enTour(ControleurPrincipal controleur, EntiteActive entiteEnCours, Object... objs) {
 		tempsActionActu = entiteEnCours.getTempsAction().getActu();
 		if (listActions.size > 0) {
 			if (!listActions.first().getTempsAction().actu()) {
@@ -118,6 +121,6 @@ public class vPileActions extends Bloc implements Tourable {
 	}
 
 	@Override
-	public void finTour(Controleur controleur, EntiteActive entiteEnCours, Object... objs) {
+	public void finTour(ControleurPrincipal controleur, EntiteActive entiteEnCours, Object... objs) {
 	}
 }

@@ -5,7 +5,6 @@
  */
 package vue.jeu.sorts;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import vue.jeu.sorts.effets.vEffet;
 

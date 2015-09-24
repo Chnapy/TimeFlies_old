@@ -6,6 +6,7 @@
 package vue.jeu.sorts.effets;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import java.awt.Point;
@@ -15,6 +16,8 @@ import java.awt.Point;
  *
  */
 public abstract class vEffet extends Actor {
+	
+	protected final AssetManager manager;
 
 	protected final int start;
 	protected final int duree;
@@ -29,7 +32,8 @@ public abstract class vEffet extends Actor {
 	protected int height;
 	protected float delta;
 
-	public vEffet(int _start, int _duree, Point _position) {
+	public vEffet(AssetManager _manager, int _start, int _duree, Point _position) {
+		manager = _manager;
 		start = _start;
 		duree = _duree;
 		position = _position;

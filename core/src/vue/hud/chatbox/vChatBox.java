@@ -7,7 +7,7 @@ package vue.hud.chatbox;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.ui.SplitPane;
-import controleur.Controleur;
+import controleur.ControleurPrincipal;
 import gameplay.entite.EntiteActive;
 import general.Tourable;
 import vue.hud.Bloc;
@@ -68,17 +68,17 @@ public class vChatBox extends Bloc implements Tourable {
 	}
 
 	@Override
-	public void nouveauTour(Controleur controleur, EntiteActive entiteEnCours, Object... objs) {
+	public void nouveauTour(ControleurPrincipal controleur, EntiteActive entiteEnCours, Object... objs) {
 		vchatCombat.addText("Nouveau tour de " + entiteEnCours.getNom() + " ! Duree : " + entiteEnCours.getTempsAction().getTotal() / 1000 + "s.", vChatText.ChatTextType.COMBAT);
 	}
 
 	@Override
-	public void finTour(Controleur controleur, EntiteActive entiteEnCours, Object... objs) {
+	public void finTour(ControleurPrincipal controleur, EntiteActive entiteEnCours, Object... objs) {
 		vchatCombat.addText("Fin du tour de " + entiteEnCours.getNom() + " !", vChatText.ChatTextType.COMBAT);
 	}
 
 	@Override
-	public void enTour(Controleur controleur, EntiteActive entiteEnCours, Object... objs) {
+	public void enTour(ControleurPrincipal controleur, EntiteActive entiteEnCours, Object... objs) {
 	}
 
 }

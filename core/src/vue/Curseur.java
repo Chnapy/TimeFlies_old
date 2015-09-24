@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.Gdx2DPixmap;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import controleur.Controleur;
+import controleur.ControleurPrincipal;
 import gameplay.entite.EntiteActive;
 import general.Tourable;
 import vue.hud.vHud;
@@ -28,7 +28,7 @@ public class Curseur extends Label implements Tourable {
 		super(null, vHud.defaultSkin);
 		Pixmap cursor = new Pixmap(Gdx.files.internal("cursor_1.png"));
 		
-		Gdx.input.setCursorImage(cursor, 0, 0);
+//		Gdx.input.setCursorImage(cursor, 0, 0);
 	}
 
 	@Override
@@ -38,21 +38,21 @@ public class Curseur extends Label implements Tourable {
 	}
 
 	@Override
-	public void nouveauTour(Controleur controleur, EntiteActive entiteEnCours, Object... objs) {
+	public void nouveauTour(ControleurPrincipal controleur, EntiteActive entiteEnCours, Object... objs) {
 		tempsActu = (int) (entiteEnCours.getTempsAction().getActu() / 1000);
-		setText(tempsActu + "");
+//		setText(tempsActu + "");
 	}
 
 	@Override
-	public void finTour(Controleur controleur, EntiteActive entiteEnCours, Object... objs) {
+	public void finTour(ControleurPrincipal controleur, EntiteActive entiteEnCours, Object... objs) {
 		setText("");
 	}
 
 	@Override
-	public void enTour(Controleur controleur, EntiteActive entiteEnCours, Object... objs) {
+	public void enTour(ControleurPrincipal controleur, EntiteActive entiteEnCours, Object... objs) {
 		if (tempsActu != (int) (entiteEnCours.getTempsAction().getActu() / 1000)) {
 			tempsActu = (int) (entiteEnCours.getTempsAction().getActu() / 1000);
-			setText(tempsActu + "");
+//			setText(tempsActu + "");
 		}
 	}
 }

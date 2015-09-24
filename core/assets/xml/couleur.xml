@@ -1,6 +1,6 @@
 <!-- Couleur sous forme RRGGBBAA -->
 <root>
-	<font>FFFFFF</font>
+	<font>00FF00FF</font>
 	<jeu>
 		<map>
 			<fond>

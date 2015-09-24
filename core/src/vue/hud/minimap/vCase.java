@@ -13,7 +13,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import controleur.Controleur;
+import controleur.ControleurPrincipal;
 import gameplay.map.EtatTuile;
 import vue.Couleur;
 import vue.hud.vHud;
@@ -45,7 +45,7 @@ public class vCase extends Actor {
 	//Couleur selon l'etat-hover-action
 	private Color couleur;
 
-	public vCase(Controleur controleur, int x, int y, int typeTuile, EtatTuile e) {
+	public vCase(ControleurPrincipal controleur, int x, int y, int typeTuile, EtatTuile e) {
 		this.x = x;
 		this.y = y;
 		etat = e;

@@ -5,7 +5,7 @@
  */
 package vue.jeu.sorts.effets;
 
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -17,14 +17,17 @@ import java.awt.Point;
  */
 public class vCercle1 extends vEffet {
 
-	private final static TextureRegion SPRITE = new TextureRegion(new Texture(Gdx.files.internal("sort_fx/SortQuiFaitMal_0/cercle.png")));
+	private static final String PATH = "sort_fx/SortQuiFaitMal_0/cercle.png";
+	
+	private final TextureRegion SPRITE;
 	private int difX;
 	private int difY;
 	private final int precision;
 
-	public vCercle1(int start, int duree, int precision) {
-		super(start, duree, new Point(128, 256));
+	public vCercle1(AssetManager manager, int start, int duree, int precision) {
+		super(manager, start, duree, new Point(128, 256));
 		this.precision = precision;
+		SPRITE = new TextureRegion((Texture) manager.get(PATH));
 	}
 
 	@Override

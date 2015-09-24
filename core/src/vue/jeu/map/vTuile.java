@@ -20,7 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.utils.Array;
-import controleur.Controleur;
+import controleur.ControleurPrincipal;
 import gameplay.map.EtatTuile;
 import static gameplay.map.EtatTuile.NORMAL;
 import static gameplay.map.EtatTuile.NULL;
@@ -127,7 +127,7 @@ public class vTuile extends Actor {
 
 	private Array<EtatTuile> pile_deplacement;
 
-	public vTuile(int posx, int posy, int indexType, EtatTuile e, Controleur ccombat) {
+	public vTuile(int posx, int posy, int indexType, EtatTuile e, ControleurPrincipal ccombat) {
 		posX = posx;
 		posY = posy;
 		float[] pos = getPosition(posx, posy);

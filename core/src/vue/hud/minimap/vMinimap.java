@@ -5,17 +5,15 @@
  */
 package vue.hud.minimap;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Array;
-import controleur.Controleur;
+import controleur.ControleurPrincipal;
 import gameplay.entite.EntiteActive;
 import gameplay.map.EtatTuile;
 import gameplay.map.Tuile;
 import general.Tourable;
 import java.awt.Point;
-import vue.Couleur;
 import vue.hud.Bloc;
 import vue.hud.bulle.BulleListener;
 
@@ -39,7 +37,7 @@ public class vMinimap extends Bloc implements Tourable {
 	//Tableau de l'ensemble des cases
 	private final vCase[][] tabVcases;
 
-	public vMinimap(final Controleur controleur, Tuile[][] tabTuiles) {
+	public vMinimap(final ControleurPrincipal controleur, Tuile[][] tabTuiles) {
 		super("Minimap", SIZE, SIZE);
 		tabVcases = new vCase[tabTuiles.length][tabTuiles[0].length];
 //		debugAll();
@@ -135,16 +133,16 @@ public class vMinimap extends Bloc implements Tourable {
 	}
 
 	@Override
-	public void nouveauTour(Controleur controleur, EntiteActive entiteEnCours, Object... objs) {
+	public void nouveauTour(ControleurPrincipal controleur, EntiteActive entiteEnCours, Object... objs) {
 	}
 
 	@Override
-	public void finTour(Controleur controleur, EntiteActive entiteEnCours, Object... objs) {
+	public void finTour(ControleurPrincipal controleur, EntiteActive entiteEnCours, Object... objs) {
 		clearAll();
 	}
 
 	@Override
-	public void enTour(Controleur controleur, EntiteActive entiteEnCours, Object... objs) {
+	public void enTour(ControleurPrincipal controleur, EntiteActive entiteEnCours, Object... objs) {
 	}
 
 }

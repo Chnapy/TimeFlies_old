@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import controleur.Controleur;
+import controleur.ControleurPrincipal;
 import gameplay.caracteristique.Carac;
 import gameplay.caracteristique.CaracteristiquePhysique;
 import gameplay.core.Joueur;
@@ -22,8 +22,7 @@ import gameplay.sort.SortPassif;
 import static general.Orientation.EST;
 
 /**
- * MainTest.java
- * CLASSE DE TEST
+ * MainTest.java CLASSE DE TEST
  *
  * voir :
  * https://github.com/libgdx/libgdx/wiki/images/70efff32-dd28-11e3-9fc4-1eb57143aee6.png
@@ -82,7 +81,7 @@ public class MainTest extends Game {
 			new Joueur(6, "J2", persosJ2)
 		};
 
-		Controleur contCombat = new Controleur(map, joueurs);
+		ControleurPrincipal contCombat = new ControleurPrincipal(map, joueurs);
 		this.setScreen(contCombat.getVue());
 		contCombat.lancer();
 
@@ -101,8 +100,8 @@ public class MainTest extends Game {
 	}
 
 	/**
-	 * Se lance à chaque redimensionnement de la fenêtre.
-	 * Se lance également au moment du create().
+	 * Se lance à chaque redimensionnement de la fenêtre. Se lance également au
+	 * moment du create().
 	 *
 	 * @param width
 	 * @param height
@@ -122,8 +121,8 @@ public class MainTest extends Game {
 	}
 
 	/**
-	 * Se lance au moment de la fermeture de l'application.
-	 * Est précédé par pause().
+	 * Se lance au moment de la fermeture de l'application. Est précédé par
+	 * pause().
 	 *
 	 */
 	@Override
