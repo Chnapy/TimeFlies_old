@@ -18,11 +18,10 @@ public class Fatigue extends Caracteristique {
 
 	/**
 	 *
-	 * @param total
 	 * @param actu
 	 */
-	public Fatigue(int total, int actu) {
-		super(total, actu);
+	public Fatigue(int actu) {
+		super(100, actu);
 	}
 
 	/**

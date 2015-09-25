@@ -23,10 +23,9 @@ public class TempsAction extends Caracteristique {
 	/**
 	 *
 	 * @param total	en ms
-	 * @param actu	 en ms
 	 */
-	public TempsAction(int total, int actu) {
-		super(total, actu);
+	public TempsAction(int total) {
+		super(total, total);
 		this.tempsBase = total;
 	}
 

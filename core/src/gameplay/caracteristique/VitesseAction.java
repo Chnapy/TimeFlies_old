@@ -19,11 +19,10 @@ public class VitesseAction extends Caracteristique {
 
 	/**
 	 *
-	 * @param total
 	 * @param actu
 	 */
-	public VitesseAction(int total, int actu) {
-		super(total, actu);
+	public VitesseAction(int actu) {
+		super(190, actu);
 	}
 
 	/**

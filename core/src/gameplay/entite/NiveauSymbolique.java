@@ -104,4 +104,9 @@ public class NiveauSymbolique {
 		return moyenne / tab.length;
 	}
 
+	@Override
+	public String toString() {
+		return "" + niveau;
+	}
+
 }

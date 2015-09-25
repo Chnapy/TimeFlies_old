@@ -30,7 +30,7 @@ public class Invocateur extends Personnage {
 	public Invocateur(String nomDonne, int posX, int posY,
 			Orientation orientation) {
 		super("Invocatueur", nomDonne, posX, posY, orientation,
-				new CaracteristiquePhysique(100, 100, 100, 100, 10, 10, 0, 0, 1, 1),
+			new CaracteristiquePhysique(110, 12000, 1500, 0, 100),
 				new SortPassif[]{},
 				new SortActif[]{new SortDinvocation()}, INDEX_TEXTURE, INDEX_TEXTURE_TIMELINE);
 	}

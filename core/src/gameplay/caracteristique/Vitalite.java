@@ -18,8 +18,8 @@ public class Vitalite extends Caracteristique {
 	 * @param total
 	 * @param actu
 	 */
-	public Vitalite(int total, int actu) {
-		super(total, actu);
+	public Vitalite(int total) {
+		super(total, total);
 	}
 
 	/**

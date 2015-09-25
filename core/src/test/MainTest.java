@@ -20,6 +20,7 @@ import gameplay.map.Type;
 import gameplay.sort.SortActif;
 import gameplay.sort.SortPassif;
 import static general.Orientation.EST;
+import java.text.DecimalFormat;
 
 /**
  * MainTest.java CLASSE DE TEST
@@ -35,6 +36,13 @@ public class MainTest extends Game {
 
 	public static final OrthographicCamera camera = new OrthographicCamera();
 	public static final Viewport viewport = new FitViewport(MAX_WIDTH, MAX_HEIGHT, camera);
+	public static final DecimalFormat DF = new DecimalFormat();
+
+	static {
+		DF.setMinimumFractionDigits(1);
+		DF.setMaximumFractionDigits(1);
+		DF.setDecimalSeparatorAlwaysShown(true);
+	}
 
 	private static boolean loading;
 
@@ -61,7 +69,7 @@ public class MainTest extends Game {
 		Personnage[] persosJ1 = {
 			new Guerrier(
 			"bite", 1, 2, EST,
-			new CaracteristiquePhysique(100, 100, 20000, 20000, 100, 100, 100, 100, 100, 100),
+			new CaracteristiquePhysique(100, 15000, 1200, 10, 105),
 			new SortPassif[]{},
 			new SortActif[]{
 				new SortQuiFaitMal(new Effet[]{new Effet(declencheur)})
@@ -70,7 +78,7 @@ public class MainTest extends Game {
 		Personnage[] persosJ2 = {
 			new Guerrier2(
 			"bite", 0, 0, EST,
-			new CaracteristiquePhysique(100, 100, 20000, 20000, 100, 100, 100, 100, 100, 100),
+			new CaracteristiquePhysique(110, 12000, 1500, 0, 100),
 			new SortPassif[]{},
 			new SortActif[]{
 				new SortQuiFaitMal(new Effet[]{new Effet(declencheur)})

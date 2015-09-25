@@ -17,7 +17,7 @@ import com.badlogic.gdx.utils.Array;
 import gameplay.sort.Sort;
 import static test.MainTest.camera;
 import vue.Couleur;
-import vue.hud.sorts.donnees.Donnee;
+import vue.hud.tabcarac.Donnee;
 import static vue.hud.vHud.shapeRenderer;
 
 /**

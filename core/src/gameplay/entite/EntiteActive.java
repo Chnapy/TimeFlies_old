@@ -157,7 +157,7 @@ public abstract class EntiteActive extends Entite {
 	 * @return le temps dispot total avec le temps supplémentaire
 	 */
 	public long tempsDispo() {
-		return timeLeft + this.caracPhysique.getCaracteristique(Carac.TEMPSSUP).getActu();
+		return timeLeft + this.caracPhysique.getCaracteristique(Carac.TEMPSSUPP).getActu();
 	}
 
 	/**

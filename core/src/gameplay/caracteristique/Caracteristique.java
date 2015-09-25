@@ -5,6 +5,8 @@
  */
 package gameplay.caracteristique;
 
+import static test.MainTest.DF;
+
 /**
  * Caracteristique.java
  * Représente une caractéristique.

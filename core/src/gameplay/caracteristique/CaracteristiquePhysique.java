@@ -32,18 +32,14 @@ public class CaracteristiquePhysique {
 	 * @param vActionTotal
 	 * @param vActionActu
 	 */
-	public CaracteristiquePhysique(int vitaTotal, int vitaActu,
-			int tActionTotal, int tActionActu,
-			int tSupTotal, int tSupActu,
-			int fatTotal, int fatActu,
-			int vActionTotal, int vActionActu) {
+	public CaracteristiquePhysique(int vitaTotal, int tActionTotal, int tSupTotal, int fatActu, int vActionActu) {
 
 		listCaracteristiques = new Caracteristique[]{
-			new Vitalite(vitaTotal, vitaActu),
-			new TempsAction(tActionTotal, tActionActu),
-			new TempsSup(tSupTotal, tSupActu),
-			new Fatigue(fatTotal, fatActu),
-			new VitesseAction(vActionTotal, vActionActu),
+			new Vitalite(vitaTotal),
+			new TempsAction(tActionTotal),
+			new TempsSup(tSupTotal),
+			new Fatigue(fatActu),
+			new VitesseAction(vActionActu),
 			new Initiative(-1)
 		};
 
@@ -117,7 +113,7 @@ public class CaracteristiquePhysique {
 				return listCaracteristiques[0];
 			case TEMPSACTION:
 				return listCaracteristiques[1];
-			case TEMPSSUP:
+			case TEMPSSUPP:
 				return listCaracteristiques[2];
 			case FATIGUE:
 				return listCaracteristiques[3];
@@ -132,6 +128,7 @@ public class CaracteristiquePhysique {
 
 	/**
 	 * hashCode
+	 * @return 
 	 */
 	@Override
 	public int hashCode() {
@@ -143,6 +140,7 @@ public class CaracteristiquePhysique {
 
 	/**
 	 * equals en fonction de listCaracteristique
+	 * @return 
 	 */
 	@Override
 	public boolean equals(Object obj) {

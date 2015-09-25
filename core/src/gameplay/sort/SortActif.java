@@ -11,7 +11,7 @@ import gameplay.entite.EntiteActive;
 import gameplay.map.Tuile;
 import gameplay.sort.zone.ZoneAction;
 import general.Orientation;
-import vue.hud.sorts.donnees.Donnee;
+import general.TypeDonnee;
 
 /**
  * SortActif.java
@@ -100,7 +100,7 @@ public abstract class SortActif extends Sort {
 		cooldownActu = _cooldownactu;
 		setChanged();
 		notifyObservers(new Object[]{
-			Donnee.TypeDonnee.COOLDOWN,
+			TypeDonnee.COOLDOWN,
 			cooldownActu
 		});
 	}

@@ -15,7 +15,7 @@ public class InvocationBite extends InvocationMobile {
 	public InvocationBite() {
 		super("une bite", 0, 0, Orientation.NORD, new SortPassif[]{},
 				new SortActif[]{new SortQuiFaitMal(new Effet[]{})},
-				new CaracteristiquePhysique(100, 100, 100, 100, 10, 10, 0, 0, 1, 1),
+				new CaracteristiquePhysique(110, 12000, 1500, 0, 100),
 				1, 1);
 	}
 

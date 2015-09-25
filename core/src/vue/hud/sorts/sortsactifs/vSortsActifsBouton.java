@@ -10,13 +10,15 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import controleur.ControleurPrincipal;
+import gameplay.caracteristique.Carac;
 import gameplay.sort.SortActif;
+import general.TypeDonnee;
 import java.util.Observable;
 import java.util.Observer;
+import static test.MainTest.DF;
 import vue.hud.bulle.BulleListener;
-import vue.hud.sorts.donnees.Donnee;
-import vue.hud.sorts.donnees.Donnee.TypeDonnee;
 import vue.hud.sorts.vSortsBouton;
+import vue.hud.tabcarac.Donnee;
 
 /**
  * vSortsActifsBouton.java
@@ -48,12 +50,11 @@ public class vSortsActifsBouton extends vSortsBouton implements Observer {
 				return "Description : " + sort.getDescription();
 			}
 		});
-		donnees.addAll(
-				new Donnee(TypeDonnee.TEMPSACTION, sort.getTempsAction(), manager),
-				new Donnee(TypeDonnee.ZONEPORTEE, -1, manager),
-				new Donnee(TypeDonnee.ZONEACTION, -1, manager),
-				new Donnee(TypeDonnee.COOLDOWN, sort.getCooldownActu(), manager),
-				new Donnee(TypeDonnee.DEGATS, -1, manager)
+		donnees.addAll(new Donnee(TypeDonnee.TEMPSACTION, manager, DF.format((float) sort.getTempsAction() / 1000)),
+				new Donnee(TypeDonnee.ZONEPORTEE, manager),
+				new Donnee(TypeDonnee.ZONEACTION, manager),
+				new Donnee(TypeDonnee.COOLDOWN, manager, sort.getCooldownActu() + ""),
+				new Donnee(TypeDonnee.DEGATS, manager)
 		);
 
 		float posXbase = getWidth() / 2 * OFFSET_ICONES, posYbase = getHeight() / 2 * OFFSET_ICONES, coeff, posX, posY;
@@ -63,8 +64,8 @@ public class vSortsActifsBouton extends vSortsBouton implements Observer {
 			posX = (float) Math.cos(coeff);
 			posY = (float) Math.sin(coeff);
 			addActor(donnees.get(i));
-			donnees.get(i).setPosition(posXbase * posX + getWidth() / 2 - donnees.get(i).getTextureSize() / 2,
-					posYbase * posY + getHeight() / 2 - donnees.get(i).getTextureSize() / 2);
+			donnees.get(i).setPosition(posXbase * posX + getWidth() / 2 - Donnee.TEXTURE_SIZE / 2,
+					posYbase * posY + getHeight() / 2 - Donnee.TEXTURE_SIZE / 2);
 		}
 	}
 
@@ -72,13 +73,13 @@ public class vSortsActifsBouton extends vSortsBouton implements Observer {
 	public void update(Observable o, Object arg) {
 		TypeDonnee type = (TypeDonnee) ((Object[]) arg)[0];
 		int d = (int) ((Object[]) arg)[1];
-		for(Donnee donnee : donnees) {
-			if(donnee.getType().equals(type)) {
-				donnee.setValeur(d);
+		for (Donnee donnee : donnees) {
+			if (donnee.getType().equals(type)) {
+				donnee.setText(d + "");
 			}
 		}
 	}
-	
+
 	public void clearSortObserver() {
 		sort.deleteObservers();
 	}

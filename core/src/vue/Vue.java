@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 import controleur.ControleurPrincipal;
 import gameplay.core.Timeline;
 import gameplay.entite.EntiteActive;
@@ -42,13 +43,17 @@ public class Vue implements Screen, Tourable {
 
 	private static final String[] assetsPath = {
 		"sort/sort_fond.png",
-		"icons/tempsaction.png",
-		"icons/degats.png",
-		"icons/zoneportee.png",
-		"icons/zoneaction.png",
 		"icons/cooldown.png",
-		"sort_fx/SortQuiFaitMal_0/cercle.png",
-	};
+		"icons/degats.png",
+		"icons/fatigue.png",
+		"icons/nom.png",
+		"icons/tempsaction.png",
+		"icons/tempssupp.png",
+		"icons/vie.png",
+		"icons/vitesseaction.png",
+		"icons/zoneaction.png",
+		"icons/zoneportee.png",
+		"sort_fx/SortQuiFaitMal_0/cercle.png",};
 
 	private final AssetManager manager;
 
@@ -181,7 +186,7 @@ public class Vue implements Screen, Tourable {
 	 * Affichage des différentes vues
 	 *
 	 * @param delta	espace de temps entre 2 frames (utilisé pour
-	 * l'interpolation)
+	 *              l'interpolation)
 	 */
 	@Override
 	public void render(float delta) {
@@ -267,13 +272,18 @@ public class Vue implements Screen, Tourable {
 		long temps = System.currentTimeMillis();
 		System.out.print("Chargement des textures...");
 
-		for (String path : assetsPath) {
-			manager.load(path, Texture.class, param);
-		}
-		manager.finishLoading();
+		try {
+			for (String path : assetsPath) {
+				manager.load(path, Texture.class, param);
+			}
+			manager.finishLoading();
 
-		temps = System.currentTimeMillis() - temps;
-		System.out.println(" terminé ! Durée : " + temps + "ms.");
+			temps = System.currentTimeMillis() - temps;
+			System.out.println(" terminé ! Durée : " + temps + "ms.");
+		} catch (GdxRuntimeException e) {
+			System.out.println("FAIL");
+			throw e;
+		}
 	}
 
 }

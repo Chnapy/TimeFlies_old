@@ -58,7 +58,7 @@ public class vBarreSortsActifs extends Bloc implements Tourable {
 	 * @param bouton
 	 */
 	public void addBouton(vSortsBouton bouton) {
-		this.add(bouton).left().padLeft(20);
+		this.add(bouton).left().padLeft(30);
 	}
 
 	@Override

@@ -14,7 +14,7 @@ public class BitchInvocation extends InvocationMobile {
 
 	public BitchInvocation() {
 		super("Bitchator", 0, 0, NORD, new SortPassif[]{}, new SortActif[]{},
-				new CaracteristiquePhysique(100, 100, 10, 10, 0, 0, 0, 0, 0, 0),
+				new CaracteristiquePhysique(110, 12000, 1500, 0, 100),
 				0, 0);
 	}
 

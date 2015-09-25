@@ -15,6 +15,9 @@ public enum Carac {
 	/**
 	 * La vie d'une entité.
 	 * Si la vie tombe à 0, l'entité meurt.
+	 *//**
+	 * La vie d'une entité.
+	 * Si la vie tombe à 0, l'entité meurt.
 	 */
 	VITALITE,
 	/**
@@ -30,7 +33,7 @@ public enum Carac {
 	 * qu'il
 	 * dépasse le temps d'action.
 	 */
-	TEMPSSUP,
+	TEMPSSUPP,
 	/**
 	 * La fatigue d'une entité active.
 	 * La fatigue fait varier le niveau de temps d'action disponible.

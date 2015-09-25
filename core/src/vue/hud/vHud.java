@@ -84,7 +84,7 @@ public final class vHud extends Stage implements Tourable {
 		vminimap = new vMinimap(controleur, tabTuiles);
 		vpileactions = new vPileActions(manager);
 		vchatbox = new vChatBox();
-		vtabcarac = new TableauCarac();
+		vtabcarac = new TableauCarac(manager);
 
 		addActor(vsorts);
 		addActor(vtimeline);
