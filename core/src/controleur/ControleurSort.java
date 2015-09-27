@@ -19,6 +19,7 @@ import general.Tourable;
 import java.awt.Point;
 import vue.Vue;
 import vue.hud.chatbox.chattext.vChatText;
+import vue.hud.chatbox.vChatBox;
 
 /**
  * ControleurSort.java
@@ -81,11 +82,12 @@ public class ControleurSort implements Tourable {
 			Point depart = entiteEnCours.getLastPosition();
 			vue.afficherPortee(sortEnCours.getZonePortee().getZoneFinale(), depart);
 		} else {
-			controleurPrincipal.chatCombatPrint("Vous ne pouvez pas lancer le sort " + sort.getNom() + ". Le cooldown est de " + sort.getCooldownActu() + " tours.", vChatText.ChatTextType.IMPORTANT);
+			vChatBox.chatCombatPrint("Vous ne pouvez pas lancer le sort " + sort.getNom() + ". Le cooldown est de " + sort.getCooldownActu() + " tours.", vChatText.ChatTextType.IMPORTANT);
 		}
 	}
 
 	public void update(EntiteActive entite, Action action, Map map) {
+		vChatBox.chatCombatPrint(entite.getNom() + " lance le sort " + action.getSort().getNom() + ".", vChatText.ChatTextType.COMBAT);
 		Tuile[] tuilesTouchees = map.getTuilesAction(action.getSort().getZoneAction().getZoneFinale(), new Point(action.getPoint().x, action.getPoint().y));
 		for (Tuile t : tuilesTouchees) {
 			lancerSort(entite, action.getSort(), t, action.getOriAttaque(), action.isCritique());
@@ -95,15 +97,13 @@ public class ControleurSort implements Tourable {
 		for (Tuile t : tuilesTouchees) {
 			vue.getVmap().getTabVtuiles()[t.getPosition().y][t.getPosition().x].addGhostAction();
 		}
-		controleurPrincipal.chatCombatPrint(entite.getNom() + " lance le sort " + action.getSort().getNom() + ".", vChatText.ChatTextType.COMBAT);
 	}
 	
 	
 	public void lancerSort(Entite lanceur, SortActif sort, Tuile tuileCible, Orientation oriAttaque, boolean critique) {
-		Personnage persoCible = controleurPrincipal.getPerso(tuileCible);
+		EntiteActive persoCible = controleurPrincipal.getPerso(tuileCible);
 		tuileCible.recoitSort(sort.getTabEffets(), lanceur, oriAttaque, critique);
 		if (persoCible != null) {
-//			System.out.println("ok");
 			persoCible.recoitSort(sort.getTabEffets(), lanceur, oriAttaque, critique);
 		}
 	}

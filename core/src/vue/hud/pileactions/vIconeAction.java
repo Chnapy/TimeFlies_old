@@ -20,6 +20,7 @@ public class vIconeAction extends Actor {
 	private static final String[] PATH = {
 		"sort/sort_fond.png",
 		"sort/sort_fond.png",
+		"sort/sort_fond.png",
 		"sort/sort_fond.png"
 	};
 

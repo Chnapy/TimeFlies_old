@@ -41,7 +41,11 @@ public abstract class vChat extends ScrollPane {
 		super.act(delta);
 		if (edited) {
 			edited = false;
-			layout();
+			try {
+				validate();
+			} catch (Exception e) {
+				System.err.println(e);
+			}
 			setScrollPercentY(1);
 		}
 	}

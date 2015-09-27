@@ -7,10 +7,11 @@ package vue.jeu.entites;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.run;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
+import controleur.ControleurPrincipal;
 import gameplay.caracteristique.Carac;
 import gameplay.entite.Entite;
 import gameplay.entite.EntiteActive;
@@ -19,6 +20,7 @@ import static general.EtatGraphique.STAY;
 import static general.EtatGraphique.WALK;
 import general.Mode;
 import general.Orientation;
+import general.Tourable;
 import java.awt.Point;
 import java.util.Observable;
 import java.util.Observer;
@@ -33,45 +35,47 @@ import static vue.jeu.map.vTuile.TUILE_WIDTH;
  * Gère les animations et déplacements.
  *
  */
-public class vEntite extends Actor implements Observer {
+public class vEntite extends Group implements Observer, Tourable {
 
 	//Tailles du sprite de l'entité
 	private static final int PERSO_WIDTH = 128;
 	private static final int PERSO_HEIGHT = 192;
-
-	/**
-	 *
-	 */
-	private static final AnimationManager[] tabManager = {
-		new AnimationManager("perso1", 0.8f, 0.5f),
-		new AnimationManager("perso2", 0.8f, 0.5f)
+	private static final String[] tabManager = {
+		"perso1",
+		"perso2"
 	};
 
-	private final int index;
+	private final AnimationManager amanager;
+	private final EntiteHud hud;
+
 	private EtatGraphique etat;
 	private Orientation orientation;
 
-	public vEntite(final EntiteActive perso) {
-		index = perso.getIndex();
+	public vEntite(final EntiteActive entite) {
+		amanager = new AnimationManager(tabManager[entite.getIndex()], 0.8f, 0.5f);
 		etat = STAY;
-		orientation = perso.getCaracSpatiale().getOrientation();
+		orientation = entite.getCaracSpatiale().getOrientation();
 		setSize(PERSO_WIDTH, PERSO_HEIGHT);
-		setPos(perso.getCaracSpatiale().getPosition().x,
-				perso.getCaracSpatiale().getPosition().y);
+		setPos(entite.getCaracSpatiale().getPosition().x,
+				entite.getCaracSpatiale().getPosition().y);
 
 		addListener(new BulleListener(this) {
 
 			@Override
 			public String getBulleContent() {
-				return perso.getNom() + " possede " + perso.getCaracPhysique().getCaracteristique(Carac.VITALITE).getActu() + " pdv.";
+				return entite.getNom() + " possede " + entite.getCaracPhysique().getCaracteristique(Carac.VITALITE).getActu() + " pdv.";
 			}
 		});
-//		debug();
+
+		hud = new EntiteHud(entite, PERSO_WIDTH, PERSO_HEIGHT);
+		addActor(hud);
+//		debugAll();
 	}
 
 	@Override
 	public void draw(Batch batch, float delta) {
-		batch.draw(tabManager[index].getFrame(etat, orientation, Gdx.graphics.getDeltaTime()), getX(), getY());
+		batch.draw(amanager.getFrame(etat, orientation, Gdx.graphics.getDeltaTime()), getX(), getY());
+		super.draw(batch, delta);
 	}
 
 	/**
@@ -82,19 +86,17 @@ public class vEntite extends Actor implements Observer {
 	 * @param o	  Entite
 	 * @param arg	Array de Point
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")	//Enleve le warning lors de la compilation
 	@Override
 	public void update(Observable o, Object arg) {
 		Entite entite = (Entite) o;
 		orientation = entite.getCaracSpatiale().getOrientation();
-//		System.out.println(orientation);
 		if (arg instanceof Object[] && entite.getEtatNow() == Mode.DEPLACEMENT) {
 			Object[] tabObjets = (Object[]) arg;
 			int dureeAnim = (int) tabObjets[1];
 			if (tabObjets[0] instanceof Point) {
 				etat = WALK;
 				Point point = (Point) tabObjets[0];
-//				System.out.println(point.x + " " + point.y);
 				MoveToAction[] tabMoveTo = new MoveToAction[1];
 				float[] position;
 				for (int i = 0; i < 1; i++) {
@@ -113,16 +115,29 @@ public class vEntite extends Actor implements Observer {
 
 	/**
 	 * Applique les positions posX et posY.
-	 * Selon le booléen, applique ou non les positions réelles.
 	 *
 	 * @param x
 	 * @param y
-	 * @param set_xy
 	 */
-	private void setPos(int x, int y) {
+	private final void setPos(int x, int y) {
 		float[] position = vTuile.getPosition(x, y);
 		setX(position[0] + (TUILE_WIDTH - PERSO_WIDTH) / 2);
 		setY(position[1] + TUILE_HEIGHT / 4);
+	}
+
+	@Override
+	public void nouveauTour(ControleurPrincipal controleur, EntiteActive entiteEnCours, Object... objs) {
+		hud.nouveauTour(controleur, entiteEnCours, objs);
+	}
+
+	@Override
+	public void finTour(ControleurPrincipal controleur, EntiteActive entiteEnCours, Object... objs) {
+		hud.finTour(controleur, entiteEnCours, objs);
+	}
+
+	@Override
+	public void enTour(ControleurPrincipal controleur, EntiteActive entiteEnCours, Object... objs) {
+		hud.enTour(controleur, entiteEnCours, objs);
 	}
 
 }

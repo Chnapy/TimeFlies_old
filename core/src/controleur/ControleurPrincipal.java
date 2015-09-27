@@ -5,7 +5,11 @@
  */
 package controleur;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.utils.Array;
+import gameplay.caracteristique.Carac;
 import gameplay.core.Joueur;
 import gameplay.core.Timeline;
 import gameplay.entite.EntiteActive;
@@ -19,7 +23,6 @@ import general.Tourable;
 import java.awt.Point;
 import java.util.Observable;
 import java.util.Observer;
-import vue.hud.chatbox.chattext.vChatText.ChatTextType;
 import vue.Vue;
 
 /**
@@ -112,6 +115,11 @@ public class ControleurPrincipal implements Observer, Tourable {
 		controleurDeplacement.enTour(controleur, entiteEnCours, objs);
 		controleurSort.enTour(controleur, entiteEnCours, objs);
 		vue.enTour(controleur, entiteEnCours, objs);
+		
+		//asupp
+		if(Gdx.input.isButtonPressed(Buttons.RIGHT)) {
+			entiteEnCours.getCaracPhysique().setActu(Carac.TEMPSACTION, 100);
+		}
 	}
 
 	/**
@@ -278,14 +286,6 @@ public class ControleurPrincipal implements Observer, Tourable {
 			return false;
 		}
 		return oriAttaque.invert().equals(oriCible);
-	}
-
-	public void chatCombatPrint(String text, ChatTextType type) {
-		vue.getVhud().getVchatbox().vchatCombat.addText(text, type);
-	}
-
-	public void chatGeneralPrint(String text, ChatTextType type) {
-		vue.getVhud().getVchatbox().vchatGeneral.addText(text, type);
 	}
 
 	public Orientation getOriAttaque() {

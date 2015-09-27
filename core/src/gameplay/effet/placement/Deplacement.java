@@ -1,5 +1,6 @@
 package gameplay.effet.placement;
 
+import gameplay.effet.Declencheur;
 import gameplay.effet.Effet;
 import gameplay.entite.Entite;
 import gameplay.map.Tuile;
@@ -46,8 +47,8 @@ public class Deplacement extends Placement {
 
 	@Override
 	public boolean canDeclencher(Effet effet, int min, int max) {
-		for (int i = 0; i < effet.getDeclencheur().size; i++) {
-			if (effet.getDeclencheur().get(i) instanceof Deplacement && ((Deplacement) effet.getDeclencheur().get(i)).nombre <= min && ((Deplacement) effet.getDeclencheur().get(i)).nombre >= max) {
+		for (Declencheur declencheur : effet.getDeclencheur()) {
+			if (declencheur instanceof Deplacement && ((Deplacement) declencheur).nombre <= min && ((Deplacement) declencheur).nombre >= max) {
 				return true;
 			}
 		}

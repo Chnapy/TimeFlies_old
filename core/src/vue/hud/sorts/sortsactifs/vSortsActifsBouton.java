@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import controleur.ControleurPrincipal;
-import gameplay.caracteristique.Carac;
 import gameplay.sort.SortActif;
 import general.TypeDonnee;
 import java.util.Observable;
@@ -28,6 +27,8 @@ public class vSortsActifsBouton extends vSortsBouton implements Observer {
 
 	//Tableau de textures des sorts
 	private static final String[] TEXTURES = {
+		"sort/sort_fond.png",
+		"sort/sort_fond.png",
 		"sort/sort_fond.png",
 		"sort/sort_fond.png"
 	};
@@ -50,11 +51,12 @@ public class vSortsActifsBouton extends vSortsBouton implements Observer {
 				return "Description : " + sort.getDescription();
 			}
 		});
-		donnees.addAll(new Donnee(TypeDonnee.TEMPSACTION, manager, DF.format((float) sort.getTempsAction() / 1000)),
-				new Donnee(TypeDonnee.ZONEPORTEE, manager),
-				new Donnee(TypeDonnee.ZONEACTION, manager),
-				new Donnee(TypeDonnee.COOLDOWN, manager, sort.getCooldownActu() + ""),
-				new Donnee(TypeDonnee.DEGATS, manager)
+		donnees.addAll(
+				poolDonnees.obtain().init(TypeDonnee.TEMPSACTION, manager, DF.format((float) sort.getTempsAction() / 1000)),
+				poolDonnees.obtain().init(TypeDonnee.ZONEPORTEE, manager),
+				poolDonnees.obtain().init(TypeDonnee.ZONEACTION, manager),
+				poolDonnees.obtain().init(TypeDonnee.COOLDOWN, manager, sort.getCooldownActu() + ""),
+				poolDonnees.obtain().init(TypeDonnee.DEGATS, manager)
 		);
 
 		float posXbase = getWidth() / 2 * OFFSET_ICONES, posYbase = getHeight() / 2 * OFFSET_ICONES, coeff, posX, posY;
@@ -80,8 +82,9 @@ public class vSortsActifsBouton extends vSortsBouton implements Observer {
 		}
 	}
 
-	public void clearSortObserver() {
+	public void delete() {
 		sort.deleteObservers();
+		poolDonnees.freeAll(donnees);
 	}
 
 }

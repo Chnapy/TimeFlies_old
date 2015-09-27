@@ -67,16 +67,19 @@ public class vJeu extends Stage implements Tourable {
 	@Override
 	public void nouveauTour(ControleurPrincipal controleur, EntiteActive entiteEnCours, Object... objs) {
 		vmap.nouveauTour(controleur, entiteEnCours, objs);
+		ventites.nouveauTour(controleur, entiteEnCours, objs);
 	}
 
 	@Override
 	public void finTour(ControleurPrincipal controleur, EntiteActive entiteEnCours, Object... objs) {
 		vmap.finTour(controleur, entiteEnCours, objs);
+		ventites.finTour(controleur, entiteEnCours, objs);
 	}
 
 	@Override
 	public void enTour(ControleurPrincipal controleur, EntiteActive entiteEnCours, Object... objs) {
 		vmap.enTour(controleur, entiteEnCours, objs);
+		ventites.enTour(controleur, entiteEnCours, objs);
 	}
 
 	public ControleurPrincipal getCombat() {

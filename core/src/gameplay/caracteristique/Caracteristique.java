@@ -39,9 +39,9 @@ public abstract class Caracteristique {
 	 */
 	public void add(int gain) {
 		actu += gain;
-		if (actu > total) {
-			actu = total;
-		}
+//		if (actu > total) {
+//			actu = total;
+//		}
 	}
 
 	/**

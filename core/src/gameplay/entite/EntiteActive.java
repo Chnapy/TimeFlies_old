@@ -32,14 +32,11 @@ import java.util.stream.Stream;
 public abstract class EntiteActive extends Entite {
 
 	//Tableau des sorts actifs
-	private SortActif[] tabSortActif;
+	private final SortActif[] tabSortActif;
 
 	private final Orienter orienter;
 
 	private final Deplacer deplacer;
-
-	//Liste des envoutements
-	private Array<Envoutement> listEnvoutements;
 
 	//Est en train de se déplacer
 	private boolean enDeplacement;
@@ -85,7 +82,6 @@ public abstract class EntiteActive extends Entite {
 		super(nom, posX, posY, orientation, sortsPassifs, cPhysique, indexTexture);
 
 		tabSortActif = sortsActifs;
-		listEnvoutements = new Array<Envoutement>();
 		niveauSymbol = new NiveauSymbolique(Stream.concat(Arrays.stream(sortsPassifs), Arrays.stream(sortsActifs)).toArray(Sort[]::new));
 		indexTextureTimeline = iTextureTimeline;
 		orienter = new Orienter();
@@ -109,14 +105,18 @@ public abstract class EntiteActive extends Entite {
 	@Override
 	public void jouerTour(long time) {
 		if (!actionIsRunning() && pileAction.pile.size > 0) {
-			if (pileAction.pile.get(0).getEtat() == Action.EtatAction.DEPLACEMENT) {
-				etatNow = Mode.DEPLACEMENT;
-//				pileAction.pile.forEach((Action a) -> {
-//					System.out.println(a.getPoint());
-//				});
-//				System.out.println();
-			} else {
-				etatNow = Mode.SORT;
+			try {
+				if (pileAction.pile.get(0).getEtat() == Action.EtatAction.DEPLACEMENT) {
+					etatNow = Mode.DEPLACEMENT;
+				} else {
+					etatNow = Mode.SORT;
+				}
+			} catch (NullPointerException e) {
+				System.err.println(e +
+						"\tEtat : " + pileAction.pile.get(0).getEtat() + "\n"
+						+ "\tAction : " + pileAction.pile.get(0) + "\n"
+						+ "\tPile : " + pileAction.pile + "\n"
+				);
 			}
 			tempsFinSort = pileAction.pile.get(0).getSort().getTempsAction() + time;
 			setChanged();
@@ -175,7 +175,7 @@ public abstract class EntiteActive extends Entite {
 	 */
 	public void debutTourGlobal() {
 		for (Envoutement envout : listEnvoutements) {
-			envout.actionDebutTourGlobal();
+			envout.debutTourGlobal();
 		}
 	}
 
@@ -185,7 +185,7 @@ public abstract class EntiteActive extends Entite {
 	 */
 	public void finTourGlobal() {
 		for (Envoutement envout : listEnvoutements) {
-			envout.actionFinTourGlobal();
+			envout.finTourGlobal();
 		}
 	}
 
@@ -195,7 +195,7 @@ public abstract class EntiteActive extends Entite {
 	 */
 	public void debutTour() {
 		for (Envoutement envout : listEnvoutements) {
-			envout.actionDebutTour();
+			envout.debutTour();
 		}
 	}
 
@@ -206,7 +206,11 @@ public abstract class EntiteActive extends Entite {
 	public void finTour() {
 		pileAction.pile.clear();
 		for (Envoutement envout : listEnvoutements) {
-			envout.actionFinTour();
+			envout.finTour();
+			if(envout.subDuree() <= 0) {
+				envout.finEnvoutement();
+				listEnvoutements.removeValue(envout, false);
+			}
 		}
 		caracPhysique.setActu(Carac.TEMPSACTION, caracPhysique.getCaracteristique(Carac.TEMPSACTION).getTotal());
 	}
@@ -285,7 +289,7 @@ public abstract class EntiteActive extends Entite {
 				return sort;
 			}
 		}
-		return null;
+		throw new IllegalArgumentException();
 	}
 
 	public int getIndexTextureTimeline() {
@@ -294,6 +298,10 @@ public abstract class EntiteActive extends Entite {
 
 	public Caracteristique getTempsAction() {
 		return getCaracPhysique().getCaracteristique(Carac.TEMPSACTION);
+	}
+	
+	public void addEnvoutement(Envoutement envoutement) {
+		listEnvoutements.add(envoutement);
 	}
 
 }

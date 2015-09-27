@@ -5,6 +5,7 @@
  */
 package gameplay.effet.placement;
 
+import gameplay.effet.Declencheur;
 import gameplay.effet.Effet;
 import gameplay.entite.Entite;
 import gameplay.map.Tuile;
@@ -33,8 +34,8 @@ public class Rotation extends Placement {
 	@Override
 	public boolean canDeclencher(Effet effet, int min, int max) {
 //		System.out.println("declench");
-		for (int i = 0; i < effet.getDeclencheur().size; i++) {
-			if (effet.getDeclencheur().get(i) instanceof Rotation) {
+		for (Declencheur declencheur : effet.getDeclencheur()) {
+			if (declencheur instanceof Rotation) {
 				return true;
 			}
 		}

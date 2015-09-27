@@ -15,6 +15,7 @@ import general.Mode;
 import general.Tourable;
 import java.awt.Point;
 import vue.hud.chatbox.chattext.vChatText;
+import vue.hud.chatbox.vChatBox;
 import vue.jeu.map.vMap;
 
 /**
@@ -69,7 +70,9 @@ public class ControleurDeplacement implements Tourable {
 			}
 			vueMap.ghostPath(path);
 			vueMap.clearColorTuile();
-			lastPosFixe = path.peek();
+			if (path.size > 0) {
+				lastPosFixe = path.peek();
+			}
 			path = null;
 		}
 	}
@@ -105,7 +108,6 @@ public class ControleurDeplacement implements Tourable {
 		entite.setEnDeplacement(true);
 		action.getSort().lancerSort(entite, map.getTabTuiles()[action.getPoint().x][action.getPoint().y], entite, action.getOriAttaque(), action.isCritique());
 		vueMap.getTabVtuiles()[action.getPoint().y][action.getPoint().x].clearGhostPath();
-		controleurPrincipal.chatCombatPrint(entite.getNom() + " effectue un deplacement.", vChatText.ChatTextType.COMBAT);
 	}
 
 	@Override

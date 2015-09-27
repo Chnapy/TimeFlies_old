@@ -5,6 +5,7 @@
  */
 package vue.hud;
 
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -17,8 +18,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
  */
 public abstract class Bloc extends Window {
 
-	public Bloc(String titre, float width, float height) {
+	protected final AssetManager manager;
+
+	public Bloc(String titre, float width, float height, AssetManager _manager) {
 		super(titre, vHud.defaultSkin);
+		manager = _manager;
 		setSize(width, height + getPadTop());
 		setMovable(true);
 		getColor().a = 0.75f;
@@ -37,7 +41,11 @@ public abstract class Bloc extends Window {
 
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
-		super.draw(batch, parentAlpha);
+		try {
+			super.draw(batch, parentAlpha);
+		} catch (IndexOutOfBoundsException e) {
+			e.printStackTrace();
+		}
 		batch.end();
 
 		render(batch, parentAlpha);

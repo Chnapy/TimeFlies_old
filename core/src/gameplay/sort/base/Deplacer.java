@@ -29,13 +29,9 @@ public class Deplacer extends SortActif {
 	public Deplacer() {
 		super("Deplacer", "Permet de déplacer l'entité", new Niveau(0),
 				new Effet[]{
-					new Effet(
-							new Array<Declencheur>(
-									new Declencheur[]{
-										new Deplacement(1)
-									}
-							)
-					)
+					new Effet(new Declencheur[]{
+						new Deplacement(1)
+					})
 				},
 				new ZoneAction(new Carre(0, true)),
 				new ZoneAction(new Carre(0, true)),

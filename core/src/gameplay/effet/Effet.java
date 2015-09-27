@@ -5,7 +5,6 @@
  */
 package gameplay.effet;
 
-import com.badlogic.gdx.utils.Array;
 import gameplay.entite.Entite;
 import gameplay.map.Tuile;
 import general.Orientation;
@@ -23,13 +22,13 @@ import general.Orientation;
 public class Effet {
 
 	//Liste des déclencheurs
-	private Array<Declencheur> declencheur;
+	private Declencheur[] declencheur;
 
 	/**
 	 *
 	 * @param declencheur
 	 */
-	public Effet(Array<Declencheur> declencheur) {
+	public Effet(Declencheur[] declencheur) {
 		this.declencheur = declencheur;
 	}
 
@@ -41,17 +40,17 @@ public class Effet {
 	 * @param ccritique
 	 */
 	public void lancerEffetEntite(Entite cible, Orientation oriLanceur, boolean ccritique) {
-		if (declencheur != null && declencheur.size != 0) {
-			for (int i = 0; i < declencheur.size; i++) {
-				this.declencheur.get(i).lancerEntite(cible, oriLanceur, ccritique);
+		if (declencheur != null && declencheur.length != 0) {
+			for (Declencheur declencheur1 : declencheur) {
+				declencheur1.lancerEntite(cible, oriLanceur, ccritique);
 			}
 		}
 	}
 
 	public void lancerEffetTuile(Tuile cible, Entite lanceur, Orientation oriLanceur, boolean ccritique) {
-		if (declencheur != null && declencheur.size != 0) {
-			for (int i = 0; i < declencheur.size; i++) {
-				this.declencheur.get(i).lancerTuile(cible, lanceur, oriLanceur, ccritique);
+		if (declencheur != null && declencheur.length != 0) {
+			for (Declencheur declencheur1 : declencheur) {
+				declencheur1.lancerTuile(cible, lanceur, oriLanceur, ccritique);
 			}
 		}
 	}
@@ -91,16 +90,16 @@ public class Effet {
 	 *
 	 * @return tout les déclancheur
 	 */
-	public Array<Declencheur> getDeclencheur() {
+	public Declencheur[] getDeclencheur() {
 		return declencheur;
 	}
 
 	/**
-	 * met a jours les déclancheur
+	 * met a jours les déclencheurs
 	 *
 	 * @param declencheur
 	 */
-	public void setDeclencheur(Array<Declencheur> declencheur) {
+	public void setDeclencheur(Declencheur[] declencheur) {
 		this.declencheur = declencheur;
 	}
 

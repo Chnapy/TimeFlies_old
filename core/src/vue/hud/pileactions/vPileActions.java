@@ -37,7 +37,6 @@ public class vPileActions extends Bloc implements Tourable {
 	private static Color FOND_CONTOUR_COULEUR = Couleur.get("fond_contour", "hud", "pile_action");
 	private static Color JAUGE_COULEUR = Couleur.get("jauge", "hud", "pile_action");
 
-	private final AssetManager manager;
 	private final Array<vAction> listActions;
 
 	private int tempsActionMax;
@@ -45,9 +44,8 @@ public class vPileActions extends Bloc implements Tourable {
 	private int tempsActionDepense;
 	private boolean actionEnCours;
 
-	public vPileActions(AssetManager _manager) {
-		super("Pile d'actions", WIDTH, HEIGHT);
-		manager = _manager;
+	public vPileActions(AssetManager manager) {
+		super("Pile d'actions", WIDTH, HEIGHT, manager);
 		setPosition(X, Y);
 		listActions = new Array<>();
 		tempsActionDepense = 0;

@@ -10,6 +10,7 @@ import gameplay.entite.Personnage;
 import gameplay.sort.SortActif;
 import gameplay.sort.SortPassif;
 import general.Orientation;
+import static general.Orientation.EST;
 
 /**
  * Guerrier.java
@@ -20,6 +21,21 @@ public class Guerrier2 extends Personnage {
 
 	private static final int INDEX_TEXTURE = 1;
 	private static final int INDEX_TEXTURE_TIMELINE = 1;
+
+	public Guerrier2() {
+		this(
+				"bite bleu", 
+				0, 
+				0, 
+				EST,
+				new CaracteristiquePhysique(110, 12000, 1500, 0, 100),
+				new SortPassif[]{},
+				new SortActif[]{
+					new SortQuiFaitMal(),
+					new SortEnvoutementBonus()
+				}
+		);
+	}
 
 	/**
 	 *

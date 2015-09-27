@@ -33,12 +33,9 @@ public class vBarreSortsPassifs extends Bloc implements Tourable {
 	private static final int HEIGHT = 750;
 	private static final int X = MAX_WIDTH - WIDTH - 20;
 	private static final int Y = 170;
-	
-	private final AssetManager manager;
 
-	public vBarreSortsPassifs(AssetManager _manager) {
-		super("Sorts passifs", WIDTH, HEIGHT);
-		manager = _manager;
+	public vBarreSortsPassifs(AssetManager manager) {
+		super("Sorts passifs", WIDTH, HEIGHT, manager);
 		setPosition(X, Y);
 		addListener(new BulleListener(this) {
 

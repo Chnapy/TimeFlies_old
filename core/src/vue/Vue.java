@@ -13,6 +13,7 @@ import com.badlogic.gdx.assets.loaders.TextureLoader.TextureParameter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import controleur.ControleurPrincipal;
@@ -53,7 +54,10 @@ public class Vue implements Screen, Tourable {
 		"icons/vitesseaction.png",
 		"icons/zoneaction.png",
 		"icons/zoneportee.png",
-		"sort_fx/SortQuiFaitMal_0/cercle.png",};
+		"sort_fx/SortQuiFaitMal_0/cercle.png",
+		"timeline/perso1.png",
+		"timeline/perso2.png"
+	};
 
 	private final AssetManager manager;
 
@@ -270,7 +274,7 @@ public class Vue implements Screen, Tourable {
 		param.minFilter = TextureFilter.Linear;
 		param.genMipMaps = true;
 		long temps = System.currentTimeMillis();
-		System.out.print("Chargement des textures...");
+		System.out.print("--Chargement des textures...");
 
 		try {
 			for (String path : assetsPath) {
@@ -279,11 +283,31 @@ public class Vue implements Screen, Tourable {
 			manager.finishLoading();
 
 			temps = System.currentTimeMillis() - temps;
-			System.out.println(" terminé ! Durée : " + temps + "ms.");
+			System.out.println(" terminé [" + temps + "ms]");
 		} catch (GdxRuntimeException e) {
 			System.out.println("FAIL");
 			throw e;
 		}
+	}
+	
+	public static float getAbsoluteX(Actor a) {
+		Actor actor = a;
+		float x = actor.getX();
+		while(actor.hasParent()) {
+			actor = actor.getParent();
+			x += actor.getX();
+		}
+		return x;
+	}
+	
+	public static float getAbsoluteY(Actor a) {
+		Actor actor = a;
+		float y = actor.getY();
+		while(actor.hasParent()) {
+			actor = actor.getParent();
+			y += actor.getY();
+		}
+		return y;
 	}
 
 }

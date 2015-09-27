@@ -5,7 +5,6 @@
  */
 package gameplay.sort;
 
-import com.badlogic.gdx.utils.Array;
 import gameplay.effet.Declenchable;
 import gameplay.effet.Effet;
 import gameplay.entite.Entite;
@@ -18,7 +17,7 @@ import gameplay.entite.Entite;
 public abstract class SortPassifEffets extends SortPassif {
 
 	//Liste des déclenchables demandés pour lancer les effets
-	protected Array<Declenchable> listDeclenchables;
+	protected Declenchable[] listDeclenchables;
 
 	/**
 	 *
@@ -31,7 +30,7 @@ public abstract class SortPassifEffets extends SortPassif {
 	 *
 	 */
 	public SortPassifEffets(String nom, String description, Niveau niveau,
-			Effet[] effets, Array<Declenchable> declenchables,
+			Effet[] effets, Declenchable[] declenchables,
 			int index) {
 		super(nom, description, niveau, effets, index);
 		listDeclenchables = declenchables;
@@ -43,7 +42,7 @@ public abstract class SortPassifEffets extends SortPassif {
 	 * @param effets
 	 * @param lanceur
 	 * @param cible
-	 * @param isAvant
+	 * @param isAvant	est lancé avant ou apres l'effet
 	 * @param ccritique
 	 */
 	public abstract void applyEffect(Effet[] effets, Entite lanceur, Entite cible, boolean isAvant, boolean ccritique);

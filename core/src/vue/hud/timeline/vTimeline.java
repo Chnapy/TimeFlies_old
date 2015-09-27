@@ -5,9 +5,9 @@
  */
 package vue.hud.timeline;
 
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Array;
 import controleur.ControleurPrincipal;
 import gameplay.entite.EntiteActive;
@@ -36,13 +36,13 @@ public class vTimeline extends Bloc implements Tourable {
 	//Vue des entités sur la timeline
 	private final Array<vTimelineEntite> listEntite;
 
-	public vTimeline(final Array<? extends EntiteActive> listEntites) {
-		super("Timeline", WIDTH, HEIGHT);
+	public vTimeline(final Array<? extends EntiteActive> listEntites, AssetManager manager) {
+		super("Timeline", WIDTH, HEIGHT, manager);
 		setPosition(X, Y - getPadTop());
 		listEntite = new Array<vTimelineEntite>();
 		vTimelineEntite temp;
 		for (int i = 0; i < listEntites.size; i++) {
-			temp = new vTimelineEntite(listEntites.get(i), i);
+			temp = new vTimelineEntite(listEntites.get(i), i, manager);
 			addActor(temp);
 			listEntite.add(temp);
 		}

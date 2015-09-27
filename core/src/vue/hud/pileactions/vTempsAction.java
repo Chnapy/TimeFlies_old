@@ -22,8 +22,9 @@ public class vTempsAction extends Actor {
 
 	private static final Color[] COULEURS = {
 		Couleur.get("deplacement", "hud", "pile_action"), //Déplacement
-		Couleur.get("sort", "hud", "pile_action"), //Sort
-		new Color(Color.ORANGE)
+		Couleur.get("sort", "hud", "pile_action"), //SortQuiFaitMal
+		Couleur.get("sort", "hud", "pile_action"), //SortEnvoutementBonus
+		Couleur.get("sort", "hud", "pile_action"), //SortEnvoutementEffet
 	};
 
 	private final int index;

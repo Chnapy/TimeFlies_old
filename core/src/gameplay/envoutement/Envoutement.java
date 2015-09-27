@@ -8,6 +8,7 @@ package gameplay.envoutement;
 import gameplay.effet.Declencheur;
 import gameplay.effet.Effet;
 import gameplay.entite.Entite;
+import gameplay.entite.EntiteActive;
 import general.Orientation;
 
 /**
@@ -19,10 +20,12 @@ import general.Orientation;
 public abstract class Envoutement implements Declencheur {
 
 	//Nom
-	private String nom;
+	private final String nom;
 
 	//Durée de l'envoutement en nombre de tours
 	private int duree;
+
+	private Entite cible;
 
 	/**
 	 *
@@ -32,38 +35,88 @@ public abstract class Envoutement implements Declencheur {
 	public Envoutement(String nom, int duree) {
 		this.nom = nom;
 		this.duree = duree;
+		cible = null;
+	}
+
+	public final void debutTour() {
+		actionDebutTour();
+	}
+
+	public final void finTour() {
+		actionFinTour();
+	}
+
+	public final void debutTourGlobal() {
+		actionDebutTourGlobal();
+	}
+
+	public final void finTourGlobal() {
+		actionFinTourGlobal();
+	}
+
+	public final void debutEnvoutement() {
+		actionDebutEnvoutement();
+	}
+
+	public final void finEnvoutement() {
+		actionFinEnvoutement();
 	}
 
 	/**
 	 * Action lançée au début du tour de l'entité
 	 */
-	public abstract void actionDebutTour();
+	protected abstract void actionDebutTour();
 
 	/**
 	 * Action lançée à la fin du tour de l'entité
 	 */
-	public abstract void actionFinTour();
+	protected abstract void actionFinTour();
 
 	/**
 	 * Action lançée au début du tour global
 	 */
-	public abstract void actionDebutTourGlobal();
+	protected abstract void actionDebutTourGlobal();
 
 	/**
 	 * Action lançée à la fin du tour global
 	 */
-	public abstract void actionFinTourGlobal();
+	protected abstract void actionFinTourGlobal();
 
 	/**
 	 * Action lançée au moment du gain de l'envoutement
 	 */
-	public abstract void actionDebutEnvoutement();
+	protected abstract void actionDebutEnvoutement();
 
 	/**
 	 * Action lançée au moment de la perte de l'envoutement
 	 * Cumulable avec actionFinTour()
 	 */
-	public abstract void actionFinEnvoutement();
+	protected abstract void actionFinEnvoutement();
+
+	@Override
+	public boolean canDeclencher(Effet effet, int min, int max) {
+		for (Declencheur declencheur : effet.getDeclencheur()) {
+			if (declencheur.equals(this)) {
+				Envoutement envoutement = (Envoutement) declencheur;
+				if (envoutement.getDuree() <= min && envoutement.getDuree() >= max) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public void lancerEntite(Entite victime, Orientation oriLanceur, boolean ccritique) {
+		if (victime instanceof EntiteActive) {
+			((EntiteActive) victime).addEnvoutement(this);
+		}
+		setCible(victime);
+		actionDebutEnvoutement();
+		actionLancerEntite(oriLanceur, ccritique);
+	}
+
+	protected abstract void actionLancerEntite(Orientation oriLanceur, boolean ccritique);
 
 	public String getNom() {
 		return nom;
@@ -109,19 +162,20 @@ public abstract class Envoutement implements Declencheur {
 		return true;
 	}
 
-	@Override
-	public boolean canDeclencher(Effet effet, int min, int max) {
-		for (int i = 0; i < effet.getDeclencheur().size; i++) {
-			if (effet.getDeclencheur().get(i).equals(this)) {
-				Envoutement envoutement = (Envoutement) effet.getDeclencheur().get(i);
-				if (envoutement.getDuree() <= min && envoutement.getDuree() >= max) {
-					return true;
-				}
-			}
-		}
-		return false;
+	public void setCible(Entite cible) {
+		this.cible = cible;
 	}
 
-	@Override
-	public abstract void lancerEntite(Entite victime, Orientation oriLanceur, boolean ccritique);
+	public Entite getCible() {
+		return cible;
+	}
+
+	public boolean hasCible() {
+		return cible != null;
+	}
+
+	public int subDuree() {
+		duree--;
+		return duree;
+	}
 }

@@ -6,8 +6,8 @@
 			<fond>
 				<simple>FFFFFF88</simple>
 				<trou>00000088</trou>
-				<ecran>FF000088</ecran>
-				<obstacle>00FF0088</obstacle>
+				<ecran>00FF0088</ecran>
+				<obstacle>FF000088</obstacle>
 				<cible>0000FF88</cible>
 				<zoneportee>4488FF88</zoneportee>
 				<zoneaction>FF000088</zoneaction>
@@ -17,8 +17,8 @@
 			<contour>
 				<simple>FFFFFFFF</simple>
 				<trou>000000FF</trou>
-				<ecran>FF0000FF</ecran>
-				<obstacle>00FF00FF</obstacle>
+				<ecran>00FF00FF</ecran>
+				<obstacle>FF0000FF</obstacle>
 				<cible>0000FFFF</cible>
 				<zoneportee>4488FFFF</zoneportee>
 				<zoneaction>FF0000FF</zoneaction>
@@ -29,6 +29,15 @@
 				<ghostdestination>FFBB00FF</ghostdestination>
 			</contour>
 		</map>
+		<entite>
+			<minihud>
+				<fond>00000022</fond>
+				<viejauge>FF000066</viejauge>
+				<viecontour>FF000088</viecontour>
+				<tempsjauge>FF990066</tempsjauge>
+				<tempscontour>FF990088</tempscontour>
+			</minihud>
+		</entite>
 	</jeu>
 	<hud>
 		<timeline>

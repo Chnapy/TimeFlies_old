@@ -15,9 +15,15 @@ import static vue.hud.vHud.defaultSkin;
  *
  */
 public class vChatText extends Label {
+	
+	private static final LabelStyle style = new LabelStyle(defaultSkin.get(LabelStyle.class));
+	
+	static {
+		style.background = defaultSkin.getDrawable("default-scroll");
+	}
 
 	public vChatText(CharSequence text, ChatTextType type) {
-		super(text, defaultSkin);
+		super(text, style);
 		setColor(type.getColor());
 		setWrap(true);
 	}

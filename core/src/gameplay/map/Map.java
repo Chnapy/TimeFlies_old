@@ -5,14 +5,22 @@
  */
 package gameplay.map;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.pfa.Connection;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedGraph;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;
 import gameplay.map.pathfinding.Chemin;
 import gameplay.map.pathfinding.Finder;
 import gameplay.map.pathfinding.Heuristique;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import test.MainTest;
 
 /**
  * Map.java
@@ -35,10 +43,10 @@ public class Map implements IndexedGraph<Tuile> {
 
 	/**
 	 *
-	 * @param plan	map représentée sous forme d'état de tuile (simple, obstacle,
-	 *             etc...)
+	 * @param mapPlan
 	 */
-	public Map(Type[][] plan) {
+	public Map(MapSerializable mapPlan) {
+		Type[][] plan = mapPlan.plan;
 		tabTuiles = new Tuile[plan.length][plan[0].length];
 		dimension = new Dimension(plan.length, plan[0].length);
 		init(plan);
@@ -177,5 +185,16 @@ public class Map implements IndexedGraph<Tuile> {
 
 	public Dimension getMapDimension() {
 		return dimension;
+	}
+
+	public static MapSerializable getMapSerializable(FileHandle file) {
+		try {
+			ObjectInputStream inputFile = new ObjectInputStream(file.read());
+			MapSerializable smap = (MapSerializable) inputFile.readObject();
+			return smap;
+		} catch (IOException | ClassNotFoundException ex) {
+			Logger.getLogger(Map.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		return null;
 	}
 }

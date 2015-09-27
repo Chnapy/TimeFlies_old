@@ -34,7 +34,7 @@ public class TableauCarac extends Bloc implements Tourable {
 	private String temp;
 
 	public TableauCarac(AssetManager manager) {
-		super("Donnees", WIDTH, HEIGHT);
+		super("Donnees", WIDTH, HEIGHT, manager);
 		setPosition(X, Y);
 
 		donneesList = new HashMap();

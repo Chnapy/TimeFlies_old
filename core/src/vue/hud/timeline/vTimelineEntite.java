@@ -6,6 +6,7 @@
 package vue.hud.timeline;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -28,9 +29,9 @@ public class vTimelineEntite extends Actor implements Tourable {
 	private static final Color FOND_CONTOUR_COULEUR = Couleur.get("fond_perso_contour", "hud", "timeline");
 
 	//Tableau des textures des portraits
-	private static final Texture[] TIMELINE_PORTRAIT = {
-		new Texture(Gdx.files.internal("timeline/perso1.png")),
-		new Texture(Gdx.files.internal("timeline/perso2.png"))
+	private static final String[] TIMELINE_PORTRAIT = {
+		"timeline/perso1.png",
+		"timeline/perso2.png"
 	};
 
 	//Position et taille d'une entité de timeline
@@ -41,17 +42,11 @@ public class vTimelineEntite extends Actor implements Tourable {
 	//Ecart X
 	private static final int TEXTURE_X_ECART = 50;
 
-	static {
-		for (Texture texture : TIMELINE_PORTRAIT) {
-			texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-		}
-	}
-
 	//Position X
 	private int TEXTURE_X;
 
 	//Index de la texture
-	private final int indexTexture;
+	private final Texture texture;
 
 	//Ordre de la texture
 	private int ordre;
@@ -62,19 +57,20 @@ public class vTimelineEntite extends Actor implements Tourable {
 	/**
 	 *
 	 * @param entite
-	 * @param ordreX représente l'ordre de l'entité dans la timeline, de 0 à N.
-	 *               0 représente l'entité jouant son tour.
+	 * @param ordreX  représente l'ordre de l'entité dans la timeline, de 0 à N.
+	 *                0 représente l'entité jouant son tour.
+	 * @param manager
 	 */
-	public vTimelineEntite(EntiteActive entite, int ordreX) {
+	public vTimelineEntite(EntiteActive entite, int ordreX, AssetManager manager) {
 		ordre = ordreX;
 		setY(TEXTURE_Y);
 		setScale();
-		indexTexture = entite.getIndexTextureTimeline();
+		texture = manager.get(TIMELINE_PORTRAIT[entite.getIndexTextureTimeline()]);
 		addListener(new BulleListener(this) {
 
 			@Override
 			public String getBulleContent() {
-				return "TODO";
+				return entite.getNom() + " lvl " + entite.getNiveauSymbol();
 			}
 		});
 	}
@@ -84,7 +80,7 @@ public class vTimelineEntite extends Actor implements Tourable {
 		batch.end();
 		vHud.drawBackground(getParent().getX() + getX(), getParent().getY() + getY(), getWidth(), getHeight(), FOND_COULEUR, FOND_CONTOUR_COULEUR);
 		batch.begin();
-		batch.draw(TIMELINE_PORTRAIT[indexTexture], getX() + 5, getY() + 5, getWidth() - 10, getHeight() - 10);
+		batch.draw(texture, getX() + 5, getY() + 5, getWidth() - 10, getHeight() - 10);
 	}
 
 	/**

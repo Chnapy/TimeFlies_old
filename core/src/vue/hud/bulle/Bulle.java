@@ -65,8 +65,12 @@ public class Bulle extends Container {
 			} else {
 				width(label.getGlyphLayout().width);
 			}
+			try {
 			pack();
 			pack(); // Second pack is needed to recompute the label pref height in case the label wrapped on the first pack.
+			} catch(IndexOutOfBoundsException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

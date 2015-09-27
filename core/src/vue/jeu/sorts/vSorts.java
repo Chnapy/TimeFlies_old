@@ -22,6 +22,8 @@ public class vSorts extends Group {
 	public vSorts(AssetManager manager) {
 		VSORTS = new vSort[]{
 			null,
+			new vSortQuiFaitMal(manager),
+			new vSortQuiFaitMal(manager),
 			new vSortQuiFaitMal(manager)
 		};
 	}

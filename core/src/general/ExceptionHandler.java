@@ -83,7 +83,7 @@ public class ExceptionHandler extends JOptionPane implements Thread.UncaughtExce
 		for (StackTraceElement s : e.getStackTrace()) {
 			trace += "\t" + s + "\n";
 		}
-		System.err.println(trace);
+		e.printStackTrace();
 		area.setText(trace);
 		handle(e);
 	}

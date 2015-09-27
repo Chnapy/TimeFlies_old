@@ -38,7 +38,7 @@ public class vMinimap extends Bloc implements Tourable {
 	private final vCase[][] tabVcases;
 
 	public vMinimap(final ControleurPrincipal controleur, Tuile[][] tabTuiles) {
-		super("Minimap", SIZE, SIZE);
+		super("Minimap", SIZE, SIZE, null);
 		tabVcases = new vCase[tabTuiles.length][tabTuiles[0].length];
 //		debugAll();
 		setPosition(X, Y);

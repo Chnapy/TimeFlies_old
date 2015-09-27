@@ -35,11 +35,8 @@ public class vBarreSortsActifs extends Bloc implements Tourable {
 	private static final int X = MAX_WIDTH - WIDTH - 160;
 	private static final int Y = 12;
 
-	private final AssetManager manager;
-
-	public vBarreSortsActifs(AssetManager _manager) {
-		super("Sorts actifs", WIDTH, HEIGHT);
-		manager = _manager;
+	public vBarreSortsActifs(AssetManager manager) {
+		super("Sorts actifs", WIDTH, HEIGHT, manager);
 		setPosition(X, Y);
 		this.align(Align.left);
 //		filtrerTextures();
@@ -58,7 +55,7 @@ public class vBarreSortsActifs extends Bloc implements Tourable {
 	 * @param bouton
 	 */
 	public void addBouton(vSortsBouton bouton) {
-		this.add(bouton).left().padLeft(30);
+		this.add(bouton).left().pad(30);
 	}
 
 	@Override
@@ -69,11 +66,10 @@ public class vBarreSortsActifs extends Bloc implements Tourable {
 	public void nouveauTour(ControleurPrincipal controleur, EntiteActive entiteEnCours, Object... objs) {
 		getCells().clear();
 		while (getChildren().size > 1) {
-			((vSortsActifsBouton) getChildren().get(1)).clearSortObserver();
+			((vSortsActifsBouton) getChildren().get(1)).delete();
 			getChildren().removeIndex(1);
 		}
 		for (SortActif sort : entiteEnCours.getTabSortActif()) {
-			System.out.println(sort.getCooldownActu());
 			addBouton(new vSortsActifsBouton(controleur, sort, manager));
 		}
 	}

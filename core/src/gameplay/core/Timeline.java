@@ -96,7 +96,7 @@ public class Timeline extends Observable implements Runnable {
 	 */
 	@Override
 	public void run() {
-		while (enJeu) {	//TODO : Utiliser une variable définissant la fin du combat
+		while (enJeu) {
 			tourGlobal();
 		}
 	}
@@ -202,7 +202,7 @@ public class Timeline extends Observable implements Runnable {
 		long palier = debutTour;
 		long time = TimeUtils.millis();
 
-		while (time < debutTour + tempsAction || entActive.isEnDeplacement()) {
+		while (entActive.getCaracPhysique().getCaracteristique(Carac.TEMPSACTION).getActu() > 0 || entActive.isEnDeplacement()) {
 			time = TimeUtils.millis();
 			if (time >= palier + 10) {
 				palier = time;

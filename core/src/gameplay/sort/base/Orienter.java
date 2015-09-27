@@ -29,13 +29,9 @@ public class Orienter extends SortActif {
 	public Orienter() {
 		super("Orienter", "Oriente l'entité", new Niveau(0),
 				new Effet[]{
-					new Effet(
-							new Array<Declencheur>(
-									new Declencheur[]{
-										new Rotation()
-									}
-							)
-					)
+					new Effet(new Declencheur[]{
+						new Rotation()
+					})
 				},
 				new ZoneAction(new Carre(0, true)),
 				new ZoneAction(new Carre(0, true)),

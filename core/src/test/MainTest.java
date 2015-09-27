@@ -4,23 +4,15 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import controleur.ControleurPrincipal;
-import gameplay.caracteristique.Carac;
-import gameplay.caracteristique.CaracteristiquePhysique;
 import gameplay.core.Joueur;
-import gameplay.effet.Balus;
-import gameplay.effet.Declencheur;
-import gameplay.effet.Effet;
 import gameplay.entite.Personnage;
 import gameplay.map.Map;
-import gameplay.map.Type;
-import gameplay.sort.SortActif;
-import gameplay.sort.SortPassif;
-import static general.Orientation.EST;
+import gameplay.map.MapSerializable;
 import java.text.DecimalFormat;
+import java.util.Arrays;
 
 /**
  * MainTest.java CLASSE DE TEST
@@ -44,7 +36,19 @@ public class MainTest extends Game {
 		DF.setDecimalSeparatorAlwaysShown(true);
 	}
 
-	private static boolean loading;
+	private final String mapPath;
+
+	/**
+	 *
+	 * @param args
+	 *             args[0] = path vers la map
+	 *
+	 */
+	public MainTest(String[] args) {
+		System.out.println("args : " + Arrays.toString(args));
+		int length = args.length;
+		mapPath = (length > 0) ? args[0] : "test2.tfmap";
+	}
 
 	/**
 	 * Au lancement de l'application.
@@ -52,48 +56,39 @@ public class MainTest extends Game {
 	 */
 	@Override
 	public void create() {
-		loading = true;
+		long loadStart = System.currentTimeMillis();
+		System.out.println("Initialisation de la partie");
 
 		camera.setToOrtho(false, MAX_WIDTH, MAX_HEIGHT);
-		Map map = new Map(new Type[][]{
-			{Type.SIMPLE, Type.SIMPLE, Type.OBSTACLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE},
-			{Type.SIMPLE, Type.TROU, Type.OBSTACLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE},
-			{Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE},
-			{Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE},
-			{Type.ECRAN, Type.ECRAN, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE},
-			{Type.ECRAN, Type.ECRAN, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE},
-			{Type.ECRAN, Type.ECRAN, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE, Type.SIMPLE}
-		});
-		Array<Declencheur> declencheur = new Array<Declencheur>();
-		declencheur.add(new Balus(Carac.VITALITE, -30));
+
+		long debut = System.currentTimeMillis();
+		System.out.print("-Chargement de la map [" + mapPath + "]...");
+		MapSerializable smap = Map.getMapSerializable(Gdx.files.internal(mapPath));
+		Map map = new Map(smap);
+		System.out.println(" terminé [" + (System.currentTimeMillis() - debut) + "ms]");
+
+		debut = System.currentTimeMillis();
+		System.out.print("-Chargement des joueurs et leurs persos...");
 		Personnage[] persosJ1 = {
-			new Guerrier(
-			"bite", 1, 2, EST,
-			new CaracteristiquePhysique(100, 15000, 1200, 10, 105),
-			new SortPassif[]{},
-			new SortActif[]{
-				new SortQuiFaitMal(new Effet[]{new Effet(declencheur)})
-			})
+			new Guerrier()
 		};
 		Personnage[] persosJ2 = {
-			new Guerrier2(
-			"bite", 0, 0, EST,
-			new CaracteristiquePhysique(110, 12000, 1500, 0, 100),
-			new SortPassif[]{},
-			new SortActif[]{
-				new SortQuiFaitMal(new Effet[]{new Effet(declencheur)})
-			})
+			new Guerrier2()
 		};
 		Joueur[] joueurs = {
 			new Joueur(5, "J1", persosJ1),
 			new Joueur(6, "J2", persosJ2)
 		};
+		System.out.println(" terminé [" + (System.currentTimeMillis() - debut) + "ms]");
 
+		debut = System.currentTimeMillis();
+		System.out.println("-Création du controleur, de la vue et lancement de la partie...");
 		ControleurPrincipal contCombat = new ControleurPrincipal(map, joueurs);
 		this.setScreen(contCombat.getVue());
 		contCombat.lancer();
+		System.out.println("-Partie lancée [" + (System.currentTimeMillis() - debut) + "ms]");
 
-		loading = false;
+		System.out.println("Partie initialisée [" + (System.currentTimeMillis() - loadStart) + "ms]");
 	}
 
 	/**
@@ -135,9 +130,5 @@ public class MainTest extends Game {
 	 */
 	@Override
 	public void dispose() {
-	}
-
-	public static boolean isLoading() {
-		return loading;
 	}
 }

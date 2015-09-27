@@ -1,6 +1,7 @@
 package gameplay.effet.placement;
 
 import gameplay.caracteristique.CaracteristiqueSpatiale;
+import gameplay.effet.Declencheur;
 import gameplay.effet.Effet;
 import gameplay.entite.Entite;
 import gameplay.map.Tuile;
@@ -49,8 +50,8 @@ public class Teleportation extends Placement {
 
 	@Override
 	public boolean canDeclencher(Effet effet, int min, int max) {
-		for (int i = 0; i < effet.getDeclencheur().size; i++) {
-			if (effet.getDeclencheur().get(i) instanceof Teleportation) {
+		for (Declencheur declencheur : effet.getDeclencheur()) {
+			if (declencheur instanceof Teleportation) {
 				return true;
 			}
 		}

@@ -66,7 +66,7 @@ public class NiveauSymbolique {
 			return;
 		}
 		int[] tabNiveaux = new int[sorts.length];
-		int[] min = new int[3], max = new int[3];
+		int[] min = new int[Math.min(sorts.length, 3)], max = new int[Math.min(sorts.length, 3)];
 		Arrays.fill(min, Integer.MAX_VALUE);
 		Arrays.fill(max, 0);
 		int i, j;
@@ -87,7 +87,6 @@ public class NiveauSymbolique {
 			}
 		}
 		niveau = (int) (getMoyenne(min) * 0.15 + getMoyenne(max) * 0.25 + getMoyenne(tabNiveaux) * 0.60);
-
 	}
 
 	/**
@@ -101,6 +100,7 @@ public class NiveauSymbolique {
 		for (int t : tab) {
 			moyenne += t;
 		}
+		
 		return moyenne / tab.length;
 	}
 

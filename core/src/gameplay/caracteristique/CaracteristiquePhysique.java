@@ -22,14 +22,9 @@ public class CaracteristiquePhysique {
 	 * d'action, temps supplémentaire, fatigue, vitesse d'action
 	 *
 	 * @param vitaTotal
-	 * @param vitaActu
 	 * @param tActionTotal
-	 * @param tActionActu
 	 * @param tSupTotal
-	 * @param tSupActu
-	 * @param fatTotal
 	 * @param fatActu
-	 * @param vActionTotal
 	 * @param vActionActu
 	 */
 	public CaracteristiquePhysique(int vitaTotal, int tActionTotal, int tSupTotal, int fatActu, int vActionActu) {
@@ -53,15 +48,15 @@ public class CaracteristiquePhysique {
 	 */
 	public void add(Carac c, int gain) {
 		getCaracteristique(c).add(gain);
-		testForFatigue(c);
+		majTempsActionParFatigue(c);
 	}
 
 	/**
-	 * le test permettant d'enlever aussi le temps d'action a la fatigue
+	 * Redéfini le temps d'action d'après la fatigue
 	 *
 	 * @param c
 	 */
-	public void testForFatigue(Carac c) {
+	private void majTempsActionParFatigue(Carac c) {
 		if (c.equals(Carac.FATIGUE)) {
 			((TempsAction) getCaracteristique(Carac.TEMPSACTION)).setTotal(
 					((TempsAction) getCaracteristique(Carac.TEMPSACTION)).getTempsBase()
@@ -78,7 +73,7 @@ public class CaracteristiquePhysique {
 	 */
 	public void supp(Carac c, int perte) {
 		getCaracteristique(c).supp(perte);
-		testForFatigue(c);
+		majTempsActionParFatigue(c);
 	}
 
 	/**
@@ -89,7 +84,7 @@ public class CaracteristiquePhysique {
 	 */
 	public void setActu(Carac c, int valeur) {
 		getCaracteristique(c).setActu(valeur);
-		testForFatigue(c);
+		majTempsActionParFatigue(c);
 	}
 
 	/**
@@ -128,7 +123,8 @@ public class CaracteristiquePhysique {
 
 	/**
 	 * hashCode
-	 * @return 
+	 *
+	 * @return
 	 */
 	@Override
 	public int hashCode() {
@@ -140,7 +136,8 @@ public class CaracteristiquePhysique {
 
 	/**
 	 * equals en fonction de listCaracteristique
-	 * @return 
+	 *
+	 * @return
 	 */
 	@Override
 	public boolean equals(Object obj) {

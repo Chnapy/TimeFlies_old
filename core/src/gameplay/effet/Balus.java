@@ -9,6 +9,8 @@ import gameplay.caracteristique.Carac;
 import gameplay.entite.Entite;
 import gameplay.map.Tuile;
 import general.Orientation;
+import vue.hud.chatbox.chattext.vChatText;
+import vue.hud.chatbox.vChatBox;
 
 /**
  * Balus.java
@@ -18,10 +20,12 @@ import general.Orientation;
 public class Balus implements Declencheur {
 
 	//Caractéristique ciblée
-	private Carac caracteristique;
+	private final Carac caracteristique;
 
 	//Valeur du bonus/malus
-	private int valeur;
+	private final int valeur;
+	
+	private Entite cible;
 
 	/**
 	 *
@@ -31,6 +35,7 @@ public class Balus implements Declencheur {
 	public Balus(Carac caracteristique, int nombre) {
 		this.caracteristique = caracteristique;
 		this.valeur = nombre;
+		cible = null;
 	}
 
 	/**
@@ -76,10 +81,10 @@ public class Balus implements Declencheur {
 	 */
 	@Override
 	public boolean canDeclencher(Effet effet, int min, int max) {
-		for (int i = 0; i < effet.getDeclencheur().size; i++) {
-			if (effet.getDeclencheur().get(i).equals(this)) {
-				Balus balus = (Balus) effet.getDeclencheur().get(i);
-				if (balus.getValeur() <= min && balus.getValeur() >= max) {
+		for (Declencheur declencheur : effet.getDeclencheur()) {
+			if (declencheur.equals(this)) {
+				Balus balus = (Balus) declencheur;
+				if (balus.getValeur() >= min && balus.getValeur() <= max) {
 					return true;
 				}
 			}
@@ -106,11 +111,14 @@ public class Balus implements Declencheur {
 	/**
 	 * Applique l'effet à l'entité cible
 	 *
-	 * @param cible
+	 * @param _cible
 	 */
 	@Override
-	public void lancerEntite(Entite cible, Orientation oriLanceur, boolean ccritique) {
-		cible.getCaracPhysique().add(caracteristique, ccritique ? valeur : valeur + (30 * valeur / 100));
+	public void lancerEntite(Entite _cible, Orientation oriLanceur, boolean ccritique) {
+		cible = _cible;
+		int _valeur = ccritique ? valeur : valeur + (30 * valeur / 100);
+		cible.getCaracPhysique().add(caracteristique, _valeur);
+		vChatBox.chatCombatPrint(cible.getNom() + (_valeur > 0 ? " gagne " : " perd ") + _valeur + " " + caracteristique + ".", vChatText.ChatTextType.COMBAT);
 	}
 
 	@Override

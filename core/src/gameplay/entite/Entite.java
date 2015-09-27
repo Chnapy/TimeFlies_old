@@ -5,10 +5,13 @@
  */
 package gameplay.entite;
 
+import com.badlogic.gdx.utils.Array;
 import general.Mode;
 import gameplay.caracteristique.CaracteristiquePhysique;
 import gameplay.caracteristique.CaracteristiqueSpatiale;
 import gameplay.effet.Effet;
+import gameplay.envoutement.Envoutement;
+import gameplay.envoutement.EnvoutementEffets;
 import gameplay.sort.SortPassif;
 import gameplay.sort.SortPassifEffets;
 import general.Orientation;
@@ -44,6 +47,9 @@ public abstract class Entite extends Observable {
 	//Sorts passifs de l'entité
 	protected SortPassif[] tabSortPassif;
 
+	//Liste des envoutements
+	protected final Array<Envoutement> listEnvoutements;
+
 	/**
 	 *
 	 * @param n
@@ -64,6 +70,7 @@ public abstract class Entite extends Observable {
 		this.caracPhysique = caracPhysique;
 		etat = Mode.DEPLACEMENT;
 		this.index = index;
+		listEnvoutements = new Array<Envoutement>();
 	}
 
 	//Jeu du tour de l'entité
@@ -85,6 +92,11 @@ public abstract class Entite extends Observable {
 					((SortPassifEffets) sortPassif).applyEffect(effets, lanceur, this, true, critique);
 				}
 			}
+			for (Envoutement envoutement : listEnvoutements) {
+				if (envoutement instanceof EnvoutementEffets) {
+					((EnvoutementEffets) envoutement).applyEffect(effets, lanceur, true, critique);
+				}
+			}
 		}
 		for (Effet effet : effets) {
 			effet.lancerEffetEntite(this, oriAttaque, critique);
@@ -93,6 +105,11 @@ public abstract class Entite extends Observable {
 			for (SortPassif tabSortPassif1 : tabSortPassif) {
 				if (tabSortPassif1 instanceof SortPassifEffets) {
 					((SortPassifEffets) tabSortPassif1).applyEffect(effets, lanceur, this, false, critique);
+				}
+			}
+			for (Envoutement envoutement : listEnvoutements) {
+				if (envoutement instanceof EnvoutementEffets) {
+					((EnvoutementEffets) envoutement).applyEffect(effets, lanceur, false, critique);
 				}
 			}
 		}

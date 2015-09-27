@@ -12,6 +12,8 @@ import gameplay.map.Tuile;
 import gameplay.sort.zone.ZoneAction;
 import general.Orientation;
 import general.TypeDonnee;
+import vue.hud.chatbox.chattext.vChatText;
+import vue.hud.chatbox.vChatBox;
 
 /**
  * SortActif.java

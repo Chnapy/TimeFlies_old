@@ -14,7 +14,9 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Pool;
 import gameplay.sort.Sort;
+import general.TypeDonnee;
 import static test.MainTest.camera;
 import vue.Couleur;
 import vue.hud.tabcarac.Donnee;
@@ -37,6 +39,7 @@ public abstract class vSortsBouton extends Group {
 	//Texture du sort
 	private final Texture TEXTURE;
 	protected final Sort sort;
+	protected final Pool<Donnee> poolDonnees;
 	protected final Array<Donnee> donnees;
 
 	public vSortsBouton(Sort _sort, Texture texture) {
@@ -47,12 +50,17 @@ public abstract class vSortsBouton extends Group {
 		tt.setSize(TEXTURE_WIDTH, TEXTURE_HEIGHT);
 		addActor(tt);
 		donnees = new Array<Donnee>();
+		poolDonnees = new Pool<Donnee>() {
+			@Override
+			protected Donnee newObject() {
+				return new Donnee();
+			}
+		};
 	}
 
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
 		batch.end();
-//		vHud.drawBackground(getParent().getX() + getX(), getParent().getY() + getY(), getWidth(), getHeight(), FOND_COULEUR, FOND_CONTOUR_COULEUR);
 		Gdx.gl.glEnable(GL20.GL_BLEND);
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		//Fond

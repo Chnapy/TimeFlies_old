@@ -51,6 +51,8 @@ public final class vHud extends Stage implements Tourable {
 
 	//Couleur par défaut de la font
 	public static final Color FONT_COLOR = Couleur.get("font");
+	
+	private static int FPS = 60;
 
 	//Batch pour l'affichage des FPS
 	private final Batch batch = new SpriteBatch();
@@ -80,10 +82,10 @@ public final class vHud extends Stage implements Tourable {
 		FONT = defaultSkin.get(WindowStyle.class).titleFont;
 
 		vsorts = new vSortsBout(manager);
-		vtimeline = new vTimeline(personnages);
+		vtimeline = new vTimeline(personnages, manager);
 		vminimap = new vMinimap(controleur, tabTuiles);
 		vpileactions = new vPileActions(manager);
-		vchatbox = new vChatBox();
+		vchatbox = new vChatBox(manager);
 		vtabcarac = new TableauCarac(manager);
 
 		addActor(vsorts);
@@ -136,9 +138,12 @@ public final class vHud extends Stage implements Tourable {
 		draw();
 
 		//Affichage FPS
+		if(1 / Gdx.graphics.getRawDeltaTime() < 55 || FPS < 55) {
+			FPS = Math.round(1 / Gdx.graphics.getRawDeltaTime());
+		}
 		FONT.setColor(Color.RED);
 		batch.begin();
-		FONT.draw(batch, "fps: " + String.valueOf(Math.round(1 / Gdx.graphics.getRawDeltaTime())), 500, 20);
+		FONT.draw(batch, FPS + " fps", 500, 20);
 		batch.end();
 		FONT.setColor(FONT_COLOR);
 	}

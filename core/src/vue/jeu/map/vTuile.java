@@ -59,8 +59,8 @@ public class vTuile extends Actor {
 
 		SIMPLE(Couleur.get("simple", "jeu", "map", "fond"), Couleur.get("simple", "jeu", "map", "contour"), 0),
 		TROU(Couleur.get("trou", "jeu", "map", "fond"), Couleur.get("trou", "jeu", "map", "contour"), 1),
-		ECRAN(Couleur.get("ecran", "jeu", "map", "fond"), Couleur.get("ecran", "jeu", "map", "contour"), 2),
-		OBSTACLE(Couleur.get("obstacle", "jeu", "map", "fond"), Couleur.get("obstacle", "jeu", "map", "contour"), 3),
+		ECRAN(Couleur.get("ecran", "jeu", "map", "fond"), Couleur.get("ecran", "jeu", "map", "contour"), 3),
+		OBSTACLE(Couleur.get("obstacle", "jeu", "map", "fond"), Couleur.get("obstacle", "jeu", "map", "contour"), 2),
 		CIBLE(Couleur.get("cible", "jeu", "map", "fond"), Couleur.get("cible", "jeu", "map", "contour"), 4),
 		ZONEPORTEE(Couleur.get("zoneportee", "jeu", "map", "fond"), Couleur.get("zoneportee", "jeu", "map", "contour"), 5),
 		ZONEACTION(Couleur.get("zoneaction", "jeu", "map", "fond"), Couleur.get("zoneaction", "jeu", "map", "contour"), 6),
@@ -189,19 +189,14 @@ public class vTuile extends Actor {
 		setPosition(x, y);
 		setSize(TUILE_WIDTH, TUILE_HEIGHT);
 		addListener(new InputListener() {
-			//Pression souris
+
 			@Override
-			public boolean touchDown(InputEvent event, float x, float y,
-					int pointer, int button) {
-//				System.out.println("down : " + x + " " + y);
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 				return true;
 			}
-
 			//Relachement souris
 			@Override
-			public void touchUp(InputEvent event, float X, float Y,
-					int pointer, int button) {
-//				System.out.println("up : " + X + " " + Y);
+			public void touchUp(InputEvent event, float X, float Y, int pointer, int button) {
 				ccombat.clicSurTuile(posx, posy);	//Déplacement/Lancement de sort
 			}
 
@@ -216,7 +211,6 @@ public class vTuile extends Actor {
 			public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
 				setHover(true);
 				ccombat.survolTuile(posx, posy);	//Affichage déplacement possible
-//				System.out.println(etat);
 			}
 		});
 		setCouleur();

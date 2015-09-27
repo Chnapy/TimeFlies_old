@@ -17,7 +17,7 @@ import general.Orientation;
  */
 public abstract class Personnage extends EntiteActive {
 
-	private String nomDonne;
+	private final String nomDonne;
 
 	/**
 	 *
@@ -44,6 +44,10 @@ public abstract class Personnage extends EntiteActive {
 		this.nomDonne = nomDonne;
 		// TODO calculer le ratio : nbVictoire/nbPartieJouer*facteur
 		niveauSymbol.add(1);
+	}
+
+	public String getNomDonne() {
+		return nomDonne;
 	}
 
 }

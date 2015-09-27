@@ -9,6 +9,7 @@ import com.badlogic.gdx.ai.pfa.Connection;
 import com.badlogic.gdx.ai.pfa.DefaultConnection;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedNode;
 import com.badlogic.gdx.utils.Array;
+import gameplay.effet.Declencheur;
 import gameplay.effet.Effet;
 import gameplay.entite.Entite;
 import gameplay.invocation.Invocation;
@@ -116,9 +117,9 @@ public class Tuile implements IndexedNode<Tuile> {
 	 */
 	public void recoitSort(Effet[] effets, Entite lanceur, Orientation oriAttaque, boolean critique) {
 		for (Effet effet : effets) {
-			for (int j = 0; j < effet.getDeclencheur().size; j++) {
-				if (effet.getDeclencheur().get(j) instanceof Invocation) {
-					((Invocation) effet.getDeclencheur().get(j)).invoquer(this.getPosition());
+			for (Declencheur declencheur : effet.getDeclencheur()) {
+				if (declencheur instanceof Invocation) {
+					((Invocation) declencheur).invoquer(this.getPosition());
 				} else {
 					effet.lancerEffetTuile(this, lanceur, oriAttaque, critique);
 				}
