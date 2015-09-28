@@ -5,9 +5,13 @@
  */
 package gameplay.sort;
 
-import com.badlogic.gdx.utils.Array;
-import gameplay.caracteristique.Carac;
 import gameplay.effet.Effet;
+import gameplay.entite.Entite;
+import gameplay.entite.EntiteActive;
+import gameplay.map.Tuile;
+import general.Orientation;
+import vue.hud.chatbox.chattext.vChatText;
+import vue.hud.chatbox.vChatBox;
 
 /**
  * SortPassifBonus.java
@@ -17,32 +21,25 @@ import gameplay.effet.Effet;
  */
 public abstract class SortPassifBonus extends SortPassif {
 
-	//Liste des caractéristiques donnant un bonus
-	private Array<Carac> listCaracteristiques;
-
-	//liste des valeur du bonus de chaque caractéristiques
-	private Array<Integer> listValeurs;
-
 	/**
 	 *
 	 * @param nom
 	 * @param description
 	 * @param niveau
 	 * @param effets
-	 * @param caracteristiques
-	 * @param valeurs
 	 * @param index
 	 */
 	public SortPassifBonus(String nom, String description, Niveau niveau,
 			Effet[] effets,
-			Array<Carac> caracteristiques,
-			Array<Integer> valeurs,
 			int index) {
 
 		super(nom, description, niveau, effets, index);
+	}
 
-		listCaracteristiques = caracteristiques;
-		listValeurs = valeurs;
+	@Override
+	public void lancerSort(Entite cibleEntite, Tuile cibleTuile, EntiteActive lanceur, Orientation oriAttaque, boolean critique) {
+		vChatBox.chatCombatPrint("Sort passif à bonus active : " + getNom(), vChatText.ChatTextType.COMBAT);
+		cibleEntite.recoitSort(getTabEffets(), cibleEntite, oriAttaque, critique);
 	}
 
 }

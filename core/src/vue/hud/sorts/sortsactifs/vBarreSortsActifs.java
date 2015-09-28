@@ -38,8 +38,7 @@ public class vBarreSortsActifs extends Bloc implements Tourable {
 	public vBarreSortsActifs(AssetManager manager) {
 		super("Sorts actifs", WIDTH, HEIGHT, manager);
 		setPosition(X, Y);
-		this.align(Align.left);
-//		filtrerTextures();
+		align(Align.left);
 		addListener(new BulleListener(this) {
 
 			@Override

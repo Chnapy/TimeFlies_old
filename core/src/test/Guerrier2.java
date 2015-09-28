@@ -29,7 +29,10 @@ public class Guerrier2 extends Personnage {
 				0, 
 				EST,
 				new CaracteristiquePhysique(110, 12000, 1500, 0, 100),
-				new SortPassif[]{},
+				new SortPassif[]{
+					new SortPassifBonusVitesseAction(),
+					new SortPassifEffetSoin()
+				},
 				new SortActif[]{
 					new SortQuiFaitMal(),
 					new SortEnvoutementBonus()

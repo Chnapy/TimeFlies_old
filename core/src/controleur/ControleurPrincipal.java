@@ -115,10 +115,13 @@ public class ControleurPrincipal implements Observer, Tourable {
 		controleurDeplacement.enTour(controleur, entiteEnCours, objs);
 		controleurSort.enTour(controleur, entiteEnCours, objs);
 		vue.enTour(controleur, entiteEnCours, objs);
-		
+
 		//asupp
-		if(Gdx.input.isButtonPressed(Buttons.RIGHT)) {
-			entiteEnCours.getCaracPhysique().setActu(Carac.TEMPSACTION, 100);
+		try {
+			if (Gdx.input.isButtonPressed(Buttons.RIGHT)) {
+				entiteEnCours.getCaracPhysique().setActu(Carac.TEMPSACTION, 100);
+			}
+		} catch (Exception e) {
 		}
 	}
 
@@ -179,7 +182,7 @@ public class ControleurPrincipal implements Observer, Tourable {
 	 *
 	 * Lance les actions sorts/déplacements
 	 *
-	 * @param o	Timeline EntiteActive
+	 * @param o	  Timeline EntiteActive
 	 * @param arg
 	 */
 	@Override

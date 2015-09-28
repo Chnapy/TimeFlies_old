@@ -45,6 +45,18 @@ public abstract class SortPassifEffets extends SortPassif {
 	 * @param isAvant	est lancé avant ou apres l'effet
 	 * @param ccritique
 	 */
-	public abstract void applyEffect(Effet[] effets, Entite lanceur, Entite cible, boolean isAvant, boolean ccritique);
+	public void applyEffect(Effet[] effets, Entite lanceur, Entite cible, boolean isAvant, boolean ccritique) {
+		for(Declenchable dec : getListDeclenchables()) {
+			if(dec.canDeclencher(effets)) {
+				actionApplyEffect(lanceur, cible, isAvant, ccritique);
+			}
+		}
+	}
+	
+	protected abstract void actionApplyEffect(Entite lanceur, Entite cible, boolean isAvant, boolean ccritique);
+
+	public Declenchable[] getListDeclenchables() {
+		return listDeclenchables;
+	}
 
 }

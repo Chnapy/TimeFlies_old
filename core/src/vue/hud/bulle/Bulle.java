@@ -59,16 +59,20 @@ public class Bulle extends Container {
 	public void hover(String text) {
 		if (!text.equals(label.getText().toString())) {
 			label.setText(text);
-			label.pack();
+			try {
+				label.pack();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			if (label.getGlyphLayout().width == 0 || label.getGlyphLayout().width > MAXI_WIDTH) {
 				width(MAXI_WIDTH);
 			} else {
 				width(label.getGlyphLayout().width);
 			}
 			try {
-			pack();
-			pack(); // Second pack is needed to recompute the label pref height in case the label wrapped on the first pack.
-			} catch(IndexOutOfBoundsException e) {
+				pack();
+				pack(); // Second pack is needed to recompute the label pref height in case the label wrapped on the first pack.
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}

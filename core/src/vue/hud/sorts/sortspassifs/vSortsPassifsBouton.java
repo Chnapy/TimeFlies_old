@@ -5,9 +5,11 @@
  */
 package vue.hud.sorts.sortspassifs;
 
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
+import controleur.ControleurPrincipal;
 import gameplay.sort.SortPassif;
+import vue.hud.bulle.BulleListener;
 import vue.hud.sorts.vSortsBouton;
 
 /**
@@ -16,23 +18,29 @@ import vue.hud.sorts.vSortsBouton;
  */
 public class vSortsPassifsBouton extends vSortsBouton {
 
-	//tableau des textures
-	private static final Texture[] TEXTURES = {
-		new Texture(Gdx.files.internal("sort/sort_fond.png")),
-		new Texture(Gdx.files.internal("sort/sort_fond.png"))
+	//Tableau de textures des sorts
+	private static final String[] TEXTURES = {
+		"sort/sort_fond.png",
+		"sort/sort_fond.png",
+		"sort/sort_fond.png",
+		"sort/sort_fond.png"
 	};
 
-	static {
-		for (Texture texture : TEXTURES) {
-			texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-		}
+	public vSortsPassifsBouton(ControleurPrincipal ccombat, SortPassif sort, AssetManager manager) {
+		super(sort, manager.get(TEXTURES[sort.getIndex()], Texture.class));
+//		sort.addObserver(this);
+		addListener(new BulleListener(this) {
+
+			@Override
+			public String getBulleContent() {
+				return "Description : " + sort.getDescription();
+			}
+		});
 	}
 
-	public vSortsPassifsBouton(SortPassif sort, int index) {
-		super(sort, TEXTURES[index]);
-	}
-
-	public static final void filterTexture() {
+	public void delete() {
+		sort.deleteObservers();
+		poolDonnees.freeAll(donnees);
 	}
 
 }

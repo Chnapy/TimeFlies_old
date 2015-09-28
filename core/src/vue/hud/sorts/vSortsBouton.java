@@ -16,7 +16,6 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
 import gameplay.sort.Sort;
-import general.TypeDonnee;
 import static test.MainTest.camera;
 import vue.Couleur;
 import vue.hud.tabcarac.Donnee;

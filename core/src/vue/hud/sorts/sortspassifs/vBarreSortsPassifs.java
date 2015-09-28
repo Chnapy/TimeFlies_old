@@ -8,6 +8,7 @@ package vue.hud.sorts.sortspassifs;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.utils.Align;
 import controleur.ControleurPrincipal;
 import gameplay.entite.EntiteActive;
 import gameplay.sort.SortPassif;
@@ -37,6 +38,7 @@ public class vBarreSortsPassifs extends Bloc implements Tourable {
 	public vBarreSortsPassifs(AssetManager manager) {
 		super("Sorts passifs", WIDTH, HEIGHT, manager);
 		setPosition(X, Y);
+		align(Align.top);
 		addListener(new BulleListener(this) {
 
 			@Override
@@ -53,22 +55,23 @@ public class vBarreSortsPassifs extends Bloc implements Tourable {
 
 	//Ajout d'un bouton de sort
 	public void addBouton(vSortsBouton bouton) {
-		this.add(bouton).top().padTop(16);
+		this.add(bouton).top().padTop(30).row();
 	}
 
 	@Override
 	public void nouveauTour(ControleurPrincipal controleur, EntiteActive entiteEnCours, Object... objs) {
+		getCells().clear();
+		while (getChildren().size > 1) {
+			((vSortsPassifsBouton) getChildren().get(1)).delete();
+			getChildren().removeIndex(1);
+		}
 		for (SortPassif sort : entiteEnCours.getTabSortPassif()) {
-			addBouton(new vSortsPassifsBouton(sort, sort.getIndex()));
+			addBouton(new vSortsPassifsBouton(controleur, sort, manager));
 		}
 	}
 
 	@Override
 	public void finTour(ControleurPrincipal controleur, EntiteActive entiteEnCours, Object... objs) {
-		getCells().clear();
-		while (getChildren().size > 1) {
-			getChildren().removeIndex(1);
-		}
 	}
 
 	@Override

@@ -116,7 +116,7 @@ public class Balus implements Declencheur {
 	@Override
 	public void lancerEntite(Entite _cible, Orientation oriLanceur, boolean ccritique) {
 		cible = _cible;
-		int _valeur = ccritique ? valeur : valeur + (30 * valeur / 100);
+		int _valeur = ccritique ? valeur + (30 * valeur / 100) : valeur;
 		cible.getCaracPhysique().add(caracteristique, _valeur);
 		vChatBox.chatCombatPrint(cible.getNom() + (_valeur > 0 ? " gagne " : " perd ") + _valeur + " " + caracteristique + ".", vChatText.ChatTextType.COMBAT);
 	}

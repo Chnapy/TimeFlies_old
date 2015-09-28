@@ -16,6 +16,8 @@ import gameplay.invocation.Invocation;
 import static gameplay.map.EtatTuile.NORMAL;
 import general.Orientation;
 import java.awt.Point;
+import vue.hud.chatbox.chattext.vChatText;
+import vue.hud.chatbox.vChatBox;
 
 /**
  * Tuile.java

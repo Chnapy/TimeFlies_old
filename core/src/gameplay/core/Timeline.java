@@ -96,9 +96,16 @@ public class Timeline extends Observable implements Runnable {
 	 */
 	@Override
 	public void run() {
+		premiereAction();
 		while (enJeu) {
 			tourGlobal();
 		}
+	}
+	
+	private void premiereAction() {
+		listEntiteActives.forEach((entite) -> {
+			entite.premiereAction();
+		});
 	}
 
 	/**

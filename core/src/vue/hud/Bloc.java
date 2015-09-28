@@ -45,6 +45,7 @@ public abstract class Bloc extends Window {
 			super.draw(batch, parentAlpha);
 		} catch (IndexOutOfBoundsException e) {
 			e.printStackTrace();
+			super.draw(batch, parentAlpha);
 		}
 		batch.end();
 

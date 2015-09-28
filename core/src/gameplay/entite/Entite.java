@@ -13,10 +13,13 @@ import gameplay.effet.Effet;
 import gameplay.envoutement.Envoutement;
 import gameplay.envoutement.EnvoutementEffets;
 import gameplay.sort.SortPassif;
+import gameplay.sort.SortPassifBonus;
 import gameplay.sort.SortPassifEffets;
 import general.Orientation;
 import java.awt.Point;
 import java.util.Observable;
+import vue.hud.chatbox.chattext.vChatText;
+import vue.hud.chatbox.vChatBox;
 
 /**
  * Entite.java
@@ -123,14 +126,18 @@ public abstract class Entite extends Observable {
 	public void setPosition(Point pt) {
 		caracSpatiale.getPosition().x = pt.x;
 		caracSpatiale.getPosition().y = pt.y;
-//		setChanged();
-//		notifyObservers(pt);
 	}
 
 	public void move(int x, int y) {
-//		System.out.println("move " + x + " " + y);
 		caracSpatiale.move(x, y);
-//		System.out.println(caracSpatiale.getPosition());
+	}
+
+	public void premiereAction() {
+		for (SortPassif sort : tabSortPassif) {
+			if (sort instanceof SortPassifBonus) {
+				sort.lancerSort(this, null, null, Orientation.NORD, false);
+			}
+		}
 	}
 
 	public void notifierObserveurs(Object[] envois) {

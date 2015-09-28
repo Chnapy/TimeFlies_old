@@ -16,7 +16,7 @@ import gameplay.effet.Declenchable;
 public class DeclenchablePourEnvoutement extends Declenchable {
 
 	public DeclenchablePourEnvoutement() {
-		super(new Balus(Carac.VITALITE, 25), -40, -20);
+		super(new Balus(Carac.VITALITE, -1), -40, -20);
 	}
 
 }

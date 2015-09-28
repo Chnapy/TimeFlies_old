@@ -6,6 +6,10 @@
 package gameplay.sort;
 
 import gameplay.effet.Effet;
+import gameplay.entite.Entite;
+import gameplay.entite.EntiteActive;
+import gameplay.map.Tuile;
+import general.Orientation;
 import java.util.Observable;
 
 /**
@@ -44,6 +48,21 @@ public abstract class Sort extends Observable {
 		this.niveau = niveau;
 		tabEffets = effets;
 		index = i;
+	}
+
+	/**
+	 * lance le sort sur la victime check ses passif et
+	 * renvoi les effets des passifs au lanceur si effectif
+	 *
+	 * @param cibleEntite
+	 * @param cibleTuile
+	 * @param lanceur
+	 * @param oriAttaque
+	 * @param critique
+	 */
+	public void lancerSort(Entite cibleEntite, Tuile cibleTuile, EntiteActive lanceur, Orientation oriAttaque, boolean critique) {
+		cibleEntite.recoitSort(getTabEffets(), lanceur, oriAttaque, critique);
+		cibleTuile.recoitSort(getTabEffets(), lanceur, oriAttaque, critique);
 	}
 
 	public String getNom() {

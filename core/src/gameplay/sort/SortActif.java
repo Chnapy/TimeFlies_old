@@ -6,14 +6,8 @@
 package gameplay.sort;
 
 import gameplay.effet.Effet;
-import gameplay.entite.Entite;
-import gameplay.entite.EntiteActive;
-import gameplay.map.Tuile;
 import gameplay.sort.zone.ZoneAction;
-import general.Orientation;
 import general.TypeDonnee;
-import vue.hud.chatbox.chattext.vChatText;
-import vue.hud.chatbox.vChatBox;
 
 /**
  * SortActif.java
@@ -61,21 +55,6 @@ public abstract class SortActif extends Sort {
 		this.tempsAction = tempsAction;
 		cooldown = _cooldown;
 		cooldownActu = 0;
-	}
-
-	/**
-	 * lance le sort sur la victime check ses passif et
-	 * renvoi les effets des passifs au lanceur si effectif
-	 *
-	 * @param cibleEntite
-	 * @param cibleTuile
-	 * @param lanceur
-	 * @param oriAttaque
-	 * @param critique
-	 */
-	public void lancerSort(Entite cibleEntite, Tuile cibleTuile, EntiteActive lanceur, Orientation oriAttaque, boolean critique) {
-		cibleEntite.recoitSort(getTabEffets(), lanceur, oriAttaque, critique);
-		cibleTuile.recoitSort(getTabEffets(), lanceur, oriAttaque, critique);
 	}
 
 	public int getTempsAction() {
