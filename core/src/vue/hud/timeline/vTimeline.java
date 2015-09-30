@@ -10,8 +10,10 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.utils.Array;
 import controleur.ControleurPrincipal;
+import gameplay.entite.Entite;
 import gameplay.entite.EntiteActive;
 import general.Tourable;
+import java.util.Arrays;
 import static test.MainTest.MAX_HEIGHT;
 import vue.Couleur;
 import vue.hud.Bloc;
@@ -34,18 +36,15 @@ public class vTimeline extends Bloc implements Tourable {
 	private static final int Y = MAX_HEIGHT - HEIGHT - 12;
 
 	//Vue des entités sur la timeline
-	private final Array<vTimelineEntite> listEntite;
+	private final Array<vTimelineEntite> listEntites;
+	private int index;
 
-	public vTimeline(final Array<? extends EntiteActive> listEntites, AssetManager manager) {
+	public vTimeline(final Array<Entite> entites, AssetManager manager) {
 		super("Timeline", WIDTH, HEIGHT, manager);
 		setPosition(X, Y - getPadTop());
-		listEntite = new Array<vTimelineEntite>();
-		vTimelineEntite temp;
-		for (int i = 0; i < listEntites.size; i++) {
-			temp = new vTimelineEntite(listEntites.get(i), i, manager);
-			addActor(temp);
-			listEntite.add(temp);
-		}
+		listEntites = new Array<vTimelineEntite>();
+		index = 0;
+		applyEntites(entites);
 		addListener(new BulleListener(this) {
 
 			@Override
@@ -55,10 +54,16 @@ public class vTimeline extends Bloc implements Tourable {
 		});
 	}
 
+	public void addEntite(Entite entite) {
+		if(entite instanceof EntiteActive) {
+			applyEntites(Array.with(entite));
+		}
+	}
+
 	@Override
 	public void nouveauTour(ControleurPrincipal controleur, EntiteActive entiteEnCours, Object... objs) {
-		listEntite.forEach((entite) -> {
-			entite.nouveauTour(controleur, entiteEnCours, listEntite.size - 1);
+		listEntites.forEach((entite) -> {
+			entite.nouveauTour(controleur, entiteEnCours, listEntites.size - 1);
 		});
 	}
 
@@ -68,6 +73,18 @@ public class vTimeline extends Bloc implements Tourable {
 
 	@Override
 	public void finTour(ControleurPrincipal controleur, EntiteActive entiteEnCours, Object... objs) {
+	}
+	
+	private void applyEntites(Array<Entite> entites) {
+		int listSize = listEntites.size;
+		while (index < listSize + entites.size) {
+			if (entites.get(index - listSize) instanceof EntiteActive) {
+				vTimelineEntite temp = new vTimelineEntite((EntiteActive) entites.get(index - listSize), index, manager);
+				addActor(temp);
+				listEntites.add(temp);
+				index++;
+			}
+		}
 	}
 
 	@Override

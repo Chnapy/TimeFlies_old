@@ -9,8 +9,8 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import controleur.ControleurPrincipal;
+import gameplay.entite.Entite;
 import gameplay.entite.EntiteActive;
-import gameplay.entite.Personnage;
 import gameplay.map.Tuile;
 import general.Tourable;
 import java.awt.Point;
@@ -37,14 +37,18 @@ public class vJeu extends Stage implements Tourable {
 	//Vue des sorts
 	private final vSorts vsorts;
 
-	public vJeu(final ControleurPrincipal ccombat, final Tuile[][] tabTuiles, final Array<Personnage> personnages, AssetManager manager) {
+	public vJeu(ControleurPrincipal ccombat, Tuile[][] tabTuiles, Array<? extends Entite> entites, AssetManager manager) {
 		combat = ccombat;
 		vmap = new vMap(ccombat, tabTuiles);
-		ventites = new vEntites(personnages);
+		ventites = new vEntites(entites);
 		vsorts = new vSorts(manager);
 		addActor(vmap);
 		addActor(ventites);
 		addActor(vsorts);
+	}
+
+	public void addEntite(Entite entite) {
+		ventites.addEntite(entite);
 	}
 
 	/**

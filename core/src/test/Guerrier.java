@@ -36,7 +36,9 @@ public class Guerrier extends Personnage {
 				new SortActif[]{
 					new SortQuiFaitMal(),
 					new SortEnvoutementBonus(),
-					new SortEnvoutementEffet()
+					new SortEnvoutementEffet(),
+					new SortInvocationPassive(),
+					new SortInvocationActive()
 				}
 		);
 	}

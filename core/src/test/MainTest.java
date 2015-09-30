@@ -83,9 +83,9 @@ public class MainTest extends Game {
 
 		debut = System.currentTimeMillis();
 		System.out.println("-Création du controleur, de la vue et lancement de la partie...");
-		ControleurPrincipal contCombat = new ControleurPrincipal(map, joueurs);
-		this.setScreen(contCombat.getVue());
-		contCombat.lancer();
+		ControleurPrincipal contPrincipal = new ControleurPrincipal(map, joueurs);
+		this.setScreen(contPrincipal.getVue());
+		contPrincipal.lancer();
 		System.out.println("-Partie lancée [" + (System.currentTimeMillis() - debut) + "ms]");
 
 		System.out.println("Partie initialisée [" + (System.currentTimeMillis() - loadStart) + "ms]");

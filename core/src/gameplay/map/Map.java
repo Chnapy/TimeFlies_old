@@ -10,6 +10,7 @@ import com.badlogic.gdx.ai.pfa.Connection;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedGraph;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;
+import controleur.ControleurPrincipal;
 import gameplay.map.pathfinding.Chemin;
 import gameplay.map.pathfinding.Finder;
 import gameplay.map.pathfinding.Heuristique;
@@ -74,6 +75,14 @@ public class Map implements IndexedGraph<Tuile> {
 		for (y = 0; y < plan.length; y++) {
 			for (x = 0; x < plan[0].length; x++) {
 				generateConnections(y, x);
+			}
+		}
+	}
+
+	public void setControleur(ControleurPrincipal controleur) {
+		for(Tuile[] colonne : tabTuiles) {
+			for(Tuile tuile : colonne) {
+				tuile.setControleur(controleur);
 			}
 		}
 	}

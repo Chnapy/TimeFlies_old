@@ -6,12 +6,12 @@
 package controleur;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.utils.Array;
 import gameplay.caracteristique.Carac;
 import gameplay.core.Joueur;
 import gameplay.core.Timeline;
+import gameplay.entite.Entite;
 import gameplay.entite.EntiteActive;
 import general.Mode;
 import gameplay.entite.Personnage;
@@ -53,6 +53,8 @@ public class ControleurPrincipal implements Observer, Tourable {
 	//Tableau des joueurs
 	private final Joueur[] tabJoueurs;
 
+	private final Array<Entite> listEntites;
+
 	//Timeline (modele)
 	private final Timeline timeline;
 
@@ -65,19 +67,20 @@ public class ControleurPrincipal implements Observer, Tourable {
 
 	public ControleurPrincipal(Map m, Joueur[] joueurs) {
 		map = m;
+		map.setControleur(this);
 		tabJoueurs = joueurs;
-		Array<Personnage> listPersonnages = getPersonnages(joueurs);
-		timeline = new Timeline(listPersonnages);
+		listEntites = new Array(getPersonnages(joueurs));
+		timeline = new Timeline(listEntites);
 		timeline.addObserver(this);
-		vue = new Vue(this, m.getTabTuiles(), listPersonnages, timeline);
+		vue = new Vue(this, m.getTabTuiles(), listEntites, timeline);
 		controleurDeplacement = new ControleurDeplacement(this, map, vue.getVmap());
 		controleurSort = new ControleurSort(this, vue);
 
-		listPersonnages.forEach((perso) -> {
-			perso.addObserver(this);
+		listEntites.forEach((entite) -> {
+			entite.addObserver(this);
 
 			//La position de chaque joueur devient occupée
-			map.setTuileOccupe(true, perso.getCaracSpatiale().getPosition().y, perso.getCaracSpatiale().getPosition().x);
+			map.setTuileOccupe(true, entite.getCaracSpatiale().getPosition().y, entite.getCaracSpatiale().getPosition().x);
 		});
 	}
 
@@ -226,12 +229,10 @@ public class ControleurPrincipal implements Observer, Tourable {
 	 * @param tuile
 	 * @return le personnage présent sur la tuile. null si vide
 	 */
-	public Personnage getPerso(Tuile tuile) {
-		for (Joueur tabJoueur : tabJoueurs) {
-			for (Personnage perso : tabJoueur.getPersonnages()) {
-				if (perso.getCaracSpatiale().getPosition().equals(tuile.getPosition())) {
-					return perso;
-				}
+	public Entite getPerso(Tuile tuile) {
+		for (Entite entite : listEntites) {
+			if (entite.getCaracSpatiale().getPosition().equals(tuile.getPosition())) {
+				return entite;
 			}
 		}
 		return null;
@@ -282,6 +283,14 @@ public class ControleurPrincipal implements Observer, Tourable {
 				}
 			}
 		}
+	}
+
+	public void addEntite(Entite entite) {
+		timeline.addEntite(entite);
+		listEntites.add(entite);
+		entite.addObserver(this);
+		map.setTuileOccupe(true, entite.getCaracSpatiale().getPosition().y, entite.getCaracSpatiale().getPosition().x);
+		vue.addEntite(entite);
 	}
 
 	public boolean isCoupCritique(Orientation oriCible, Orientation oriAttaque) {

@@ -11,6 +11,7 @@ import gameplay.caracteristique.Carac;
 import gameplay.caracteristique.Caracteristique;
 import gameplay.caracteristique.CaracteristiquePhysique;
 import gameplay.envoutement.Envoutement;
+import gameplay.invocation.InvocationMobile;
 import gameplay.sort.Sort;
 import gameplay.sort.SortActif;
 import gameplay.sort.SortPassif;
@@ -112,11 +113,7 @@ public abstract class EntiteActive extends Entite {
 					etatNow = Mode.SORT;
 				}
 			} catch (NullPointerException e) {
-				System.err.println(e +
-						"\tEtat : " + pileAction.pile.get(0).getEtat() + "\n"
-						+ "\tAction : " + pileAction.pile.get(0) + "\n"
-						+ "\tPile : " + pileAction.pile + "\n"
-				);
+				e.printStackTrace();
 			}
 			tempsFinSort = pileAction.pile.get(0).getSort().getTempsAction() + time;
 			setChanged();

@@ -25,6 +25,8 @@ public class vTempsAction extends Actor {
 		Couleur.get("sort", "hud", "pile_action"), //SortQuiFaitMal
 		Couleur.get("sort", "hud", "pile_action"), //SortEnvoutementBonus
 		Couleur.get("sort", "hud", "pile_action"), //SortEnvoutementEffet
+		Couleur.get("sort", "hud", "pile_action"), //SortInvocationPassive
+		Couleur.get("sort", "hud", "pile_action"), //SortInvocationActive
 	};
 
 	private final int index;

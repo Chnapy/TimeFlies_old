@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Window.WindowStyle;
 import com.badlogic.gdx.utils.Array;
 import controleur.ControleurPrincipal;
+import gameplay.entite.Entite;
 import gameplay.entite.EntiteActive;
 import gameplay.map.Tuile;
 import gameplay.sort.pileaction.Action;
@@ -78,11 +79,11 @@ public final class vHud extends Stage implements Tourable {
 	//Bulle
 	public static final Bulle bulle = new Bulle();
 
-	public vHud(ControleurPrincipal controleur, Tuile[][] tabTuiles, Array<? extends EntiteActive> personnages, AssetManager manager) {
+	public vHud(ControleurPrincipal controleur, Tuile[][] tabTuiles, Array<Entite> entites, AssetManager manager) {
 		FONT = defaultSkin.get(WindowStyle.class).titleFont;
 
 		vsorts = new vSortsBout(manager);
-		vtimeline = new vTimeline(personnages, manager);
+		vtimeline = new vTimeline(entites, manager);
 		vminimap = new vMinimap(controleur, tabTuiles);
 		vpileactions = new vPileActions(manager);
 		vchatbox = new vChatBox(manager);
@@ -95,6 +96,10 @@ public final class vHud extends Stage implements Tourable {
 		addActor(vminimap);
 		addActor(vchatbox);
 		addActor(bulle);
+	}
+	
+	public void addEntite(Entite entite) {
+		vtimeline.addEntite(entite);
 	}
 
 	@Override

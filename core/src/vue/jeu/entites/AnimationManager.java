@@ -38,7 +38,7 @@ public class AnimationManager {
 		stateTime = 0;
 		lastEtat = null;
 		lastOrientation = null;
-
+		
 		TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("perso/" + nom_perso + "/" + nom_perso + ".atlas"));
 		Animation[] stayArray = {
 			new Animation(stay_duration, atlas.findRegions(NORD.min + "/" + nom_perso + "_" + STAY + "_" + NORD.min)),

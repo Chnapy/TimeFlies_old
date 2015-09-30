@@ -21,6 +21,8 @@ public class vIconeAction extends Actor {
 		"sort/sort_fond.png",
 		"sort/sort_fond.png",
 		"sort/sort_fond.png",
+		"sort/sort_fond.png",
+		"sort/sort_fond.png",
 		"sort/sort_fond.png"
 	};
 

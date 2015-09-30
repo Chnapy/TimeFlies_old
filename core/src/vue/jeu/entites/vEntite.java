@@ -42,6 +42,11 @@ public class vEntite extends Group implements Observer, Tourable {
 	private static final int PERSO_HEIGHT = 192;
 	private static final String[] tabManager = {
 		"perso1",
+		"perso2",
+		"perso2",
+		"perso2",
+		"perso2",
+		"perso2",
 		"perso2"
 	};
 
@@ -51,7 +56,7 @@ public class vEntite extends Group implements Observer, Tourable {
 	private EtatGraphique etat;
 	private Orientation orientation;
 
-	public vEntite(final EntiteActive entite) {
+	public vEntite(final Entite entite) {
 		amanager = new AnimationManager(tabManager[entite.getIndex()], 0.8f, 0.5f);
 		etat = STAY;
 		orientation = entite.getCaracSpatiale().getOrientation();

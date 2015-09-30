@@ -24,6 +24,8 @@ public class vSorts extends Group {
 			null,
 			new vSortQuiFaitMal(manager),
 			new vSortQuiFaitMal(manager),
+			new vSortQuiFaitMal(manager),
+			new vSortQuiFaitMal(manager),
 			new vSortQuiFaitMal(manager)
 		};
 	}

@@ -14,8 +14,6 @@ import gameplay.sort.pileaction.Action;
 import general.Mode;
 import general.Tourable;
 import java.awt.Point;
-import vue.hud.chatbox.chattext.vChatText;
-import vue.hud.chatbox.vChatBox;
 import vue.jeu.map.vMap;
 
 /**

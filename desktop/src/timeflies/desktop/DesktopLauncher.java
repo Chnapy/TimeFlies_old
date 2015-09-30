@@ -15,10 +15,10 @@ public class DesktopLauncher {
 	private static final int WINDOW_WIDTH = FULLSCREEN ? dm.width : dm.width * 4/5;
 	private static final int WINDOW_HEIGHT = FULLSCREEN ? dm.height : dm.height * 4/5;
 
-	public static void main(String[] arg) {
+	public static void main(String[] args) {
 		registerExceptionHandler();
 		
-		LwjglApplication application = new LwjglApplication(new MainTest(), getConfig(
+		LwjglApplication application = new LwjglApplication(new MainTest(args), getConfig(
 				"TimeFlies - developer edition",
 				FULLSCREEN,
 				ANTIALIASING

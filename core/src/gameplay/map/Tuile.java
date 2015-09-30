@@ -9,6 +9,7 @@ import com.badlogic.gdx.ai.pfa.Connection;
 import com.badlogic.gdx.ai.pfa.DefaultConnection;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedNode;
 import com.badlogic.gdx.utils.Array;
+import controleur.ControleurPrincipal;
 import gameplay.effet.Declencheur;
 import gameplay.effet.Effet;
 import gameplay.entite.Entite;
@@ -16,8 +17,6 @@ import gameplay.invocation.Invocation;
 import static gameplay.map.EtatTuile.NORMAL;
 import general.Orientation;
 import java.awt.Point;
-import vue.hud.chatbox.chattext.vChatText;
-import vue.hud.chatbox.vChatBox;
 
 /**
  * Tuile.java
@@ -25,6 +24,8 @@ import vue.hud.chatbox.vChatBox;
  *
  */
 public class Tuile implements IndexedNode<Tuile> {
+	
+	private ControleurPrincipal controleur;
 
 	//Type de la tuile (simple, obstacle, ...)
 	private Type type;
@@ -54,6 +55,10 @@ public class Tuile implements IndexedNode<Tuile> {
 		position = pos;
 		this.index = index;
 		connections = new Array<>();
+	}
+
+	public void setControleur(ControleurPrincipal _controleur) {
+		controleur = _controleur;
 	}
 
 	public Type getType() {
@@ -122,6 +127,7 @@ public class Tuile implements IndexedNode<Tuile> {
 			for (Declencheur declencheur : effet.getDeclencheur()) {
 				if (declencheur instanceof Invocation) {
 					((Invocation) declencheur).invoquer(this.getPosition());
+					controleur.addEntite((Entite) declencheur);
 				} else {
 					effet.lancerEffetTuile(this, lanceur, oriAttaque, critique);
 				}

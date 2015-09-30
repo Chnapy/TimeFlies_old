@@ -30,6 +30,8 @@ public class vSortsActifsBouton extends vSortsBouton implements Observer {
 		"sort/sort_fond.png",
 		"sort/sort_fond.png",
 		"sort/sort_fond.png",
+		"sort/sort_fond.png",
+		"sort/sort_fond.png",
 		"sort/sort_fond.png"
 	};
 	private static final float OFFSET_ICONES = 1.2f;

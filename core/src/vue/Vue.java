@@ -18,8 +18,8 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import controleur.ControleurPrincipal;
 import gameplay.core.Timeline;
+import gameplay.entite.Entite;
 import gameplay.entite.EntiteActive;
-import gameplay.entite.Personnage;
 import gameplay.map.EtatTuile;
 import gameplay.map.Tuile;
 import gameplay.sort.pileaction.Action;
@@ -74,14 +74,14 @@ public class Vue implements Screen, Tourable {
 	 *
 	 * @param ccombat
 	 * @param tabTuiles
-	 * @param personnages
+	 * @param entites
 	 * @param timel
 	 */
-	public Vue(final ControleurPrincipal ccombat, final Tuile[][] tabTuiles, final Array<Personnage> personnages, final Timeline timel) {
+	public Vue(ControleurPrincipal ccombat, Tuile[][] tabTuiles, Array<Entite> entites, Timeline timel) {
 		manager = new AssetManager();
 		loadAllAssets();
-		vjeu = new vJeu(ccombat, tabTuiles, personnages, manager);
-		vhud = new vHud(ccombat, tabTuiles, personnages, manager);
+		vjeu = new vJeu(ccombat, tabTuiles, entites, manager);
+		vhud = new vHud(ccombat, tabTuiles, entites, manager);
 
 		curseur = new Curseur();
 		vhud.addActor(curseur);
@@ -89,6 +89,11 @@ public class Vue implements Screen, Tourable {
 		//Accepter les input
 		InputMultiplexer inputM = new InputMultiplexer(vjeu, vhud);
 		Gdx.input.setInputProcessor(inputM);
+	}
+
+	public void addEntite(Entite entite) {
+		vjeu.addEntite(entite);
+		vhud.addEntite(entite);
 	}
 
 	/**

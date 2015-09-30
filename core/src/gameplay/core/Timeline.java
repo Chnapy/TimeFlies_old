@@ -8,8 +8,9 @@ package gameplay.core;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 import gameplay.caracteristique.Carac;
+import gameplay.entite.Entite;
 import gameplay.entite.EntiteActive;
-import gameplay.entite.Personnage;
+import java.util.Iterator;
 import java.util.Observable;
 
 /**
@@ -19,6 +20,9 @@ import java.util.Observable;
  *
  */
 public class Timeline extends Observable implements Runnable {
+	
+	//Interval en ms entre 2 update
+	private static final int INTERVAL = 100;
 
 	//Thread possédant le runnable
 	private final Thread thread;
@@ -27,7 +31,7 @@ public class Timeline extends Observable implements Runnable {
 	private boolean enJeu;
 
 	//Liste des entités actives du jeu
-	private final Array<EntiteActive> listEntiteActives;
+	private final Array<Entite> listEntite;
 
 	//Entité active jouant actuellement son tour
 	private EntiteActive entiteEnCours;
@@ -42,8 +46,8 @@ public class Timeline extends Observable implements Runnable {
 	 *
 	 * @param listPersonnages
 	 */
-	public Timeline(Array<Personnage> listPersonnages) {
-		listEntiteActives = new Array<EntiteActive>(listPersonnages);
+	public Timeline(Array<? extends Entite> listPersonnages) {
+		listEntite = new Array(listPersonnages);
 		thread = new Thread(this);
 		etatTour = Tour.ATTENTE;
 		etatTourGlobal = Tour.ATTENTE;
@@ -101,9 +105,9 @@ public class Timeline extends Observable implements Runnable {
 			tourGlobal();
 		}
 	}
-	
+
 	private void premiereAction() {
-		listEntiteActives.forEach((entite) -> {
+		listEntite.forEach((entite) -> {
 			entite.premiereAction();
 		});
 	}
@@ -135,9 +139,13 @@ public class Timeline extends Observable implements Runnable {
 
 		//Milieu du tour global
 		etatTourGlobal = Tour.COURS;
-		for (EntiteActive entActive : listEntiteActives) {
-			entiteEnCours = entActive;
-			tour(entActive);
+		Entite entite;
+		for (Iterator<Entite> it = listEntite.iterator(); it.hasNext();) {
+			entite = it.next();
+			if (entite instanceof EntiteActive) {
+				entiteEnCours = (EntiteActive) entite;
+				tour(entiteEnCours);
+			}
 		}
 
 		//Fin du tour global
@@ -159,8 +167,10 @@ public class Timeline extends Observable implements Runnable {
 	private void debutTourGlobal() {
 		etatTourGlobal = Tour.DEBUT;
 		appliquerOrdreDeJeu();	//On définit l'ordre de jeu d'après l'initiative de chaque entité active
-		for (EntiteActive entActive : listEntiteActives) {
-			entActive.debutTourGlobal();
+		for (Entite entite : listEntite) {
+			if (entite instanceof EntiteActive) {
+				((EntiteActive) entite).debutTourGlobal();
+			}
 		}
 	}
 
@@ -177,8 +187,10 @@ public class Timeline extends Observable implements Runnable {
 	 */
 	private void finTourGlobal() {
 		etatTourGlobal = Tour.FIN;
-		for (EntiteActive entActive : listEntiteActives) {
-			entActive.finTourGlobal();
+		for (Entite entite : listEntite) {
+			if (entite instanceof EntiteActive) {
+				((EntiteActive) entite).finTourGlobal();
+			}
 		}
 		etatTourGlobal = Tour.ATTENTE;
 	}
@@ -205,15 +217,14 @@ public class Timeline extends Observable implements Runnable {
 
 	private void jouerTour(EntiteActive entActive) {
 		long debutTour = TimeUtils.millis();
-		long tempsAction = entActive.getCaracPhysique().getCaracteristique(Carac.TEMPSACTION).getActu();
 		long palier = debutTour;
-		long time = TimeUtils.millis();
+		long time;
 
 		while (entActive.getCaracPhysique().getCaracteristique(Carac.TEMPSACTION).getActu() > 0 || entActive.isEnDeplacement()) {
 			time = TimeUtils.millis();
-			if (time >= palier + 10) {
+			if (time >= palier + INTERVAL) {
 				palier = time;
-				entActive.getCaracPhysique().supp(Carac.TEMPSACTION, 10);
+				entActive.getCaracPhysique().supp(Carac.TEMPSACTION, INTERVAL);
 				setChanged();
 				notifyObservers(-1);
 			}
@@ -279,13 +290,13 @@ public class Timeline extends Observable implements Runnable {
 	 */
 	private void initInitiative() {
 		// on initialise la variable initiative
-		int initiative = -1;
+		int initiative;
 		//la boucle pour initialiser les initiatives
-		for (EntiteActive entiteActive : listEntiteActives) {
+		for (Entite entite : listEntite) {
 			//calcule de l'initative
-			initiative = entiteActive.getNiveauSymbol().getNiveau() + ((int) (Math.random() * 5));
+			initiative = entite.getNiveauSymbol().getNiveau() + ((int) (Math.random() * 5));
 			//on set l'initiative des joueurs
-			entiteActive.getCaracPhysique().setActu(Carac.INITIATIVE, initiative);
+			entite.getCaracPhysique().setActu(Carac.INITIATIVE, initiative);
 		}
 	}
 
@@ -300,7 +311,7 @@ public class Timeline extends Observable implements Runnable {
 	private void appliquerOrdreDeJeu() {
 
 		// ordonne les entitée active en fonction de leurs initiative
-		triRapide(this.listEntiteActives);
+		triRapide(listEntite);
 
 		//Notification de la vue sur le nouvel ordre de jeu
 		setChanged();
@@ -312,7 +323,7 @@ public class Timeline extends Observable implements Runnable {
 	 *
 	 * @param liste
 	 */
-	public static void triRapide(Array<EntiteActive> liste) {
+	public static void triRapide(Array<? extends Entite> liste) {
 		int longueur = liste.size;
 		triRapide(liste, 0, longueur - 1);
 	}
@@ -325,7 +336,7 @@ public class Timeline extends Observable implements Runnable {
 	 * @param deb
 	 * @param fin
 	 */
-	private static void triRapide(Array<EntiteActive> liste, int deb, int fin) {
+	private static void triRapide(Array<? extends Entite> liste, int deb, int fin) {
 		if (deb < fin) {
 			int positionPivot = partition(liste, deb, fin);
 			triRapide(liste, deb, positionPivot - 1);
@@ -340,9 +351,9 @@ public class Timeline extends Observable implements Runnable {
 	 * @param fin
 	 * @return pivotPosition
 	 */
-	private static int partition(Array<EntiteActive> liste, int deb, int fin) {
+	private static int partition(Array<? extends Entite> liste, int deb, int fin) {
 		int compt = deb;
-		EntiteActive pivot = liste.get(deb);
+		Entite pivot = liste.get(deb);
 
 		for (int i = deb + 1; i <= fin; i++) {
 			if (liste.get(i).getCaracPhysique().getCaracteristique(Carac.INITIATIVE).getActu() < pivot.getCaracPhysique().getCaracteristique(Carac.INITIATIVE).getActu()) {
@@ -355,12 +366,12 @@ public class Timeline extends Observable implements Runnable {
 	}
 
 	/**
-	 * Permet d'ajouter des entité actives à la liste, et donc de les utiliser.
+	 * Permet d'ajouter des entité à la liste, et donc de les utiliser.
 	 *
-	 * @param tabEntiteActive
+	 * @param entites
 	 */
-	public void addEntiteActive(EntiteActive... tabEntiteActive) {
-		listEntiteActives.addAll(tabEntiteActive);
+	public void addEntite(Entite... entites) {
+		listEntite.addAll(entites);
 	}
 
 	public EntiteActive getEntiteEnCours() {
@@ -375,8 +386,8 @@ public class Timeline extends Observable implements Runnable {
 		return etatTourGlobal;
 	}
 
-	public Array<EntiteActive> getListEntiteActives() {
-		return listEntiteActives;
+	public Array<Entite> getListEntites() {
+		return listEntite;
 	}
 
 }

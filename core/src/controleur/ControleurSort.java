@@ -104,7 +104,7 @@ public class ControleurSort implements Tourable {
 		if(critique) {
 			vChatBox.chatCombatPrint("Coup critique !!! Augmentation des degats et bonus !", vChatText.ChatTextType.COMBAT);
 		}
-		EntiteActive persoCible = controleurPrincipal.getPerso(tuileCible);
+		Entite persoCible = controleurPrincipal.getPerso(tuileCible);
 		tuileCible.recoitSort(sort.getTabEffets(), lanceur, oriAttaque, critique);
 		if (persoCible != null) {
 			persoCible.recoitSort(sort.getTabEffets(), lanceur, oriAttaque, critique);

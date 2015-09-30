@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import controleur.ControleurPrincipal;
 import gameplay.caracteristique.Carac;
+import gameplay.entite.Entite;
 import gameplay.entite.EntiteActive;
 import gameplay.entite.Personnage;
 import general.Tourable;
@@ -39,12 +40,12 @@ public class EntiteHud extends Table implements Tourable {
 	private static final Color TEMPS_FOND = Couleur.get("tempsjauge", "jeu", "entite", "minihud");
 	private static final Color TEMPS_CONTOUR = Couleur.get("tempscontour", "jeu", "entite", "minihud");
 
-	private final EntiteActive entite;
+	private final Entite entite;
 	private final Label nom;
 	private final Jauge vie;
 	private final Jauge tempsAction;
 
-	public EntiteHud(EntiteActive _entite, int width, int height) {
+	public EntiteHud(Entite _entite, int width, int height) {
 		super(defaultSkin);
 		setSize(width, height);
 		setY(25);

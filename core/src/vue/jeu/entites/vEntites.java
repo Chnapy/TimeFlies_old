@@ -5,11 +5,12 @@
  */
 package vue.jeu.entites;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
 import controleur.ControleurPrincipal;
+import gameplay.entite.Entite;
 import gameplay.entite.EntiteActive;
-import gameplay.entite.Personnage;
 import general.Tourable;
 
 /**
@@ -17,36 +18,45 @@ import general.Tourable;
  *
  */
 public class vEntites extends Group implements Tourable {
-	
-	private Array<vEntite> entites;
 
-	public vEntites(Array<Personnage> personnages) {
-		entites = new Array();
-		personnages.forEach(perso -> {
+	private Array<vEntite> listEntites;
+
+	public vEntites(Array<? extends Entite> entites) {
+		listEntites = new Array();
+		entites.forEach(perso -> {
 			vEntite vent = new vEntite(perso);
 			perso.addObserver(vent);
 			addActor(vent);
-			entites.add(vent);
+			listEntites.add(vent);
+		});
+	}
+
+	public void addEntite(Entite entite) {
+		Gdx.app.postRunnable(() -> {
+			vEntite vent = new vEntite(entite);
+			entite.addObserver(vent);
+			addActor(vent);
+			listEntites.add(vent);
 		});
 	}
 
 	@Override
 	public void nouveauTour(ControleurPrincipal controleur, EntiteActive entiteEnCours, Object... objs) {
-		entites.forEach(entite -> {
+		listEntites.forEach(entite -> {
 			entite.nouveauTour(controleur, entiteEnCours, objs);
 		});
 	}
 
 	@Override
 	public void finTour(ControleurPrincipal controleur, EntiteActive entiteEnCours, Object... objs) {
-		entites.forEach(entite -> {
+		listEntites.forEach(entite -> {
 			entite.finTour(controleur, entiteEnCours, objs);
 		});
 	}
 
 	@Override
 	public void enTour(ControleurPrincipal controleur, EntiteActive entiteEnCours, Object... objs) {
-		entites.forEach(entite -> {
+		listEntites.forEach(entite -> {
 			entite.enTour(controleur, entiteEnCours, objs);
 		});
 	}
