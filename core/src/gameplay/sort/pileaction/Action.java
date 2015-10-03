@@ -1,10 +1,10 @@
 package gameplay.sort.pileaction;
 
+import com.badlogic.gdx.math.GridPoint2;
 import gameplay.sort.SortActif;
 import gameplay.sort.base.Deplacer;
 import gameplay.sort.base.Orienter;
 import general.Orientation;
-import java.awt.Point;
 
 /**
  *
@@ -17,14 +17,14 @@ public class Action {
 	/**
 	 * La position du lieu ou vas se déroulé l'action
 	 */
-	private final Point position;
+	private final GridPoint2 position;
 	private final SortActif sort;
 	private final EtatAction etat;
 	private final Orientation oriAttaque;
 	private final Orientation precOriAttaque;
 	private final boolean critique;
 
-	public Action(Point p1, SortActif sort, Orientation oriAttaque, Orientation precOriAttaque, boolean critique) {
+	public Action(GridPoint2 p1, SortActif sort, Orientation oriAttaque, Orientation precOriAttaque, boolean critique) {
 		this.position = p1;
 		this.sort = sort;
 		this.oriAttaque = oriAttaque;
@@ -48,7 +48,7 @@ public class Action {
 	 *
 	 * @return la position de l'action
 	 */
-	public Point getPoint() {
+	public GridPoint2 getGridPoint2() {
 		return position;
 	}
 

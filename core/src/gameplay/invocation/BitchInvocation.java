@@ -1,5 +1,6 @@
 package gameplay.invocation;
 
+import com.badlogic.gdx.math.GridPoint2;
 import gameplay.caracteristique.CaracteristiquePhysique;
 import gameplay.effet.Effet;
 import gameplay.entite.Entite;
@@ -8,7 +9,6 @@ import gameplay.sort.SortActif;
 import gameplay.sort.SortPassif;
 import general.Orientation;
 import static general.Orientation.NORD;
-import java.awt.Point;
 
 public class BitchInvocation extends InvocationMobile {
 
@@ -19,7 +19,7 @@ public class BitchInvocation extends InvocationMobile {
 	}
 
 	@Override
-	public void invoquer(Point point) {
+	public void invoquer(GridPoint2 point) {
 
 	}
 

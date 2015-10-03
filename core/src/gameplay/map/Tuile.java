@@ -8,6 +8,7 @@ package gameplay.map;
 import com.badlogic.gdx.ai.pfa.Connection;
 import com.badlogic.gdx.ai.pfa.DefaultConnection;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedNode;
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.Array;
 import controleur.ControleurPrincipal;
 import gameplay.effet.Declencheur;
@@ -16,7 +17,6 @@ import gameplay.entite.Entite;
 import gameplay.invocation.Invocation;
 import static gameplay.map.EtatTuile.NORMAL;
 import general.Orientation;
-import java.awt.Point;
 
 /**
  * Tuile.java
@@ -24,7 +24,7 @@ import java.awt.Point;
  *
  */
 public class Tuile implements IndexedNode<Tuile> {
-	
+
 	private ControleurPrincipal controleur;
 
 	//Type de la tuile (simple, obstacle, ...)
@@ -34,7 +34,7 @@ public class Tuile implements IndexedNode<Tuile> {
 	private EtatTuile etat;
 
 	//Position x/y
-	private final Point position;
+	private final GridPoint2 position;
 
 	//Pathfinding
 	private final int index;
@@ -49,7 +49,7 @@ public class Tuile implements IndexedNode<Tuile> {
 	 * @param pos
 	 * @param index
 	 */
-	public Tuile(Type t, Point pos, int index) {
+	public Tuile(Type t, GridPoint2 pos, int index) {
 		type = t;
 		etat = NORMAL;
 		position = pos;
@@ -73,7 +73,7 @@ public class Tuile implements IndexedNode<Tuile> {
 		this.etat = etat;
 	}
 
-	public Point getPosition() {
+	public GridPoint2 getPosition() {
 		return position;
 	}
 
@@ -88,6 +88,27 @@ public class Tuile implements IndexedNode<Tuile> {
 
 	public void setOccupe(boolean occupe) {
 		this.occupe = occupe;
+	}
+
+	public boolean isVisible() {
+		return !isOccupe()
+				&& !type.equals(Type.OBSTACLE)
+				&& !type.equals(Type.ECRAN);
+	}
+
+	public boolean isCiblable() {
+		return !type.equals(Type.OBSTACLE)
+				&& !type.equals(Type.TROU);
+	}
+
+	public boolean isParcourable() {
+		return !isOccupe()
+				&& isCiblable();
+	}
+
+	public boolean isLastVisible() {
+		return isOccupe()
+				|| type.equals(Type.ECRAN);
 	}
 
 	@Override

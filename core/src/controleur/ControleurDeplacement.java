@@ -5,6 +5,7 @@
  */
 package controleur;
 
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.Array;
 import gameplay.entite.EntiteActive;
 import gameplay.map.Map;
@@ -13,7 +14,6 @@ import gameplay.map.Type;
 import gameplay.sort.pileaction.Action;
 import general.Mode;
 import general.Tourable;
-import java.awt.Point;
 import vue.jeu.map.vMap;
 
 /**
@@ -31,9 +31,9 @@ public class ControleurDeplacement implements Tourable {
 	private EntiteActive entiteEnCours;
 
 	//Chemin (liste de points) de l'entité active à la tuile ciblée
-	private Array<Point> path;
+	private Array<GridPoint2> path;
 
-	private Point lastPosFixe;
+	private GridPoint2 lastPosFixe;
 
 	public ControleurDeplacement(ControleurPrincipal controleurPrincipal, Map _map, vMap _vueMap) {
 		this.controleurPrincipal = controleurPrincipal;
@@ -45,12 +45,12 @@ public class ControleurDeplacement implements Tourable {
 		Tuile tuile = map.getTabTuiles()[y][x];
 		vueMap.clearColorTuile();
 		//Déplacement
-		Point depart = entiteEnCours.getLastPosition();
+		GridPoint2 depart = entiteEnCours.getLastPosition();
 		if (!depart.equals(tuile.getPosition())
 				&& !tuile.getType().equals(Type.OBSTACLE)
 				&& !tuile.getType().equals(Type.TROU)
 				&& !tuile.isOccupe()) {
-			path = map.getChemin(depart, new Point(x, y));
+			path = map.getChemin(depart, new GridPoint2(x, y));
 			if (path != null) {
 				vueMap.colorTuile(path);
 			}
@@ -104,8 +104,8 @@ public class ControleurDeplacement implements Tourable {
 
 	public void update(EntiteActive entite, Action action) {
 		entite.setEnDeplacement(true);
-		action.getSort().lancerSort(entite, map.getTabTuiles()[action.getPoint().x][action.getPoint().y], entite, action.getOriAttaque(), action.isCritique());
-		vueMap.getTabVtuiles()[action.getPoint().y][action.getPoint().x].clearGhostPath();
+		action.getSort().lancerSort(entite, map.getTabTuiles()[action.getGridPoint2().x][action.getGridPoint2().y], entite, action.getOriAttaque(), action.isCritique());
+		vueMap.getTabVtuiles()[action.getGridPoint2().y][action.getGridPoint2().x].clearGhostPath();
 	}
 
 	@Override

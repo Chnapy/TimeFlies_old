@@ -15,6 +15,7 @@ import com.badlogic.gdx.graphics.g2d.PolygonSprite;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -40,16 +41,15 @@ import static vue.jeu.map.vTuile.couleurs.*;
 public class vTuile extends Actor {
 
 	//Taille du sprite de la tuile
-	public static final int TUILE_WIDTH = 256;
-	public static final int TUILE_HEIGHT = 128;
-	private static final int TUILE_MARGIN = 24;
+//	public static final int TUILE_WIDTH = 256;
+//	public static final int TUILE_HEIGHT = 128;
+//	private static final int TUILE_MARGIN = 24;
 
-	private static final float COEFF_MINITUILE = 0.15f;
+	private static final float COEFF_TUILE = 0.08f;
+	private static final float COEFF_MINITUILE = 0.20f;
 
-	private static final int MINITUILE_WIDTH = (int) (TUILE_WIDTH * (1 - COEFF_MINITUILE));
-	private static final int MINITUILE_HEIGHT = (int) (TUILE_HEIGHT * (1 - COEFF_MINITUILE));
-	private static final int MINITUILE_MARGIN_X = (int) (TUILE_WIDTH * COEFF_MINITUILE);
-	private static final int MINITUILE_MARGIN_Y = (int) (TUILE_HEIGHT * COEFF_MINITUILE);
+//	private static final int MINITUILE_MARGIN_X = (int) (TUILE_WIDTH * COEFF_MINITUILE);
+//	private static final int MINITUILE_MARGIN_Y = (int) (TUILE_HEIGHT * COEFF_MINITUILE);
 
 	//Ecart entre les bords de la fenetre et les tuiles
 	public static final int OFFSET_X = 0;
@@ -113,8 +113,8 @@ public class vTuile extends Actor {
 	private int posY;
 
 	//Position absolue
-	private float x;
-	private float y;
+//	private float x;
+//	private float y;
 
 	//Couleur du type de la tuile
 	private couleurs TYPE;
@@ -127,31 +127,30 @@ public class vTuile extends Actor {
 
 	private Array<EtatTuile> pile_deplacement;
 
-	public vTuile(int posx, int posy, int indexType, EtatTuile e, ControleurPrincipal ccombat) {
+	public vTuile(int posx, int posy, int indexType, EtatTuile e, ControleurPrincipal ccombat, int width, int height) {
 		posX = posx;
 		posY = posy;
-		float[] pos = getPosition(posx, posy);
-		x = pos[0];
-		y = pos[1];
+		setSize(width, height);
 		TYPE = couleurs.getColor(indexType);
 		etat = NORMAL;
 		minietat = NULL;
+		
+		int tuile_margin = (int)(getWidth() * COEFF_TUILE);
+		GridPoint2 minituile_margin = new GridPoint2((int)(getWidth() * COEFF_MINITUILE), (int)(getHeight() * COEFF_MINITUILE));
 
 		poly = new Polygon(new float[]{
-			TUILE_WIDTH / 2, 0 + TUILE_MARGIN / 2,
-			TUILE_WIDTH - TUILE_MARGIN, TUILE_HEIGHT / 2,
-			TUILE_WIDTH / 2, TUILE_HEIGHT - TUILE_MARGIN / 2,
-			0 + TUILE_MARGIN, TUILE_HEIGHT / 2
+			width / 2, 0 + tuile_margin / 2,
+			width - tuile_margin, height / 2,
+			width / 2, height - tuile_margin / 2,
+			0 + tuile_margin, height / 2
 		});
-		poly.setPosition(x, y);
 
 		minipoly = new Polygon(new float[]{
-			TUILE_WIDTH / 2, TUILE_MARGIN / 2 + MINITUILE_MARGIN_Y,
-			TUILE_WIDTH - TUILE_MARGIN - MINITUILE_MARGIN_X, TUILE_HEIGHT / 2,
-			TUILE_WIDTH / 2, TUILE_HEIGHT - TUILE_MARGIN / 2 - MINITUILE_MARGIN_Y,
-			TUILE_MARGIN + MINITUILE_MARGIN_X, TUILE_HEIGHT / 2
+			width / 2, tuile_margin / 2 + minituile_margin.y,
+			width - tuile_margin - minituile_margin.x, height / 2,
+			width / 2, height - tuile_margin / 2 - minituile_margin.y,
+			tuile_margin + minituile_margin.x, height / 2
 		});
-		minipoly.setPosition(x, y);
 
 		Pixmap pix = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
 		pix.setColor(1, 1, 1, 1);
@@ -165,7 +164,6 @@ public class vTuile extends Actor {
 				});
 
 		polySprite = new PolygonSprite(polyReg);
-		polySprite.setPosition(x, y);
 
 		PolygonRegion minipolyReg = new PolygonRegion(new TextureRegion(textureSolid),
 				minipoly.getVertices(),
@@ -175,7 +173,6 @@ public class vTuile extends Actor {
 				});
 
 		minipolySprite = new PolygonSprite(minipolyReg);
-		minipolySprite.setPosition(x, y);
 
 		polyContour = new PolygonSpriteBatch();
 		polyContour.setProjectionMatrix(camera.combined);
@@ -184,17 +181,16 @@ public class vTuile extends Actor {
 		miniTuileColor = null;
 
 		pile_deplacement = new Array<EtatTuile>();
-
-		setBounds(x, y, TUILE_WIDTH, TUILE_HEIGHT);
-		setPosition(x, y);
-		setSize(TUILE_WIDTH, TUILE_HEIGHT);
+		
 		addListener(new InputListener() {
 
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 				return true;
 			}
+
 			//Relachement souris
+
 			@Override
 			public void touchUp(InputEvent event, float X, float Y, int pointer, int button) {
 				ccombat.clicSurTuile(posx, posy);	//Déplacement/Lancement de sort
@@ -218,9 +214,19 @@ public class vTuile extends Actor {
 
 			@Override
 			public String getBulleContent() {
-				return "Cette tuile est de type " + TYPE;
+				return "Tuile " + TYPE + " Pos " + posX + "." + posY;
 			}
 		});
+	}
+
+	@Override
+	public void setPosition(float x, float y) {
+		super.setPosition(x, y);
+		
+		poly.setPosition(getParent().getX() + x, getParent().getY() + y);
+		minipoly.setPosition(getParent().getX() + x, getParent().getY() + y);
+		polySprite.setPosition(getParent().getX() + x, getParent().getY() + y);
+		minipolySprite.setPosition(getParent().getX() + x, getParent().getY() + y);
 	}
 
 	@Override
@@ -250,20 +256,6 @@ public class vTuile extends Actor {
 		shapeRenderer.end();
 		Gdx.gl20.glLineWidth(1 / camera.zoom);
 
-	}
-
-	/**
-	 * Récupération de la position réelle.
-	 *
-	 * @param x
-	 * @param y
-	 * @return
-	 */
-	public static float[] getPosition(int x, int y) {
-		return new float[]{
-			OFFSET_X + x * TUILE_WIDTH / 2 + y * TUILE_WIDTH / 2,
-			OFFSET_Y + x * TUILE_HEIGHT / 2 + y * -TUILE_HEIGHT / 2
-		};
 	}
 
 	public EtatTuile getMinietat() {
@@ -344,6 +336,10 @@ public class vTuile extends Actor {
 		return posX;
 	}
 
+	public int getPosY() {
+		return posY;
+	}
+
 	/**
 	 * Redéfini sa hitbox pour le survol de la souris
 	 *
@@ -363,10 +359,6 @@ public class vTuile extends Actor {
 			return null;
 		}
 		return null;
-	}
-
-	public int getPosY() {
-		return posY;
 	}
 
 	/**

@@ -7,6 +7,7 @@ package vue.jeu.entites;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.utils.Array;
 import controleur.ControleurPrincipal;
 import gameplay.entite.Entite;
@@ -21,7 +22,9 @@ public class vEntites extends Group implements Tourable {
 
 	private Array<vEntite> listEntites;
 
-	public vEntites(Array<? extends Entite> entites) {
+	public vEntites(Array<? extends Entite> entites, int width, int height, int x, int y) {
+		setSize(width, height);
+		setPosition(x, y);
 		listEntites = new Array();
 		entites.forEach(perso -> {
 			vEntite vent = new vEntite(perso);
@@ -29,6 +32,7 @@ public class vEntites extends Group implements Tourable {
 			addActor(vent);
 			listEntites.add(vent);
 		});
+		setTouchable(Touchable.disabled);
 	}
 
 	public void addEntite(Entite entite) {

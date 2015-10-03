@@ -53,7 +53,7 @@ public abstract class Zone implements Comparable<Zone> {
 	 */
 	public abstract boolean[][] getZoneOfInterest();
 
-//	public abstract Tuile[] getTilesOfInterrest(Point center);
+//	public abstract Tuile[] getTilesOfInterrest(GridPoint2 center);
 	public boolean isPositive() {
 		return this.positive;
 	}

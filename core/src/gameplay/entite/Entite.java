@@ -5,6 +5,7 @@
  */
 package gameplay.entite;
 
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.Array;
 import general.Mode;
 import gameplay.caracteristique.CaracteristiquePhysique;
@@ -16,10 +17,7 @@ import gameplay.sort.SortPassif;
 import gameplay.sort.SortPassifBonus;
 import gameplay.sort.SortPassifEffets;
 import general.Orientation;
-import java.awt.Point;
 import java.util.Observable;
-import vue.hud.chatbox.chattext.vChatText;
-import vue.hud.chatbox.vChatBox;
 
 /**
  * Entite.java
@@ -123,7 +121,7 @@ public abstract class Entite extends Observable {
 	 *
 	 * @param pt
 	 */
-	public void setPosition(Point pt) {
+	public void setPosition(GridPoint2 pt) {
 		caracSpatiale.getPosition().x = pt.x;
 		caracSpatiale.getPosition().y = pt.y;
 	}

@@ -5,12 +5,11 @@
  */
 package vue.jeu.sorts.effets;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import java.awt.Point;
+import com.badlogic.gdx.math.GridPoint2;
 
 /**
  * vCercle0.java
@@ -23,7 +22,7 @@ public class vCercle0 extends vEffet {
 	private final TextureRegion SPRITE;
 
 	public vCercle0(AssetManager manager) {
-		super(manager, 0, 90, new Point(64, 256));
+		super(manager, 0, 90, new GridPoint2(64, 256));
 		SPRITE = new TextureRegion((Texture) manager.get(PATH));
 	}
 

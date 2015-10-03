@@ -5,8 +5,8 @@
  */
 package gameplay.invocation;
 
+import com.badlogic.gdx.math.GridPoint2;
 import gameplay.effet.Declencheur;
-import java.awt.Point;
 
 /**
  * Invocation.java
@@ -23,5 +23,5 @@ public interface Invocation extends Declencheur {
 	 *
 	 * @param point
 	 */
-	public abstract void invoquer(Point point);
+	public abstract void invoquer(GridPoint2 point);
 }

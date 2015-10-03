@@ -12,6 +12,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.TextureLoader.TextureParameter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
@@ -24,7 +25,6 @@ import gameplay.map.EtatTuile;
 import gameplay.map.Tuile;
 import gameplay.sort.pileaction.Action;
 import general.Tourable;
-import java.awt.Point;
 import test.MainTest;
 import vue.hud.minimap.vCase;
 import vue.hud.timeline.vTimeline;
@@ -101,7 +101,7 @@ public class Vue implements Screen, Tourable {
 	 *
 	 * @param listePoint
 	 */
-	public void colorTuile(Array<Point> listePoint) {
+	public void colorTuile(Array<GridPoint2> listePoint) {
 		vjeu.getVmap().colorTuile(listePoint);
 		vhud.getVminimap().colorTuile(listePoint);
 	}
@@ -113,25 +113,28 @@ public class Vue implements Screen, Tourable {
 	 * @param zone
 	 * @param posEntite
 	 */
-	public void afficherPortee(boolean[][] zone, Point posEntite) {
+	public void afficherPortee(boolean[][] zone, GridPoint2 posEntite) {
 		vjeu.getVmap().clearColorTuile();
 		vhud.getVminimap().clearColorTuile();
 
 		vTuile[][] tabVtuiles = vjeu.getVmap().getTabVtuiles();
 		vCase[][] tabVcases = vhud.getVminimap().getTabVcases();
 
-		for (int y = posEntite.y + zone.length / 2 - Math.abs(zone.length % 2 - 1), j = 0;
-				y > posEntite.y - zone.length / 2 - zone.length % 2 && j < zone.length;
-				y--, j++) {
-			for (int x = posEntite.x - zone[0].length / 2 + Math.abs(zone[0].length % 2 - 1), i = 0;
-					x < posEntite.x + zone[0].length / 2 + zone[0].length % 2 && i < zone[0].length;
-					x++, i++) {
-				if (zone[j][i] && y >= 0 && x >= 0 && y < tabVtuiles.length && x < tabVtuiles[0].length) {
-					tabVtuiles[y][x].setEtat(EtatTuile.ZONEPORTEE);
-					tabVcases[y][x].setEtat(EtatTuile.ZONEPORTEE);
+		int x, y, i, j;	//Boucle
+		int dy = posEntite.y - zone.length / 2;	//Ecart en y
+		int dx = posEntite.x - zone[0].length / 2;	//Ecart en x
+		int fx, fy;	//Position finale
+		for (y = 0; y < zone.length; y++) {
+			for (x = 0; x < zone[0].length; x++) {
+				fx = x + dx;
+				fy = y + dy;
+				if (fy >= 0 && fx >= 0 && zone[y][x] && fy < tabVtuiles.length && fx < tabVtuiles[0].length) {
+					tabVtuiles[fy][fx].setEtat(EtatTuile.ZONEPORTEE);
+					tabVcases[fy][fx].setEtat(EtatTuile.ZONEPORTEE);
 				}
 			}
 		}
+
 	}
 
 	/**
@@ -141,7 +144,7 @@ public class Vue implements Screen, Tourable {
 	 * @param zone
 	 * @param cible
 	 */
-	public void afficherAction(boolean[][] zone, Point cible) {
+	public void afficherAction(boolean[][] zone, GridPoint2 cible) {
 		vjeu.getVmap().clearActionTuile();
 		vhud.getVminimap().clearActionTuile();
 
@@ -294,21 +297,21 @@ public class Vue implements Screen, Tourable {
 			throw e;
 		}
 	}
-	
+
 	public static float getAbsoluteX(Actor a) {
 		Actor actor = a;
 		float x = actor.getX();
-		while(actor.hasParent()) {
+		while (actor.hasParent()) {
 			actor = actor.getParent();
 			x += actor.getX();
 		}
 		return x;
 	}
-	
+
 	public static float getAbsoluteY(Actor a) {
 		Actor actor = a;
 		float y = actor.getY();
-		while(actor.hasParent()) {
+		while (actor.hasParent()) {
 			actor = actor.getParent();
 			y += actor.getY();
 		}

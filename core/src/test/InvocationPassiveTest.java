@@ -1,5 +1,6 @@
 package test;
 
+import com.badlogic.gdx.math.GridPoint2;
 import gameplay.caracteristique.CaracteristiquePhysique;
 import gameplay.effet.Effet;
 import gameplay.entite.Entite;
@@ -7,7 +8,6 @@ import gameplay.invocation.InvocationPassive;
 import gameplay.map.Tuile;
 import gameplay.sort.SortPassif;
 import general.Orientation;
-import java.awt.Point;
 
 public class InvocationPassiveTest extends InvocationPassive {
 
@@ -24,8 +24,8 @@ public class InvocationPassiveTest extends InvocationPassive {
 	}
 
 	@Override
-	public void invoquer(Point point) {
-		getCaracSpatiale().getPosition().setLocation(point);
+	public void invoquer(GridPoint2 point) {
+		getCaracSpatiale().getPosition().set(point);
 	}
 
 	@Override

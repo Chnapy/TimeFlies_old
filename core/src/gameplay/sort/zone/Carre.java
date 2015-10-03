@@ -25,15 +25,15 @@ public class Carre extends Zone {
 
 	//Not tested yet.
 //	@Override
-//	public Tuile[] getTilesOfInterrest(Point center) {
+//	public Tuile[] getTilesOfInterrest(GridPoint2 center) {
 //		ArrayList<Tuile> tiles = new ArrayList<Tuile>();
 //		Tuile[][] mapTiles = currentMap.getTabTuiles();
 //
 //		int maxX = currentMap.getMapDimension().width;
 //		int maxY = currentMap.getMapDimension().height;
 //
-//		Point start = new Point(super.valueInBound(center.x - size, maxX), super.valueInBound(center.y - size, maxY));
-//		Point stop = new Point(super.valueInBound(center.x + size, maxX), super.valueInBound(center.y + size, maxY));
+//		GridPoint2 start = new GridPoint2(super.valueInBound(center.x - size, maxX), super.valueInBound(center.y - size, maxY));
+//		GridPoint2 stop = new GridPoint2(super.valueInBound(center.x + size, maxX), super.valueInBound(center.y + size, maxY));
 //
 //		for (int x = start.x; x <= stop.x; x++) {
 //			for (int y = start.y; y <= stop.y; y++) {

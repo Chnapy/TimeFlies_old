@@ -47,7 +47,7 @@ public class CaracteristiquePhysique {
 	 * @param gain
 	 */
 	public void add(Carac c, int gain) {
-		getCaracteristique(c).add(gain);
+		get(c).add(gain);
 		majTempsActionParFatigue(c);
 	}
 
@@ -58,9 +58,9 @@ public class CaracteristiquePhysique {
 	 */
 	private void majTempsActionParFatigue(Carac c) {
 		if (c.equals(Carac.FATIGUE)) {
-			((TempsAction) getCaracteristique(Carac.TEMPSACTION)).setTotal(
-					((TempsAction) getCaracteristique(Carac.TEMPSACTION)).getTempsBase()
-					- ((((TempsAction) getCaracteristique(Carac.TEMPSACTION)).getTempsBase() * getCaracteristique(c).getActu()) / 100)
+			((TempsAction) get(Carac.TEMPSACTION)).setTotal(
+					((TempsAction) get(Carac.TEMPSACTION)).getTempsBase()
+					- ((((TempsAction) get(Carac.TEMPSACTION)).getTempsBase() * get(c).getActu()) / 100)
 			);
 		}
 	}
@@ -72,7 +72,7 @@ public class CaracteristiquePhysique {
 	 * @param perte
 	 */
 	public void supp(Carac c, int perte) {
-		getCaracteristique(c).supp(perte);
+		get(c).supp(perte);
 		majTempsActionParFatigue(c);
 	}
 
@@ -83,7 +83,7 @@ public class CaracteristiquePhysique {
 	 * @param valeur
 	 */
 	public void setActu(Carac c, int valeur) {
-		getCaracteristique(c).setActu(valeur);
+		get(c).setActu(valeur);
 		majTempsActionParFatigue(c);
 	}
 
@@ -94,7 +94,7 @@ public class CaracteristiquePhysique {
 	 * @param valeur
 	 */
 	public void setTotal(Carac c, int valeur) {
-		getCaracteristique(c).setTotal(valeur);
+		get(c).setTotal(valeur);
 	}
 
 	/**
@@ -102,7 +102,7 @@ public class CaracteristiquePhysique {
 	 * @param c
 	 * @return la caracteristique de type c
 	 */
-	public Caracteristique getCaracteristique(Carac c) {
+	public Caracteristique get(Carac c) {
 		switch (c) {
 			case VITALITE:
 				return listCaracteristiques[0];

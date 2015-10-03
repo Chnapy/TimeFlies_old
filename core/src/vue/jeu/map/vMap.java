@@ -7,13 +7,13 @@ package vue.jeu.map;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
 import controleur.ControleurPrincipal;
 import gameplay.entite.EntiteActive;
 import gameplay.map.Tuile;
 import general.Tourable;
-import java.awt.Point;
 import test.MainTest;
 
 /**
@@ -21,6 +21,10 @@ import test.MainTest;
  *
  */
 public class vMap extends Group implements Tourable {
+
+	public static int TUILE_WIDTH;
+	public static int TUILE_HEIGHT;
+	private static int tabLength;
 
 	private final Batch polyBatch = new PolygonSpriteBatch();
 
@@ -31,9 +35,22 @@ public class vMap extends Group implements Tourable {
 	 *
 	 * @param ccombat
 	 * @param tabTuiles
+	 * @param width
+	 * @param height
+	 * @param posX
+	 * @param posY
 	 */
-	public vMap(final ControleurPrincipal ccombat, final Tuile[][] tabTuiles) {
+	public vMap(final ControleurPrincipal ccombat, final Tuile[][] tabTuiles, int width, int height, int posX, int posY) {
 		polyBatch.setProjectionMatrix(MainTest.camera.combined);
+		setSize(width, height);
+		setPosition(posX, posY);
+		
+		tabLength = tabTuiles.length;
+		
+		TUILE_WIDTH = (int)(getWidth() / tabTuiles.length);
+		TUILE_HEIGHT = TUILE_WIDTH / 2;
+
+		GridPoint2 pos;
 		tabVtuiles = new vTuile[tabTuiles.length][tabTuiles[0].length];
 		int x, y, t;
 		for (y = 0; y < tabTuiles.length; y++) {
@@ -54,11 +71,12 @@ public class vMap extends Group implements Tourable {
 					default:
 						throw new Error("Tuile non gérée");
 				}
-				tabVtuiles[y][x] = new vTuile(x, y, t, tabTuiles[y][x].getEtat(), ccombat);
+				tabVtuiles[y][x] = new vTuile(x, y, t, tabTuiles[y][x].getEtat(), ccombat, TUILE_WIDTH, TUILE_HEIGHT);
 				addActor(tabVtuiles[y][x]);
+				pos = getTuilePosition(x, y);
+				tabVtuiles[y][x].setPosition(pos.x, pos.y);
 			}
 		}
-
 	}
 
 	@Override
@@ -75,9 +93,9 @@ public class vMap extends Group implements Tourable {
 	 *
 	 * @param listePoint
 	 */
-	public void colorTuile(Array<Point> listePoint) {
+	public void colorTuile(Array<GridPoint2> listePoint) {
 		clearColorTuile();
-		listePoint.forEach((Point point) -> {
+		listePoint.forEach((GridPoint2 point) -> {
 			tabVtuiles[point.y][point.x].addPath();
 		});
 	}
@@ -125,11 +143,18 @@ public class vMap extends Group implements Tourable {
 		});
 	}
 
+	public static GridPoint2 getTuilePosition(int x, int y) {
+		return new GridPoint2(
+				x * TUILE_WIDTH / 2 + y * TUILE_WIDTH / 2,
+				(tabLength * TUILE_HEIGHT / 2) + x * TUILE_HEIGHT / 2 + y * -TUILE_HEIGHT / 2
+		);
+	}
+
 	public vTuile[][] getTabVtuiles() {
 		return tabVtuiles;
 	}
 
-	public void ghostPath(Array<Point> path) {
+	public void ghostPath(Array<GridPoint2> path) {
 		path.forEach((pt) -> {
 			tabVtuiles[pt.y][pt.x].addGhostPath();
 		});

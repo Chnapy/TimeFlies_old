@@ -7,6 +7,7 @@ package vue.jeu.entites;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.run;
@@ -21,13 +22,10 @@ import static general.EtatGraphique.WALK;
 import general.Mode;
 import general.Orientation;
 import general.Tourable;
-import java.awt.Point;
 import java.util.Observable;
 import java.util.Observer;
 import vue.hud.bulle.BulleListener;
-import vue.jeu.map.vTuile;
-import static vue.jeu.map.vTuile.TUILE_HEIGHT;
-import static vue.jeu.map.vTuile.TUILE_WIDTH;
+import vue.jeu.map.vMap;
 
 /**
  * vEntite.java
@@ -68,7 +66,7 @@ public class vEntite extends Group implements Observer, Tourable {
 
 			@Override
 			public String getBulleContent() {
-				return entite.getNom() + " possede " + entite.getCaracPhysique().getCaracteristique(Carac.VITALITE).getActu() + " pdv.";
+				return entite.getNom() + " possede " + entite.getCaracPhysique().get(Carac.VITALITE).getActu() + " pdv.";
 			}
 		});
 
@@ -89,7 +87,7 @@ public class vEntite extends Group implements Observer, Tourable {
 	 * Effectue les actions de déplacement.
 	 *
 	 * @param o	  Entite
-	 * @param arg	Array de Point
+	 * @param arg	Array de GridPoint2
 	 */
 	@SuppressWarnings("unchecked")	//Enleve le warning lors de la compilation
 	@Override
@@ -99,14 +97,14 @@ public class vEntite extends Group implements Observer, Tourable {
 		if (arg instanceof Object[] && entite.getEtatNow() == Mode.DEPLACEMENT) {
 			Object[] tabObjets = (Object[]) arg;
 			int dureeAnim = (int) tabObjets[1];
-			if (tabObjets[0] instanceof Point) {
+			if (tabObjets[0] instanceof GridPoint2) {
 				etat = WALK;
-				Point point = (Point) tabObjets[0];
+				GridPoint2 point = (GridPoint2) tabObjets[0];
 				MoveToAction[] tabMoveTo = new MoveToAction[1];
-				float[] position;
+				GridPoint2 position;
 				for (int i = 0; i < 1; i++) {
-					position = vTuile.getPosition(point.x, point.y);
-					tabMoveTo[i] = Actions.moveTo(position[0] + (TUILE_WIDTH - PERSO_WIDTH) / 2, position[1] + TUILE_HEIGHT / 4, (float) dureeAnim / 1000);
+					position = vMap.getTuilePosition(point.x, point.y);
+					tabMoveTo[i] = Actions.moveTo(position.x + (vMap.TUILE_WIDTH - PERSO_WIDTH) / 2, position.y + vMap.TUILE_HEIGHT / 4, (float) dureeAnim / 1000);
 				}
 				this.addAction(Actions.sequence(Actions.sequence(tabMoveTo), run(() -> {
 					((EntiteActive) o).setEnDeplacement(false);
@@ -125,9 +123,9 @@ public class vEntite extends Group implements Observer, Tourable {
 	 * @param y
 	 */
 	private final void setPos(int x, int y) {
-		float[] position = vTuile.getPosition(x, y);
-		setX(position[0] + (TUILE_WIDTH - PERSO_WIDTH) / 2);
-		setY(position[1] + TUILE_HEIGHT / 4);
+		GridPoint2 position = vMap.getTuilePosition(x, y);
+		setX(position.x + (vMap.TUILE_WIDTH - PERSO_WIDTH) / 2);
+		setY(position.y + vMap.TUILE_HEIGHT / 4);
 	}
 
 	@Override

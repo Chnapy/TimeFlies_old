@@ -220,7 +220,7 @@ public class Timeline extends Observable implements Runnable {
 		long palier = debutTour;
 		long time;
 
-		while (entActive.getCaracPhysique().getCaracteristique(Carac.TEMPSACTION).getActu() > 0 || entActive.isEnDeplacement()) {
+		while (entActive.getCaracPhysique().get(Carac.TEMPSACTION).getActu() > 0 || entActive.isEnDeplacement()) {
 			time = TimeUtils.millis();
 			if (time >= palier + INTERVAL) {
 				palier = time;
@@ -356,7 +356,7 @@ public class Timeline extends Observable implements Runnable {
 		Entite pivot = liste.get(deb);
 
 		for (int i = deb + 1; i <= fin; i++) {
-			if (liste.get(i).getCaracPhysique().getCaracteristique(Carac.INITIATIVE).getActu() < pivot.getCaracPhysique().getCaracteristique(Carac.INITIATIVE).getActu()) {
+			if (liste.get(i).getCaracPhysique().get(Carac.INITIATIVE).getActu() < pivot.getCaracPhysique().get(Carac.INITIATIVE).getActu()) {
 				compt++;
 				liste.swap(compt, i);
 			}

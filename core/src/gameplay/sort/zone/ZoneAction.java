@@ -18,9 +18,9 @@ public class ZoneAction {
 	//Liste des zones cumulables
 	private final Array<Zone> listZones;
 
-	//Zone finale sous forme de tableau 2D de booleen
+	//Zone intermédiaire sous forme de tableau 2D de booleen
 	//false = vide
-	private final boolean[][] zoneFinale;
+	private final boolean[][] zoneIntermediaire;
 
 	//Taille de la moitié de la largeur de la zone
 	private int size;
@@ -31,24 +31,15 @@ public class ZoneAction {
 	 */
 	public ZoneAction(Zone... zones) {
 		listZones = new Array<>(zones);
-		zoneFinale = setZoneFinale();
-
-		//DEBUG
-//		zoneFinale = new boolean[][]{
-//			{false, true, true, true, false},
-//			{true, false, true, false, true},
-//			{true, true, false, true, true},
-//			{true, false, true, false, true},
-//			{false, true, true, true, false}
-//		};
+		zoneIntermediaire = setZoneIntermediaire();
 	}
 
 	/**
-	 * Calcul de la zone finale
+	 * Calcul de la zone intermédiaire
 	 *
 	 * @return
 	 */
-	private boolean[][] setZoneFinale() {
+	private boolean[][] setZoneIntermediaire() {
 		size = 0;
 
 		//Tri des zones, avec les positives en 1er
@@ -91,8 +82,8 @@ public class ZoneAction {
 		return listZones;
 	}
 
-	public boolean[][] getZoneFinale() {
-		return zoneFinale;
+	public boolean[][] getZoneIntermediaire() {
+		return zoneIntermediaire;
 	}
 
 }

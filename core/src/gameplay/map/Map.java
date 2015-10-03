@@ -5,23 +5,28 @@
  */
 package gameplay.map;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.pfa.Connection;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedGraph;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.math.Bresenham2;
+import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Polygon;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import controleur.ControleurPrincipal;
+import static gameplay.map.Type.TROU;
 import gameplay.map.pathfinding.Chemin;
 import gameplay.map.pathfinding.Finder;
 import gameplay.map.pathfinding.Heuristique;
+import general.MyBresenham;
 import java.awt.Dimension;
-import java.awt.Point;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.Serializable;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import test.MainTest;
 
 /**
  * Map.java
@@ -42,6 +47,9 @@ public class Map implements IndexedGraph<Tuile> {
 	private final Chemin chemin;
 	private final Heuristique heuristique;
 
+	//Bresenham
+	private final Bresenham2 bresenham;
+
 	/**
 	 *
 	 * @param mapPlan
@@ -54,7 +62,7 @@ public class Map implements IndexedGraph<Tuile> {
 		finder = new Finder(this);
 		chemin = new Chemin();
 		heuristique = new Heuristique();
-
+		bresenham = new MyBresenham(plan.length, plan[0].length);
 	}
 
 	/**
@@ -67,7 +75,7 @@ public class Map implements IndexedGraph<Tuile> {
 		int x, y;
 		for (y = 0; y < plan.length; y++) {
 			for (x = 0; x < plan[0].length; x++) {
-				tabTuiles[y][x] = new Tuile(plan[y][x], new Point(x, y), y * plan[0].length + x);
+				tabTuiles[y][x] = new Tuile(plan[y][x], new GridPoint2(x, y), y * plan[0].length + x);
 			}
 		}
 
@@ -80,8 +88,8 @@ public class Map implements IndexedGraph<Tuile> {
 	}
 
 	public void setControleur(ControleurPrincipal controleur) {
-		for(Tuile[] colonne : tabTuiles) {
-			for(Tuile tuile : colonne) {
+		for (Tuile[] colonne : tabTuiles) {
+			for (Tuile tuile : colonne) {
 				tuile.setControleur(controleur);
 			}
 		}
@@ -131,7 +139,7 @@ public class Map implements IndexedGraph<Tuile> {
 	 * @param dest
 	 * @return liste des points (positions des tuiles) parcourus par le chemin
 	 */
-	public Array<Point> getChemin(Point source, Point dest) {
+	public Array<GridPoint2> getChemin(GridPoint2 source, GridPoint2 dest) {
 
 		//Remplissage du chemin dans 'chemin'
 		if (!finder.searchNodePath(tabTuiles[source.y][source.x], tabTuiles[dest.y][dest.x], heuristique, chemin)) {
@@ -141,7 +149,7 @@ public class Map implements IndexedGraph<Tuile> {
 		}
 //		System.out.println("S." + source.x + ":" + source.y + " D." + dest.x + ":" + dest.y);
 
-		Array<Point> ret = new Array<>(chemin.size);
+		Array<GridPoint2> ret = new Array<>(chemin.size);
 		for (int i = 1; i < chemin.size; i++) {	//On ne prend pas la 1ère valeur !
 			ret.add(chemin.get(i).getPosition());
 		}
@@ -159,7 +167,7 @@ public class Map implements IndexedGraph<Tuile> {
 	 * @param cible
 	 * @return
 	 */
-	public Tuile[] getTuilesAction(boolean[][] zone, Point cible) {
+	public Tuile[] getTuilesAction(boolean[][] zone, GridPoint2 cible) {
 		Array<Tuile> ret = new Array<Tuile>();
 		ret.add(tabTuiles[cible.y][cible.x]);
 
@@ -194,6 +202,99 @@ public class Map implements IndexedGraph<Tuile> {
 
 	public Dimension getMapDimension() {
 		return dimension;
+	}
+
+	/**
+	 * Défini les lignes de vue de la zone du sort par rapport aux obstacles de
+	 * la map.
+	 *
+	 * @param zoneIntermediaire	boolean[][] la zone du sort sans prise en compte
+	 *                          de la topologie de la map (obstacles, ...)
+	 * @param depart	           GridPoint2 position du personnage
+	 * @return	boolean[][] la zone finale qui prend en compte la topologie de la
+	 *         map
+	 */
+	public boolean[][] getZoneFinale(boolean[][] zoneIntermediaire, GridPoint2 depart) {
+		boolean[][] zoneFinale = new boolean[zoneIntermediaire.length][zoneIntermediaire[0].length];
+		for (boolean[] colonne : zoneFinale) {
+			Arrays.fill(colonne, false);
+		}
+
+		int x, y;	//Position x/y par rapport à la zone intermédiaire
+		int dy = depart.y - zoneIntermediaire.length / 2;	//Ecart en Y entre y=0 de zoneIntermediaire et y=0 de tabTuiles
+		int dx = depart.x - zoneIntermediaire[0].length / 2;	//Ecart en X entre x=0 de zoneIntermediaire et x=0 de tabTuiles
+		int fx, fy;	//Position x/y par rapport à tabTuiles
+		Array<GridPoint2> listePoints;	//Points récupérés de tracerSegment()
+
+		//Parcours de zoneIntermediaire
+		for (y = 0; y < zoneIntermediaire.length; y++) {
+			for (x = 0; x < zoneIntermediaire[0].length; x++) {
+				//On défini les positions pour tabTuiles
+				fx = x + dx;
+				fy = y + dy;
+
+				//Si le point est dans la map et est ciblable
+				if (fy >= 0 && fx >= 0 && fy < tabTuiles.length && fx < tabTuiles[0].length
+						&& zoneIntermediaire[y][x]
+						&& tabTuiles[fy][fx].isCiblable()) {
+
+					//On lance Bresenham et on récupère les Points renvoyés
+					listePoints = bresenham.line(depart.x, depart.y, fx, fy);
+
+					//On défini les positions pour zoneIntermediaire
+					int py = fy - dy;
+					int px = fx - dx;
+
+					if (isCiblable(listePoints, depart, new GridPoint2(fx, fy), dx, dy)) {
+						zoneFinale[py][px] = true;
+					}
+					
+				}
+			}
+		}
+
+		return zoneFinale;
+	}
+
+	private boolean isCiblable(Array<GridPoint2> listePoints, GridPoint2 depart, GridPoint2 arrive, int dx, int dy) {
+		if (depart.equals(arrive)) {
+			return true;
+		}
+		if (!tabTuiles[arrive.y][arrive.x].isParcourable() && !tabTuiles[arrive.y][arrive.x].isOccupe()) {
+			return false;
+		}
+		boolean ciblable = true;
+		GridPoint2 p;
+		for (int i = 0; i < listePoints.size; i++) {
+			p = listePoints.get(i);
+			//Si le point est le point de départ, on passe au suivant
+			if (p.x == depart.x && p.y == depart.y) {
+				continue;
+			}
+
+			if (tabTuiles[p.y][p.x].isLastVisible() && ciblable) {
+				ciblable = p.x == arrive.x && p.y == arrive.y;
+			}
+
+			if (tabTuiles[p.y][p.x].getType().equals(TROU)) {
+				continue;
+			}
+
+			//Si le point est un obstacle, on arrete
+			if (!tabTuiles[p.y][p.x].isParcourable() && (p.x != arrive.x || p.y != arrive.y)) {
+				return false;
+			}
+
+			//On défini les positions pour zoneIntermediaire
+			int py = p.y - dy;
+			int px = p.x - dx;
+
+			//Si le point est pas dans la map
+			if (py < 0 || px < 0) {
+				return false;
+			}
+		}
+		return ciblable;
 	}
 
 	public static MapSerializable getMapSerializable(FileHandle file) {

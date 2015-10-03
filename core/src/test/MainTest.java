@@ -47,7 +47,7 @@ public class MainTest extends Game {
 	public MainTest(String[] args) {
 		System.out.println("args : " + Arrays.toString(args));
 		int length = args.length;
-		mapPath = (length > 0) ? args[0] : "test2.tfmap";
+		mapPath = (length > 0) ? args[0] : "test.tfmap";
 	}
 
 	/**

@@ -1,12 +1,12 @@
 package gameplay.effet.placement;
 
+import com.badlogic.gdx.math.GridPoint2;
 import gameplay.caracteristique.CaracteristiqueSpatiale;
 import gameplay.effet.Declencheur;
 import gameplay.effet.Effet;
 import gameplay.entite.Entite;
 import gameplay.map.Tuile;
 import general.Orientation;
-import java.awt.Point;
 
 /**
  * Effet de téléportation (effet de placement)
@@ -16,9 +16,9 @@ import java.awt.Point;
 public class Teleportation extends Placement {
 
 	//Position cible
-	private Point position;
+	private GridPoint2 position;
 
-	public Teleportation(Point pos) {
+	public Teleportation(GridPoint2 pos) {
 		this.position = pos;
 	}
 
@@ -44,7 +44,7 @@ public class Teleportation extends Placement {
 		return true;
 	}
 
-	public Point getPosition() {
+	public GridPoint2 getPosition() {
 		return position;
 	}
 
@@ -60,7 +60,7 @@ public class Teleportation extends Placement {
 
 	@Override
 	public void lancerEntite(Entite victime, Orientation oriLanceur, boolean ccritique) {
-		victime.setCaracSpatiale(new CaracteristiqueSpatiale((int) position.getX(), (int) position.getY(), victime.getCaracSpatiale().getOrientation()));
+		victime.setCaracSpatiale(new CaracteristiqueSpatiale((int) position.x, (int) position.y, victime.getCaracSpatiale().getOrientation()));
 	}
 
 	@Override

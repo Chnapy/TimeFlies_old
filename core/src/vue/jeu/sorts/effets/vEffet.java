@@ -8,8 +8,8 @@ package vue.jeu.sorts.effets;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import java.awt.Point;
 
 /**
  * vEffet.java
@@ -23,16 +23,16 @@ public abstract class vEffet extends Actor {
 	protected final int duree;
 	protected float dureeReelle;
 	protected float dureeStart;
-	protected final Point position;
-	protected Point positionStart;
-	protected Point positionEnd;
+	protected final GridPoint2 position;
+	protected GridPoint2 positionStart;
+	protected GridPoint2 positionEnd;
 	protected long tempsStart;
 	protected int tempsAction;
 	protected int width;
 	protected int height;
 	protected float delta;
 
-	public vEffet(AssetManager _manager, int _start, int _duree, Point _position) {
+	public vEffet(AssetManager _manager, int _start, int _duree, GridPoint2 _position) {
 		manager = _manager;
 		start = _start;
 		duree = _duree;
@@ -44,13 +44,13 @@ public abstract class vEffet extends Actor {
 		return temps > 0 && temps <= dureeReelle;
 	}
 
-	public void lancer(int tempsAction, float[] posStart, float[] posEnd) {
+	public void lancer(int tempsAction, GridPoint2 posStart, GridPoint2 posEnd) {
 		tempsStart = System.currentTimeMillis();
 		this.tempsAction = tempsAction;
 		dureeReelle = (float) duree / 100 * tempsAction;
 		dureeStart = (float) start / 100 * tempsAction;
-		positionStart = new Point((int) posStart[0], (int) posStart[1]);
-		positionEnd = new Point((int) posEnd[0], (int) posEnd[1]);
+		positionStart = new GridPoint2(posStart);
+		positionEnd = new GridPoint2(posEnd);
 		delta = 0;
 		start();
 	}

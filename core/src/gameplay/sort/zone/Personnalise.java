@@ -23,7 +23,7 @@ public class Personnalise extends Zone {
 	}
 
 //	@Override
-//	public Tuile[] getTilesOfInterrest(Point center) {
+//	public Tuile[] getTilesOfInterrest(GridPoint2 center) {
 //		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 //	}
 	@Override

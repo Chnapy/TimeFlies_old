@@ -34,13 +34,13 @@ public class vBarreSortsActifs extends Bloc implements Tourable {
 	private static final int HEIGHT = 128;
 	private static final int X = MAX_WIDTH - WIDTH - 160;
 	private static final int Y = 12;
-
+	
 	public vBarreSortsActifs(AssetManager manager) {
 		super("Sorts actifs", WIDTH, HEIGHT, manager);
 		setPosition(X, Y);
 		align(Align.left);
 		addListener(new BulleListener(this) {
-
+			
 			@Override
 			public String getBulleContent() {
 				return "Cette barre liste les sorts actifs utilisables par l'entite active.";
@@ -56,11 +56,11 @@ public class vBarreSortsActifs extends Bloc implements Tourable {
 	public void addBouton(vSortsBouton bouton) {
 		this.add(bouton).left().pad(30);
 	}
-
+	
 	@Override
 	protected void render(Batch batch, float parentAlpha) {
 	}
-
+	
 	@Override
 	public void nouveauTour(ControleurPrincipal controleur, EntiteActive entiteEnCours, Object... objs) {
 		getCells().clear();
@@ -72,13 +72,16 @@ public class vBarreSortsActifs extends Bloc implements Tourable {
 			addBouton(new vSortsActifsBouton(controleur, sort, manager));
 		}
 	}
-
+	
 	@Override
 	public void finTour(ControleurPrincipal controleur, EntiteActive entiteEnCours, Object... objs) {
 	}
-
+	
 	@Override
 	public void enTour(ControleurPrincipal controleur, EntiteActive entiteEnCours, Object... objs) {
+		for(int i = 1; i < getChildren().size; i++) {
+			((vSortsActifsBouton) getChildren().get(i)).enTour(entiteEnCours);
+		}
 	}
-
+	
 }

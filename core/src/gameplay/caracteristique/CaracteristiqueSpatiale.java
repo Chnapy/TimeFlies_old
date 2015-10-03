@@ -5,8 +5,8 @@
  */
 package gameplay.caracteristique;
 
+import com.badlogic.gdx.math.GridPoint2;
 import general.Orientation;
-import java.awt.Point;
 
 /**
  * CaracteristiqueSpatiale.java
@@ -15,7 +15,7 @@ import java.awt.Point;
 public class CaracteristiqueSpatiale {
 
 	//Position de l'entité
-	private Point position;
+	private GridPoint2 position;
 
 	//Orientation de l'entité (N S E O)
 	private Orientation orientation;
@@ -29,7 +29,7 @@ public class CaracteristiqueSpatiale {
 	 * @param orient
 	 */
 	public CaracteristiqueSpatiale(int posX, int posY, Orientation orient) {
-		position = new Point(posX, posY);
+		position = new GridPoint2(posX, posY);
 		orientation = orient;
 	}
 
@@ -48,7 +48,7 @@ public class CaracteristiqueSpatiale {
 	 *
 	 * @return
 	 */
-	public Point getPosition() {
+	public GridPoint2 getPosition() {
 		return position;
 	}
 

@@ -1,7 +1,7 @@
 package gameplay.sort.pileaction;
 
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.Array;
-import java.awt.Point;
 
 /**
  * La pile d'action permet de contenir toutes les
@@ -40,11 +40,11 @@ public class PileAction {
 		return null;
 	}
 
-	public Point getLastPosition() {
+	public GridPoint2 getLastPosition() {
 		if (pile.size > 0) {
 			for (int i = pile.size - 1; i >= 0; i--) {
 				if (pile.get(i).getEtat() == Action.EtatAction.DEPLACEMENT) {
-					return pile.get(i).getPoint();
+					return pile.get(i).getGridPoint2();
 				}
 			}
 		}

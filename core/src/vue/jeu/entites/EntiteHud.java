@@ -79,9 +79,9 @@ public class EntiteHud extends Table implements Tourable {
 
 	@Override
 	public void enTour(ControleurPrincipal controleur, EntiteActive entiteEnCours, Object... objs) {
-		vie.rectangle.height = vie.getHeight() * ((float) entite.getCaracPhysique().getCaracteristique(Carac.VITALITE).getActu()
-				/ entite.getCaracPhysique().getCaracteristique(Carac.VITALITE).getTotal());
-		tempsAction.rectangle.height = tempsAction.getHeight() * ((float) entite.getCaracPhysique().getCaracteristique(Carac.TEMPSACTION).getActu() / entite.getCaracPhysique().getCaracteristique(Carac.TEMPSACTION).getTotal());
+		vie.rectangle.height = vie.getHeight() * ((float) entite.getCaracPhysique().get(Carac.VITALITE).getActu()
+				/ entite.getCaracPhysique().get(Carac.VITALITE).getTotal());
+		tempsAction.rectangle.height = tempsAction.getHeight() * ((float) entite.getCaracPhysique().get(Carac.TEMPSACTION).getActu() / entite.getCaracPhysique().get(Carac.TEMPSACTION).getTotal());
 	}
 
 	private class Jauge extends Actor {

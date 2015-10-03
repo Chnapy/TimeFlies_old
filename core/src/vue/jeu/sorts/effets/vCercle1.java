@@ -9,7 +9,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import java.awt.Point;
+import com.badlogic.gdx.math.GridPoint2;
 
 /**
  * vCercle1.java
@@ -25,7 +25,7 @@ public class vCercle1 extends vEffet {
 	private final int precision;
 
 	public vCercle1(AssetManager manager, int start, int duree, int precision) {
-		super(manager, start, duree, new Point(128, 256));
+		super(manager, start, duree, new GridPoint2(128, 256));
 		this.precision = precision;
 		SPRITE = new TextureRegion((Texture) manager.get(PATH));
 	}

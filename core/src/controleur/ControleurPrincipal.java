@@ -7,6 +7,7 @@ package controleur;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.Array;
 import gameplay.caracteristique.Carac;
 import gameplay.core.Joueur;
@@ -20,7 +21,6 @@ import gameplay.map.Tuile;
 import gameplay.sort.pileaction.Action;
 import general.Orientation;
 import general.Tourable;
-import java.awt.Point;
 import java.util.Observable;
 import java.util.Observer;
 import vue.Vue;
@@ -150,11 +150,15 @@ public class ControleurPrincipal implements Observer, Tourable {
 	 * @param y
 	 */
 	public void survolTuile(int x, int y) {
-		if (entiteEnCours.getEtat() == Mode.DEPLACEMENT) {
-			controleurDeplacement.survolTuile(x, y);
-		} else if (entiteEnCours.getEtat() == Mode.SORT) {
-			//Afficher zone action
-			controleurSort.survolTuile(x, y);
+		try {
+			if (entiteEnCours.getEtat() == Mode.DEPLACEMENT) {
+				controleurDeplacement.survolTuile(x, y);
+			} else if (entiteEnCours.getEtat() == Mode.SORT) {
+				//Afficher zone action
+				controleurSort.survolTuile(x, y);
+			}
+		} catch (NullPointerException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -211,7 +215,7 @@ public class ControleurPrincipal implements Observer, Tourable {
 				if (action.getEtat() == Action.EtatAction.DEPLACEMENT) {
 					controleurDeplacement.update(entite, action);
 				} else if (action.getEtat() == Action.EtatAction.ROTATION) {
-					action.getSort().lancerSort(entite, map.getTabTuiles()[action.getPoint().x][action.getPoint().y], entite, action.getOriAttaque(), action.isCritique());
+					action.getSort().lancerSort(entite, map.getTabTuiles()[action.getGridPoint2().x][action.getGridPoint2().y], entite, action.getOriAttaque(), action.isCritique());
 				} else if (action.getEtat() == Action.EtatAction.SORT) {
 					controleurSort.update(entite, action, map);
 				}
@@ -245,14 +249,14 @@ public class ControleurPrincipal implements Observer, Tourable {
 	 * @param point
 	 * @return l'orientation de l'origine qui regarde vers le point
 	 */
-	public Orientation getOrientation(Point origine, Point point) {
+	public Orientation getOrientation(GridPoint2 origine, GridPoint2 point) {
 		if (origine.equals(point)) {
 			System.err.println(point);
 			throw new IllegalArgumentException("Les deux points sont egaux ! " + point);
 		}
 
-		double vecX = point.getX() - origine.getX();
-		double vecY = point.getY() - origine.getY();
+		double vecX = point.x - origine.x;
+		double vecY = point.y - origine.y;
 //		System.out.println(vecX + " " + vecY);
 		if (vecX > 0) {	//Est
 			if (vecY > 0) {	//Sud
@@ -314,5 +318,9 @@ public class ControleurPrincipal implements Observer, Tourable {
 
 	public void setPrecOriAttaque(Orientation precOriAttaque) {
 		this.precOriAttaque = precOriAttaque;
+	}
+
+	public Map getMap() {
+		return map;
 	}
 }

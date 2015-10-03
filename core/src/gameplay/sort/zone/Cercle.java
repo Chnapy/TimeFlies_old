@@ -22,7 +22,7 @@ public class Cercle extends Zone {
 	}
 
 //	@Override
-//	public Tuile[] getTilesOfInterrest(Point center) {
+//	public Tuile[] getTilesOfInterrest(GridPoint2 center) {
 //		ArrayList<Tuile> tiles = new ArrayList<Tuile>();
 //		Tuile[][] mapTiles = currentMap.getTabTuiles();
 //

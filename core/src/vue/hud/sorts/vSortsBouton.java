@@ -76,7 +76,11 @@ public abstract class vSortsBouton extends Group {
 		Gdx.gl.glDisable(GL20.GL_BLEND);
 		Gdx.gl20.glLineWidth(1 / camera.zoom);
 		batch.begin();
-		super.draw(batch, parentAlpha);
+		try {
+			super.draw(batch, parentAlpha);
+		} catch (IndexOutOfBoundsException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public Sort getSort() {

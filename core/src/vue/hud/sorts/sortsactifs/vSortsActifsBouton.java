@@ -10,6 +10,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import controleur.ControleurPrincipal;
+import gameplay.caracteristique.Carac;
+import gameplay.entite.EntiteActive;
 import gameplay.sort.SortActif;
 import general.TypeDonnee;
 import java.util.Observable;
@@ -35,7 +37,7 @@ public class vSortsActifsBouton extends vSortsBouton implements Observer {
 		"sort/sort_fond.png"
 	};
 	private static final float OFFSET_ICONES = 1.2f;
-
+	
 	public vSortsActifsBouton(ControleurPrincipal ccombat, SortActif sort, AssetManager manager) {
 		super(sort, manager.get(TEXTURES[sort.getIndex()], Texture.class));
 		sort.addObserver(this);
@@ -47,7 +49,7 @@ public class vSortsActifsBouton extends vSortsBouton implements Observer {
 			}
 		});
 		addListener(new BulleListener(this) {
-
+			
 			@Override
 			public String getBulleContent() {
 				return "Description : " + sort.getDescription();
@@ -60,7 +62,7 @@ public class vSortsActifsBouton extends vSortsBouton implements Observer {
 				poolDonnees.obtain().init(TypeDonnee.COOLDOWN, manager, sort.getCooldownActu() + ""),
 				poolDonnees.obtain().init(TypeDonnee.DEGATS, manager)
 		);
-
+		
 		float posXbase = getWidth() / 2 * OFFSET_ICONES, posYbase = getHeight() / 2 * OFFSET_ICONES, coeff, posX, posY;
 		for (int i = 0; i < donnees.size; i++) {
 			coeff = (float) i / (float) (donnees.size);
@@ -72,7 +74,7 @@ public class vSortsActifsBouton extends vSortsBouton implements Observer {
 					posYbase * posY + getHeight() / 2 - Donnee.TEXTURE_SIZE / 2);
 		}
 	}
-
+	
 	@Override
 	public void update(Observable o, Object arg) {
 		TypeDonnee type = (TypeDonnee) ((Object[]) arg)[0];
@@ -83,10 +85,21 @@ public class vSortsActifsBouton extends vSortsBouton implements Observer {
 			}
 		}
 	}
-
+	
 	public void delete() {
 		sort.deleteObservers();
 		poolDonnees.freeAll(donnees);
 	}
-
+	
+	public void enTour(EntiteActive entite) {
+		for (Donnee donnee : donnees) {
+			if (donnee.getType().equals(TypeDonnee.TEMPSACTION)) {
+				donnee.setText(DF.format(
+						entite.getSortFinalTempsAction((SortActif) sort) / 1000f
+				));
+				break;
+			}
+		}
+	}
+	
 }

@@ -7,13 +7,13 @@ package vue.hud.minimap;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.Array;
 import controleur.ControleurPrincipal;
 import gameplay.entite.EntiteActive;
 import gameplay.map.EtatTuile;
 import gameplay.map.Tuile;
 import general.Tourable;
-import java.awt.Point;
 import vue.hud.Bloc;
 import vue.hud.bulle.BulleListener;
 
@@ -82,9 +82,9 @@ public class vMinimap extends Bloc implements Tourable {
 	 *
 	 * @param listePoint
 	 */
-	public void colorTuile(Array<Point> listePoint) {
+	public void colorTuile(Array<GridPoint2> listePoint) {
 		clearColorTuile();
-		listePoint.forEach((Point point) -> {
+		listePoint.forEach((GridPoint2 point) -> {
 			tabVcases[point.y][point.x].tuileDuChemin(true);
 		});
 	}

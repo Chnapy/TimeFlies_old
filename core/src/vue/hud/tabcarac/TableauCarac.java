@@ -67,16 +67,16 @@ public class TableauCarac extends Bloc implements Tourable {
 		getTitleLabel().setText("Donnees - " + entiteEnCours.getNom());
 		donneesList.get(TypeDonnee.NOM).setText(entiteEnCours.getNom() + " lvl " + entiteEnCours.getNiveauSymbol());
 		donneesList.get(TypeDonnee.VIE).setText(
-				entiteEnCours.getCaracPhysique().getCaracteristique(Carac.VITALITE).getActu()
+				entiteEnCours.getCaracPhysique().get(Carac.VITALITE).getActu()
 				+ " / "
-				+ entiteEnCours.getCaracPhysique().getCaracteristique(Carac.VITALITE).getTotal()
+				+ entiteEnCours.getCaracPhysique().get(Carac.VITALITE).getTotal()
 		);
 		donneesList.get(TypeDonnee.FATIGUE).setText(
-				entiteEnCours.getCaracPhysique().getCaracteristique(Carac.FATIGUE).getActu()
+				entiteEnCours.getCaracPhysique().get(Carac.FATIGUE).getActu()
 				+ " %"
 		);
 		donneesList.get(TypeDonnee.VITESSEACTION).setText(
-				entiteEnCours.getCaracPhysique().getCaracteristique(Carac.VITESSEACTION).getActu()
+				entiteEnCours.getCaracPhysique().get(Carac.VITESSEACTION).getActu()
 				+ " %"
 		);
 		enTour(controleur, entiteEnCours, objs);
@@ -93,16 +93,16 @@ public class TableauCarac extends Bloc implements Tourable {
 
 	@Override
 	public void enTour(ControleurPrincipal controleur, EntiteActive entiteEnCours, Object... objs) {
-		temp = DF.format((float) entiteEnCours.getCaracPhysique().getCaracteristique(Carac.TEMPSACTION).getActu() / 1000)
+		temp = DF.format((float) entiteEnCours.getCaracPhysique().get(Carac.TEMPSACTION).getActu() / 1000)
 				+ "s / "
-				+ DF.format((float) entiteEnCours.getCaracPhysique().getCaracteristique(Carac.TEMPSACTION).getTotal() / 1000)
+				+ DF.format((float) entiteEnCours.getCaracPhysique().get(Carac.TEMPSACTION).getTotal() / 1000)
 				+ "s";
 		if (!donneesList.get(TypeDonnee.TEMPSACTION).getText().equals(temp)) {
 			donneesList.get(TypeDonnee.TEMPSACTION).setText(temp);
 		}
-		temp = DF.format((float) entiteEnCours.getCaracPhysique().getCaracteristique(Carac.TEMPSSUPP).getActu() / 1000)
+		temp = DF.format((float) entiteEnCours.getCaracPhysique().get(Carac.TEMPSSUPP).getActu() / 1000)
 				+ "s / "
-				+ DF.format((float) entiteEnCours.getCaracPhysique().getCaracteristique(Carac.TEMPSSUPP).getTotal() / 1000)
+				+ DF.format((float) entiteEnCours.getCaracPhysique().get(Carac.TEMPSSUPP).getTotal() / 1000)
 				+ "s";
 		if (!donneesList.get(TypeDonnee.TEMPSSUPP).getText().equals(temp)) {
 			donneesList.get(TypeDonnee.TEMPSSUPP).setText(temp);

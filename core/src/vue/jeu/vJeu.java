@@ -6,6 +6,7 @@
 package vue.jeu;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import controleur.ControleurPrincipal;
@@ -13,7 +14,6 @@ import gameplay.entite.Entite;
 import gameplay.entite.EntiteActive;
 import gameplay.map.Tuile;
 import general.Tourable;
-import java.awt.Point;
 import test.MainTest;
 import vue.jeu.entites.vEntites;
 import vue.jeu.map.vMap;
@@ -24,6 +24,11 @@ import vue.jeu.sorts.vSorts;
  *
  */
 public class vJeu extends Stage implements Tourable {
+	
+	private static final int WIDTH = 1920;
+	private static final int HEIGHT = 1020;
+	private static final int X = (1920 - WIDTH) / 2;
+	private static final int Y = (1080 - HEIGHT) / 2;
 
 	//Controleur
 	private final ControleurPrincipal combat;
@@ -39,9 +44,10 @@ public class vJeu extends Stage implements Tourable {
 
 	public vJeu(ControleurPrincipal ccombat, Tuile[][] tabTuiles, Array<? extends Entite> entites, AssetManager manager) {
 		combat = ccombat;
-		vmap = new vMap(ccombat, tabTuiles);
-		ventites = new vEntites(entites);
-		vsorts = new vSorts(manager);
+		vmap = new vMap(ccombat, tabTuiles, WIDTH, HEIGHT, X, Y);
+		ventites = new vEntites(entites, WIDTH, HEIGHT, X, Y);
+		vsorts = new vSorts(manager, WIDTH, HEIGHT, X, Y);
+		
 		addActor(vmap);
 		addActor(ventites);
 		addActor(vsorts);
@@ -60,7 +66,7 @@ public class vJeu extends Stage implements Tourable {
 		draw();
 	}
 
-	public void addSort(int index, int tempsAction, Point start, Point end) {
+	public void addSort(int index, int tempsAction, GridPoint2 start, GridPoint2 end) {
 		vsorts.addSort(index, tempsAction, start, end);
 	}
 

@@ -5,13 +5,12 @@
  */
 package gameplay.entite;
 
+import com.badlogic.gdx.math.GridPoint2;
 import general.Mode;
-import com.badlogic.gdx.utils.Array;
 import gameplay.caracteristique.Carac;
 import gameplay.caracteristique.Caracteristique;
 import gameplay.caracteristique.CaracteristiquePhysique;
 import gameplay.envoutement.Envoutement;
-import gameplay.invocation.InvocationMobile;
 import gameplay.sort.Sort;
 import gameplay.sort.SortActif;
 import gameplay.sort.SortPassif;
@@ -20,7 +19,6 @@ import gameplay.sort.base.Orienter;
 import gameplay.sort.pileaction.Action;
 import gameplay.sort.pileaction.PileAction;
 import general.Orientation;
-import java.awt.Point;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
@@ -126,9 +124,15 @@ public abstract class EntiteActive extends Entite {
 			timeLeft -= time - oldTime;
 			oldTime = time;
 		} else {
-			timeLeft = this.caracPhysique.getCaracteristique(Carac.TEMPSACTION).getActu();
+			timeLeft = this.caracPhysique.get(Carac.TEMPSACTION).getActu();
 		}
 
+	}
+	
+	public int getSortFinalTempsAction(SortActif sort) {
+		float sortTemps = sort.getTempsAction();
+		float vitesse = caracPhysique.get(Carac.VITESSEACTION).getActu();
+		return (int)((float)sortTemps / ((float)vitesse / 100));
 	}
 
 	/**
@@ -154,7 +158,7 @@ public abstract class EntiteActive extends Entite {
 	 * @return le temps dispot total avec le temps supplémentaire
 	 */
 	public long tempsDispo() {
-		return timeLeft + this.caracPhysique.getCaracteristique(Carac.TEMPSSUPP).getActu();
+		return timeLeft + this.caracPhysique.get(Carac.TEMPSSUPP).getActu();
 	}
 
 	/**
@@ -209,7 +213,7 @@ public abstract class EntiteActive extends Entite {
 				listEnvoutements.removeValue(envout, false);
 			}
 		}
-		caracPhysique.setActu(Carac.TEMPSACTION, caracPhysique.getCaracteristique(Carac.TEMPSACTION).getTotal());
+		caracPhysique.setActu(Carac.TEMPSACTION, caracPhysique.get(Carac.TEMPSACTION).getTotal());
 	}
 
 	/**
@@ -247,8 +251,8 @@ public abstract class EntiteActive extends Entite {
 	 *
 	 * @return la position de l'entité une fois que la liste d'action sera fini
 	 */
-	public Point getLastPosition() {
-		Point ret = pileAction.getLastPosition();
+	public GridPoint2 getLastPosition() {
+		GridPoint2 ret = pileAction.getLastPosition();
 		if (ret == null) {
 			return getCaracSpatiale().getPosition();
 		}
@@ -294,7 +298,7 @@ public abstract class EntiteActive extends Entite {
 	}
 
 	public Caracteristique getTempsAction() {
-		return getCaracPhysique().getCaracteristique(Carac.TEMPSACTION);
+		return getCaracPhysique().get(Carac.TEMPSACTION);
 	}
 	
 	public void addEnvoutement(Envoutement envoutement) {
