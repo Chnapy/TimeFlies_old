@@ -39,7 +39,8 @@ public class SortQuiFaitMal extends SortActif {
 				new ZoneAction(new Carre(1, true)),
 				INDEX,
 				1000,
-				0);
+				0,
+				2);
 	}
 
 }

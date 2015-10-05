@@ -37,6 +37,7 @@ public class Orienter extends SortActif {
 				new ZoneAction(new Carre(0, true)),
 				0,//todo
 				TEMPS_ACTION,
+				0,
 				0);
 	}
 

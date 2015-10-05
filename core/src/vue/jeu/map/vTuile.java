@@ -40,16 +40,8 @@ import static vue.jeu.map.vTuile.couleurs.*;
  */
 public class vTuile extends Actor {
 
-	//Taille du sprite de la tuile
-//	public static final int TUILE_WIDTH = 256;
-//	public static final int TUILE_HEIGHT = 128;
-//	private static final int TUILE_MARGIN = 24;
-
 	private static final float COEFF_TUILE = 0.08f;
-	private static final float COEFF_MINITUILE = 0.20f;
-
-//	private static final int MINITUILE_MARGIN_X = (int) (TUILE_WIDTH * COEFF_MINITUILE);
-//	private static final int MINITUILE_MARGIN_Y = (int) (TUILE_HEIGHT * COEFF_MINITUILE);
+	private static final float COEFF_MINITUILE = 0.10f;
 
 	//Ecart entre les bords de la fenetre et les tuiles
 	public static final int OFFSET_X = 0;

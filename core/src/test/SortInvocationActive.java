@@ -23,7 +23,8 @@ public class SortInvocationActive extends SortActif {
 				new ZoneAction(new Carre(0, true)),
 				5,
 				2000,
-				5
+				5,
+				20
 		);
 	}
 

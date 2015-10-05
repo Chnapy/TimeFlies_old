@@ -51,8 +51,7 @@ public abstract class Sort extends Observable {
 	}
 
 	/**
-	 * lance le sort sur la victime check ses passif et
-	 * renvoi les effets des passifs au lanceur si effectif
+	 * lance le sort sur la cible et la tuile
 	 *
 	 * @param cibleEntite
 	 * @param cibleTuile
@@ -61,7 +60,9 @@ public abstract class Sort extends Observable {
 	 * @param critique
 	 */
 	public void lancerSort(Entite cibleEntite, Tuile cibleTuile, EntiteActive lanceur, Orientation oriAttaque, boolean critique) {
-		cibleEntite.recoitSort(getTabEffets(), lanceur, oriAttaque, critique);
+		if (cibleEntite != null) {
+			cibleEntite.recoitSort(getTabEffets(), lanceur, oriAttaque, critique);
+		}
 		cibleTuile.recoitSort(getTabEffets(), lanceur, oriAttaque, critique);
 	}
 

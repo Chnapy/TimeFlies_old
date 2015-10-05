@@ -31,7 +31,8 @@ public class SortEnvoutementEffet extends SortActif {
 				new ZoneAction(new Carre(0, true)),
 				3,
 				1500,
-				1);
+				1,
+				4);
 	}
 
 }

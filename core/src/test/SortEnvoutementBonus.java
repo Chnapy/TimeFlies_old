@@ -31,6 +31,7 @@ public class SortEnvoutementBonus extends SortActif {
 				new ZoneAction(new Carre(1, true)), 
 				2, 
 				1500,
+				1,
 				1);
 	}
 

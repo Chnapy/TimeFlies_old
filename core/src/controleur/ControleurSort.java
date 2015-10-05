@@ -6,7 +6,6 @@
 package controleur;
 
 import com.badlogic.gdx.math.GridPoint2;
-import gameplay.caracteristique.Carac;
 import gameplay.entite.Entite;
 import gameplay.entite.EntiteActive;
 import gameplay.map.EtatTuile;
@@ -91,6 +90,7 @@ public class ControleurSort implements Tourable {
 	}
 
 	public void update(EntiteActive entite, Action action, Map map) {
+		
 		vChatBox.chatCombatPrint(entite.getNom() + " lance le sort " + action.getSort().getNom() + ".", vChatText.ChatTextType.COMBAT);
 		Tuile[] tuilesTouchees = map.getTuilesAction(action.getSort().getZoneAction().getZoneIntermediaire(), new GridPoint2(action.getGridPoint2().x, action.getGridPoint2().y));
 		for (Tuile t : tuilesTouchees) {
@@ -104,15 +104,16 @@ public class ControleurSort implements Tourable {
 	}
 	
 	
-	public void lancerSort(Entite lanceur, SortActif sort, Tuile tuileCible, Orientation oriAttaque, boolean critique) {
+	public void lancerSort(EntiteActive lanceur, SortActif sort, Tuile tuileCible, Orientation oriAttaque, boolean critique) {
 		if(critique) {
 			vChatBox.chatCombatPrint("Coup critique !!! Augmentation des degats et bonus !", vChatText.ChatTextType.COMBAT);
 		}
 		Entite persoCible = controleurPrincipal.getPerso(tuileCible);
-		tuileCible.recoitSort(sort.getTabEffets(), lanceur, oriAttaque, critique);
-		if (persoCible != null) {
-			persoCible.recoitSort(sort.getTabEffets(), lanceur, oriAttaque, critique);
-		}
+		sort.lancerSort(persoCible, tuileCible, lanceur, oriAttaque, critique);
+//		tuileCible.recoitSort(sort.getTabEffets(), lanceur, oriAttaque, critique);
+//		if (persoCible != null) {
+//			persoCible.recoitSort(sort.getTabEffets(), lanceur, oriAttaque, critique);
+//		}
 	}
 
 	@Override

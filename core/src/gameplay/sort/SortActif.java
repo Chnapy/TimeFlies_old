@@ -5,8 +5,13 @@
  */
 package gameplay.sort;
 
+import gameplay.caracteristique.Carac;
 import gameplay.effet.Effet;
+import gameplay.entite.Entite;
+import gameplay.entite.EntiteActive;
+import gameplay.map.Tuile;
 import gameplay.sort.zone.ZoneAction;
+import general.Orientation;
 import general.TypeDonnee;
 
 /**
@@ -27,6 +32,8 @@ public abstract class SortActif extends Sort {
 
 	//Nombre de tours avant réutilisation possible
 	private int cooldown;
+	
+	private int fatigue;
 
 	//Cooldown actuel
 	protected int cooldownActu;
@@ -42,11 +49,12 @@ public abstract class SortActif extends Sort {
 	 * @param index
 	 * @param tempsAction
 	 * @param _cooldown
+	 * @param _fatigue
 	 */
 	public SortActif(String nom, String description, Niveau niveau,
 			Effet[] effets,
 			ZoneAction zportee, ZoneAction zaction,
-			int index, int tempsAction, int _cooldown) {
+			int index, int tempsAction, int _cooldown, int _fatigue) {
 
 		super(nom, description, niveau, effets, index);
 
@@ -55,6 +63,15 @@ public abstract class SortActif extends Sort {
 		this.tempsAction = tempsAction;
 		cooldown = _cooldown;
 		cooldownActu = 0;
+		fatigue = _fatigue;
+	}
+
+	@Override
+	public void lancerSort(Entite cibleEntite, Tuile cibleTuile, EntiteActive lanceur, Orientation oriAttaque, boolean critique) {
+		super.lancerSort(cibleEntite, cibleTuile, lanceur, oriAttaque, critique);
+		if(fatigue > 0) {
+			lanceur.getCaracPhysique().add(Carac.FATIGUE, fatigue);
+		}
 	}
 
 	public int getTempsAction() {

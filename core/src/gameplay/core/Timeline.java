@@ -12,6 +12,8 @@ import gameplay.entite.Entite;
 import gameplay.entite.EntiteActive;
 import java.util.Iterator;
 import java.util.Observable;
+import vue.hud.chatbox.chattext.vChatText;
+import vue.hud.chatbox.vChatBox;
 
 /**
  * Timeline.java
@@ -167,6 +169,7 @@ public class Timeline extends Observable implements Runnable {
 	private void debutTourGlobal() {
 		etatTourGlobal = Tour.DEBUT;
 		appliquerOrdreDeJeu();	//On définit l'ordre de jeu d'après l'initiative de chaque entité active
+		vChatBox.chatCombatPrint("Reinitialisation de l'ordre de jeu !", vChatText.ChatTextType.COMBAT);
 		for (Entite entite : listEntite) {
 			if (entite instanceof EntiteActive) {
 				((EntiteActive) entite).debutTourGlobal();
