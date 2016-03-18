@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.Array;
 import controleur.ControleurPrincipal;
 import gameplay.entite.EntiteActive;
 import gameplay.map.Tuile;
+import general.GridPointFloat2;
 import general.Tourable;
 import test.MainTest;
 
@@ -22,9 +23,11 @@ import test.MainTest;
  */
 public class vMap extends Group implements Tourable {
 
-	public static int TUILE_WIDTH;
-	public static int TUILE_HEIGHT;
-	private static int tabLength;
+	public static float TUILE_WIDTH;
+	public static float TUILE_HEIGHT;
+	private static float MAP_HEIGHT;
+	private static int tabHeight;
+	private static int tabWidth;
 
 	private final Batch polyBatch = new PolygonSpriteBatch();
 
@@ -44,13 +47,15 @@ public class vMap extends Group implements Tourable {
 		polyBatch.setProjectionMatrix(MainTest.camera.combined);
 		setSize(width, height);
 		setPosition(posX, posY);
-		
-		tabLength = tabTuiles.length;
-		
-		TUILE_WIDTH = (int)(getWidth() / tabTuiles.length);
+
+		tabHeight = tabTuiles.length;
+		tabWidth = tabTuiles[0].length;
+
+		MAP_HEIGHT = getHeight();
+		TUILE_WIDTH = getWidth() / ((float) (tabWidth + tabHeight) / 2);
 		TUILE_HEIGHT = TUILE_WIDTH / 2;
 
-		GridPoint2 pos;
+		GridPointFloat2 pos;
 		tabVtuiles = new vTuile[tabTuiles.length][tabTuiles[0].length];
 		int x, y, t;
 		for (y = 0; y < tabTuiles.length; y++) {
@@ -143,10 +148,10 @@ public class vMap extends Group implements Tourable {
 		});
 	}
 
-	public static GridPoint2 getTuilePosition(int x, int y) {
-		return new GridPoint2(
+	public static GridPointFloat2 getTuilePosition(int x, int y) {
+		return new GridPointFloat2(
 				x * TUILE_WIDTH / 2 + y * TUILE_WIDTH / 2,
-				(tabLength * TUILE_HEIGHT / 2) + x * TUILE_HEIGHT / 2 + y * -TUILE_HEIGHT / 2
+				MAP_HEIGHT - ((tabHeight + 1) * TUILE_HEIGHT / 2 + x * TUILE_HEIGHT / 2 - y * TUILE_HEIGHT / 2)
 		);
 	}
 

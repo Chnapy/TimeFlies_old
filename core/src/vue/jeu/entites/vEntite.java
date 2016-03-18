@@ -19,6 +19,7 @@ import gameplay.entite.EntiteActive;
 import general.EtatGraphique;
 import static general.EtatGraphique.STAY;
 import static general.EtatGraphique.WALK;
+import general.GridPointFloat2;
 import general.Mode;
 import general.Orientation;
 import general.Tourable;
@@ -72,7 +73,6 @@ public class vEntite extends Group implements Observer, Tourable {
 
 		hud = new EntiteHud(entite, PERSO_WIDTH, PERSO_HEIGHT);
 		addActor(hud);
-//		debugAll();
 	}
 
 	@Override
@@ -101,7 +101,7 @@ public class vEntite extends Group implements Observer, Tourable {
 				etat = WALK;
 				GridPoint2 point = (GridPoint2) tabObjets[0];
 				MoveToAction[] tabMoveTo = new MoveToAction[1];
-				GridPoint2 position;
+				GridPointFloat2 position;
 				for (int i = 0; i < 1; i++) {
 					position = vMap.getTuilePosition(point.x, point.y);
 					tabMoveTo[i] = Actions.moveTo(position.x + (vMap.TUILE_WIDTH - PERSO_WIDTH) / 2, position.y + vMap.TUILE_HEIGHT / 4, (float) dureeAnim / 1000);
@@ -123,7 +123,7 @@ public class vEntite extends Group implements Observer, Tourable {
 	 * @param y
 	 */
 	private final void setPos(int x, int y) {
-		GridPoint2 position = vMap.getTuilePosition(x, y);
+		GridPointFloat2 position = vMap.getTuilePosition(x, y);
 		setX(position.x + (vMap.TUILE_WIDTH - PERSO_WIDTH) / 2);
 		setY(position.y + vMap.TUILE_HEIGHT / 4);
 	}

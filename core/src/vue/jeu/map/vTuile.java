@@ -104,10 +104,6 @@ public class vTuile extends Actor {
 	private int posX;
 	private int posY;
 
-	//Position absolue
-//	private float x;
-//	private float y;
-
 	//Couleur du type de la tuile
 	private couleurs TYPE;
 
@@ -119,7 +115,7 @@ public class vTuile extends Actor {
 
 	private Array<EtatTuile> pile_deplacement;
 
-	public vTuile(int posx, int posy, int indexType, EtatTuile e, ControleurPrincipal ccombat, int width, int height) {
+	public vTuile(int posx, int posy, int indexType, EtatTuile e, ControleurPrincipal ccombat, float width, float height) {
 		posX = posx;
 		posY = posy;
 		setSize(width, height);

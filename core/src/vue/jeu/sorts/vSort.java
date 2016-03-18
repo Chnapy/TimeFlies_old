@@ -5,8 +5,8 @@
  */
 package vue.jeu.sorts;
 
-import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import general.GridPointFloat2;
 import vue.jeu.sorts.effets.vEffet;
 
 /**
@@ -27,7 +27,7 @@ public class vSort extends Group {
 		}
 	}
 
-	public void lancer(int tempsAction, GridPoint2 posStart, GridPoint2 posEnd) {
+	public void lancer(int tempsAction, GridPointFloat2 posStart, GridPointFloat2 posEnd) {
 		tempsStart = System.currentTimeMillis();
 		this.tempsAction = tempsAction;
 		for (vEffet e : effets) {

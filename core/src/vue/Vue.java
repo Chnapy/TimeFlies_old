@@ -68,7 +68,7 @@ public class Vue implements Screen, Tourable {
 	private final vHud vhud;
 
 	//Curseur de la souris
-	private final Curseur curseur;
+//	private final Curseur curseur;
 
 	/**
 	 *
@@ -83,8 +83,8 @@ public class Vue implements Screen, Tourable {
 		vjeu = new vJeu(ccombat, tabTuiles, entites, manager);
 		vhud = new vHud(ccombat, tabTuiles, entites, manager);
 
-		curseur = new Curseur();
-		vhud.addActor(curseur);
+//		curseur = new Curseur();
+//		vhud.addActor(curseur);
 
 		//Accepter les input
 		InputMultiplexer inputM = new InputMultiplexer(vjeu, vhud);
@@ -236,21 +236,21 @@ public class Vue implements Screen, Tourable {
 	public void nouveauTour(ControleurPrincipal controleur, EntiteActive entiteEnCours, Object... objs) {
 		vhud.nouveauTour(controleur, entiteEnCours, objs);
 		vjeu.nouveauTour(controleur, entiteEnCours, objs);
-		curseur.nouveauTour(controleur, entiteEnCours, objs);
+//		curseur.nouveauTour(controleur, entiteEnCours, objs);
 	}
 
 	@Override
 	public void finTour(ControleurPrincipal controleur, EntiteActive entiteEnCours, Object... objs) {
 		vhud.finTour(controleur, entiteEnCours, objs);
 		vjeu.finTour(controleur, entiteEnCours, objs);
-		curseur.finTour(controleur, entiteEnCours, objs);
+//		curseur.finTour(controleur, entiteEnCours, objs);
 	}
 
 	@Override
 	public void enTour(ControleurPrincipal controleur, EntiteActive entiteEnCours, Object... objs) {
 		vhud.enTour(controleur, entiteEnCours, objs);
 		vjeu.enTour(controleur, entiteEnCours, objs);
-		curseur.enTour(controleur, entiteEnCours, objs);
+//		curseur.enTour(controleur, entiteEnCours, objs);
 	}
 
 	public void addAction(Action action) {

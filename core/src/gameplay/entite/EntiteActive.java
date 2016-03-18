@@ -103,17 +103,20 @@ public abstract class EntiteActive extends Entite {
 	 */
 	@Override
 	public void jouerTour(long time) {
-		if (!actionIsRunning() && pileAction.pile.size > 0) {
+		if (!actionIsRunning() && pileAction.size > 0) {
 			try {
-				if (pileAction.pile.get(0).getEtat() == Action.EtatAction.DEPLACEMENT) {
+				if (pileAction.get(0).getEtat() == Action.EtatAction.DEPLACEMENT) {
 					etatNow = Mode.DEPLACEMENT;
 				} else {
 					etatNow = Mode.SORT;
 				}
 			} catch (NullPointerException e) {
 				e.printStackTrace();
+				System.out.println("pileAction = " + pileAction);
+				System.out.println("pileAction.get(0) = " + pileAction.get(0));
+				System.out.println("pileAction.get(0).getEtat() = " + pileAction.get(0).getEtat());
 			}
-			tempsFinSort = pileAction.pile.get(0).getSort().getTempsAction() + time;
+			tempsFinSort = pileAction.get(0).getSort().getTempsAction() + time;
 			setChanged();
 			notifyObservers(pileAction.removeFirst());
 		}
@@ -205,7 +208,7 @@ public abstract class EntiteActive extends Entite {
 	 * tours finira.
 	 */
 	public void finTour() {
-		pileAction.pile.clear();
+		pileAction.clear();
 		for (Envoutement envout : listEnvoutements) {
 			envout.finTour();
 			if(envout.subDuree() <= 0) {

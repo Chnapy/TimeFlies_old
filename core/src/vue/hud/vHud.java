@@ -52,8 +52,8 @@ public final class vHud extends Stage implements Tourable {
 
 	//Couleur par défaut de la font
 	public static final Color FONT_COLOR = Couleur.get("font");
-	
-	private static int FPS = 60;
+
+	private static int FPS = -1;
 
 	//Batch pour l'affichage des FPS
 	private final Batch batch = new SpriteBatch();
@@ -72,7 +72,7 @@ public final class vHud extends Stage implements Tourable {
 
 	//Vue du chat
 	private final vChatBox vchatbox;
-	
+
 	//Vue des carac's
 	private final TableauCarac vtabcarac;
 
@@ -97,7 +97,7 @@ public final class vHud extends Stage implements Tourable {
 		addActor(vchatbox);
 		addActor(bulle);
 	}
-	
+
 	public void addEntite(Entite entite) {
 		vtimeline.addEntite(entite);
 	}
@@ -143,7 +143,7 @@ public final class vHud extends Stage implements Tourable {
 		draw();
 
 		//Affichage FPS
-		if(1 / Gdx.graphics.getRawDeltaTime() < 55 || FPS < 55) {
+		if (Math.abs(FPS - 1 / Gdx.graphics.getRawDeltaTime()) > 50) {
 			FPS = Math.round(1 / Gdx.graphics.getRawDeltaTime());
 		}
 		FONT.setColor(Color.RED);

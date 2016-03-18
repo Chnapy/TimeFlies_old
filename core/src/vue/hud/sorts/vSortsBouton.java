@@ -59,19 +59,22 @@ public abstract class vSortsBouton extends Group {
 
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
+		if (getWidth() == 0 || getHeight() == 0) {
+			return;
+		}
 		batch.end();
 		Gdx.gl.glEnable(GL20.GL_BLEND);
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		//Fond
 		shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 		shapeRenderer.setColor(FOND_COULEUR);
-		shapeRenderer.circle(getParent().getX() + getX() + getWidth() / 2, getParent().getY() + getY() + getHeight() / 2, getWidth() / 2, 100);
+		shapeRenderer.circle(getParent().getX() + getX() + getWidth() / 2, getParent().getY() + getY() + getHeight() / 2, getWidth() / 2, (int) (2 * Math.PI * getWidth() / 2));
 		shapeRenderer.end();
 		//Contour
 		shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
 		Gdx.gl20.glLineWidth(4 / camera.zoom);
 		shapeRenderer.setColor(FOND_CONTOUR_COULEUR);
-		shapeRenderer.circle(getParent().getX() + getX() + getWidth() / 2, getParent().getY() + getY() + getHeight() / 2, getWidth() / 2 + 1, 100);
+		shapeRenderer.circle(getParent().getX() + getX() + getWidth() / 2, getParent().getY() + getY() + getHeight() / 2, getWidth() / 2 + 1, (int) (2 * Math.PI * getWidth() / 2));
 		shapeRenderer.end();
 		Gdx.gl.glDisable(GL20.GL_BLEND);
 		Gdx.gl20.glLineWidth(1 / camera.zoom);

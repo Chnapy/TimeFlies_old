@@ -36,6 +36,7 @@ public abstract class EntitePassive extends Entite {
 		this.niveauSymbol = new NiveauSymbolique(sortsPassifs);
 	}
 
+	@Override
 	public Mode getEtatNow() {
 		return getEtat();
 	}

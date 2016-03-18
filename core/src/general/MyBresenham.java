@@ -47,7 +47,6 @@ public class MyBresenham extends Bresenham2 {
 
 	@Override
 	public Array<GridPoint2> line(int startX, int startY, int endX, int endY, Pool<GridPoint2> pool, Array<GridPoint2> output) {
-
 		for (int i = 0; i < listeRec.length; i++) {
 			for (int j = 0; j < listeRec[0].length; j++) {
 				if (Intersector.intersectSegmentPolygon(

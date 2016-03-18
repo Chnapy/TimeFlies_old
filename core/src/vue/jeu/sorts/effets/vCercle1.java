@@ -9,7 +9,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.GridPoint2;
+import general.GridPointFloat2;
 
 /**
  * vCercle1.java
@@ -18,14 +18,14 @@ import com.badlogic.gdx.math.GridPoint2;
 public class vCercle1 extends vEffet {
 
 	private static final String PATH = "sort_fx/SortQuiFaitMal_0/cercle.png";
-	
+
 	private final TextureRegion SPRITE;
-	private int difX;
-	private int difY;
+	private float difX;
+	private float difY;
 	private final int precision;
 
 	public vCercle1(AssetManager manager, int start, int duree, int precision) {
-		super(manager, start, duree, new GridPoint2(128, 256));
+		super(manager, start, duree, new GridPointFloat2(128, 256));
 		this.precision = precision;
 		SPRITE = new TextureRegion((Texture) manager.get(PATH));
 	}
@@ -36,6 +36,10 @@ public class vCercle1 extends vEffet {
 		height = width;
 		difX = positionEnd.x + (int) (Math.random() > 0.5 ? precision * Math.random() : -precision * Math.random()) - positionStart.x;
 		difY = positionEnd.y + (int) (Math.random() > 0.5 ? precision * Math.random() : -precision * Math.random()) - positionStart.y - position.y;
+	}
+
+	@Override
+	protected void update(float delta) {
 	}
 
 	@Override

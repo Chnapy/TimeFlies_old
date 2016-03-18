@@ -10,7 +10,6 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import vue.jeu.map.vMap;
-import vue.jeu.map.vTuile;
 import vue.jeu.vJeu;
 
 /**

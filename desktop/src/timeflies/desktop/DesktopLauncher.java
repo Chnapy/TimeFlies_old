@@ -9,7 +9,7 @@ import test.MainTest;
 public class DesktopLauncher {
 
 	private static final boolean FULLSCREEN = false;
-	private static final int ANTIALIASING = 4;
+	private static final int ANTIALIASING = 0;
 	private static final DisplayMode dm = LwjglApplicationConfiguration.getDesktopDisplayMode();
 	//Resolution HD
 	private static final int WINDOW_WIDTH = FULLSCREEN ? dm.width : dm.width * 4/5;
@@ -36,6 +36,9 @@ public class DesktopLauncher {
 		config.height = WINDOW_HEIGHT;
 		config.fullscreen = fullscreen;
 		config.samples = antialiasing;
+		config.foregroundFPS = 0;
+		config.backgroundFPS = 0;
+		config.vSyncEnabled = false;
 
 		return config;
 	}

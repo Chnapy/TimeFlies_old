@@ -104,7 +104,7 @@ public class ControleurDeplacement implements Tourable {
 
 	public void update(EntiteActive entite, Action action) {
 		entite.setEnDeplacement(true);
-		action.getSort().lancerSort(entite, map.getTabTuiles()[action.getGridPoint2().x][action.getGridPoint2().y], entite, action.getOriAttaque(), action.isCritique());
+		action.getSort().lancerSort(entite, map.getTabTuiles()[action.getGridPoint2().y][action.getGridPoint2().x], entite, action.getOriAttaque(), action.isCritique());
 		vueMap.getTabVtuiles()[action.getGridPoint2().y][action.getGridPoint2().x].clearGhostPath();
 	}
 

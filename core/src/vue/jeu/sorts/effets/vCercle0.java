@@ -9,7 +9,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.GridPoint2;
+import general.GridPointFloat2;
 
 /**
  * vCercle0.java
@@ -18,11 +18,11 @@ import com.badlogic.gdx.math.GridPoint2;
 public class vCercle0 extends vEffet {
 
 	private static final String PATH = "sort_fx/SortQuiFaitMal_0/cercle.png";
-	
+
 	private final TextureRegion SPRITE;
 
 	public vCercle0(AssetManager manager) {
-		super(manager, 0, 90, new GridPoint2(64, 256));
+		super(manager, 0, 90, new GridPointFloat2(64, 256));
 		SPRITE = new TextureRegion((Texture) manager.get(PATH));
 	}
 
@@ -30,6 +30,10 @@ public class vCercle0 extends vEffet {
 	protected void start() {
 		width = 128;
 		height = width;
+	}
+
+	@Override
+	protected void update(float delta) {
 	}
 
 	@Override

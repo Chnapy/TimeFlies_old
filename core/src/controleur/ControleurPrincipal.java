@@ -215,7 +215,7 @@ public class ControleurPrincipal implements Observer, Tourable {
 				if (action.getEtat() == Action.EtatAction.DEPLACEMENT) {
 					controleurDeplacement.update(entite, action);
 				} else if (action.getEtat() == Action.EtatAction.ROTATION) {
-					action.getSort().lancerSort(entite, map.getTabTuiles()[action.getGridPoint2().x][action.getGridPoint2().y], entite, action.getOriAttaque(), action.isCritique());
+					action.getSort().lancerSort(entite, map.getTabTuiles()[action.getGridPoint2().y][action.getGridPoint2().x], entite, action.getOriAttaque(), action.isCritique());
 				} else if (action.getEtat() == Action.EtatAction.SORT) {
 					controleurSort.update(entite, action, map);
 				}
@@ -246,17 +246,17 @@ public class ControleurPrincipal implements Observer, Tourable {
 	 * Récupère l'orientation de l'entité par rapport à un point donné.
 	 *
 	 * @param origine
-	 * @param point
+	 * @param dest
 	 * @return l'orientation de l'origine qui regarde vers le point
 	 */
-	public Orientation getOrientation(GridPoint2 origine, GridPoint2 point) {
-		if (origine.equals(point)) {
-			System.err.println(point);
-			throw new IllegalArgumentException("Les deux points sont egaux ! " + point);
+	public Orientation getOrientation(GridPoint2 origine, GridPoint2 dest) {
+		if (origine.equals(dest)) {
+			System.err.println(dest);
+			throw new IllegalArgumentException("Les deux points sont egaux ! " + dest);
 		}
 
-		double vecX = point.x - origine.x;
-		double vecY = point.y - origine.y;
+		double vecX = dest.x - origine.x;
+		double vecY = dest.y - origine.y;
 //		System.out.println(vecX + " " + vecY);
 		if (vecX > 0) {	//Est
 			if (vecY > 0) {	//Sud

@@ -24,7 +24,7 @@ public class Guerrier2 extends Personnage {
 
 	public Guerrier2() {
 		this(
-				"bite bleu", 
+				"perso bleu", 
 				0, 
 				0, 
 				EST,

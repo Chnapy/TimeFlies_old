@@ -10,11 +10,8 @@ import com.badlogic.gdx.ai.pfa.indexed.IndexedGraph;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Bresenham2;
 import com.badlogic.gdx.math.GridPoint2;
-import com.badlogic.gdx.math.Intersector;
-import com.badlogic.gdx.math.Polygon;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 import controleur.ControleurPrincipal;
 import static gameplay.map.Type.TROU;
 import gameplay.map.pathfinding.Chemin;
@@ -22,6 +19,7 @@ import gameplay.map.pathfinding.Finder;
 import gameplay.map.pathfinding.Heuristique;
 import general.MyBresenham;
 import java.awt.Dimension;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.Arrays;
@@ -55,14 +53,14 @@ public class Map implements IndexedGraph<Tuile> {
 	 * @param mapPlan
 	 */
 	public Map(MapSerializable mapPlan) {
-		Type[][] plan = mapPlan.plan;
+		Type[][] plan = mapPlan.tuiles;
 		tabTuiles = new Tuile[plan.length][plan[0].length];
 		dimension = new Dimension(plan.length, plan[0].length);
 		init(plan);
 		finder = new Finder(this);
 		chemin = new Chemin();
 		heuristique = new Heuristique();
-		bresenham = new MyBresenham(plan.length, plan[0].length);
+		bresenham = new MyBresenham(plan[0].length, plan.length);
 	}
 
 	/**
@@ -303,6 +301,7 @@ public class Map implements IndexedGraph<Tuile> {
 			MapSerializable smap = (MapSerializable) inputFile.readObject();
 			return smap;
 		} catch (IOException | ClassNotFoundException ex) {
+			System.err.println(file.file().getAbsolutePath());
 			Logger.getLogger(Map.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		return null;

@@ -56,14 +56,26 @@ public class ControleurSort implements Tourable {
 			int tempsSort = entiteEnCours.getSortFinalTempsAction(sortEnCours);
 			if (entiteEnCours.tempsDispo() >= tempsSort) {
 				controleurPrincipal.setPrecOriAttaque(controleurPrincipal.getOriAttaque());
-				controleurPrincipal.setOriAttaque(controleurPrincipal.getOrientation(entiteEnCours.getCaracSpatiale().getPosition(), pt));
+				controleurPrincipal.setOriAttaque(
+						controleurPrincipal.getOrientation(entiteEnCours.getLastPosition(), pt)
+				);
 //					System.out.println(oriAttaque);
-				Boolean critique = controleurPrincipal.isCoupCritique(entiteEnCours.getCaracSpatiale().getOrientation(), controleurPrincipal.getOriAttaque());
+				Boolean critique = controleurPrincipal.isCoupCritique(
+						entiteEnCours.getCaracSpatiale().getOrientation(),
+						controleurPrincipal.getOriAttaque()
+				);
 				if (controleurPrincipal.getOriAttaque() != controleurPrincipal.getPrecOriAttaque()) {
-					controleurPrincipal.addAction(new Action(pt, entiteEnCours.getOrienter(), controleurPrincipal.getOriAttaque(), controleurPrincipal.getPrecOriAttaque(), critique));
-					critique = controleurPrincipal.isCoupCritique(entiteEnCours.getCaracSpatiale().getOrientation(), controleurPrincipal.getOriAttaque());
+					controleurPrincipal.addAction(new Action(pt, entiteEnCours.getOrienter(),
+							controleurPrincipal.getOriAttaque(), controleurPrincipal.getPrecOriAttaque(), critique)
+					);
+					critique = controleurPrincipal.isCoupCritique(
+							entiteEnCours.getCaracSpatiale().getOrientation(),
+							controleurPrincipal.getOriAttaque()
+					);
 				}
-				controleurPrincipal.addAction(new Action(pt, sortEnCours, controleurPrincipal.getOriAttaque(), controleurPrincipal.getPrecOriAttaque(), critique));
+				controleurPrincipal.addAction(new Action(pt, sortEnCours, controleurPrincipal.getOriAttaque(),
+						controleurPrincipal.getPrecOriAttaque(), critique)
+				);
 				entiteEnCours.subTime(tempsSort);
 			}
 		}
@@ -80,7 +92,7 @@ public class ControleurSort implements Tourable {
 			entiteEnCours.setEtat(Mode.SORT);
 			sortEnCours = entiteEnCours.setSortEnCours(index);
 			GridPoint2 depart = entiteEnCours.getLastPosition();
-			
+
 			boolean[][] zoneIntermediaire = sortEnCours.getZonePortee().getZoneIntermediaire();
 			zoneIntermediaire = controleurPrincipal.getMap().getZoneFinale(zoneIntermediaire, depart);
 			vue.afficherPortee(zoneIntermediaire, depart);
@@ -90,7 +102,7 @@ public class ControleurSort implements Tourable {
 	}
 
 	public void update(EntiteActive entite, Action action, Map map) {
-		
+
 		vChatBox.chatCombatPrint(entite.getNom() + " lance le sort " + action.getSort().getNom() + ".", vChatText.ChatTextType.COMBAT);
 		Tuile[] tuilesTouchees = map.getTuilesAction(action.getSort().getZoneAction().getZoneIntermediaire(), new GridPoint2(action.getGridPoint2().x, action.getGridPoint2().y));
 		for (Tuile t : tuilesTouchees) {
@@ -102,10 +114,9 @@ public class ControleurSort implements Tourable {
 			vue.getVmap().getTabVtuiles()[t.getPosition().y][t.getPosition().x].addGhostAction();
 		}
 	}
-	
-	
+
 	public void lancerSort(EntiteActive lanceur, SortActif sort, Tuile tuileCible, Orientation oriAttaque, boolean critique) {
-		if(critique) {
+		if (critique) {
 			vChatBox.chatCombatPrint("Coup critique !!! Augmentation des degats et bonus !", vChatText.ChatTextType.COMBAT);
 		}
 		Entite persoCible = controleurPrincipal.getPerso(tuileCible);
